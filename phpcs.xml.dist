@@ -1,0 +1,70 @@
+<?xml version="1.0"?>
+<ruleset name="Symfony-Programmes">
+    <description>Symfony CS for /blogs</description>
+
+    <!-- COMMAND LINE OPTIONS -->
+    <arg value="np"/>
+    <arg name="colors"/>
+    <arg name="extensions" value="php"/>
+    <file>./src</file>
+    <file>./tests</file>
+
+    <!-- Include the whole Symfony standard -->
+    <rule ref="vendor/escapestudios/symfony2-coding-standard/Symfony">
+        <!-- GENERAL -->
+        <exclude name="Generic.Files.LineLength.MaxExceeded"/>
+        <exclude name="PSR2.Methods.FunctionCallSignature.SpaceBeforeCloseBracket"/>
+
+        <!-- CODE STYLE -->
+        <!-- We don't care about formating of unary operators (e.g. $x++ is fine) -->
+        <exclude name="Symfony.ControlStructure.UnaryOperators.Invalid"/>
+
+        <!-- We don't care about enforcing Yoda Conditionals (e.g. 0 == $thing) -->
+        <exclude name="Symfony.ControlStructure.YodaConditions.Invalid"/>
+
+        <!-- We don't care about enforcing using sprintf in error messages -->
+        <exclude name="Symfony.Errors.ExceptionMessage.Invalid"/>
+
+        <!-- FUNCTIONS -->
+        <!-- Ignore missing function docblocks as we hint parameter and return types using proper typehints -->
+        <exclude name="Symfony.Commenting.FunctionComment.Missing"/>
+        <exclude name="Symfony.Commenting.FunctionComment.MissingReturn"/>
+        <!-- We don't care if parameter names all line up as if one changes then the diff will be noisy, or spacing within annotations -->
+        <exclude name="Symfony.Commenting.Annotations.Invalid"/>
+        <exclude name="Symfony.Commenting.FunctionComment.SpacingAfterParamType"/>
+        <exclude name="Symfony.Commenting.FunctionComment.SpacingAfterParamName"/>
+        <exclude name="Symfony.Commenting.FunctionComment.MissingParamTag"/>
+        <exclude name="Symfony.Commenting.FunctionComment.MissingParamComment"/>
+        <exclude name="Symfony.Commenting.ClassComment.Missing"/>
+
+        <!-- We don't care if parameter names all line up as if one changes then the diff will be noisy -->
+        <exclude name="Symfony.Commenting.FunctionComment.SpacingAfterParamType"/>
+
+        <!-- We want to declare arguments over multiple lines if it is more readable -->
+        <exclude name="Symfony.Functions.Arguments.Invalid"/>
+
+        <!-- We don't care about requiring a blank line before a return -->
+        <exclude name="Symfony.Formatting.BlankLineBeforeReturn"/>
+
+        <!-- We don't care about abstract class names having to be prefixed with "Abstract" -->
+        <exclude name="Symfony.NamingConventions.ValidClassName.InvalidAbstractName"/>
+
+        <!-- This doesn't enforce what we want it to.
+        See https://github.com/escapestudios/Symfony2-coding-standard/issues/27 -->
+        <exclude name="PEAR.Functions.FunctionCallSignature.Indent"/>
+    </rule>
+
+    <!-- Concatenation should be surrounded by a single space -->
+    <rule ref="Squiz.Strings.ConcatenationSpacing">
+        <properties>
+           <property name="spacing" value="1"/>
+           <property name="ignoreNewlines" value="true"/>
+        </properties>
+    </rule>
+
+    <rule ref="Generic.Metrics.NestingLevel">
+        <properties>
+            <property name="nestingLevel" value="3" />
+        </properties>
+    </rule>
+</ruleset>

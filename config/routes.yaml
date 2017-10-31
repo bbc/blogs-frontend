@@ -1,3 +1,7 @@
 home:
-   path: /
-   defaults: { _controller: 'App\Controller\HomeController' }
+    path: /
+    defaults: { _controller: 'App\Controller\HomeController' }
+
+status:
+    path: /status
+    defaults: { _controller: 'App\Controller\StatusController' }

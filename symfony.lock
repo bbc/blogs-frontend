@@ -259,5 +259,26 @@
     },
     "symfony/profiler-pack": {
         "version": "v1.0.2"
+    },
+    "squizlabs/php_codesniffer": {
+        "version": "3.1.1"
+    },
+    "escapestudios/symfony2-coding-standard": {
+        "version": "3.0.0"
+    },
+    "symfony/phpunit-bridge": {
+        "version": "3.3",
+        "recipe": {
+            "repo": "github.com/symfony/recipes",
+            "branch": "master",
+            "version": "3.3",
+            "ref": "0a66a0097def4db1cd03bcb3d4a268440ae4cb47"
+        }
+    },
+    "symfony/dom-crawler": {
+        "version": "v4.0.0-beta2"
+    },
+    "symfony/browser-kit": {
+        "version": "v4.0.0-beta2"
     }
 }

@@ -1,0 +1,14 @@
+#!/bin/sh
+
+# If we're not already using php71, try and solve that
+if ! (php --version | grep -q "PHP 7.1.") ; then
+    if [[ "$HOSTNAME" == "sandbox.bbc.co.uk" ]]; then
+        echo "You're on the sandbox, but you haven't installed php71u-cli :("
+        exit
+    fi
+fi
+
+vendor/bin/phpunit
+vendor/bin/phpcs
+# yarn run lint
+# vendor/bin/phpstan analyse -c phpstan.neon src --level=4 --memory-limit=256M

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ffb809ce078421cf7c215d679c2ed3b4",
+    "content-hash": "768e9a9125ad07f629b7e5ba71b0df48",
     "packages": [
         {
             "name": "composer/ca-bundle",
@@ -1862,6 +1862,53 @@
             "time": "2017-07-22T11:58:36+00:00"
         },
         {
+            "name": "escapestudios/symfony2-coding-standard",
+            "version": "3.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/djoos/Symfony-coding-standard.git",
+                "reference": "927d89a0dda91ea252b88176c721a551b3a4ae40"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/djoos/Symfony-coding-standard/zipball/927d89a0dda91ea252b88176c721a551b3a4ae40",
+                "reference": "927d89a0dda91ea252b88176c721a551b3a4ae40",
+                "shasum": ""
+            },
+            "require": {
+                "squizlabs/php_codesniffer": "3.*"
+            },
+            "type": "phpcodesniffer-standard",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "David Joos",
+                    "email": "iam@davidjoos.com"
+                },
+                {
+                    "name": "Community contributors",
+                    "homepage": "https://github.com/djoos/Symfony-coding-standard/graphs/contributors"
+                }
+            ],
+            "description": "CodeSniffer ruleset for the Symfony 2+ coding standard",
+            "homepage": "https://github.com/djoos/Symfony2-coding-standard",
+            "keywords": [
+                "Coding Standard",
+                "Symfony2",
+                "phpcs",
+                "symfony"
+            ],
+            "time": "2017-07-20T08:51:22+00:00"
+        },
+        {
             "name": "myclabs/deep-copy",
             "version": "1.7.0",
             "source": {
@@ -3170,6 +3217,114 @@
             "time": "2016-10-03T07:35:21+00:00"
         },
         {
+            "name": "squizlabs/php_codesniffer",
+            "version": "3.1.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/squizlabs/PHP_CodeSniffer.git",
+                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/squizlabs/PHP_CodeSniffer/zipball/d667e245d5dcd4d7bf80f26f2c947d476b66213e",
+                "reference": "d667e245d5dcd4d7bf80f26f2c947d476b66213e",
+                "shasum": ""
+            },
+            "require": {
+                "ext-simplexml": "*",
+                "ext-tokenizer": "*",
+                "ext-xmlwriter": "*",
+                "php": ">=5.4.0"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "^4.0 || ^5.0 || ^6.0"
+            },
+            "bin": [
+                "bin/phpcs",
+                "bin/phpcbf"
+            ],
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "3.x-dev"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "BSD-3-Clause"
+            ],
+            "authors": [
+                {
+                    "name": "Greg Sherwood",
+                    "role": "lead"
+                }
+            ],
+            "description": "PHP_CodeSniffer tokenizes PHP, JavaScript and CSS files and detects violations of a defined set of coding standards.",
+            "homepage": "http://www.squizlabs.com/php-codesniffer",
+            "keywords": [
+                "phpcs",
+                "standards"
+            ],
+            "time": "2017-10-16T22:40:25+00:00"
+        },
+        {
+            "name": "symfony/browser-kit",
+            "version": "v4.0.0-BETA2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/browser-kit.git",
+                "reference": "408fe780a58a0cccf404d15678ee0035ff1b1c1e"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/browser-kit/zipball/408fe780a58a0cccf404d15678ee0035ff1b1c1e",
+                "reference": "408fe780a58a0cccf404d15678ee0035ff1b1c1e",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/dom-crawler": "~3.4|~4.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~3.4|~4.0",
+                "symfony/process": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/process": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\BrowserKit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony BrowserKit Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-10-28T16:54:10+00:00"
+        },
+        {
             "name": "symfony/debug-bundle",
             "version": "v4.0.0-BETA2",
             "source": {
@@ -3235,6 +3390,62 @@
             "time": "2017-09-13T08:49:19+00:00"
         },
         {
+            "name": "symfony/dom-crawler",
+            "version": "v4.0.0-BETA2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/dom-crawler.git",
+                "reference": "e8a500c0ba03b2379258c6f2b9c2cc6151d34a09"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/dom-crawler/zipball/e8a500c0ba03b2379258c6f2b9c2cc6151d34a09",
+                "reference": "e8a500c0ba03b2379258c6f2b9c2cc6151d34a09",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3",
+                "symfony/polyfill-mbstring": "~1.0"
+            },
+            "require-dev": {
+                "symfony/css-selector": "~3.4|~4.0"
+            },
+            "suggest": {
+                "symfony/css-selector": ""
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\DomCrawler\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony DomCrawler Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-10-28T16:54:10+00:00"
+        },
+        {
             "name": "symfony/dotenv",
             "version": "v4.0.0-BETA1",
             "source": {
@@ -3290,6 +3501,68 @@
                 "environment"
             ],
             "time": "2017-09-06T19:16:37+00:00"
+        },
+        {
+            "name": "symfony/phpunit-bridge",
+            "version": "v4.0.0-BETA2",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/phpunit-bridge.git",
+                "reference": "52d54873c4cb3bcac9895943192d3cbe979aeffc"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/phpunit-bridge/zipball/52d54873c4cb3bcac9895943192d3cbe979aeffc",
+                "reference": "52d54873c4cb3bcac9895943192d3cbe979aeffc",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.3"
+            },
+            "conflict": {
+                "phpunit/phpunit": "<4.8.35|<5.4.3,>=5.0"
+            },
+            "suggest": {
+                "ext-zip": "Zip support is required when using bin/simple-phpunit",
+                "symfony/debug": "For tracking deprecated interfaces usages at runtime with DebugClassLoader"
+            },
+            "bin": [
+                "bin/simple-phpunit"
+            ],
+            "type": "symfony-bridge",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "files": [
+                    "bootstrap.php"
+                ],
+                "psr-4": {
+                    "Symfony\\Bridge\\PhpUnit\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Nicolas Grekas",
+                    "email": "p@tchwork.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony PHPUnit Bridge",
+            "homepage": "https://symfony.com",
+            "time": "2017-10-28T16:54:10+00:00"
         },
         {
             "name": "symfony/polyfill-php72",
@@ -3757,7 +4030,9 @@
     "stability-flags": {
         "symfony/lts": 20,
         "symfony/twig-bundle": 10,
+        "symfony/browser-kit": 10,
         "symfony/debug-bundle": 10,
+        "symfony/phpunit-bridge": 10,
         "symfony/web-server-bundle": 10
     },
     "prefer-stable": false,
