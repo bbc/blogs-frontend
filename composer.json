@@ -53,6 +53,7 @@
         "symfony/symfony": "*"
     },
     "extra": {
+        "public-dir": "web",
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
             "allow-contrib": false
