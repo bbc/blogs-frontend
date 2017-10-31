@@ -1,12 +1,12 @@
 /build/
 /node_modules/
-/public/assets
+/web/assets
 npm-debug.log
 yarn-error.log
 
 ###> symfony/framework-bundle ###
 .env
-/public/bundles/
+/web/bundles/
 /var/
 /vendor/
 ###< symfony/framework-bundle ###

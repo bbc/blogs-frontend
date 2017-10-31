@@ -7,7 +7,7 @@ const del = require('del');
 const autoprefixer = require('gulp-autoprefixer');
 
 const staticPathSrc = 'resources/assets';
-const staticPathDist = 'public/assets';
+const staticPathDist = 'web/assets';
 const sassMatch = '/sass/**/*.scss';
 
 var throwError = true;
