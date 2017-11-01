@@ -1,0 +1,11 @@
+csa_guzzle:
+    profiler: '%kernel.debug%'
+    logger: true
+    clients:
+        default:
+            config:
+                cert: '/etc/pki/dev.bbc.co.uk.pem'
+                ssl_key: '/etc/pki/dev.bbc.co.uk.pem'
+                verify: false
+                timeout: 60
+                connect_timeout: 10
