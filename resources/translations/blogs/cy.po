@@ -1,0 +1,3 @@
+#. English: "en".
+msgid "language_code"
+msgstr "cy"
