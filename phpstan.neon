@@ -1,0 +1,7 @@
+parameters:
+    ignoreErrors:
+        - '#Calling method getContent\(\) on possibly null value of type Symfony\\Component\\HttpFoundation\\Response|null#'
+        - '#Call to an undefined method Tests\\App\\Translate\\TranslatableTraitTest::tr\(\).#'
+
+includes:
+    - vendor/phpstan/phpstan-phpunit/extension.neon
