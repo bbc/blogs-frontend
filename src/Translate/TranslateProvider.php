@@ -29,14 +29,6 @@ class TranslateProvider
         $this->translateFactory = $translateFactory;
     }
 
-    public function setLocale(string $locale): void
-    {
-        if ($locale !== $this->locale) {
-            $this->locale = $locale;
-            $this->translate = null;
-        }
-    }
-
     public function getLocale(): string
     {
         return $this->locale;
@@ -48,5 +40,13 @@ class TranslateProvider
             $this->translate = $this->translateFactory->create($this->locale);
         }
         return $this->translate;
+    }
+
+    public function setLocale(string $locale): void
+    {
+        if ($locale !== $this->locale) {
+            $this->locale = $locale;
+            $this->translate = null;
+        }
     }
 }
