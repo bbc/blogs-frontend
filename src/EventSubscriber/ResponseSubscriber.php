@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\EventSubscriber;
 
+use App\Translate\TranslateProvider;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\FilterResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
@@ -15,6 +16,11 @@ class ResponseSubscriber implements EventSubscriberInterface
         return [
             KernelEvents::RESPONSE => [['updateHeaders', 0]],
         ];
+    }
+
+    public function __construct(TranslateProvider $translateProvider)
+    {
+        $this->translateProvider = $translateProvider;
     }
 
     public function updateHeaders(FilterResponseEvent $event)
@@ -35,8 +41,7 @@ class ResponseSubscriber implements EventSubscriberInterface
         // Only affects IE8, 9 and 10
         $response->headers->set('X-UA-Compatible', 'IE=edge');
 
-        // TODO Set the Content-Language Header correctly
-        $languageCode = 'en-GB';
+        $languageCode = $this->translateProvider->getTranslate()->translate('language_code');
         // Content-Language is used to describe the language(s) intended for the audience
         $response->headers->set('Content-Language', $languageCode);
 
