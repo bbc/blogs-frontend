@@ -27,7 +27,7 @@ abstract class BaseWebTestCase extends WebTestCase
         $this->assertEquals($cacheControl, $client->getResponse()->headers->get('Cache-Control'));
         $this->assertArraySubset(['X-CDN', 'X-BBC-Edge-Scheme'], $client->getResponse()->getVary());
         $this->assertEquals('IE=edge', $client->getResponse()->headers->get('X-UA-Compatible'));
-        $this->assertEquals('programmes-frontend', $client->getResponse()->headers->get('X-Webapp'));
+        $this->assertEquals('blogs-frontend', $client->getResponse()->headers->get('X-Webapp'));
         $this->assertEquals('stale-while-revalidate=30', $client->getResponse()->headers->get('X-Cache-Control'));
         if (isset($contentLanguage)) {
             $this->assertEquals($contentLanguage, $client->getResponse()->headers->get('Content-Language'));
