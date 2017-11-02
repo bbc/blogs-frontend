@@ -13,8 +13,7 @@ trait TranslatableTrait
         $substitutions = [],
         $numPlurals = null,
         ?string $domain = null
-    ): string
-    {
+    ): string {
         if (is_int($substitutions) && is_null($numPlurals)) {
             $numPlurals = $substitutions;
             $substitutions = ['%count%' => $numPlurals];

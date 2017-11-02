@@ -36,8 +36,7 @@ class TranslateAndTimeExtension extends Twig_Extension
         $substitutions = [],
         $numPlurals = null,
         ?string $domain = null
-    ): string
-    {
+    ): string {
         return $this->tr($key, $substitutions, $numPlurals, $domain);
     }
 }
