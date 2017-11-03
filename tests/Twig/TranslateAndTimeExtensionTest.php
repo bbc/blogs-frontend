@@ -14,13 +14,12 @@ class TranslateAndTimeExtensionTest extends TestCase
     /** @var PHPUnit_Framework_MockObject_MockObject|Translate */
     private $mockTranslate;
 
-    /** @var PHPUnit_Framework_MockObject_MockObject|TranslateAndTimeExtension */
+    /** @var TranslateAndTimeExtension */
     private $translateAndTimeExtension;
 
     public function setUp()
     {
         $this->mockTranslate = $this->createMock(Translate::class);
-        /** @var PHPUnit_Framework_MockObject_MockObject|TranslateProvider $translateProvider */
         $translateProvider = $this->createMock(TranslateProvider::class);
         $translateProvider->method('getTranslate')->willReturn($this->mockTranslate);
         $this->translateAndTimeExtension = new TranslateAndTimeExtension($translateProvider);
