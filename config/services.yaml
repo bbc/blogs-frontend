@@ -34,4 +34,4 @@ services:
               domains: ['blogs']
               default_domain: 'blogs'
               debug: '%kernel.debug%'
-              basepath: '%kernel.project_dir%/resources/translations'
+              basepath: '%kernel.project_dir%/translations'
