@@ -7,5 +7,6 @@ msgstr ""
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n==1 ? 1 : 2)\n"
 
 #. English: "en".
+#. Note: This file is a second (slightly different) english translation. Yep. You heard me.
 msgid "language_code"
 msgstr "en-GB"
