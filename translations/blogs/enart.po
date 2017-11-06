@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: bbc blogs v5\n"
-"Language: cy_GB\n"
+"Language: eb_GB\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n==1 ? 1 : 2)\n"
