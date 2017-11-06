@@ -37,7 +37,6 @@ services:
         arguments:
             - '@csa_guzzle.client.default'
             - '@cache.null_provider'
-        public: true
 
     BBC\BrandingClient\OrbitClient:
         class: '%blogs.orbit_client.class%'
@@ -47,7 +46,6 @@ services:
             - env: '%blogs.feed_env.orbit%'
               cacheKeyPrefix: 'frontend.%cosmos_component_release%.orbit'
               mustache: { cache: '%kernel.cache_dir%/mustache' }
-        public: true
 
     cache.null_provider:
         class: Symfony\Component\Cache\Adapter\NullAdapter
