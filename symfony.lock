@@ -328,5 +328,29 @@
     },
     "phpstan/phpstan-phpunit": {
         "version": "0.9-dev"
+    },
+    "mustache/mustache": {
+        "version": "v2.12.0"
+    },
+    "guzzlehttp/promises": {
+        "version": "v1.3.1"
+    },
+    "psr/http-message": {
+        "version": "1.0.1"
+    },
+    "guzzlehttp/psr7": {
+        "version": "1.4.2"
+    },
+    "guzzlehttp/guzzle": {
+        "version": "6.3.0"
+    },
+    "bbc/branding-client": {
+        "version": "v2.3.0"
+    },
+    "csa/guzzle-bundle": {
+        "version": "3.0-dev"
+    },
+    "symfony/asset": {
+        "version": "v4.0.0-beta2"
     }
 }

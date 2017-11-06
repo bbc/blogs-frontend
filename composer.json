@@ -5,13 +5,20 @@
     "repositories": [
         {
             "type": "vcs",
+            "url": "git@github.com:bbc/branding-client.git"
+        },
+        {
+            "type": "vcs",
             "url": "git@github.com:bbc/rmp-translate.git"
         }
     ],
     "require": {
         "php": "^7.0.8",
         "bbc-rmp/translate": "^1.8.7",
+        "bbc/branding-client": "^2.3",
+        "csa/guzzle-bundle": "dev-master@dev",
         "sensiolabs/security-checker": "^4.1",
+        "symfony/asset": "^4.0@beta",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.0",
@@ -31,6 +38,7 @@
         "symfony/dotenv": "^4.0",
         "symfony/phpunit-bridge": "^4.0@beta",
         "symfony/profiler-pack": "^1.0",
+        "symfony/var-dumper": "^4.0@beta",
         "symfony/web-server-bundle": "^4.0@beta"
     },
     "config": {

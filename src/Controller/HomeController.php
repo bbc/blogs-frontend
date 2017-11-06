@@ -1,13 +1,12 @@
 <?php
 declare(strict_types = 1);
+
 namespace App\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-
-class HomeController extends AbstractController
+class HomeController extends BaseController
 {
     public function __invoke()
     {
-        return $this->render('home/show.html.twig');
+        return $this->renderWithChrome('home/show.html.twig');
     }
 }

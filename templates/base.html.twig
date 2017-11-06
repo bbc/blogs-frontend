@@ -1,12 +1,37 @@
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>{% block title %}Welcome!{% endblock %}</title>
-        {% block stylesheets %}{% endblock %}
-    </head>
-    <body>
-        {% block body %}{% endblock %}
-        {% block javascripts %}{% endblock %}
-    </body>
+<html class="{{ branding.getOrbitThemeClasses()|raw }}" lang="{{ tr('language_code') }}">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}{% endblock %}</title>
+    <link rel="icon" href="https://www.bbc.co.uk/favicon.ico" type="image/x-icon">
+    <meta name="theme-color" content="{{ branding.getColours().highlight.bg|default('#2B2B2B') }}">
+
+    {#- OpenGraph tags for Facebook/Twitter -#}
+    <meta property="og:site_name" content="BBC">
+    <meta property="og:title" content="{{ block('title') }}">
+    <meta property="og:type" content="website">
+
+    {#- Twitter-specific tags -#}
+    <meta name="twitter:card" content="summary_large_image">
+
+    {#- Android/iOS homepage icons -#}
+
+    {{ orb.getHead()|raw }}
+    {{ branding.getHead()|raw }}
+
+    {% block inline_head %}{% endblock %}
+
+    <script>document.documentElement.className += ' has-js';</script>
+</head>
+<body>
+{{ orb.getBodyfirst()|raw }}
+{{ branding.getBodyFirst()|raw }}
+
+<div class="{% block page_classes %}text-base b-g-p{% endblock %}" role="main">
+    {% block body %}{% endblock %}
+</div>
+{% block javascripts %}{% endblock %}
+{{ branding.getBodyLast()|raw }}
+{{ orb.getBodylast()|raw }}
+</body>
 </html>

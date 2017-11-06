@@ -1,0 +1,3 @@
+parameters:
+    blogs.branding_client.class: BBC\BrandingClient\BrandingStubClient
+    blogs.orbit_client.class: BBC\BrandingClient\OrbitStubClient

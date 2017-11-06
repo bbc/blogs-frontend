@@ -1,6 +1,11 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
+    blogs.branding_client.class: BBC\BrandingClient\BrandingClient
+    blogs.default_locale: 'en_GB'
+    blogs.feed_env.orbit: 'live'
+    blogs.orbit_client.class: BBC\BrandingClient\OrbitClient
+    cosmos_component_release: 0
 
 services:
     # default configuration for services in *this* file
@@ -26,6 +31,29 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    BBC\BrandingClient\BrandingClient:
+        class: "%blogs.branding_client.class%"
+        arguments:
+            - '@csa_guzzle.client.default'
+            - '@cache.null_provider'
+
+    BBC\BrandingClient\OrbitClient:
+        class: '%blogs.orbit_client.class%'
+        arguments:
+            - '@csa_guzzle.client.default'
+            - '@cache.null_provider'
+            - env: '%blogs.feed_env.orbit%'
+              cacheKeyPrefix: 'frontend.%cosmos_component_release%.orbit'
+              mustache: { cache: '%kernel.cache_dir%/mustache' }
+
+    cache.null_provider:
+        class: Symfony\Component\Cache\Adapter\NullAdapter
+
+    ### Translations
+
+    App\Translate\TranslateProvider:
+        public: true
 
     RMP\Translate\TranslateFactory:
         arguments:
