@@ -14,8 +14,8 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends AbstractController
 {
-    /** @var null|string */
-    private $brandingId;
+    /** @var string */
+    private $brandingId = 'br-07918';
 
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
