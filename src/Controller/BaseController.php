@@ -58,7 +58,7 @@ class BaseController extends AbstractController
         return $this->container->get('request_stack')->getCurrentRequest();
     }
 
-    protected function setBrandingId($brandingId)
+    protected function setBrandingId(string $brandingId)
     {
         $this->brandingId = $brandingId;
     }
