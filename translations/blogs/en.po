@@ -140,7 +140,7 @@ msgstr "Please check the address and try again"
 
 #. English: "Please check the address and try again".
 msgid "internal_error_title"
-msgstr "lease check the address and try again"
+msgstr "Please check the address and try again"
 
 #. English: "You must enable javascript to play content".
 msgid "javascript_required"
