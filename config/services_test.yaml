@@ -3,5 +3,8 @@ parameters:
     blogs.orbit_client.class: BBC\BrandingClient\OrbitStubClient
 
 services:
+    App\BlogsService\Service\BlogService:
+        public: true
+
     cache.null_provider:
         class: Symfony\Component\Cache\Adapter\NullAdapter

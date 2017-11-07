@@ -352,5 +352,8 @@
     },
     "symfony/asset": {
         "version": "v4.0.0-beta2"
+    },
+    "symfony/css-selector": {
+        "version": "v4.0.0-beta3"
     }
 }

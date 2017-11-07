@@ -22,7 +22,7 @@ abstract class BaseWebTestCase extends WebTestCase
         $this->assertEquals($expectedLocation, $client->getResponse()->headers->get('location'));
     }
 
-    public function assertHasRequiredResponseHeaders($client, $cacheControl = 'max-age=120, public', $contentLanguage = null)
+    public function assertHasRequiredResponseHeaders($client, $cacheControl = 'max-age=300, public', $contentLanguage = null)
     {
         $this->assertEquals($cacheControl, $client->getResponse()->headers->get('Cache-Control'));
         $this->assertArraySubset(['X-CDN', 'X-BBC-Edge-Scheme'], $client->getResponse()->getVary());

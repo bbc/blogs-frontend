@@ -1,5 +1,43 @@
 {% extends 'base.html.twig' %}
 
+{% import _self as home %}
+
 {% block body %}
-Hello World
+    <h1 class="visually-hidden">Blogs</h1>
+    <div class="br-box-subtle island">
+        {% if hasBlogs %}
+            {% for letter, blogs in blogsByLetter %}
+                {% if blogs %}
+                    <h2>{{ letter }}</h2>
+                    <ul class="list-unstyled list-spaced component">
+                        {% for blog in blogs %}
+                            <li>{{ home.blog(blog) }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            {% endfor %}
+        {% else %}
+            <p>{{ tr('no_results') }}</p>
+        {% endif %}
+    </div>
 {% endblock %}
+
+{% macro blog(blog) %}
+    <div itemscope itemtype="http://schema.org/Blog">
+        <a class="island br-box-page br-page-linkhover-onbg015--hover"
+           itemprop="url">
+            {#href="/blogs/{{ blog.urlKey }}"> todo - use url helper#}
+            <div class="grid-wrapper">
+                <div class="grid 1/3@bpb2 1/3@bpw 1/4@bpw2 1/5@bpe">
+                    <img class="rsp-img" itemprop="image" src="{{ blog.image.getUrl(160, 90) }}" alt="">
+                </div>
+                <div class="grid 2/3@bpb2 2/3@bpw 3/4@bpw2 4/5@bpe">
+                    <h3 class="delta no-margin" itemprop="name">{{ blog.name }}</h3>
+                    <div class="br-page-text-ontext deemphasize" itemprop="description">
+                        {{ blog.getShortSynopsis }}
+                    </div>
+                </div>
+            </div>
+        </a>
+    </div>
+{% endmacro %}

@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<entry xmlns="http://www.w3.org/2005/Atom" xmlns:as="http://atomserver.org/namespaces/1.0/">
+    <id>/electron/atom/v1/programmessupportingcontent/d/b006m86d.xml</id>
+    <title type="text">Entry: d b006m86d</title>
+    <author>
+        <name>AtomServer APP Service</name>
+    </author>
+    <link href="/electron/atom/v1/programmessupportingcontent/d/b006m86d.xml" rel="self"/>
+    <link href="/electron/atom/v1/programmessupportingcontent/d/b006m86d.xml/3888" rel="edit"/>
+    <as:entryId>b006m86d</as:entryId>
+    <as:updateIndex>469489</as:updateIndex>
+    <as:revision>3887</as:revision>
+    <updated>2017-07-26T11:54:45.000Z</updated>
+    <published>2011-12-16T15:51:30.000Z</published>
+    <content type="application/xml">
+        <pages>
+            <page>
+                <id>ib2_5398379eeebfa623889401</id>
+                <title type="text">The Queen Vic Jukebox on BBC Music</title>
+                <startDateTime>2017-02-13T08:53:00+00:00</startDateTime>
+                <endDateTime/>
+                <image_url>http://ichef.bbci.co.uk/images/ic/raw/p059qmym.jpg</image_url>
+                <image_alt>EastEnders Queen Vic jukebox</image_alt>
+                <image_pid>p059qmym</image_pid
+            </page>
+        </pages>
+    </content>
+</entry>

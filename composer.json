@@ -10,6 +10,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:bbc/rmp-translate.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:bbc/guzzle-factory.git"
         }
     ],
     "require": {
@@ -35,6 +39,7 @@
         "phpunit/phpunit": "^6.4",
         "squizlabs/php_codesniffer": "^3.1",
         "symfony/browser-kit": "^4.0@beta",
+        "symfony/css-selector": "^4.0@beta",
         "symfony/debug-bundle": "^4.0@beta",
         "symfony/dotenv": "^4.0",
         "symfony/phpunit-bridge": "^4.0@beta",

@@ -1,0 +1,303 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<search xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/search">
+    <metadata>
+        <totalResults>54</totalResults>
+        <page>1</page>
+        <pageSize>100</pageSize>
+        <start>1</start>
+    </metadata>
+    <results>
+        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+            <metadata>
+                <modifiedDateTime>2016-06-16T12:41:55.737077Z</modifiedDateTime>
+                <creationDateTime>2014-12-18T10:42:08.16364Z</creationDateTime>
+                <type>blogsmetadata</type>
+                <fileId>blogs-meta-data</fileId>
+                <guid>cf218f95-5f30-3316-bf72-6dff0d97abb6</guid>
+            </metadata>
+            <document>
+                <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-606/blogsmetadata">
+                    <metadata>
+                        <blog-name>606</blog-name>
+                        <blogs-branding-id>br-04330</blogs-branding-id>
+                        <short-synopsis>Welcome to the 606 blog. Have your say on all the biggest footballing stories
+                            and read regular posts from the production team and presenters.
+                        </short-synopsis>
+                        <description>Welcome to the 606 blog. Have your say on all the biggest footballing stories and
+                            read regular posts from the production team and presenters.
+                        </description>
+                        <blog-image>p014r1rm</blog-image>
+                        <show-image-in-description>false</show-image-in-description>
+                        <language>en-GB</language>
+                        <istats-countername>606</istats-countername>
+                        <site-id-twitter/>
+                        <forum-id-twitter/>
+                        <enable-twitter>false</enable-twitter>
+                        <enable-sharing>true</enable-sharing>
+                        <header-text-twitter/>
+                        <twitter-username/>
+                        <google-plus-url/>
+                        <facebook-url/>
+                        <twitter-url>http://twitter.com/</twitter-url>
+                        <enable-comments>true</enable-comments>
+                        <site-id-comments>mbiplayer</site-id-comments>
+                        <twitter-header-text/>
+                        <twitter-footer-text/>
+                        <bbc-site/>
+                    </metadata>
+                    <section-9>
+                        <featured/>
+                    </section-9>
+                    <sidebar-modules>
+                        <grid-12>
+                            <module>urn:isite:blogs-606:blogs-sidebar-1416921513</module>
+                        </grid-12>
+                    </sidebar-modules>
+                    <migration>
+                        <migrated>false</migrated>
+                    </migration>
+                    <section-27>
+                        <display-on-blogs-index>true</display-on-blogs-index>
+                        <is-archived/>
+                    </section-27>
+                </form>
+            </document>
+        </result>
+        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+            <metadata>
+                <modifiedDateTime>2017-04-04T10:50:19.902421Z</modifiedDateTime>
+                <creationDateTime>2015-03-09T14:31:12.837445Z</creationDateTime>
+                <type>blogsmetadata</type>
+                <fileId>blogs-meta-data</fileId>
+                <guid>b6dda002-8e93-3400-bf29-43431b5bafe0</guid>
+            </metadata>
+            <document>
+                <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogsmetadata">
+                    <metadata>
+                        <blog-name>About the BBC</blog-name>
+                        <blogs-branding-id>br-07828</blogs-branding-id>
+                        <short-synopsis>Shining a light on the wealth of BBC activities across the organisation.
+                        </short-synopsis>
+                        <description>This blog explains what the BBC does and how it works. We link to some other blogs
+                            and online spaces inside and outside the corporation. The blog is edited by Jon Jacob.
+                        </description>
+                        <blog-image>p017j1r1</blog-image>
+                        <show-image-in-description>false</show-image-in-description>
+                        <language>en-GB</language>
+                        <istats-countername>corporate.aboutthebbc</istats-countername>
+                        <site-id-twitter>aboutthebbctweets</site-id-twitter>
+                        <forum-id-twitter>aboutthebbctweets</forum-id-twitter>
+                        <enable-twitter>true</enable-twitter>
+                        <enable-sharing>true</enable-sharing>
+                        <header-text-twitter>About the BBC on Twitter</header-text-twitter>
+                        <twitter-username>@aboutthebbc</twitter-username>
+                        <google-plus-url/>
+                        <facebook-url/>
+                        <twitter-url>http://twitter.com/aboutthebbc</twitter-url>
+                        <site-id-comments>blog389</site-id-comments>
+                        <enable-comments>true</enable-comments>
+                        <twitter-header-text/>
+                        <twitter-footer-text/>
+                        <bbc-site>aboutthebbc</bbc-site>
+                    </metadata>
+                    <section-9>
+                        <featured>urn:isite:blogs-aboutthebbc:blogs-post-1421943419</featured>
+                    </section-9>
+                    <sidebar-modules>
+                        <grid-12>
+                            <module>urn:isite:blogs-aboutthebbc:blogs-sidebar-1417446883</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-aboutthebbc:blogs-sidebar-1417438429</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-aboutthebbc:blogs-sidebar-1417441048</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-aboutthebbc:blogs-sidebar-1417440735</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-aboutthebbc:blogs-sidebar-1417441270</module>
+                        </grid-12>
+                    </sidebar-modules>
+                    <migration>
+                        <migrated>true</migrated>
+                    </migration>
+                    <section-27>
+                        <is-archived/>
+                    </section-27>
+                </form>
+            </document>
+        </result>
+        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+            <metadata>
+                <modifiedDateTime>2016-06-16T13:33:28.62014Z</modifiedDateTime>
+                <creationDateTime>2014-12-12T08:05:21.214969Z</creationDateTime>
+                <type>blogsmetadata</type>
+                <fileId>blogs-meta-data</fileId>
+                <guid>903aac51-02d4-3a0a-a0c0-95ec94a3c1d7</guid>
+            </metadata>
+            <document>
+                <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-childreninneed/blogsmetadata">
+                    <metadata>
+                        <blog-name>BBC Children in Need</blog-name>
+                        <blogs-branding-id>br-04094</blogs-branding-id>
+                        <short-synopsis>All the latest news and behind-the-scenes gossip from Pudsey Bear and his
+                            fundraising friends and partners right across the UK
+                        </short-synopsis>
+                        <description>Welcome to the BBC Children in Need blog - the place to find the very latest news
+                            and information about the BBC's official charity.
+                        </description>
+                        <blog-image/>
+                        <show-image-in-description>false</show-image-in-description>
+                        <language>en-GB</language>
+                        <istats-countername>pudsey</istats-countername>
+                        <site-id-twitter/>
+                        <forum-id-twitter/>
+                        <enable-twitter>false</enable-twitter>
+                        <enable-sharing>true</enable-sharing>
+                        <header-text-twitter/>
+                        <twitter-username/>
+                        <google-plus-url/>
+                        <facebook-url/>
+                        <twitter-url>http://twitter.com/</twitter-url>
+                        <site-id-comments/>
+                        <enable-comments>false</enable-comments>
+                        <bbc-site/>
+                        <twitter-header-text/>
+                        <twitter-footer-text/>
+                    </metadata>
+                    <section-9>
+                        <featured/>
+                    </section-9>
+                    <sidebar-modules/>
+                    <migration>
+                        <migrated/>
+                    </migration>
+                    <section-27>
+                        <is-archived/>
+                    </section-27>
+                </form>
+            </document>
+        </result>
+        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+            <metadata>
+                <modifiedDateTime>2016-06-16T13:23:44.362785Z</modifiedDateTime>
+                <creationDateTime>2015-07-07T12:20:39.025797Z</creationDateTime>
+                <type>blogsmetadata</type>
+                <fileId>blogs-meta-data</fileId>
+                <guid>1342d247-01ab-4b0f-8a63-ff91a95821ff</guid>
+            </metadata>
+            <document>
+                <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-genome/blogsmetadata">
+                    <metadata>
+                        <blog-name>BBC Genome</blog-name>
+                        <twitter-username>@bbcgenome</twitter-username>
+                        <blogs-branding-id>br-07957</blogs-branding-id>
+                        <google-plus-url/>
+                        <short-synopsis>The place for hidden archive gems, historical listings and exciting new
+                            developments from BBC Genome, the website that shows the BBC’s listings between 1923 and
+                            2009.
+                        </short-synopsis>
+                        <facebook-url>https://www.facebook.com/bbcgenome/</facebook-url>
+                        <description>The BBC Genome website contains the BBC listings information which the BBC printed
+                            in Radio Times between 1923 and 2009. This blog will highlight hidden archive gems, remind
+                            you of historical firsts and moments, and tell you all about the exciting developments in
+                            the pipeline.
+                        </description>
+                        <twitter-url>http://twitter.com/bbcgenome</twitter-url>
+                        <blog-image>p00xhvrq</blog-image>
+                        <show-image-in-description>false</show-image-in-description>
+                        <language>en-GB</language>
+                        <istats-countername>genome</istats-countername>
+                        <bbc-site>tvandiplayer</bbc-site>
+                        <site-id-comments>mbiplayer</site-id-comments>
+                        <site-id-twitter/>
+                        <header-text-twitter/>
+                        <forum-id-twitter/>
+                        <twitter-header-text/>
+                        <twitter-footer-text/>
+                        <enable-twitter>false</enable-twitter>
+                        <enable-comments>true</enable-comments>
+                        <enable-sharing>true</enable-sharing>
+                    </metadata>
+                    <section-9>
+                        <featured/>
+                    </section-9>
+                    <sidebar-modules>
+                        <grid-12>
+                            <module>urn:isite:blogs-genome:blogs-sidebar-1436365353</module>
+                        </grid-12>
+                    </sidebar-modules>
+                    <migration>
+                        <migrated>true</migrated>
+                    </migration>
+                    <section-27>
+                        <is-archived>true</is-archived>
+                    </section-27>
+                </form>
+            </document>
+        </result>
+        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+            <metadata>
+                <modifiedDateTime>2016-06-16T13:59:33.511195Z</modifiedDateTime>
+                <creationDateTime>2015-03-10T14:26:54.606919Z</creationDateTime>
+                <type>blogsmetadata</type>
+                <fileId>blogs-meta-data</fileId>
+                <guid>62f917c2-c66a-4712-9c4f-be6d451d90a5</guid>
+            </metadata>
+            <document>
+                <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-simonmayo/blogsmetadata">
+                    <metadata>
+                        <blog-name>Simon Mayo Drivetime</blog-name>
+                        <blogs-branding-id>br-00966</blogs-branding-id>
+                        <short-synopsis>The daily blog of BBC Radio 2's Drivetime host Simon Mayo, featuring news of the
+                            show and how you can get involved.
+                        </short-synopsis>
+                        <description>The daily blog of BBC Radio 2's Drivetime host Simon Mayo, featuring news of the
+                            show and how you can get involved.
+                        </description>
+                        <blog-image>p017j2fq</blog-image>
+                        <show-image-in-description>true</show-image-in-description>
+                        <language>en-GB</language>
+                        <istats-countername>radio2.simonmayo</istats-countername>
+                        <site-id-twitter/>
+                        <forum-id-twitter/>
+                        <enable-twitter>false</enable-twitter>
+                        <enable-sharing>true</enable-sharing>
+                        <header-text-twitter/>
+                        <twitter-username/>
+                        <google-plus-url/>
+                        <facebook-url/>
+                        <twitter-url>http://twitter.com/</twitter-url>
+                        <site-id-comments>blog451</site-id-comments>
+                        <enable-comments>true</enable-comments>
+                        <bbc-site/>
+                        <twitter-header-text/>
+                        <twitter-footer-text/>
+                    </metadata>
+                    <section-9>
+                        <featured/>
+                    </section-9>
+                    <sidebar-modules>
+                        <grid-12>
+                            <module>urn:isite:blogs-simonmayo:blogs-sidebar-1417167302</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-simonmayo:blogs-sidebar-1417167489</module>
+                        </grid-12>
+                        <grid-12>
+                            <module>urn:isite:blogs-simonmayo:blogs-sidebar-1417167890</module>
+                        </grid-12>
+                    </sidebar-modules>
+                    <migration>
+                        <migrated>true</migrated>
+                    </migration>
+                    <section-27>
+                        <is-archived/>
+                    </section-27>
+                </form>
+            </document>
+        </result>
+    </results>
+</search>
