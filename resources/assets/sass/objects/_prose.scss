@@ -1,0 +1,13 @@
+.prose {
+    ul {
+        li {
+            list-style-type: square;
+        }
+    }
+
+    h1 {
+        // to prevent misuse of the <h1>
+        text-decoration: line-through !important;
+        color: #ff0000 !important;
+    }
+}

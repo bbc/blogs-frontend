@@ -1,0 +1,133 @@
+/**
+ * Widths.
+ *
+ * Human readable width abstractions.
+ *
+ * Heavily inspired by:
+ * http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
+ *
+ * For sample usage see grid.
+ */
+
+/**
+ * Grid width sizing ratios, these have grid-agnostic names as they can also
+ * be used for items within a grid, such as on .media__img
+ */
+@mixin gel-widths-setup($namespace: '', $class-prefix: $gel-class-prefix) {
+    // Whole
+    #{$class-prefix}#{$namespace}one-whole {
+        width: 100%;
+    }
+
+    // Halves
+    #{$class-prefix}#{$namespace}one-half {
+        width: 50%;
+    }
+
+    // Thirds
+    #{$class-prefix}#{$namespace}one-third {
+        width: 33.333%;
+    }
+
+    #{$class-prefix}#{$namespace}two-thirds {
+        width: 66.666%;
+    }
+
+    // Quarters
+    #{$class-prefix}#{$namespace}one-quarter {
+        width: 25%;
+    }
+
+    #{$class-prefix}#{$namespace}three-quarters {
+        width: 75%;
+    }
+
+    // Fifths (only be used with one-fifth & four-fifths for 100% total)
+    #{$class-prefix}#{$namespace}one-fifth {
+        width: 20%;
+    }
+
+    #{$class-prefix}#{$namespace}four-fifths {
+        width: 80%;
+    }
+
+    // Sixths
+    #{$class-prefix}#{$namespace}one-sixth {
+        width: 16.666%;
+    }
+
+    #{$class-prefix}#{$namespace}five-sixths {
+        width: 83.333%;
+    }
+
+    // Eigths
+    // Simplified fractions of the 24 column grid
+    #{$class-prefix}#{$namespace}one-eighth {
+        width: 12.5%;
+    }
+
+    // Twelfths
+    #{$class-prefix}#{$namespace}one-twelfth {
+        width: 8.333%;
+    }
+
+    #{$class-prefix}#{$namespace}five-twelfths {
+        width: 41.666%;
+    }
+
+    #{$class-prefix}#{$namespace}seven-twelfths {
+        width: 58.333%;
+    }
+
+    #{$class-prefix}#{$namespace}eleven-twelfths {
+        width: 91.666%;
+    }
+
+    // Sixteenths
+    // Off the beaten track, but it can be used on 1:1 images so they appear to
+    // be the same height as a 16:9 image with the class one-quarter
+    #{$class-prefix}#{$namespace}three-sixteenths {
+        width: 18.75%;
+    }
+
+    // Twenty-fourths
+    // Only used for advert box at full size, so we aren't including the full
+    // set of possible class names
+    #{$class-prefix}#{$namespace}five-twentyfourths {
+        width: 20.833%;
+    }
+
+    #{$class-prefix}#{$namespace}seven-twentyfourths {
+        width: 29.166%;
+    }
+
+    #{$class-prefix}#{$namespace}eleven-twentyfourths {
+        width: (11 / 24) * 100%;
+    }
+
+    #{$class-prefix}#{$namespace}thirteen-twentyfourths {
+        width: (13 / 24) * 100%;
+    }
+
+    // TODO these should be simplified down to eigths
+    #{$class-prefix}#{$namespace}nine-twentyfourths {
+        width: 37.5%;
+    }
+
+    #{$class-prefix}#{$namespace}fifteen-twentyfourths {
+        width: 62.5%;
+    }
+}
+
+@include breakup-block('basic') {
+    @include gel-widths-setup();
+}
+
+/**
+ * Generate media-query scoped grids for each breakpoint name defined
+ */
+@each $name in $gel-widths-breakpoints {
+    @include breakup-breakpoint($name) {
+        @include gel-widths-setup('#{$name}-');
+    }
+}

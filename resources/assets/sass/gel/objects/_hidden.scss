@@ -1,0 +1,38 @@
+/**
+ * Hidden.
+ *
+ * Helper classes to show or hide blocks based on the current breakpoint
+ */
+
+@mixin gel-hidden-setup($namespace: '', $class-prefix: $gel-class-prefix) {
+    #{$class-prefix}#{$namespace}hidden {
+        display: none !important;
+    }
+
+    #{$class-prefix}#{$namespace}visible {
+        display: inherit !important;
+        // IE 7 doesn't support display:inherit, so make the (slightly terrible)
+        // assumption that we're toggling the visibility of a block level
+        // element
+        *display: block !important;
+    }
+
+    #{$class-prefix}#{$namespace}grid-visible {
+        display: inline-block !important;
+        // IE 7 doesn't support display:inline-block so fall back to inline.
+        *display: inline !important;
+    }
+}
+
+@include breakup-block('basic') {
+    @include gel-hidden-setup();
+}
+
+/**
+ * Generate media-query scoped grids for each breakpoint name defined
+ */
+@each $name in $gel-widths-breakpoints {
+    @include breakup-breakpoint($name) {
+        @include gel-hidden-setup('#{$name}-');
+    }
+}

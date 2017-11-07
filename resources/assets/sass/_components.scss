@@ -1,0 +1,45 @@
+/**
+ * Component listing.
+ *
+ * This listing is common across the standard and ie-specific stylesheets
+ * so abstract it
+ */
+// Variables come first
+@import 'generic/variables';
+@import 'gel/generic/variables';
+// Libraries - Breakup, Normalize v1 and GEL
+@import 'breakup-sass/stylesheets/breakup';
+@import 'vendor/normalize';
+@import 'gel/gel';
+// Generics - common variables, mixins and helpers
+@import 'generic/mixins';
+@import 'generic/extends';
+@import 'generic/extends_classes';
+// Base - common styles
+@import 'base/main';
+// Objects - Reusable abstractions
+// These are batched into groups based on how "core" they are, for instance the
+// the blogs object uses the media object for some of it's layout so media
+// should come before blogs. Highlight box is used in conjunction with
+// blogs and should take prescience when applying styling so it should come
+// after blogs.
+// Core objects
+@import 'objects/media';
+@import 'objects/island';
+@import 'objects/component';
+@import 'objects/nav';
+@import 'objects/prose';
+@import 'objects/code';
+@import 'objects/third-party';
+@import 'objects/playout';
+@import 'objects/counted-list';
+@import 'objects/letters';
+// Modules
+//@import 'module/secondary-navigation';
+//@import 'module/sidebar';
+@import 'module/pagination';
+@import 'module/bbc-datepicker';
+@import 'module/loader';
+
+
+

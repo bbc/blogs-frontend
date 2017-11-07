@@ -1,4 +1,8 @@
 /build/
+/node_modules/
+/public/assets
+npm-debug.log
+yarn-error.log
 
 ###> symfony/framework-bundle ###
 .env

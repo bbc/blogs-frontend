@@ -1,0 +1,51 @@
+.smp {
+    position: relative;
+    min-height: 180px;
+    background: #999999;
+}
+
+.smp__overlay {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    margin: 0;
+}
+
+$size: 64px;
+
+.smp__message {
+    @extend .delta;
+    text-align: center;
+    background: #000000;
+    color: #ffffff;
+    background: rgba(0, 0, 0, 0.7);
+    letter-spacing: 0;
+    font-weight: normal;
+    margin: 0;
+    padding: $basic-spacing;
+    display: table;
+    vertical-align: middle;
+}
+
+.smp__messagetext {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+// bpw (larger icons)
+@include breakup-breakpoint('bpw') {
+    $size: 80px;
+
+    .smp__message {
+        padding: $wide-spacing;
+    }
+
+    .smp__messagetext {
+        font-size: 1.4em;
+        line-height: 1;
+    }
+
+    .smp__message--icon .smp__messagetext {
+        max-width: 128px;
+    }
+}

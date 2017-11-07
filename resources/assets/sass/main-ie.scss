@@ -1,0 +1,15 @@
+/**
+ * Global
+ *
+ * Included at all viewport sizes. This file imports all our common libraries
+ * and any module and page specific styling. Only the basic and wide breakpoints
+ * are included in this file. This is for old IE which does not support
+ * stylesheets but we do want it to have the wide styles.
+ */
+
+$breakup-included-blocks: ('basic' 'bpw' 'bpe');
+$breakup-naked: true;
+$breakup-breakpoints-allow-naked: ('bpw' 'bpe');
+$ie: true;
+
+@import 'components';

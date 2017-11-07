@@ -1,0 +1,19 @@
+/**
+ * Global Variables.
+ *
+ * Define any common variables here.
+ */
+
+// Noisy Gel classes
+$gel-use-silent-classes: false;
+
+$basic-spacing: 8px;
+$basic-half-spacing: $basic-spacing / 2;
+
+$wide-spacing: 16px;
+$wide-half-spacing: $wide-spacing / 2;
+
+// Disable compass adding a vertical-align to inline-block() elements
+$inline-block-alignment: false;
+
+

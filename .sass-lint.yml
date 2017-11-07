@@ -1,0 +1,81 @@
+options:
+    formatter: stylish
+files:
+    include: ['resources/assets/sass/*.scss', 'resources/assets/sass/**/*.scss']
+rules:
+    # Name Formats
+    function-name-format: [2, {convention: hyphenatedlowercase}]
+    mixin-name-format: [2, {convention: hyphenatedlowercase}]
+    placeholder-name-format: [2, {convention: hyphenatedlowercase}]
+    variable-name-format: [2, {convention: hyphenatedlowercase}]
+    class-name-format: [2, {convention: hyphenatedbem, allow-leading-underscore: false}]
+    # Extends
+    extends-before-mixins: 2
+    extends-before-declarations: 2
+    placeholder-in-extend: 0
+
+    # Mixins
+    mixins-before-declarations: [ 2, {exclude: [ mq, mq-range, flexbox, flex, flex-wrap, flex-align, flex-direction ]}]
+
+    # Line Spacing
+    one-declaration-per-line: 2
+    empty-line-between-blocks: 2
+    single-line-per-selector: 2
+
+    # Disallows
+    no-color-keywords: 2
+    no-color-literals: 0
+    no-css-comments: 0
+    no-debug: 0
+    no-duplicate-properties: [2, {exclude: [ background, background-color, display, font-size ]}]
+    no-empty-rulesets: 1
+    no-extends: 0
+    no-ids: 1
+    no-important: 0
+    no-invalid-hex: 2
+    no-mergeable-selectors: 2
+    no-misspelled-properties: [2, {extra-properties: [flex-align, flex-order, interpolation-mode, osx-font-smoothing, overflow-scrolling]}]
+    no-qualifying-elements: [2, {allow-element-with-attribute: true, allow-element-with-class: true}]
+    no-trailing-whitespace: 2
+    no-trailing-zero: 2
+    no-transition-all: 2
+    no-url-protocols: 2
+    no-vendor-prefixes: [2, {ignore-non-standard: true}]
+    no-warn: 0
+
+    # nesting
+    declarations-before-nesting: 2
+    force-attribute-nesting: 0
+    force-element-nesting: 0
+    force-pseudo-nesting: 0
+
+    # Style Guide
+    attribute-quotes: 2
+    border-zero: 1
+    clean-import-paths: 2
+    empty-args: [2, {include: true}]
+    hex-length: [2, {style: long}]
+    hex-notation: [2, {style: lowercase}]
+    indentation: [ 2, {size: 4}]
+    leading-zero: [2, {include: true}]
+    nesting-depth: [2, {max-depth: 3}]
+    property-sort-order: 0
+    pseudo-element: 2
+    quotes: [2, {style: single}]
+    shorthand-values: 2
+    url-quotes: 2
+    variable-for-property: 1
+    zero-unit: 2
+
+    # Inner Spacing
+    space-after-comma: 2
+    space-before-colon: 2
+    space-after-colon: 2
+    space-before-brace: 2
+    space-before-bang: 2
+    space-after-bang: 2
+    space-between-parens: 2
+
+    # Final Items
+    trailing-semicolon: 2
+    final-newline: 2

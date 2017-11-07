@@ -1,0 +1,188 @@
+/**
+ * Grid object.
+ *
+ * An IE 7 compatible implementation of a fluid grid with fixed gutter sizes.
+ * Use in conjunction with the width objects to set the sizing of your grid
+ * items.
+ *
+ * The .grid__inner div is required for IE7 compatibility. If we drop support
+ * for IE 7 then we can use box-sizing:border-box; and apply the padding
+ * directly to the .grid element, thus removing the need for the nested div.
+ *
+ * Sample usage:
+ *
+ * <div class="grid-wrapper">
+ *      <div class="grid one-third"><div class="grid__inner">
+ *          <p>One third grid</p>
+ *      </div></div>
+ *
+ *      <div class="grid two-thirds"><div class="grid__inner">
+ *          <p>Two thirds grid</p>
+ *      </div></div>
+ *
+ *      <div class="grid one-half"><div class="grid__inner">
+ *          <p>One half grid</p>
+ *      </div></div>
+ *
+ *      <div class="grid one-quarter"><div class="grid__inner">
+ *          <p>One quarter grid</p>
+ *      </div></div>
+ *
+ *      <div class="grid one-quarter"><div class="grid__inner">
+ *          <p>One quarter grid</p>
+ *      </div></div>
+ *   </div>
+ */
+
+$gel-grid-gutter-basic: 8px !default;
+$gel-grid-gutter-basic-half: $gel-grid-gutter-basic / 2;
+
+$gel-grid-gutter-wide: 16px !default;
+$gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
+
+@include breakup-block('basic') {
+    #{$gel-class-prefix}grid-wrapper {
+        display: block;
+        margin-left: -$gel-grid-gutter-basic;
+
+        list-style: none;
+        margin-bottom: 0;
+
+        // Kill whitespace spacing
+        letter-spacing: -0.31em;
+        *letter-spacing: normal; /* reset IE < 8 */
+        *word-spacing: -0.43em; /* IE < 8: collapse white-space between units */
+        text-rendering: optimizeSpeed;
+        text-align: left;
+
+        // Clearfix
+        zoom: 1;
+        &:before,
+        &:after {
+            content: " ";
+            display: table;
+        }
+        &:after {
+            clear: both;
+        }
+    }
+
+    // Opera as of 12 on Windows needs word-spacing. The ".opera" selector is
+    // used to prevent actual prefocus styling and is not required in markup.
+    .opera:-o-prefocus,
+    #{$gel-class-prefix}grid-wrapper {
+        word-spacing: -0.43em;
+    }
+
+    #{$gel-class-prefix}grid {
+        display: inline-block;
+        *display: inline; // IE < 8: fake inline-block
+        zoom: 1;
+        vertical-align: top;
+
+        // In case people want to use a * { box-sizing: border-box; } declaration
+        // as per http://paulirish.com/2012/box-sizing-border-box-ftw/
+        -moz-box-sizing: content-box;
+        -webkit-box-sizing: content-box;
+        box-sizing: content-box;
+
+        // Grid components have a default width so that you don't need to always
+        // use the .one-whole class for mobile-first implementations
+        width: 100%;
+    }
+
+    // Sometimes floated grids are preferable over inline-block grids. Useful if
+    // we want to have a fixed width container next to a variable width one.
+    #{$gel-class-prefix}grid-float {
+        float: left;
+
+        // Grid components have a default width so that you don't need to always
+        // use the .one-whole class for mobile-first implementations
+        width: 100%;
+    }
+
+    #{$gel-class-prefix}grid__inner {
+        padding-left: $gel-grid-gutter-basic;
+
+        // Reset whitespace spacing
+        letter-spacing: normal;
+        word-spacing: normal;
+        text-rendering: auto;
+    }
+
+    #{$gel-class-prefix}grid-wrapper--center {
+        text-align: center;
+
+        > #{$gel-class-prefix}grid {
+            text-align: left;
+        }
+    }
+
+    #{$gel-class-prefix}grid-wrapper--bothsides {
+        margin-left: -$gel-grid-gutter-basic-half;
+        margin-right: -$gel-grid-gutter-basic-half;
+        #{$gel-class-prefix}grid__inner {
+            padding-left: $gel-grid-gutter-basic-half;
+            padding-right: $gel-grid-gutter-basic-half;
+        }
+    }
+
+    // Faux column pushdown
+    $massive-pushdown: 50em;
+    #{$gel-class-prefix}grid-wrapper--fauxcolumn {
+        overflow: hidden;
+
+        #{$gel-class-prefix}grid__inner {
+            margin-bottom: -$massive-pushdown;
+            padding-bottom: $massive-pushdown;
+        }
+    }
+    .fauxcolumn {
+        margin-bottom: -$massive-pushdown;
+        padding-bottom: $massive-pushdown;
+    }
+}
+
+@include breakup-breakpoint('bpw') {
+    #{$gel-class-prefix}grid-wrapper {
+        margin-left: -$gel-grid-gutter-wide;
+    }
+
+    #{$gel-class-prefix}grid__inner {
+        padding-left: $gel-grid-gutter-wide;
+    }
+
+    #{$gel-class-prefix}grid-wrapper--bothsides {
+        margin-left: -$gel-grid-gutter-wide-half;
+        margin-right: -$gel-grid-gutter-wide-half;
+        #{$gel-class-prefix}grid__inner {
+            padding-left: $gel-grid-gutter-wide-half;
+            padding-right: $gel-grid-gutter-wide-half;
+        }
+    }
+}
+
+@mixin gel-gutterwidths-setup($namespace: '', $class-prefix: $gel-class-prefix) {
+    // Flush
+    // Grid items sit flush to each other instead of having any spacing
+    #{$gel-class-prefix}#{$namespace}grid-wrapper--flush {
+        margin-right: 0;
+        margin-left: 0;
+    }
+
+    #{$gel-class-prefix}#{$namespace}grid__inner--flush {
+        padding-right: 0;
+        padding-left: 0;
+    }
+
+}
+
+@include breakup-block('basic') {
+    @include gel-gutterwidths-setup('');
+}
+
+@each $name in ($gel-widths-breakpoints) {
+    @include breakup-breakpoint($name) {
+        @include gel-gutterwidths-setup('#{$name}-');
+    }
+}

@@ -1,0 +1,46 @@
+/**
+ * Main
+ */
+@-ms-viewport {
+    width: device-width;
+}
+
+html {
+    overflow-y: scroll;
+    min-height: 100%;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+abbr[title] {
+    border-bottom: 0;
+}
+
+img,
+object,
+video {
+    max-width: 100%;
+}
+
+.blogs-page {
+    padding-top: 16px;
+    padding-bottom: 16px;
+
+    a {
+        text-decoration: none;
+        font-weight: bold;
+
+        &:hover,
+        &:active,
+        &:focus {
+            text-decoration: underline;
+        }
+    }
+}
+
+.rsp-img {
+    @include transition(opacity 0.1s ease-in-out);
+    width: 100%;
+    display: block;
+}
+
