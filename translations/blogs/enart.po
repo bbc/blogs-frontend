@@ -10,3 +10,317 @@ msgstr ""
 #. Note: This file is a second (slightly different) english translation. Yep. You heard me.
 msgid "language_code"
 msgstr "en-GB"
+
+#. English: "This video content is not available, due to a temporary problem.".
+msgid "asset_error_without_java"
+msgstr "This video content is not available, due to a temporary problem."
+
+#. English: "There are no articles by this author".
+msgid "author_no_posts"
+msgstr "There are no articles by this author"
+
+#. English (no items): "0 articles".
+#. English (one item): "1 article".
+#. English (2+ items): "%count% articles".
+msgid "blog"
+msgid_plural "blog %count%"
+msgstr[0] "0 articles"
+msgstr[1] "1 article"
+msgstr[2] "%count% articles"
+
+#. English (no items): "0 articles".
+#. English (one item): "1 article".
+#. English (2+ items): "%count% articles".
+msgid "blog_article_count_archive"
+msgid_plural "blog_article_count_archive %count%"
+msgstr[0] "0 articles"
+msgstr[1] "1 article"
+msgstr[2] "%count% articles"
+
+#. English: "There are no articles in this site".
+msgid "blog_no_posts"
+msgstr "There are no articles in this site"
+
+#. English (no items): "Article in total 0".
+#. English (one item): "Article in total 1".
+#. English (2+ items): "Articles in total  %count%".
+msgid "blog_post_count_author"
+msgid_plural "blog_post_count_author %count%"
+msgstr[0] "Article in total 0"
+msgstr[1] "Article in total 1"
+msgstr[2] "Articles in total %count%"
+
+#. English (no items): "0 articles about %tag% on this site".
+#. English (one item): "1 article about %tag% on this site".
+#. English (2+ items): "%count% articles about %tag% on this site".
+msgid "blog_post_count_tag"
+msgid_plural "blog_post_count_tag %count% %tag%"
+msgstr[0] "0 articles about %tag% on this site"
+msgstr[1] "1 article about %tag% on this site"
+msgstr[2] "%count% articles about %tag% on this site"
+
+#. English: "Comments are temporarily unavailable due to a technical fault. Please try later.".
+msgid "error_comments"
+msgstr "Comments are temporarily unavailable due to a technical fault. Please try later."
+
+#. English: "Your browser doesn't support HTML5 media.".
+msgid "error_no_media"
+msgstr "Your browser doesn't support HTML5 media."
+
+#. English: "Feed".
+msgid "feed"
+msgstr "Feed"
+
+#. English: "Find us on %1".
+msgid "find_us_on_facebook"
+msgstr "Find us on %1"
+
+#. English: "Follow %1 on Twitter".
+msgid "follow_us_on_twitter"
+msgstr "Follow %1 on Twitter"
+
+#. English: "Articles by year and month".
+msgid "header_archive_month"
+msgstr "Articles by year and month"
+
+#. English: "Authors".
+msgid "header_author_all"
+msgstr "Authors"
+
+#. English: "Latest article".
+msgid "header_author_latest_post"
+msgstr "Latest article"
+
+#. English: "Name".
+msgid "header_author_name"
+msgstr "Name"
+
+#. English: "Articles A-Z".
+msgid "header_az"
+msgstr "Articles A-Z"
+
+#. English: "More Articles".
+msgid "header_more_posts"
+msgstr "More Articles"
+
+#. English: "Next".
+msgid "header_next"
+msgstr "Next"
+
+#. English: "Articles".
+msgid "header_posts"
+msgstr "Articles"
+
+#. English: "Previous".
+msgid "header_previous"
+msgstr "Previous"
+
+#. English: "Share this page".
+msgid "header_share_page"
+msgstr "Share this page"
+
+#. English: "Tagged with".
+msgid "header_tag_ind"
+msgstr "Tagged with"
+
+#. English: "Tags".
+msgid "header_tag_list"
+msgstr "Tags"
+
+#. English: "This image content is not available, due to a temporary problem".
+msgid "image_notloading"
+msgstr "This image content is not available, due to a temporary problem"
+
+#. English: "Page not found".
+msgid "internal_error"
+msgstr "Page not found"
+
+#. English: "Please check the address and try again".
+msgid "internal_error_note"
+msgstr "Please check the address and try again"
+
+#. English: "Please check the address and try again".
+msgid "internal_error_title"
+msgstr "Please check the address and try again"
+
+#. English: "You must enable javascript to play content".
+msgid "javascript_required"
+msgstr "You must enable javascript to play content"
+
+#. English: "en-GB".
+msgid "language_barlesque"
+msgstr "en-GB"
+
+#. English: "en".
+msgid "language_code"
+msgstr "en"
+
+#. English: "en_GB".
+msgid "language_locale"
+msgstr "en_GB"
+
+#. English: "A - Z".
+msgid "link_az"
+msgstr "A - Z"
+
+#. English: "Comments".
+msgid "link_comments"
+msgstr "Comments"
+
+#. English: "View the comments for this blog".
+msgid "link_comments_standalone"
+msgstr "View the comments for this blog"
+
+#. English: "Home".
+msgid "link_home"
+msgstr "Home"
+
+#. English: "Next".
+msgid "link_next"
+msgstr "Next"
+
+#. English: "Previous".
+msgid "link_previous"
+msgstr "Previous"
+
+#. English: "Read more".
+msgid "link_read_more"
+msgstr "Read more"
+
+#. English: "See all authors".
+msgid "link_see_all_authors"
+msgstr "See all authors"
+
+#. English: "See all articles".
+msgid "link_see_all_posts"
+msgstr "See all articles"
+
+#. English: "See all tags".
+msgid "link_see_all_tags"
+msgstr "See all tags"
+
+#. English: "Top 20".
+msgid "link_top_20"
+msgstr "Top 20"
+
+#. English: "Latest News".
+msgid "module_about_header"
+msgstr "Latest News"
+
+#. English: "See more from the BBC".
+msgid "module_about_link_all_blogs"
+msgstr "See more from the BBC"
+
+#. English: "Latest news home".
+msgid "module_about_link_home"
+msgstr "Latest news home"
+
+#. English: "Featured Article".
+msgid "module_featured_post_header"
+msgstr "Featured Article"
+
+#. English: "Recently Commented".
+msgid "module_mostpopular_header"
+msgstr "Recently Commented"
+
+#. English: "Commented".
+msgid "module_mostpopular_tab_commented"
+msgstr "Commented"
+
+#. English: "Stay updated with the latest articles from the site".
+msgid "module_updates_content"
+msgstr "Stay updated with the latest articles from the site"
+
+#. English: "Articles Updates".
+msgid "module_updates_header"
+msgstr "Articles Updates"
+
+#. English: "Subscribe using".
+msgid "module_updates_header_feed"
+msgstr "Subscribe using"
+
+#. English: "ATOM feed".
+msgid "module_updates_link_atom"
+msgstr "ATOM feed"
+
+#. English: "What are feeds?".
+msgid "module_updates_link_feeds"
+msgstr "What are feeds?"
+
+#. English: "RSS feed".
+msgid "module_updates_link_rss"
+msgstr "RSS feed"
+
+#. English: "There are no articles in this month".
+msgid "month_no_posts"
+msgstr "There are no articles in this month"
+
+#. English: "There are no articles".
+msgid "no_posts"
+msgstr "There are no articles"
+
+#. English: "There are no results".
+msgid "no_results"
+msgstr "There are no results"
+
+#. English: "Page not found".
+msgid "page_not_found"
+msgstr "Page not found"
+
+#. English: "Please check the address and try again".
+msgid "page_not_found_note"
+msgstr "Please check the address and try again"
+
+#. English: "Sorry, that page was not found".
+msgid "page_not_found_title"
+msgstr "Sorry, that page was not found"
+
+#. English: "All articles for".
+msgid "page_title_archive_month"
+msgstr "All articles for"
+
+#. English: "All Authors".
+msgid "page_title_author_all"
+msgstr "All Authors"
+
+#. English: "Authors beginning with the letter %1".
+#. %1 is a variable, which may contain letters.
+msgid "page_title_author_az"
+msgstr "Authors beginning with the letter %1"
+
+#. English: "Author".
+msgid "page_title_author_ind"
+msgstr "Author"
+
+#. English: "Latest News".
+msgid "page_title_blogs"
+msgstr "Latest News"
+
+#. English: "Tags Top 20".
+msgid "page_title_tag_cloud"
+msgstr "Tags Top 20"
+
+#. English: "Tag".
+msgid "page_title_tag_ind"
+msgstr "Tag"
+
+#. English: "All tags".
+msgid "page_title_tag_list"
+msgstr "All tags"
+
+#. English (no items): "0 articles".
+#. English (one item): "1 article".
+#. English (2+ items): "%count% articles".
+msgid "post"
+msgid_plural "post %count%"
+msgstr[0] "0 articles"
+msgstr[1] "1 article"
+msgstr[2] "%count% articles"
+
+#. English: "See all articles about".
+msgid "see_all_posts_about"
+msgstr "See all articles about"
+
+#. English: "Tagged with".
+msgid "tagged_with"
+msgstr "Tagged with"

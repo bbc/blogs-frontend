@@ -9,3 +9,301 @@ msgstr ""
 #. English: "en".
 msgid "language_code"
 msgstr "cy"
+
+#. English: "This video content is not available, due to a temporary problem.".
+msgid "asset_error_without_java"
+msgstr "Nid yw’r fideo yma ar gael oherwydd fod yna broblem dros dro"
+
+#. English: "There are no posts by this author".
+msgid "author_no_posts"
+msgstr "Does yna ddim negeseuon gan yr awdur yma"
+
+#. English (no items): "0 blogs".
+#. English (one item): "1 blog".
+#. English (2+ items): "%count% blogs".
+msgid "blog"
+msgid_plural "blog %count%"
+msgstr[0] "0 blogiau"
+msgstr[1] "1 blog"
+msgstr[2] "%count% blogiau"
+
+#. English (no items): "0 articles".
+#. English (one item): "1 article".
+#. English (2+ items): "%count% articles".
+msgid "blog_article_count_archive"
+msgid_plural "blog_article_count_archive %count%"
+msgstr[0] "0 erthygl"
+msgstr[1] "1 erthygl"
+msgstr[2] "%count% erthyglau"
+
+#. English: "There are no posts in this blog".
+msgid "blog_no_posts"
+msgstr "Does yna ddim negeseuon yn y blog yma"
+
+#. English (no items): "Blog post in total 0".
+#. English (one item): "Blog post in total 1".
+#. English (2+ items): "Blog posts in total  %count%".
+msgid "blog_post_count_author"
+msgid_plural "blog_post_count_author %count%"
+msgstr[0] "Nifer y negeseuon 0"
+msgstr[1] "Nifer y negeseuon 1"
+msgstr[2] "Nifer y negeseuon %count%"
+
+#. English (no items): "0 posts about %tag% on this blog".
+#. English (one item): "1 post about %tag% on this blog".
+#. English (2+ items): "%count% posts about %tag% on this blog".
+msgid "blog_post_count_tag"
+msgid_plural "blog_post_count_tag %count% %tag%"
+msgstr[0] "0 neges am %tag% yn y blog yma"
+msgstr[1] "1 neges am %tag% yn y blog yma"
+msgstr[2] "%count% neges am %tag% yn y blog yma"
+
+#. English: "Comments are temporarily unavailable due to a technical fault. Please try later.".
+msgid "error_comments"
+msgstr "Dyw’r sylwadau ddim ar gael ar hyn o bryd oherwydd problem dechnegol. Triwch eto nes ymlaen"
+
+#. English: "Your browser doesn't support HTML5 media.".
+msgid "error_no_media"
+msgstr "Dydi eich porwr ddim yn cefnogi cynnwys HTML5"
+
+#. English: "Feed".
+msgid "feed"
+msgstr "porthwr"
+
+#. English: "Blog posts by year and month".
+msgid "header_archive_month"
+msgstr "Negeseuon blog yn ôl blwyddyn a mis"
+
+#. English: "Authors".
+msgid "header_author_all"
+msgstr "Awduron"
+
+#. English: "Latest post".
+msgid "header_author_latest_post"
+msgstr "Neges ddiweddaraf"
+
+#. English: "Name".
+msgid "header_author_name"
+msgstr "Enw"
+
+#. English: "Blogs A-Z".
+msgid "header_az"
+msgstr "A-Z Blogiau"
+
+#. English: "More Posts".
+msgid "header_more_posts"
+msgstr "Mwy o negeseuon"
+
+#. English: "Next".
+msgid "header_next"
+msgstr "Nesaf"
+
+#. English: "Posts".
+msgid "header_posts"
+msgstr "Negeseuon"
+
+#. English: "Previous".
+msgid "header_previous"
+msgstr "Blaenorol"
+
+#. English: "Share this page".
+msgid "header_share_page"
+msgstr "Rhannu'r dudalen yma"
+
+#. English: "Tagged with".
+msgid "header_tag_ind"
+msgstr "Tagiwyd gyda"
+
+#. English: "Tags".
+msgid "header_tag_list"
+msgstr "Tagiau"
+
+#. English: "This image content is not available, due to a temporary problem".
+msgid "image_notloading"
+msgstr "Nid yw’r llun yma ar gael oherwydd fod yna broblem dros dro"
+
+#. English: "Page not found".
+msgid "internal_error"
+msgstr "Wedi methu dod o hyd i’r dudalen"
+
+#. English: "Please check the address and try again".
+msgid "internal_error_note"
+msgstr "Gwiriwch y cyfeiriad a thrio eto"
+
+#. English: "Please check the address and try again".
+msgid "internal_error_title"
+msgstr "Gwiriwch y cyfeiriad a thrio eto"
+
+#. English: "You must enable javascript to play content".
+msgid "javascript_required"
+msgstr "Rhaid galluogi javascript i chwarae'r cynnwys"
+
+#. English: "en-GB".
+msgid "language_barlesque"
+msgstr "cy-GB"
+
+#. English: "en".
+msgid "language_code"
+msgstr "cy"
+
+#. English: "en_GB".
+msgid "language_locale"
+msgstr "cy_GB"
+
+#. English: "A - Z".
+msgid "link_az"
+msgstr "A - Z"
+
+#. English: "Comments".
+msgid "link_comments"
+msgstr "Sylwadau"
+
+#. English: "Home".
+msgid "link_home"
+msgstr "Hafan"
+
+#. English: "Next".
+msgid "link_next"
+msgstr "Nesaf"
+
+#. English: "Previous".
+msgid "link_previous"
+msgstr "Blaenorol"
+
+#. English: "Read more".
+msgid "link_read_more"
+msgstr "Darllen mwy"
+
+#. English: "See all authors".
+msgid "link_see_all_authors"
+msgstr "Gweld pob awdur"
+
+#. English: "See all posts".
+msgid "link_see_all_posts"
+msgstr "Gweld pob neges"
+
+#. English: "See all tags".
+msgid "link_see_all_tags"
+msgstr "Gweld pob tag"
+
+#. English: "Top 20".
+msgid "link_top_20"
+msgstr "20 uchaf"
+
+#. English: "About this Blog".
+msgid "module_about_header"
+msgstr "Ynglŷn â’r Blog"
+
+#. English: "Explore all BBC blogs".
+msgid "module_about_link_all_blogs"
+msgstr "Edrych trwy holl flogiau’r BBC"
+
+#. English: "Blog home".
+msgid "module_about_link_home"
+msgstr "Hafan y Blog"
+
+#. English: "Featured Post".
+msgid "module_featured_post_header"
+msgstr "Dan sylw"
+
+#. English: "Recently Commented".
+msgid "module_mostpopular_header"
+msgstr "Sylwadau diweddaraf"
+
+#. English: "Commented".
+msgid "module_mostpopular_tab_commented"
+msgstr "Sylwadau"
+
+#. English: "Stay updated with the latest posts from the blog".
+msgid "module_updates_content"
+msgstr "Darllenwch y diweddaraf yn y blog yma"
+
+#. English: "Blog Updates".
+msgid "module_updates_header"
+msgstr "Diweddariadau i’r Blog"
+
+#. English: "Subscribe to the blog using".
+msgid "module_updates_header_feed"
+msgstr "Tanysgrifiwch trwy ddefnyddio"
+
+#. English: "ATOM feed".
+msgid "module_updates_link_atom"
+msgstr "Llif ATOM"
+
+#. English: "What are feeds?".
+msgid "module_updates_link_feeds"
+msgstr "Beth yw llif?"
+
+#. English: "RSS feed".
+msgid "module_updates_link_rss"
+msgstr "Llif RSS"
+
+#. English: "There are no posts in this month".
+msgid "month_no_posts"
+msgstr "Does yna ddim negeseuon yn y mis yma"
+
+#. English: "There are no posts".
+msgid "no_posts"
+msgstr "Does yna ddim negeseuon"
+
+#. English: "Page not found".
+msgid "page_not_found"
+msgstr "Wedi methu dod o hyd i’r dudalen"
+
+#. English: "Please check the address and try again".
+msgid "page_not_found_note"
+msgstr "Gwiriwch y cyfeiriad a thrio eto"
+
+#. English: "Sorry, that page was not found".
+msgid "page_not_found_title"
+msgstr "Mae'n ddrwg gennym, rydyn ni wedi methu dod o hyd i’r dudalen"
+
+#. English: "All posts for".
+msgid "page_title_archive_month"
+msgstr "Pob cofnod ar gyfer"
+
+#. English: "All Authors".
+msgid "page_title_author_all"
+msgstr "Pob awdur"
+
+#. English: "Authors beginning with the letter %1".
+#. %1 is a variable, which may contain letters.
+msgid "page_title_author_az"
+msgstr "Awduron yn dechrau â’r lythyren %1"
+
+#. English: "Author".
+msgid "page_title_author_ind"
+msgstr "Awdur"
+
+#. English: "Blogs".
+msgid "page_title_blogs"
+msgstr "Blogiau"
+
+#. English: "Tags Top 20".
+msgid "page_title_tag_cloud"
+msgstr "Tagiau"
+
+#. English: "Tag".
+msgid "page_title_tag_ind"
+msgstr "Tag"
+
+#. English: "All tags".
+msgid "page_title_tag_list"
+msgstr "Pob tag"
+
+#. English (no items): "0 posts".
+#. English (one item): "1 post".
+#. English (2+ items): "%count% posts".
+msgid "post"
+msgid_plural "post %count%"
+msgstr[0] "0 neges"
+msgstr[1] "1 neges"
+msgstr[2] "%count% neges"
+
+#. English: "See all posts about".
+msgid "see_all_posts_about"
+msgstr "Gweld pob neges am"
+
+#. English: "Tagged with".
+msgid "tagged_with"
+msgstr "Tagiwyd gyda"
