@@ -9,6 +9,14 @@
 
 .pagination {
     margin-bottom: $basic-spacing;
+
+    // Nested in a .pagination class to trump the "nav > li" styles
+    .pagination__page,
+    .pagination__spacer {
+        display: none;
+        margin: 0 1px;
+        text-align: center;
+    }
 }
 
 .pagination a:hover,
@@ -25,16 +33,6 @@
 .pagination__previous {
     // -1px on the margin-right to account for the adjacent page / spacer margin
     margin: 0 ($basic-spacing - 1px) 0 $basic-spacing;
-}
-
-// Nested in a .pagination class to trump the "nav > li" styles
-.pagination {
-    .pagination__page,
-    .pagination__spacer {
-        display: none;
-        margin: 0 1px;
-        text-align: center;
-    }
 }
 
 .pagination__page a,
