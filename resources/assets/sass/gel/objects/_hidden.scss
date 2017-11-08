@@ -11,16 +11,10 @@
 
     #{$class-prefix}#{$namespace}visible {
         display: inherit !important;
-        // IE 7 doesn't support display:inherit, so make the (slightly terrible)
-        // assumption that we're toggling the visibility of a block level
-        // element
-        *display: block !important;
     }
 
     #{$class-prefix}#{$namespace}grid-visible {
         display: inline-block !important;
-        // IE 7 doesn't support display:inline-block so fall back to inline.
-        *display: inline !important;
     }
 }
 

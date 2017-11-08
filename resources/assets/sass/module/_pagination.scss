@@ -60,7 +60,7 @@
         .pagination__page--last,
         .pagination__page--current,
         .pagination__spacer {
-            @include inline-block();
+            display: inline-block;
         }
     }
 
@@ -77,7 +77,7 @@
     .pagination {
         .pagination__page--offset1,
         .pagination__page--offset2 {
-            @include inline-block();
+            display: inline-block;
         }
     }
 }
@@ -94,7 +94,7 @@
         .pagination__spacer,
         .pagination__page--offset1,
         .pagination__page--offset2 {
-            @include inline-block();
+            display: inline-block;
         }
     }
 }
@@ -113,7 +113,7 @@
     .pagination {
         .pagination__page,
         .pagination__spacer {
-            @include inline-block();
+            display: inline-block;
         }
     }
 }

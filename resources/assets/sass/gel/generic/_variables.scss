@@ -54,7 +54,7 @@ $gel-class-prefix: unquote(if($gel-use-silent-classes, '%', '.'));
  */
 
 @function px-to-em($px, $base-size: 16px) {
-    @return $px / $base-size + 0em;
+    @return $px / $base-size * 1em;
 }
 
 /* TODO Document in styleguide */

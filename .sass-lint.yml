@@ -2,6 +2,8 @@ options:
     formatter: stylish
 files:
     include: ['resources/assets/sass/*.scss', 'resources/assets/sass/**/*.scss']
+    ignore:
+        - 'resources/assets/sass/vendor/*'
 rules:
     # Name Formats
     function-name-format: [2, {convention: hyphenatedlowercase}]
@@ -15,7 +17,7 @@ rules:
     placeholder-in-extend: 0
 
     # Mixins
-    mixins-before-declarations: [ 2, {exclude: [ mq, mq-range, flexbox, flex, flex-wrap, flex-align, flex-direction ]}]
+    mixins-before-declarations: [ 2, {exclude: [ mq, mq-range ]}]
 
     # Line Spacing
     one-declaration-per-line: 2
@@ -27,7 +29,7 @@ rules:
     no-color-literals: 0
     no-css-comments: 0
     no-debug: 0
-    no-duplicate-properties: [2, {exclude: [ background, background-color, display, font-size ]}]
+    no-duplicate-properties: [2, {exclude: [ background, font-size ]}]
     no-empty-rulesets: 1
     no-extends: 0
     no-ids: 1

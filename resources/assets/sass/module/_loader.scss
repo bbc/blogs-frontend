@@ -6,16 +6,9 @@
     height: 11em;
     border-radius: 50%;
     background: #d6d6d6;
-    background: -moz-linear-gradient(left, #d6d6d6 10%, rgba(214, 214, 214, 0) 42%);
-    background: -webkit-linear-gradient(left, #d6d6d6 10%, rgba(214, 214, 214, 0) 42%);
-    background: -o-linear-gradient(left, #d6d6d6 10%, rgba(214, 214, 214, 0) 42%);
-    background: -ms-linear-gradient(left, #d6d6d6 10%, rgba(214, 214, 214, 0) 42%);
     background: linear-gradient(to right, #d6d6d6 10%, rgba(214, 214, 214, 0) 42%);
     position: relative;
-    -webkit-animation: load3 1.4s infinite linear;
     animation: load3 1.4s infinite linear;
-    -webkit-transform: translateZ(0);
-    -ms-transform: translateZ(0);
     transform: translateZ(0);
 }
 
@@ -42,16 +35,6 @@
     left: 0;
     bottom: 0;
     right: 0;
-}
-
-@-webkit-keyframes load3 {
-    0% {
-        transform: rotate(0deg);
-    }
-
-    100% {
-        transform: rotate(360deg);
-    }
 }
 
 @keyframes load3 {

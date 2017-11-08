@@ -50,19 +50,19 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
 
         // Kill whitespace spacing
         letter-spacing: -0.31em;
-        *letter-spacing: normal; /* reset IE < 8 */
-        *word-spacing: -0.43em; /* IE < 8: collapse white-space between units */
         text-rendering: optimizeSpeed;
         text-align: left;
 
         // Clearfix
         zoom: 1;
-        &:before,
-        &:after {
-            content: " ";
+
+        &::before,
+        &::after {
+            content: ' ';
             display: table;
         }
-        &:after {
+
+        &::after {
             clear: both;
         }
     }
@@ -76,14 +76,10 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
 
     #{$gel-class-prefix}grid {
         display: inline-block;
-        *display: inline; // IE < 8: fake inline-block
-        zoom: 1;
         vertical-align: top;
 
         // In case people want to use a * { box-sizing: border-box; } declaration
         // as per http://paulirish.com/2012/box-sizing-border-box-ftw/
-        -moz-box-sizing: content-box;
-        -webkit-box-sizing: content-box;
         box-sizing: content-box;
 
         // Grid components have a default width so that you don't need to always
@@ -121,6 +117,7 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
     #{$gel-class-prefix}grid-wrapper--bothsides {
         margin-left: -$gel-grid-gutter-basic-half;
         margin-right: -$gel-grid-gutter-basic-half;
+
         #{$gel-class-prefix}grid__inner {
             padding-left: $gel-grid-gutter-basic-half;
             padding-right: $gel-grid-gutter-basic-half;
@@ -129,6 +126,7 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
 
     // Faux column pushdown
     $massive-pushdown: 50em;
+
     #{$gel-class-prefix}grid-wrapper--fauxcolumn {
         overflow: hidden;
 
@@ -137,6 +135,7 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
             padding-bottom: $massive-pushdown;
         }
     }
+
     .fauxcolumn {
         margin-bottom: -$massive-pushdown;
         padding-bottom: $massive-pushdown;
@@ -155,6 +154,7 @@ $gel-grid-gutter-wide-half: $gel-grid-gutter-wide / 2;
     #{$gel-class-prefix}grid-wrapper--bothsides {
         margin-left: -$gel-grid-gutter-wide-half;
         margin-right: -$gel-grid-gutter-wide-half;
+
         #{$gel-class-prefix}grid__inner {
             padding-left: $gel-grid-gutter-wide-half;
             padding-right: $gel-grid-gutter-wide-half;

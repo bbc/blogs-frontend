@@ -1,14 +1,4 @@
-/**
- *
- * Author: Qambar Raza
- * Email: qambar.raza@bbc.co.uk
- *
- * This date picker is compatible with '/programmes' branding tool and
- * BBC Gel. It will pick colors, widths and heights from the mentioned
- * add-ons.
- *
- */
-
+// sass-lint:disable no-ids
 .bbc-datepicker {
     @extend .cf;
     margin-bottom: 20px;
@@ -19,7 +9,7 @@ $bbc-datepicker-box-indent: 23px;
 .bbc-datepicker__title label::before {
     content: '\e005';
     margin-right: 8px;
-    font-family: 'gelicons-core';
+    font-family: 'gelicons-core'; //@TODO Use SVG gelicon instead of PAL style icons
     vertical-align: baseline;
     font-size: 16px;
     display: inline-block;
@@ -32,11 +22,10 @@ $bbc-datepicker-box-indent: 23px;
     cursor: pointer;
     float: left;
     padding: 5px;
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -khtml-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
+    -webkit-touch-callout: none; // sass-lint:disable no-vendor-prefixes
+    -webkit-user-select: none; // sass-lint:disable no-vendor-prefixes
+    -moz-user-select: none; // sass-lint:disable no-vendor-prefixes
+    -ms-user-select: none; // sass-lint:disable no-vendor-prefixes
     user-select: none;
 }
 

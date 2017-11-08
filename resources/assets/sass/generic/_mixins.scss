@@ -31,16 +31,3 @@
     overflow: auto;
     margin: 0;
 }
-
-@mixin inline-block() {
-    // haha IE7
-    zoom: 1;
-    *display: inline;
-    display: inline-block;
-}
-
-@mixin transition($args...) {
-    -webkit-transition: $args;
-    -moz-transition: $args;
-    transition: $args;
-}

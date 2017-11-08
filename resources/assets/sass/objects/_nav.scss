@@ -12,7 +12,7 @@
         @extend .cf;
 
         > li {
-            @include inline-block();
+            display: inline-block;
         }
 
         > li > a {
@@ -73,7 +73,7 @@
             border-left: 1px solid;
 
             > a {
-                @include inline-block();
+                display: inline-block;
             }
 
             &:first-child {
