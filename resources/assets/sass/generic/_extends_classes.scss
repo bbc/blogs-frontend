@@ -188,15 +188,15 @@
 }
 
 @include mq-range('bpw') {
-    .bpw-text--left {
+    .text-left\@bpw {
         text-align: left;
     }
 
-    .bpw-text--right {
+    .text-right\@bpw {
         text-align: right;
     }
 
-    .bpw-text--center {
+    .text-center\@bpw {
         text-align: center;
     }
 
@@ -208,12 +208,12 @@
         margin-right: $wide-spacing;
     }
 
-    .bpw-pull--right-spaced {
+    .pull-right-spaced\@bpw {
         float: right;
         margin-left: $wide-spacing;
     }
 
-    .bpw-pull--left-spaced {
+    .pull-left-spaced\@bpw {
         float: left;
         margin-right: $wide-spacing;
     }

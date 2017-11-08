@@ -174,29 +174,28 @@ $massive-pushdown: 50em;
     }
 }
 
-@mixin gel-gutterwidths-setup($namespace: '', $spacing: $gel-grid-gutter-basic, $class-prefix: $gel-class-prefix) {
+@mixin gel-gutterwidths-setup($suffix: '', $spacing: $gel-grid-gutter-basic) {
     // Flush
     // Grid items sit flush to each other instead of having any spacing
-    #{$gel-class-prefix}#{$namespace}grid-wrapper--flush {
+    grid-wrapper--flush#{$suffix} {
         margin-right: 0;
         margin-left: 0;
     }
 
-    #{$gel-class-prefix}#{$namespace}grid--flush {
+    grid--flush#{$suffix} {
         padding-right: 0;
         padding-left: 0;
     }
 
-    #{$gel-class-prefix}#{$namespace}grid-wrapper--half {
+    grid-wrapper--half#{$suffix} {
         margin-right: 0;
         margin-left: -$spacing / 2;
     }
 
-    #{$gel-class-prefix}#{$namespace}grid--half {
+    grid--half#{$suffix} {
         padding-right: 0;
         padding-left: $spacing / 2;
     }
-
 }
 
 @include gel-gutterwidths-setup('', $gel-grid-gutter-basic);
@@ -205,6 +204,6 @@ $massive-pushdown: 50em;
     $spacing: if(index(('bpb1', 'bpb2'), $name), $gel-grid-gutter-basic, $gel-grid-gutter-wide);
 
     @include mq-range($name) {
-        @include gel-gutterwidths-setup('#{$name}-', $spacing);
+        @include gel-gutterwidths-setup('\\@#{$name}', $spacing);
     }
 }

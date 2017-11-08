@@ -1,122 +1,77 @@
+// sass-lint:disable space-around-operator
 /**
  * Widths.
  *
- * Human readable width abstractions.
+ * In the old system we used word based names for the classes e.g. "one-third"
+ * and "three-quarters". This was overly verbose, so instead move to a more
+ * amen-like style of using fractional classes e.g. "1/3" and "3/4".
+ * In the old system breakpoints were prefixed e.g. "bpw-one-third". This was
+ * also slightly janky as the fraction is more important than the breakpoint.
+ * We have moved to a more amen-like style of suffixing using the @ symbol to
+ * denote widths only triggering at specific breakpoints e.g. "1/3@bpw".
  *
- * Heavily inspired by:
- * http://csswizardry.com/2013/02/responsive-grid-systems-a-solution/
- *
- * For sample usage see grid.
+ * The strange numbers at the front are unicode values,
+ * as CSS classes cannot start with an unescaped number.
+ * They are complex here, so that the HTML itself is clean.
+ * You'd never need to write odd these values anywhere else.
+ * They are suffixed with the breakpoints. e.g. .1/3@bpw
  */
 
 /**
  * Grid width sizing ratios, these have grid-agnostic names as they can also
  * be used for items within a grid, such as on .media__img
  */
-@mixin gel-widths-setup($namespace: '', $class-prefix: $gel-class-prefix) {
+@mixin gel-widths-setup($suffix: '') {
     // Whole
-    #{$class-prefix}#{$namespace}one-whole {
-        width: 100%;
-    }
+    .\31\/1#{$suffix} { width: (1/1) * 100%; } // .1/1
 
     // Halves
-    #{$class-prefix}#{$namespace}one-half {
-        width: 50%;
-    }
+    .\31\/2#{$suffix} { width: (1/2) * 100%; } // .1/2
 
-    // Thirds
-    #{$class-prefix}#{$namespace}one-third {
-        width: 33.333%;
-    }
-
-    #{$class-prefix}#{$namespace}two-thirds {
-        width: 66.666%;
-    }
+    // Thirds (prime number)
+    .\31\/3#{$suffix} { width: (1/3) * 100%; } // .1/3
+    .\32\/3#{$suffix} { width: (2/3) * 100%; } // .2/3
 
     // Quarters
-    #{$class-prefix}#{$namespace}one-quarter {
-        width: 25%;
-    }
+    .\31\/4#{$suffix} { width: (1/4) * 100%; } // .1/4
+    .\33\/4#{$suffix} { width: (3/4) * 100%; } // .3/4
 
-    #{$class-prefix}#{$namespace}three-quarters {
-        width: 75%;
-    }
-
-    // Fifths (only be used with one-fifth & four-fifths for 100% total)
-    #{$class-prefix}#{$namespace}one-fifth {
-        width: 20%;
-    }
-
-    #{$class-prefix}#{$namespace}four-fifths {
-        width: 80%;
-    }
+    // Fifths (prime number)
+    .\31\/5#{$suffix} { width: (1/5) * 100%; } // .1/5
+    .\32\/5#{$suffix} { width: (2/5) * 100%; } // .2/5
+    .\33\/5#{$suffix} { width: (3/5) * 100%; } // .3/5
+    .\34\/5#{$suffix} { width: (4/5) * 100%; } // .4/5
 
     // Sixths
-    #{$class-prefix}#{$namespace}one-sixth {
-        width: 16.666%;
-    }
-
-    #{$class-prefix}#{$namespace}five-sixths {
-        width: 83.333%;
-    }
+    .\31\/6#{$suffix} { width: (1/6) * 100%; } // .1/6
+    .\35\/6#{$suffix} { width: (5/6) * 100%; } // .5/6
 
     // Eigths
     // Simplified fractions of the 24 column grid
-    #{$class-prefix}#{$namespace}one-eighth {
-        width: 12.5%;
-    }
+    .\31\/8#{$suffix} { width: (1/8) * 100%; } // .1/8
+    .\32\/8#{$suffix} { width: (3/8) * 100%; } // .3/8
+    .\35\/8#{$suffix} { width: (5/8) * 100%; } // .5/8
+    .\37\/8#{$suffix} { width: (7/8) * 100%; } // .7/8
+
 
     // Twelfths
-    #{$class-prefix}#{$namespace}one-twelfth {
-        width: 8.333%;
-    }
-
-    #{$class-prefix}#{$namespace}five-twelfths {
-        width: 41.666%;
-    }
-
-    #{$class-prefix}#{$namespace}seven-twelfths {
-        width: 58.333%;
-    }
-
-    #{$class-prefix}#{$namespace}eleven-twelfths {
-        width: 91.666%;
-    }
+    .\31\/12#{$suffix} { width: (1/12) * 100%; } // .1/12
+    .\35\/12#{$suffix} { width: (5/12) * 100%; } // .5/12
+    .\37\/12#{$suffix} { width: (7/12) * 100%; } // .7/12
+    .\41\/12#{$suffix} { width: (11/12) * 100%; } // .11/12
 
     // Sixteenths
     // Off the beaten track, but it can be used on 1:1 images so they appear to
     // be the same height as a 16:9 image with the class one-quarter
-    #{$class-prefix}#{$namespace}three-sixteenths {
-        width: 18.75%;
-    }
+    .\33\/16#{$suffix} { width: (3/16) * 100%; } // .3/16
 
     // Twenty-fourths
     // Only used for advert box at full size, so we aren't including the full
     // set of possible class names
-    #{$class-prefix}#{$namespace}five-twentyfourths {
-        width: 20.833%;
-    }
-
-    #{$class-prefix}#{$namespace}seven-twentyfourths {
-        width: 29.166%;
-    }
-
-    #{$class-prefix}#{$namespace}eleven-twentyfourths {
-        width: (11 / 24) * 100%;
-    }
-
-    #{$class-prefix}#{$namespace}thirteen-twentyfourths {
-        width: (13 / 24) * 100%;
-    }
-
-    // TODO these should be simplified down to eigths
-    #{$class-prefix}#{$namespace}nine-twentyfourths {
-        width: 37.5%;
-    }
-
-    #{$class-prefix}#{$namespace}fifteen-twentyfourths {
-        width: 62.5%;
-    }
+    .\35\/16#{$suffix} { width: (5/24) * 100%; } // .5/24
+    .\37\/16#{$suffix} { width: (7/24) * 100%; } // .7/24
+    .\41\/16#{$suffix} { width: (11/24) * 100%; } // 11/24
+    .\43\/16#{$suffix} { width: (13/24) * 100%; } // 13/24
 }
 
 @include gel-widths-setup();
@@ -126,6 +81,6 @@
  */
 @each $name in $gel-widths-breakpoints {
     @include mq-range($name) {
-        @include gel-widths-setup('#{$name}-');
+        @include gel-widths-setup('\\@#{$name}');
     }
 }

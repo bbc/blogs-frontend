@@ -4,16 +4,16 @@
  * Helper classes to show or hide blocks based on the current breakpoint
  */
 
-@mixin gel-hidden-setup($namespace: '', $class-prefix: $gel-class-prefix) {
-    #{$class-prefix}#{$namespace}hidden {
+@mixin gel-hidden-setup($suffix: '') {
+    .hidden#{$suffix} {
         display: none !important;
     }
 
-    #{$class-prefix}#{$namespace}visible {
+    .visible#{$suffix} {
         display: inherit !important;
     }
 
-    #{$class-prefix}#{$namespace}grid-visible {
+    .grid-visible#{$suffix} {
         display: inline-block !important;
     }
 }
@@ -25,6 +25,6 @@
  */
 @each $name in $gel-widths-breakpoints {
     @include mq-range($name) {
-        @include gel-hidden-setup('#{$name}-');
+        @include gel-hidden-setup('\\@#{$name}');
     }
 }

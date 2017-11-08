@@ -55,35 +55,35 @@
 
 @include mq-range('bpw') {
     .island,
-    .bpw-island {
+    .island\@bpw {
         padding: $wide-spacing;
     }
 
     .island--squashed,
-    .bpw-island--squashed {
+    .island--squashed\@bpw {
         padding: $wide-half-spacing $wide-spacing;
     }
 
     .island--vertical,
-    .bpw-island--vertical {
+    .island--vertical\@bpw {
         padding-top: $wide-spacing;
         padding-bottom: $wide-spacing;
     }
 
     .island--horizontal,
-    .bpw-island--horizontal {
+    .island--horizontal\@bpw {
         padding-left: $wide-spacing;
         padding-right: $wide-spacing;
     }
 
     //Just like `.island`, only smaller.
     .islet,
-    .bpw-islet {
+    .islet\@bpw {
         padding: $wide-half-spacing;
     }
 
     .islet--vertical,
-    .bpw-islet--vertical {
+    .islet--vertical\@bpw {
         padding-top: $wide-half-spacing;
         padding-bottom: $wide-half-spacing;
     }
