@@ -16,53 +16,51 @@
  *
  */
 
-@include breakup-block('basic') {
-    .media {
-        @extend .cf;
-        display: block;
-    }
-
-    .media__img {
-        float: left;
-        margin-right: $basic-spacing;
-    }
-
-    /**
-     * Reversed image location (right instead of left).
-     */
-    .media__img--rev {
-        float: right;
-        margin-left: $basic-spacing;
-        margin-right: 0;
-    }
-
-    .media__img img,
-    .media__img--rev img {
-        display: block;
-    }
-
-    .media__body {
-        overflow: hidden;
-    }
-
-    .media__body,
-    .media__body > :last-child {
-        margin-bottom: 0;
-    }
-
-    /**
-     * `.img`s in `.islet`s need an appropriately sized margin.
-     */
-    .islet .media__img {
-        margin-right: $basic-half-spacing;
-    }
-
-    .islet .media__img--rev {
-        margin-left: $basic-half-spacing;
-    }
+.media {
+    @extend .cf;
+    display: block;
 }
 
-@include breakup-breakpoint('bpw') {
+.media__img {
+    float: left;
+    margin-right: $basic-spacing;
+}
+
+/**
+ * Reversed image location (right instead of left).
+ */
+.media__img--rev {
+    float: right;
+    margin-left: $basic-spacing;
+    margin-right: 0;
+}
+
+.media__img img,
+.media__img--rev img {
+    display: block;
+}
+
+.media__body {
+    overflow: hidden;
+}
+
+.media__body,
+.media__body > :last-child {
+    margin-bottom: 0;
+}
+
+/**
+ * `.img`s in `.islet`s need an appropriately sized margin.
+ */
+.islet .media__img {
+    margin-right: $basic-half-spacing;
+}
+
+.islet .media__img--rev {
+    margin-left: $basic-half-spacing;
+}
+
+@include mq-range('bpw') {
     .media__img {
         margin-right: $wide-spacing;
     }

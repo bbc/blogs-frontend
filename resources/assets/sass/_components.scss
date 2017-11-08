@@ -7,8 +7,8 @@
 // Variables come first
 @import 'generic/variables';
 @import 'gel/generic/variables';
-// Libraries - Breakup, Normalize v1 and GEL
-@import 'breakup-sass/stylesheets/breakup';
+// Libraries - MQ, Normalize v1 and GEL
+@import 'sass-mq/mq';
 @import 'vendor/normalize';
 @import 'gel/gel';
 // Generics - common variables, mixins and helpers

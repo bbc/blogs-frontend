@@ -9,7 +9,7 @@
     border-bottom-width: 1px;
 }
 
-@include breakup-breakpoint('bpw') {
+@include mq-range('bpw') {
     .component {
         margin-bottom: $wide-spacing;
     }

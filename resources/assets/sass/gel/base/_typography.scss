@@ -5,30 +5,26 @@
  */
 
 // Resets
-@include breakup-block('basic') {
-    p,
-    ul,
-    ol,
-    h1,
-    h2,
-    h3,
-    h4,
-    h5,
-    h6 {
-        margin: 0;
-    }
+p,
+ul,
+ol,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin: 0;
+}
 
-    blockquote {
-        margin-top: 0;
-        margin-bottom: 0;
-    }
+blockquote {
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 // Define extends for typography at each GEL breakpoint
 @import 'typography-generic';
 
-// These declarations should not be inside a breakup-block as the blocks are
-// defined within the placeholder classes.
 p,
 ul,
 ol,
@@ -74,30 +70,28 @@ ul {
 }
 
 // Additional typographic helpers
-@include breakup-block('basic') {
-    .micro {
-        text-transform: uppercase;
-    }
+.micro {
+    text-transform: uppercase;
+}
 
-    .deemphasize {
-        font-weight: normal !important; // safe. definite override
-        text-decoration: none !important; // safe. definite override
-    }
+.deemphasize {
+    font-weight: normal !important; // safe. definite override
+    text-decoration: none !important; // safe. definite override
+}
 
-    a.deemphasize {
-        font-weight: normal;
+a.deemphasize {
+    font-weight: normal;
+    text-decoration: none;
+
+    &:hover,
+    &:active,
+    &:focus {
         text-decoration: none;
-
-        &:hover,
-        &:active,
-        &:focus {
-            text-decoration: none;
-        }
     }
+}
 
-    // For blockquotes
-    .full-quote {
-        margin-left: 0;
-        margin-right: 0;
-    }
+// For blockquotes
+.full-quote {
+    margin-left: 0;
+    margin-right: 0;
 }

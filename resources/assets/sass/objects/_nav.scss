@@ -5,85 +5,79 @@
  *
  * Copied from inuit.css and csswizardry.com/2011/09/the-nav-abstraction
  */
+.nav {
+    @extend %list-unstyled;
+    @extend .cf;
 
-@include breakup-block('basic') {
-    .nav {
-        @extend %list-unstyled;
-        @extend .cf;
-
-        > li {
-            display: inline-block;
-        }
-
-        > li > a {
-            display: block;
-        }
+    > li {
+        display: inline-block;
     }
 
-    /**
-     * `.nav--banner` extends `.nav` and centres the list
-     */
-    .nav--banner {
-        text-align: center;
-    }
-
-    /**
-     * `.nav--stacked` extends `.nav` and throws the list into vertical mode
-     */
-    .nav--stacked {
-        > li {
-            display: list-item;
-
-            > a {
-                display: block;
-            }
-        }
-    }
-
-    /**
-     * Give nav links a big, blocky hit area. Extends `.nav`
-     */
-    .nav--block {
-        line-height: 1;
-        // Remove whitespace caused by `inline-block`.
-        letter-spacing: -0.31em;
-        word-spacing: -0.43em;
-
-        > li {
-            letter-spacing: normal;
-            word-spacing: normal;
-
-            > a {
-                padding: $basic-half-spacing;
-            }
-        }
-    }
-
-    .nav--piped {
-        // Remove whitespace caused by `inline-block`.
-        letter-spacing: -0.31em;
-        word-spacing: -0.43em;
-
-        > li {
-            letter-spacing: normal;
-            word-spacing: normal;
-
-            margin-left: $basic-spacing;
-            padding-left: $basic-spacing;
-            border-left: 1px solid;
-
-            > a {
-                display: inline-block;
-            }
-
-            &:first-child {
-                margin-left: 0;
-                padding-left: 0;
-                border-left: 0;
-            }
-        }
-
+    > li > a {
+        display: block;
     }
 }
 
+/**
+ * `.nav--banner` extends `.nav` and centres the list
+ */
+.nav--banner {
+    text-align: center;
+}
 
+/**
+ * `.nav--stacked` extends `.nav` and throws the list into vertical mode
+ */
+.nav--stacked {
+    > li {
+        display: list-item;
+
+        > a {
+            display: block;
+        }
+    }
+}
+
+/**
+ * Give nav links a big, blocky hit area. Extends `.nav`
+ */
+.nav--block {
+    line-height: 1;
+    // Remove whitespace caused by `inline-block`.
+    letter-spacing: -0.31em;
+    word-spacing: -0.43em;
+
+    > li {
+        letter-spacing: normal;
+        word-spacing: normal;
+
+        > a {
+            padding: $basic-half-spacing;
+        }
+    }
+}
+
+.nav--piped {
+    // Remove whitespace caused by `inline-block`.
+    letter-spacing: -0.31em;
+    word-spacing: -0.43em;
+
+    > li {
+        letter-spacing: normal;
+        word-spacing: normal;
+
+        margin-left: $basic-spacing;
+        padding-left: $basic-spacing;
+        border-left: 1px solid;
+
+        > a {
+            display: inline-block;
+        }
+
+        &:first-child {
+            margin-left: 0;
+            padding-left: 0;
+            border-left: 0;
+        }
+    }
+}

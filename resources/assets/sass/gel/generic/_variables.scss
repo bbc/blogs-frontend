@@ -53,23 +53,30 @@ $gel-class-prefix: unquote(if($gel-use-silent-classes, '%', '.'));
  * bpe                                                                     |-->
  */
 
-@function px-to-em($px, $base-size: 16px) {
-    @return $px / $base-size * 1em;
-}
+$mq-base-font-size: 16px !default;
 
-/* TODO Document in styleguide */
-$breakup-breakpoints: (
-    'bp1' '(max-width: #{px-to-em(399px)})',
-    'bp2' '(min-width: #{px-to-em(400px)}) and (max-width: #{px-to-em(599px)})',
-    'bp3' '(min-width: #{px-to-em(600px)}) and (max-width: #{px-to-em(1007px)})',
-    'bp4' '(min-width: #{px-to-em(1008px)})',
-    'bpb1' '(min-width: #{px-to-em(320px)}) and (max-width: #{px-to-em(599px)})',
-    'bpb2' '(min-width: #{px-to-em(480px)}) and (max-width: #{px-to-em(599px)})',
-    'bpw' '(min-width: #{px-to-em(600px)})',
-    'bpw1' '(min-width: #{px-to-em(600px)}) and (max-width: #{px-to-em(1007px)})',
-    'bpw2' '(min-width: #{px-to-em(770px)}) and (max-width: #{px-to-em(1007px)})',
-    'bpe' '(min-width: #{px-to-em(1008px)})'
+$mq-breakpoints: (
+    gel1b: 320px,
+    gel2: 400px,
+    gel2b: 480px,
+    gel3: 600px,
+    gel3b: 770px,
+    gel4: 1008px,
+    gel5: 1280px
 ) !default;
+
+$mq-aliases: (
+    'bp1': (until: 'gel2'),
+    'bp2': (from: 'gel2', until: 'gel3'),
+    'bp3': (from: 'gel3', until: 'gel4'),
+    'bp4': (from: 'gel4'),
+    'bpb1': (from: 'gel1b', until: 'gel3'),
+    'bpb2': (from: 'gel2b', until: 'gel3'),
+    'bpw': (from: 'gel3'),
+    'bpw1': (from: 'gel3', until: 'gel4'),
+    'bpw2': (from: 'gel3b', until: 'gel4'),
+    'bpe': (from: 'gel4'),
+);
 
 // Breakpoints that should have grid prefixes
 $gel-widths-breakpoints: ('bpb1' 'bpb2' 'bpw' 'bpw1' 'bpw2' 'bpe') !default;
@@ -101,10 +108,10 @@ $gel-widths-breakpoints: ('bpb1' 'bpb2' 'bpw' 'bpw1' 'bpw2' 'bpe') !default;
 
 //  $name   (($base)     ($alpha)    ($beta)     ($gamma)    ($delta)    ($centi)    ($milli)    ($micro))
 $gel-typography: (
-    'basic' ((15px 18px) (20px 24px) (20px 24px) (18px 20px) (15px 20px) (15px 18px) (14px 16px) (12px 16px)),
-    'bpb1' ((14px 18px) (24px 28px) (20px 24px) (20px 24px) (16px 22px) (14px 18px) (14px 16px) (12px 16px)),
-    'bpw' ((14px 18px) (32px 36px) (24px 28px) (20px 24px) (16px 22px) (14px 18px) (13px 16px) (12px 16px))
-) !default;
+    'basic': ((15px 18px) (20px 24px) (20px 24px) (18px 20px) (15px 20px) (15px 18px) (14px 16px) (12px 16px)),
+    'bpb1': ((14px 18px) (24px 28px) (20px 24px) (20px 24px) (16px 22px) (14px 18px) (14px 16px) (12px 16px)),
+    'bpw': ((14px 18px) (32px 36px) (24px 28px) (20px 24px) (16px 22px) (14px 18px) (13px 16px) (12px 16px))
+);
 
 // Breakpoints that should have specific typography
 $gel-typography-breakpoints: ('bpb1' 'bpw') !default;

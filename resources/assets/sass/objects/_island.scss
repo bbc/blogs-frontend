@@ -6,56 +6,54 @@
  *  Copied from inuit.css and csswizardry.com/2011/10/the-island-object
  */
 
-@include breakup-block('basic') {
-    .island,
-    .island--squashed,
-    .island--vertical,
-    .islet,
-    .islet--vertical,
-    .islet--horizontal {
-        @extend .cf;
-        display: block;
+.island,
+.island--squashed,
+.island--vertical,
+.islet,
+.islet--vertical,
+.islet--horizontal {
+    @extend .cf;
+    display: block;
 
-        > :last-child {
-            margin-bottom: 0;
-        }
-    }
-
-    .island {
-        padding: $basic-spacing;
-    }
-
-    .island--squashed {
-        padding: $basic-spacing;
-    }
-
-    .island--vertical {
-        padding-top: $basic-spacing;
-        padding-bottom: $basic-spacing;
-    }
-
-    .island--horizontal {
-        padding-left: $basic-spacing;
-        padding-right: $basic-spacing;
-    }
-
-    // Just like `.island`, only smaller.
-    .islet {
-        padding: $basic-half-spacing;
-    }
-
-    .islet--vertical {
-        padding-top: $basic-half-spacing;
-        padding-bottom: $basic-half-spacing;
-    }
-
-    .islet--horizontal {
-        padding-left: $basic-half-spacing;
-        padding-right: $basic-half-spacing;
+    > :last-child {
+        margin-bottom: 0;
     }
 }
 
-@include breakup-breakpoint('bpw') {
+.island {
+    padding: $basic-spacing;
+}
+
+.island--squashed {
+    padding: $basic-spacing;
+}
+
+.island--vertical {
+    padding-top: $basic-spacing;
+    padding-bottom: $basic-spacing;
+}
+
+.island--horizontal {
+    padding-left: $basic-spacing;
+    padding-right: $basic-spacing;
+}
+
+// Just like `.island`, only smaller.
+.islet {
+    padding: $basic-half-spacing;
+}
+
+.islet--vertical {
+    padding-top: $basic-half-spacing;
+    padding-bottom: $basic-half-spacing;
+}
+
+.islet--horizontal {
+    padding-left: $basic-half-spacing;
+    padding-right: $basic-half-spacing;
+}
+
+@include mq-range('bpw') {
     .island,
     .bpw-island {
         padding: $wide-spacing;

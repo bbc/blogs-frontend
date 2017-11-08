@@ -23,7 +23,7 @@
     font-weight: normal;
 }
 
-@include breakup-breakpoint('bpw') {
+@include mq-range('bpw') {
     .counted-list__item::before {
         top: 8px;
         font-size: 28px;

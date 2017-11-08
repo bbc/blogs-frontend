@@ -25,8 +25,7 @@
  * Returns the current base line-height.
  */
 @function gel-vertical-rhythm($block-name) {
-    $list: breakup-list-key-search($gel-typography, $block-name, 1);
-    @return nth(nth(nth($list, 2), 1), 2);
+    @return nth(nth(map-get($gel-typography, $block-name), 1), 2);
 }
 
 /**
@@ -97,7 +96,7 @@
     .alpha--keyline {
         @include gel-font-size($alpha...);
         margin-bottom: ((($base-line-height * 2) - nth($alpha, 2)) - 1px) / nth($alpha, 1) * 1em;
-        border-bottom: px-to-em(1px, nth($alpha, 1)) solid;
+        border-bottom: mq-px2em(1px, nth($alpha, 1)) solid;
     }
 
     .beta {
@@ -108,7 +107,7 @@
     .beta--keyline {
         @include gel-font-size($beta...);
         margin-bottom: ((($base-line-height * 2) - nth($beta, 2)) - 1px) / nth($beta, 1) * 1em;
-        border-bottom: px-to-em(1px, nth($beta, 1)) solid;
+        border-bottom: mq-px2em(1px, nth($beta, 1)) solid;
     }
 
     .gamma {
@@ -119,7 +118,7 @@
     .gamma--keyline {
         @include gel-font-size($gamma...);
         margin-bottom: ((($base-line-height * 2) - nth($gamma, 2)) - 1px) / nth($gamma, 1) * 1em;
-        border-bottom: px-to-em(1px, nth($gamma, 1)) solid;
+        border-bottom: mq-px2em(1px, nth($gamma, 1)) solid;
     }
 
     .delta {
@@ -131,7 +130,7 @@
     .delta--keyline {
         @include gel-font-size($delta...);
         margin-bottom: ((($base-line-height * 2) - nth($delta, 2)) - 1px) / nth($delta, 1) * 1em;
-        border-bottom: px-to-em(1px, nth($delta, 1)) solid;
+        border-bottom: mq-px2em(1px, nth($delta, 1)) solid;
     }
 
     // Metadata styling
@@ -148,18 +147,16 @@
     }
 }
 
-@include breakup-block('basic') {
-    $basic-typography: breakup-list-key-search($gel-typography, 'basic', 1);
-    @include gel-text-sizing('', nth($basic-typography, 2)...);
-}
+$basic-typography: map-get($gel-typography, 'basic');
+@include gel-text-sizing('', $basic-typography...);
 
 /**
  * Generate media-query scoped font sizings for each breakpoint name defined
  */
 @each $item in $gel-typography-breakpoints {
-    @include breakup-breakpoint($item) {
-        $block-typography: breakup-list-key-search($gel-typography, $item, 1);
-        @include gel-text-sizing('#{$item}-', nth($block-typography, 2)...);
+    @include mq-range($item) {
+        $item-typography: map-get($gel-typography, $item);
+        @include gel-text-sizing('#{$item}-', $item-typography...);
     }
 }
 

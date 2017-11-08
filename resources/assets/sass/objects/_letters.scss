@@ -1,29 +1,27 @@
-@include breakup-block('basic') {
-    .letters-clamp {
-        margin-left: -4px;
-        margin-bottom: 10px;
-    }
-
-    .letters__page {
-        text-align: center;
-        text-transform: uppercase;
-        min-width: 35px;
-        width: (100 / 9) * 1%;
-    }
-
-    .letters__page a {
-        @extend .text--no-ul;
-    }
-
-    .letters__page a {
-        display: block;
-        padding: 10px 0;
-        margin-bottom: 4px;
-        margin-left: 4px;
-    }
+ .letters-clamp {
+    margin-left: -4px;
+    margin-bottom: 10px;
 }
 
-@include breakup-breakpoint('bpb1') {
+.letters__page {
+    text-align: center;
+    text-transform: uppercase;
+    min-width: 35px;
+    width: (100 / 9) * 1%;
+}
+
+.letters__page a {
+    @extend .text--no-ul;
+}
+
+.letters__page a {
+    display: block;
+    padding: 10px 0;
+    margin-bottom: 4px;
+    margin-left: 4px;
+}
+
+@include mq-range('bpb1') {
     .letters__page {
         width: (100 / 7) * 1%;
 

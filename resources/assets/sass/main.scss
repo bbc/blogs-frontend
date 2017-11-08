@@ -5,7 +5,7 @@
  * and any module and page specific styling.
  */
 
-$breakup-included-blocks: ('basic' 'bp2' 'bpb1' 'bpb2' 'bpw' 'bpw1' 'bpw2' 'bpe' 'print');
+$mq-responsive: true;
 $ie: false;
 
 @import 'components';

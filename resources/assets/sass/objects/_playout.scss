@@ -32,7 +32,7 @@ $size: 64px;
 }
 
 // bpw (larger icons)
-@include breakup-breakpoint('bpw') {
+@include mq-range('bpw') {
     $size: 80px;
 
     .smp__message {
