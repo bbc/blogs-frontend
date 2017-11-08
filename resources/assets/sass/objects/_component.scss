@@ -1,0 +1,20 @@
+.component {
+    margin-bottom: $basic-spacing;
+}
+
+.component--lined {
+    margin-bottom: $basic-spacing;
+    padding-bottom: $basic-spacing;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+@include mq-range('bpw') {
+    .component {
+        margin-bottom: $wide-spacing;
+    }
+
+    .component--lined {
+        padding-bottom: $wide-spacing;
+    }
+}

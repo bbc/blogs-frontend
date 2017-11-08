@@ -10,5 +10,5 @@ fi
 
 vendor/bin/phpunit
 vendor/bin/phpcs
-# yarn run lint
+yarn run lint
 vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7

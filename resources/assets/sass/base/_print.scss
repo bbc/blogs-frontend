@@ -1,0 +1,85 @@
+// sass-lint:disable no-ids
+@include mq($media-type: 'print') {
+    * {
+        background: transparent !important;
+        color: #000000 !important;
+        text-shadow: none !important;
+        filter: none !important;
+        opacity: 1 !important;
+    }
+
+    /* black prints faster: sanbeiji.com/archives/953 */
+    a,
+    a:visited {
+        color: #444444 !important;
+        text-decoration: none;
+    }
+
+    /*
+    DISABLED unless decided otherwise - prints the url after every link
+    a[href]:after { content: " (" attr(href) ")"; }
+    abbr[title]:after { content: " (" attr(title) ")"; }
+    .ir a:after, a[href^="javascript:"]:after, a[href^="#"]:after { content: ""; } /* don't show links for images, or javascript/internal links */
+    pre,
+    blockquote {
+        border: 1px solid #999999;
+        page-break-inside: avoid;
+    }
+
+    thead {
+        display: table-header-group;
+    }
+
+    /* css-discuss.incutio.com/wiki/Printing_Tables */
+    tr,
+    img {
+        page-break-inside: avoid;
+    }
+
+    @page {
+        margin: 0.5cm;
+    }
+
+    p,
+    h2,
+    h3 {
+        orphans: 3;
+        widows: 3;
+    }
+
+    h2,
+    h3 {
+        page-break-after: avoid;
+    }
+
+    // hide toolbars and other common elements
+    #orb-header,
+    #orb-footer,
+    .branding-productnav-container,
+    .rsn-nonjs-wrapper,
+    #branding-masthead,
+    .br-masthead,
+    .block-link__overlay-link {
+        display: none !important;
+    }
+
+    .programme__synopsis {
+        display: block !important;
+    }
+
+    // Cancel hiding of text inside <h1>. It must be shown
+    h1,
+    h1.visually-hidden,
+    h1 .visually-hidden {
+        clip: auto !important;
+        height: auto !important;
+        width: auto !important;
+        margin: inherit !important;
+        position: static !important;
+        overflow: visible !important;
+    }
+
+    h1 {
+        margin-bottom: 16px;
+    }
+}

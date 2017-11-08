@@ -1,0 +1,51 @@
+/**
+ * Generic Extends.
+ *
+ * Define any generic extensions classes here. This file should only contain
+ * placeholder extensions, any extends that need a class associated with them
+ * should be defined with a placeholder in here then referenced within
+ * _extends_classes.scss.
+ */
+
+/**
+ * List-Unstyled.
+ *
+ * A list without any indentation, perfect for lists of block level items.
+ */
+%list-unstyled {
+    padding-left: 0;
+    margin-bottom: 0;
+    margin-top: 0;
+    list-style: none;
+}
+
+%list-unlabeled {
+    list-style: none;
+}
+
+%list-unindented {
+    padding-left: 0;
+    list-style: none;
+}
+
+/**
+ * Image Replacement.
+ *
+ * Replacing images with background images. We shall @extend this to
+ * avoid a proliferation of ir classes in our html.
+ *
+ * Taken directly from HTML5 Boilerplate:
+ * https://github.com/h5bp/html5-boilerplate/commit/adecc5da035d6d76b77e3fa95c6abde841073da2
+ */
+%ir {
+    background-color: transparent;
+    border: 0;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        display: block;
+        width: 0;
+        height: 150%;
+    }
+}

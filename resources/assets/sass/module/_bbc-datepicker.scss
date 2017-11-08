@@ -1,0 +1,58 @@
+// sass-lint:disable no-ids
+.bbc-datepicker {
+    @extend .cf;
+    margin-bottom: 20px;
+}
+
+$bbc-datepicker-box-indent: 23px;
+
+.bbc-datepicker__title label::before {
+    content: '\e005';
+    margin-right: 8px;
+    font-family: 'gelicons-core'; //@TODO Use SVG gelicon instead of PAL style icons
+    vertical-align: baseline;
+    font-size: 16px;
+    display: inline-block;
+    transition: transform 0.25s linear;
+}
+
+.bbc-datepicker__title,
+.bbc-datepicker__title label {
+    display: block;
+    cursor: pointer;
+    float: left;
+    padding: 5px;
+    -webkit-touch-callout: none; // sass-lint:disable no-vendor-prefixes
+    -webkit-user-select: none; // sass-lint:disable no-vendor-prefixes
+    -moz-user-select: none; // sass-lint:disable no-vendor-prefixes
+    -ms-user-select: none; // sass-lint:disable no-vendor-prefixes
+    user-select: none;
+}
+
+.bbc-datepicker__checkbox {
+    position: absolute;
+    visibility: hidden;
+    display: none;
+}
+
+.bbc-datepicker__box {
+    padding: 0 $bbc-datepicker-box-indent; // width of the icon + 8px;
+    clear: both;
+    margin-bottom: 1px;
+}
+
+// logic for showing/hiding, only in CSS3 browsers
+body:not(#not-a-real-id) .bbc-datepicker__box {
+    @include visually-hidden(); // don't extend, as IE8 doesn't recognise CSS3 selectors
+}
+
+body:not(#not-a-real-id) .bbc-datepicker__checkbox-year:checked ~ .bbc-datepicker__box-year,
+body:not(#not-a-real-id) .bbc-datepicker__checkbox-month:checked ~ .bbc-datepicker__box-month {
+    @include undo-visually-hidden(); // don't extend, as IE8 doesn't recognise CSS3 selectors
+}
+
+body:not(#not-a-real-id) .bbc-datepicker__checkbox-year:checked ~ .bbc-datepicker__title-year label::before,
+body:not(#not-a-real-id) .bbc-datepicker__checkbox-month:checked ~ .bbc-datepicker__title-month label::before {
+    transform: rotate(90deg);
+}
+

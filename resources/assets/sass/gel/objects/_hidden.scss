@@ -1,0 +1,30 @@
+/**
+ * Hidden.
+ *
+ * Helper classes to show or hide blocks based on the current breakpoint
+ */
+
+@mixin gel-hidden-setup($suffix: '') {
+    .hidden#{$suffix} {
+        display: none !important;
+    }
+
+    .visible#{$suffix} {
+        display: inherit !important;
+    }
+
+    .grid-visible#{$suffix} {
+        display: inline-block !important;
+    }
+}
+
+@include gel-hidden-setup();
+
+/**
+ * Generate media-query scoped grids for each breakpoint name defined
+ */
+@each $name in $gel-widths-breakpoints {
+    @include mq-range($name) {
+        @include gel-hidden-setup('\\@#{$name}');
+    }
+}

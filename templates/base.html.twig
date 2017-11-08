@@ -19,6 +19,12 @@
     {{ orb.getHead()|raw }}
     {{ branding.getHead()|raw }}
 
+    <!--[if (gt IE 8)|!(IE)]><!-->
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
+    <!--<![endif]-->
+    <!--[if (lt IE 9)&(!IEMobile)]><!-->
+    <link rel="stylesheet" href="{{ asset('css/main-ie.css') }}"/>
+    <!--<![endif]-->
     {% block inline_head %}{% endblock %}
 
     <script>document.documentElement.className += ' has-js';</script>

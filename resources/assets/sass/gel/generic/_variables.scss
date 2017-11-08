@@ -1,0 +1,126 @@
+/**
+ * Variables
+ *
+ * Generic variables that are required throughout the GEL codebase.
+ */
+
+/**
+ * Should we use placeholder classes or regular classes?
+ * Defaults to being noisy.
+ */
+$gel-use-silent-classes: true !default;
+$gel-class-prefix: unquote(if($gel-use-silent-classes, '%', '.'));
+
+/**
+ * Generic media query breakpoints, common useful breakpoints.
+ *
+ * These breakpoints specify the points at which the grid is likely to require
+ * reflowing. This allows us to declaratively define grid size transitions by
+ * adding multiple classes to an element.
+ *
+ * These grid sizings are based off the GEL responsive grid and font
+ * breakpoints. GEL's grid is 972px wide with 16px padding, giving a total page
+ * width of 1008px wide.
+ *
+ * bp1    | -    | 399  | GEL Grid Group 1
+ * bp2    | 400  | 599  | GEL Grid Group 2
+ * bp3    | 600  | 1007 | GEL Grid Group 3
+ * bp4    | 1008 | -    | GEL Grid Group 4
+
+ * In addition to these styles the bpw prefix is also defined within
+ * global_wide.scss which is applied for the media query min-width:600px;
+ * (using a media query on the <link> tag) and for old desktop IE versions,
+ * which do not support media queries (by including the file in a conditional
+
+ * ---------------------------------------------------------------------------
+ * For customising content layouts based on grid sizing the following
+ * breakpoints are suggested:
+ *
+ * bpb1   | 320  | 599  | GEL Smartphone font group
+ * bpb2   | 480  | 599  | Landscape smartphones
+ * bpw    | 600  | -    | All wide displays
+ * bpw1   | 600  | 1007 | Synonym for bp3 for Tablets
+ * bpw2   | 770  | 1007 | Landscape 10" tablets
+ * bpe    | 1008 | -    | Synonym for bp4 for desktop devices
+ *
+ *                            0           320    480   600        770      1008
+ * [unprefixed]               |----------------------------------------------->
+ * bpb1                                   |------------|
+ * bpb2                                          |-----|
+ * bpw                                                 |---------------------->
+ * bpw1                                                |-------------------|
+ * bpw2                                                           |--------|
+ * bpe                                                                     |-->
+ */
+
+$mq-base-font-size: 16px !default;
+
+$mq-breakpoints: (
+    gel1b: 320px,
+    gel2: 400px,
+    gel2b: 480px,
+    gel3: 600px,
+    gel3b: 770px,
+    gel4: 1008px,
+    gel5: 1280px
+) !default;
+
+$mq-aliases: (
+    'bp1': (until: 'gel2'),
+    'bp2': (from: 'gel2', until: 'gel3'),
+    'bp3': (from: 'gel3', until: 'gel4'),
+    'bp4': (from: 'gel4'),
+    'bpb1': (from: 'gel1b', until: 'gel3'),
+    'bpb2': (from: 'gel2b', until: 'gel3'),
+    'bpw': (from: 'gel3'),
+    'bpw1': (from: 'gel3', until: 'gel4'),
+    'bpw2': (from: 'gel3b', until: 'gel4'),
+    'bpe': (from: 'gel4'),
+);
+
+// Breakpoints that should have grid prefixes
+$gel-widths-breakpoints: ('bpb1' 'bpb2' 'bpw' 'bpw1' 'bpw2' 'bpe') !default;
+
+// Comparisons with GEL Typography Guidelines
+// $base: Index page body text
+// $alpha: Article Title
+// $beta: Sub header
+// $gamma: Strong headline title
+// $delta:  Index heading text / Article Body Text
+// $centi: Image captions, index page body text
+// $milli: Timestamp
+// $micro: Smaller header capitals
+//
+// We have deviated from the gel standards slightly - our wide alpha, beta and
+// gamma groups have some line spacing, rather than having the line height be
+// equal to the font-size.
+//
+// Our base body size is set to be the size of index body text. This can be be
+// set to "delta" on pages or objects where a larger base size is desired
+
+// GEL Standards
+//  $name   (($base)     ($alpha)    ($beta)     ($gamma)    ($delta)    ($centi)    ($milli)    ($micro))
+// $gel-typography: (
+//     'basic' ((15px 20px) (20px 24px) (20px 24px) (18px 20px) (15px 20px) (15px 18px) (14px 16px) (12px 16px)),
+//     'bpb1'  ((16px 22px) (24px 28px) (20px 24px) (20px 24px) (16px 22px) (16px 20px) (14px 16px) (12px 16px)),
+//     'bpw'   ((16px 22px) (32px 36px) (24px 28px) (20px 24px) (16px 22px) (14px 18px) (13px 16px) (12px 16px))
+// ) !default;
+
+//  $name   (($base)     ($alpha)    ($beta)     ($gamma)    ($delta)    ($centi)    ($milli)    ($micro))
+$gel-typography: (
+    'basic': ((15px 18px) (20px 24px) (20px 24px) (18px 20px) (15px 20px) (15px 18px) (14px 16px) (12px 16px)),
+    'bpb1': ((14px 18px) (24px 28px) (20px 24px) (20px 24px) (16px 22px) (14px 18px) (14px 16px) (12px 16px)),
+    'bpw': ((14px 18px) (32px 36px) (24px 28px) (20px 24px) (16px 22px) (14px 18px) (13px 16px) (12px 16px))
+);
+
+// Breakpoints that should have specific typography
+$gel-typography-breakpoints: ('bpb1' 'bpw') !default;
+
+// We are not currently implementing GEL's suggestion for a separate sizing
+// hierarchy for tablets as it would require device detection, which goes
+// against the principles of responsive design.
+// An alternative is use the "tablet" sizing as the standard sizing for >= 600px
+// screens due to it larger base font size.
+//
+//  $name (($base)     ($alpha)    ($beta)     ($gamma)    ($delta)    ($centi)    ($milli)    ($micro))
+//  'bpw'   ((18px 24px) (36px 40px) (28px 32px) (24px 28px) (18px 24px) (16px 22px) (14px 16px) (13px 16px))

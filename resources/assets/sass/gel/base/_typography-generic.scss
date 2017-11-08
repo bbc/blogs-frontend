@@ -1,0 +1,162 @@
+/**
+ * Express font sizing in rems with a pixel fallback, when given the desired
+ * pixel value, and a base font size.
+ *
+ * As everything now has full-page zoom we aren't worried about losing the
+ * ability to increase text-size only in browsers that don't support REMs.
+ */
+
+@mixin gel-font-size($font-size, $line-height) {
+    $gel-root-font-size: 16px;
+    // REMs, falling back to px
+    font-size: $font-size;
+    font-size: ($font-size / $gel-root-font-size) * 1rem;
+
+    // Make line-height be a unitless measurement instead of a pixel value
+    line-height: $line-height / $font-size;
+
+    // Fonts over 18px have slight negative letter spacing
+    letter-spacing: if($font-size > 18px, -0.03em, 0);
+}
+
+/**
+ * Look up the vertical rhythm for a given typography block.
+ *
+ * Returns the current base line-height.
+ */
+@function gel-vertical-rhythm($block-name) {
+    @return nth(nth(map-get($gel-typography, $block-name), 1), 2);
+}
+
+/**
+ * Defines a selection of text sizing classes.
+ * These sizings are based on the current GEL Proposal, with the exception of
+ * omitting tablet sizing as having to use device detection is missing the point
+ *
+ * Also we have taken the opinion that the article text size is the one true
+ * base font size, and all other sizing should be nested underneath it. This is
+ * due to the additional complexity incurred when we use font sizing in EMs, as
+ * we would have to add additional declarations to solve the nesting issues.
+ *
+ * Greek lettering is used for heading styles. Currently the GEL only defines
+ * three heading styles.
+ *
+ * The SI prefix scale is used for non-heading font sizing.
+ *
+ * Arguments correspond to the text description in the GEL pdf as follows:
+ * $base:     Article body text
+ * $alpha:    Article title or section header
+ * $beta:     Sub header
+ * $gamma:    Strong headline title
+ * $delta:    Slightly enhanced text (not in GEL guidelines)
+ * $centi:    Index body text and image captions
+ * $milli:    Time stamp
+ * $micro:    Small header capitals
+ */
+@mixin gel-text-sizing($namespace, $base, $alpha, $beta, $gamma, $delta, $centi, $milli, $micro) {
+    $base-font-size: nth($base, 1);
+    $base-line-height: nth($base, 2);
+    $base-line-height-em: $base-line-height / $base-font-size * 1em;
+
+    %hr {
+        // -2px due to border, so the total element height == $base-line-height
+        margin: ((($base-line-height - 2px) / $base-font-size  * 1em) / 2) 0;
+    }
+
+    %margin-bottom-1blh {
+        margin-bottom: $base-line-height-em;
+    }
+
+    %padding-top-1blh {
+        padding-top: $base-line-height-em;
+    }
+
+    // Used on wrappers
+    // This is the outermost wrapper, this inherits it's font sizing from the
+    // body element which sets 1em = 10px
+    .text-base {
+        @include gel-font-size($base...);
+    }
+
+    // Heading styles
+    // Margin-bottom is set so that the heading line-height + margin-bottom =
+    // 2 * the base line-height
+    .alpha {
+        @include gel-font-size($alpha...);
+        // For wide sizes alpha line-height == 2 * base line-height. This would
+        // mean that the margin-bottom would be 0 which is a bit rubbish.
+        // Instead make the margin-bottom == 0.5 * base line-height
+        $size: (($base-line-height * 2) - nth($alpha, 2)) / nth($alpha, 1);
+        @if ($size == 0) {
+            $size: (($base-line-height * 2) - nth($alpha, 2) * 0.75) / nth($alpha, 1);
+        }
+        margin-bottom: $size * 1em;
+    }
+
+    .alpha--keyline {
+        @include gel-font-size($alpha...);
+        margin-bottom: ((($base-line-height * 2) - nth($alpha, 2)) - 1px) / nth($alpha, 1) * 1em;
+        border-bottom: mq-px2em(1px, nth($alpha, 1)) solid;
+    }
+
+    .beta {
+        @include gel-font-size($beta...);
+        margin-bottom: (($base-line-height * 2) - nth($beta, 2)) / nth($beta, 1) * 1em;
+    }
+
+    .beta--keyline {
+        @include gel-font-size($beta...);
+        margin-bottom: ((($base-line-height * 2) - nth($beta, 2)) - 1px) / nth($beta, 1) * 1em;
+        border-bottom: mq-px2em(1px, nth($beta, 1)) solid;
+    }
+
+    .gamma {
+        @include gel-font-size($gamma...);
+        margin-bottom: (($base-line-height * 2) - nth($gamma, 2)) / nth($gamma, 1) * 1em;
+    }
+
+    .gamma--keyline {
+        @include gel-font-size($gamma...);
+        margin-bottom: ((($base-line-height * 2) - nth($gamma, 2)) - 1px) / nth($gamma, 1) * 1em;
+        border-bottom: mq-px2em(1px, nth($gamma, 1)) solid;
+    }
+
+    .delta {
+        @include gel-font-size($delta...);
+        margin-bottom: $base-line-height / nth($delta, 1) * 1em;
+
+    }
+
+    .delta--keyline {
+        @include gel-font-size($delta...);
+        margin-bottom: ((($base-line-height * 2) - nth($delta, 2)) - 1px) / nth($delta, 1) * 1em;
+        border-bottom: mq-px2em(1px, nth($delta, 1)) solid;
+    }
+
+    // Metadata styling
+    .centi {
+        @include gel-font-size($centi...);
+    }
+
+    .milli {
+        @include gel-font-size($milli...);
+    }
+
+    .micro {
+        @include gel-font-size($micro...);
+    }
+}
+
+$basic-typography: map-get($gel-typography, 'basic');
+@include gel-text-sizing('', $basic-typography...);
+
+/**
+ * Generate media-query scoped font sizings for each breakpoint name defined
+ */
+@each $item in $gel-typography-breakpoints {
+    @include mq-range($item) {
+        $item-typography: map-get($gel-typography, $item);
+        @include gel-text-sizing('#{$item}-', $item-typography...);
+    }
+}
+

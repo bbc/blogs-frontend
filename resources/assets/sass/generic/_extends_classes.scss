@@ -1,0 +1,253 @@
+/**
+ * Extends Classes
+ *
+ * Add any extension utilities that need should have a class hook should be
+ * referenced in here.
+ */
+
+/**
+ * Micro clearfix, as per: nicolasgallagher.com/micro-clearfix-hack
+ * Extend the clearfix class with Sass to avoid the `.cf` class appearing over
+ * and over in your markup.
+ */
+.cf {
+    zoom: 1;
+
+    &::before,
+    &::after {
+        content: ' ';
+        display: table;
+    }
+
+    &::after {
+        clear: both;
+    }
+}
+
+.inline {
+    display: inline;
+}
+
+.block {
+    display: block;
+}
+
+.list-unstyled {
+    @extend %list-unstyled;
+}
+
+.list-unlabeled {
+    @extend %list-unlabeled;
+}
+
+.list-unindented {
+    @extend %list-unindented;
+}
+
+.list-spaced > li {
+    // spaced lists are used to give spacing between links close together (touch friendly)
+    margin-bottom: $basic-half-spacing;
+}
+
+.list-lined > li {
+    margin-bottom: $basic-spacing;
+    padding-bottom: $basic-spacing;
+    border-bottom-style: solid;
+    border-bottom-width: 1px;
+}
+
+@include mq-range('bpw') {
+    .list-lined > li {
+        margin-bottom: $wide-spacing;
+        padding-bottom: $wide-spacing;
+    }
+}
+
+.list-lined > li:last-child {
+    border: 0 !important;
+}
+
+.list--piped > li {
+    border-right-style: solid;
+    border-right-width: 1px;
+    margin-right: $basic-spacing;
+    padding-right: $basic-spacing;
+    display: inline;
+}
+
+.list--piped > li:last-child {
+    border: 0;
+    margin-right: 0;
+    padding-right: 0;
+}
+
+.list--comma > li {
+    display: inline;
+
+    &::after {
+        content: ',';
+    }
+}
+
+.list--comma > li:last-child {
+    margin-right: 0;
+
+    &::after {
+        content: '';
+    }
+}
+
+.visually-hidden {
+    @include visually-hidden();
+}
+
+.undo-visually-hidden {
+    @include undo-visually-hidden();
+}
+
+.disguised-button {
+    background: transparent;
+    border: 0;
+    padding: 0;
+    margin: 0;
+}
+
+.text--left {
+    text-align: left;
+}
+
+.text--right {
+    text-align: right;
+}
+
+.text--center {
+    text-align: center;
+}
+
+// prose - for large blocks of text
+.text--prose {
+    p,
+    ul,
+    ol,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        max-width: 752px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+    }
+
+    h1 {
+        color: #ff0000 !important; // this is to discourage usage of <h1> in prose.
+    }
+
+    ul,
+    ol {
+        list-style-position: outside;
+        padding-left: 16px;
+
+        li {
+            margin-bottom: 0.5em;
+        }
+    }
+}
+
+.pull--right {
+    float: right;
+}
+
+.pull--left {
+    float: left;
+}
+
+.pull--right-spaced {
+    float: right;
+    margin-left: $basic-spacing;
+}
+
+.pull--left-spaced {
+    float: left;
+    margin-right: $basic-spacing;
+}
+
+.no-margin {
+    margin: 0;
+}
+
+.no-margin-vertical {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.nowrap {
+    white-space: nowrap;
+}
+
+@include mq-range('bpw') {
+    .text-left\@bpw {
+        text-align: left;
+    }
+
+    .text-right\@bpw {
+        text-align: right;
+    }
+
+    .text-center\@bpw {
+        text-align: center;
+    }
+
+    .pull--right-spaced {
+        margin-left: $wide-spacing;
+    }
+
+    .pull--left-spaced {
+        margin-right: $wide-spacing;
+    }
+
+    .pull-right-spaced\@bpw {
+        float: right;
+        margin-left: $wide-spacing;
+    }
+
+    .pull-left-spaced\@bpw {
+        float: left;
+        margin-right: $wide-spacing;
+    }
+
+    .list-spaced li {
+        margin-bottom: $wide-half-spacing;
+    }
+}
+
+.text--subtle {
+    opacity: 0.8;
+}
+
+.text--faded {
+    opacity: 0.6;
+}
+
+.text--shout {
+    text-transform: uppercase;
+}
+
+.text--no-ul {
+    &:hover,
+    &:active,
+    &:focus {
+        text-decoration: none !important;
+    }
+}
+
+.blogscomments-link {
+    text-transform: uppercase;
+    text-decoration: none !important;
+}
+
+.blogscomments__icon {
+    vertical-align: middle;
+}
