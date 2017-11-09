@@ -1,0 +1,82 @@
+#!/usr/bin/env python
+import sys
+import subprocess
+import json
+from string import Template
+
+aws_logs_config = """
+[general]
+state_file = /var/awslogs/state/agent-state
+
+[blogs-frontend/nginx-access]
+file = /var/log/nginx/access.log
+log_group_name = $environment-blogs-frontend/nginx-access
+log_stream_name = $component_name-{instance_id}
+datetime_format = %d/%b/%Y:%H:%M:%S %z
+batch_count = 10000
+batch_size = 1048576
+buffer_duration = 20000
+
+[blogs-frontend/nginx-error]
+file = /var/log/nginx/error.log
+log_group_name = $environment-blogs-frontend/nginx-error
+log_stream_name = $component_name-{instance_id}
+datetime_format = %d/%b/%Y:%H:%M:%S %z
+
+[blogs-frontend/php-error]
+file = /var/log/php-fpm/error.log
+log_group_name = $environment-blogs-frontend/php-error
+log_stream_name = $component_name-{instance_id}
+datetime_format = %d-%b-%Y %H:%M:%S
+
+[blogs-frontend/app-error]
+file = /var/www/blogs-frontend/var/log/prod.log
+log_group_name = $environment-blogs-frontend/app-error
+log_stream_name = $component_name-{instance_id}
+datetime_format = %Y-%m-%d %H:%M:%S
+
+[blogs-frontend/app-access]
+file = /var/www/blogs-frontend/var/log/prod-access.log
+log_group_name = $environment-blogs-frontend/app-access
+log_stream_name = $component_name-{instance_id}
+datetime_format = %Y-%m-%d %H:%M:%S
+batch_count = 10000
+batch_size = 1048576
+buffer_duration = 30000
+"""
+
+logrotate_config = """
+/var/www/blogs-frontend/var/log/*.log {
+    daily
+    rotate 4
+    compress
+    size 1G
+    dateext
+    create 666 nginx nginx
+}
+"""
+
+
+def logrotate():
+    print "Setting up log rotation"
+    with open('/etc/logrotate.d/frontend', "w") as f:
+        f.write(logrotate_config)
+
+
+def main(component_json_path):
+    aws_logs_config_file = "/var/awslogs/etc/awslogs.conf"
+    config = json.load(open(component_json_path))
+
+    try:
+        with open(aws_logs_config_file, "w") as f:
+            f.write(Template(aws_logs_config).substitute({
+                "component_name": config["name"],
+                "environment": config["environment"],
+            }))
+    except KeyError:
+        raise Exception("key 'environment' or 'name' is missing from config")
+
+    logrotate()
+
+if __name__ == "__main__":
+    main(sys.argv[1])

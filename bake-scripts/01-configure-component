@@ -1,0 +1,97 @@
+#!/usr/bin/env python
+
+import os
+import json
+import re
+import subprocess
+from string import Template
+
+# component properties
+componentConfigFile = "/etc/bake-scripts/config.json"
+
+# application properties
+appRoot = "/var/www/blogs-frontend"
+
+
+def component_config():
+    print "Reading component configurations..."
+
+    if not os.path.isfile(componentConfigFile):
+        raise IOError("MISSING FILE: " + componentConfigFile)
+
+    with open(componentConfigFile, 'r') as f:
+        data = json.load(f)
+        return data
+
+def rewrite_application_parameters(symfony_env, config):
+    nginxConfFile = "/etc/nginx/conf.d/webapps/blogs-frontend.conf"
+
+    new_params = """
+        fastcgi_param APP_ENV {symfony_env};
+        fastcgi_param APP_SECRET {secret};
+        fastcgi_param APP_REDIS_ENDPOINT {redis_endpoint};
+    """.format(
+        symfony_env = symfony_env,
+        secret = config["secure_configuration"]["secret"],
+        redis_endpoint = config["configuration"]["redis_endpoint"],
+    )
+
+    content = open(nginxConfFile).read()
+    content = re.sub(r"fastcgi_param APP_ENV [^;]+;", new_params, content)
+
+    print "Overwriting " + nginxConfFile
+    with open(nginxConfFile, 'wt') as nginx_config_file:
+        nginx_config_file.write(content)
+
+def system_tweaks():
+    with open("/etc/sysctl.d/80-frontend.conf", "w") as f:
+        # This increases the number of waiting connections to a socket.
+        # Used in conjunction with "fpm.listen_backlog": 1023
+        # in php-fpm.conf to allow bigger queues before failing requests
+        f.write("net.core.somaxconn=1024\n")
+        # This increases the number of TCP connections the box can handle
+        f.write("net.ipv4.ip_local_port_range=11000 63000\n")
+
+    # This increases the max open files for the nginx user, used
+    # in conjunction with "nginx.worker_rlimit_nofile": 3000
+    # in nginx.conf to allow bigger queues before failing.
+    with open("/etc/security/limits.d/80-frontend.conf", "w") as f:
+        f.write("nginx soft nofile 3000\n")
+        f.write("nginx hard nofile 6000\n")
+
+
+def regenerate_cache(symfony_env):
+    appTmpDir = appRoot + "/var"
+    appConsoleFile = appRoot + "/bin/console"
+
+    print "Regenerating cache..."
+    # Steal the ownership of the var directory for a moment, so we can write
+    # the new cache files to it
+    subprocess.call(['chown', '-R', 'root:root', appTmpDir])
+
+    # The warmup in cache:clear doesn't quite do what you expect so we should
+    # call cache:warmup explicitly
+    # http://symfony.com/blog/new-in-symfony-3-3-deprecated-cache-clear-with-warmup
+    subprocess.call(['php', appConsoleFile, '--env=' + symfony_env, 'cache:clear', '--no-warmup', '--no-debug'])
+    subprocess.call(['php', appConsoleFile, '--env=' + symfony_env, 'cache:warmup', '--no-debug'])
+
+    # Give the temp directory back to nginx
+    subprocess.call(['chown', '-R', 'nginx:nginx', appTmpDir])
+
+
+def main():
+    print "Setting up configurations..."
+    config = component_config()
+
+    symfony_env = "prod"
+    # TODO uncomment this, to allow for setting the environment to be prod_int
+    # or prod_test
+    # if (config["environment"] != 'live'):
+    #     symfony_env = symfony_env + '_' + config["environment"]
+
+    rewrite_application_parameters(symfony_env, config)
+    regenerate_cache(symfony_env)
+    system_tweaks()
+
+if __name__ == '__main__':
+    main()
