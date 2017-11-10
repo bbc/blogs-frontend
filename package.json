@@ -12,7 +12,10 @@
     "sass-mq": "^3.3.2"
   },
   "scripts": {
+    "gulp": "gulp default",
+    "gulp-ci": "gulp distribution",
     "lint": "node_modules/.bin/sass-lint --no-exit -v",
+    "watch": "gulp watch",
     "postinstall": "gulp"
   }
 }

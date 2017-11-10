@@ -44,3 +44,6 @@ gulp.task('watch',function() {
 });
 
 gulp.task('default', ['sass']);
+
+// TODO use gulp-rev to create versioned files
+gulp.task('distribution', ['default']);

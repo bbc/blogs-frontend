@@ -30,7 +30,7 @@ yarn install
 php --version
 
 # Compile static assets
-# yarn gulp-ci
+yarn gulp-ci
 
 # Run PHPUnit
 vendor/bin/phpunit || RESULT=1
