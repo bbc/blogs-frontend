@@ -1,11 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    blogs.branding_client.class: BBC\BrandingClient\BrandingClient
-    blogs.default_locale: 'en_GB'
-    blogs.feed_env.orbit: 'live'
-    blogs.orbit_client.class: BBC\BrandingClient\OrbitClient
-    cosmos_component_release: 0
+    app.default_locale: 'en_GB'
+    app.orbit_client.class: BBC\BrandingClient\OrbitClient
+    app.branding_client.class: BBC\BrandingClient\BrandingClient
+    app.feed_env.orbit: 'live'
+    app.feed_env.branding: 'live'
+    cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
 
 services:
     # default configuration for services in *this* file
@@ -33,17 +34,19 @@ services:
         tags: ['controller.service_arguments']
 
     BBC\BrandingClient\BrandingClient:
-        class: "%blogs.branding_client.class%"
+        class: "%app.branding_client.class%"
         arguments:
             - '@csa_guzzle.client.default'
             - '@cache.null_provider'
+            - env: '%app.feed_env.branding%'
+              cacheKeyPrefix: 'frontend.%cosmos_component_release%.branding'
 
     BBC\BrandingClient\OrbitClient:
-        class: '%blogs.orbit_client.class%'
+        class: '%app.orbit_client.class%'
         arguments:
             - '@csa_guzzle.client.default'
             - '@cache.null_provider'
-            - env: '%blogs.feed_env.orbit%'
+            - env: '%app.feed_env.orbit%'
               cacheKeyPrefix: 'frontend.%cosmos_component_release%.orbit'
               mustache: { cache: '%kernel.cache_dir%/mustache' }
 
