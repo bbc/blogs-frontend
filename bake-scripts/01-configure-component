@@ -84,10 +84,8 @@ def main():
     config = component_config()
 
     symfony_env = "prod"
-    # TODO uncomment this, to allow for setting the environment to be prod_int
-    # or prod_test
-    # if (config["environment"] != 'live'):
-    #     symfony_env = symfony_env + '_' + config["environment"]
+    if (config["environment"] != 'live'):
+        symfony_env = symfony_env + '_' + config["environment"]
 
     rewrite_application_parameters(symfony_env, config)
     regenerate_cache(symfony_env)

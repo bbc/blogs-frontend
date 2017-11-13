@@ -11,7 +11,7 @@ $handlers = [
     ],
     'nested' => [
         'type' => 'stream',
-        'path' => '%kernel.logs_dir%/%kernel.environment%.log',
+        'path' => '%kernel.logs_dir%/prod.log',
         'level' => 'debug',
     ],
 ];

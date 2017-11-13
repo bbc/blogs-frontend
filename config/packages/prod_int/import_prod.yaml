@@ -1,0 +1,4 @@
+# The prod_int package configuration is the same as prod.
+# This imports all files from the prod folder
+imports:
+    - { resource: '../prod/' }
