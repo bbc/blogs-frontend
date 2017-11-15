@@ -2,6 +2,7 @@ parameters:
     ignoreErrors:
         - '#Calling method getContent\(\) on possibly null value of type Symfony\\Component\\HttpFoundation\\Response|null#'
         - '#Call to an undefined method Tests\\App\\Translate\\TranslatableTraitTest::tr\(\).#'
+        - '#RedisCluster#' #PHPStan does not play well with RedisCluster it seems
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
