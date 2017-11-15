@@ -1,5 +1,4 @@
 <?php
-declare(strict_types = 1);
 
 namespace App\Redis;
 
@@ -17,16 +16,16 @@ class RedisClusterFactory
      * this way if the Redis cluster is down it won't be used an the application won't fail as far as
      * the database can deal with the traffic.
      *
-     * @param array $redisEndpoint
+     * @param string[] $redisEndpoints
      * @param LoggerInterface $logger
      * @return AdapterInterface
      */
-    public static function createRedisCluster(array $redisEndpoint, LoggerInterface $logger): AdapterInterface
+    public static function createRedisCluster(array $redisEndpoints, LoggerInterface $logger): AdapterInterface
     {
         try {
             // Create a cluster and specify timeout (float), 200ms should be enough,
             // more time mean something is wrong and we should stop waiting for redis
-            $redisClusterInstance = new RedisCluster(null, $redisEndpoint, 0.2);
+            $redisClusterInstance = new RedisCluster(null, $redisEndpoints, 0.2);
             // always distribute readonly commands between masters and slaves, at random
             $redisClusterInstance->setOption(
                 RedisCluster::OPT_SLAVE_FAILOVER,
