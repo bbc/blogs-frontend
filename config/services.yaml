@@ -37,21 +37,27 @@ services:
         class: "%app.branding_client.class%"
         arguments:
             - '@csa_guzzle.client.default'
-            - '@cache.null_provider'
+            - '@cache.blogs'
             - env: '%app.feed_env.branding%'
-              cacheKeyPrefix: 'frontend.%cosmos_component_release%.branding'
+              cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.branding'
 
     BBC\BrandingClient\OrbitClient:
         class: '%app.orbit_client.class%'
         arguments:
             - '@csa_guzzle.client.default'
-            - '@cache.null_provider'
+            - '@cache.blogs'
             - env: '%app.feed_env.orbit%'
-              cacheKeyPrefix: 'frontend.%cosmos_component_release%.orbit'
+              cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.orbit'
               mustache: { cache: '%kernel.cache_dir%/mustache' }
 
-    cache.null_provider:
-        class: Symfony\Component\Cache\Adapter\NullAdapter
+    cache.default_redis_provider:
+            factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
+            class: App\Redis\RedisClusterFactory
+            arguments:
+                - ['%env(APP_REDIS_ENDPOINT)%']
+                - '@logger'
+            tags:
+                - { name: 'monolog.logger', channel: 'cache' }
 
     ### Translations
 

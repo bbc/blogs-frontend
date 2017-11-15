@@ -1,3 +1,7 @@
 parameters:
     blogs.branding_client.class: BBC\BrandingClient\BrandingStubClient
     blogs.orbit_client.class: BBC\BrandingClient\OrbitStubClient
+
+services:
+    cache.null_provider:
+        class: Symfony\Component\Cache\Adapter\NullAdapter
