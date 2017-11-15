@@ -1,4 +1,6 @@
 <?php
+//Can't use strict types due to bug https://github.com/phpredis/phpredis/issues/1193
+//Fix on master, but no release with it yet: https://github.com/phpredis/phpredis/pull/1244
 
 namespace App\Redis;
 
