@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\Redis;
 
@@ -11,7 +12,6 @@ use Symfony\Component\Cache\Adapter\RedisAdapter;
 
 class RedisClusterFactory
 {
-
     /**
      * Instance a Redis Cluster, if the connection fails, it will return a NullAdapter instead and log the error,
      * this way if the Redis cluster is down it won't be used an the application won't fail as far as
@@ -35,7 +35,7 @@ class RedisClusterFactory
             $cacheAdapter = new RedisAdapter($redisClusterInstance);
         } catch (RedisClusterException $e) {
             // if redis cluster fail, log the error and use a null adapter as a cache provider
-            $logger->error("Redis Cluster Error: " . $e->getMessage() . '. Using NullAdapter as a fallback cache adapter');
+            $logger->error('Redis Cluster Error: ' . $e->getMessage() . '. Using NullAdapter as a fallback cache adapter');
             $cacheAdapter = new NullAdapter();
         }
         return $cacheAdapter;
