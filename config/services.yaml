@@ -65,12 +65,6 @@ services:
               cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.orbit'
               mustache: { cache: '%kernel.cache_dir%/mustache' }
 
-    app.blog_repository:
-        class: App\BlogsService\Repository\BlogRepository
-        arguments:
-            - '%app.api_endpoint%'
-            - '@csa_guzzle.client.default'
-
     cache.default_redis_provider:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
             class: App\Redis\RedisClusterFactory
