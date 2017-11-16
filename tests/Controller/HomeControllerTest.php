@@ -94,7 +94,7 @@ class HomeControllerTest extends BaseWebTestCase
         $this->getCrawlerForPage($client, []);
 
         $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client, 'no-cache, private'); //TODO check this is correct
+        $this->assertHasRequiredResponseHeaders($client);
     }
 
     public function testNoNonArchivedBlogs()

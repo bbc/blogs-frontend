@@ -28,7 +28,7 @@ class BlogService
         $this->cache = $cache;
     }
 
-    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::SHORT): IsiteResult
+    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
     {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl);
 

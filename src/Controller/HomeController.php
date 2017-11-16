@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\IsiteEntity;
 use App\BlogsService\Service\BlogService;
-use Exception;
 
 class HomeController extends BaseController
 {
