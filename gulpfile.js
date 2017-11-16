@@ -43,13 +43,13 @@ gulp.task('sass', ['sass:clean'], function() {
 // ------
 
 gulp.task('rev', ['sass'], function() {
-    return gulp.src([staticPathDist + '/**/*', '!' + staticPathDist + '/**/rev-manifest.json'])
+    return gulp.src([staticPathDist + '/**/*'])
         .pipe(rev())
         .pipe(override())
         .pipe(gulp.dest(staticPathDist))
         .pipe(revdelOriginal()) // delete no-revised file
-        .pipe(rev.manifest('rev-manifest.json'))
-        .pipe(gulp.dest(staticPathDist));
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('var'));
 });
 
 /*
