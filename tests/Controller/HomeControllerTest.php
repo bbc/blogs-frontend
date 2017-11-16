@@ -133,8 +133,8 @@ class HomeControllerTest extends BaseWebTestCase
     private function assertLists(Crawler $crawler, array $expectedList)
     {
         $expectedListCount = count($expectedList);
-        $h2s = $crawler->filter('.island h2');
-        $lists = $crawler->filter('.island h2+ul');
+        $h2s = $crawler->filter('h2');
+        $lists = $crawler->filter('h2+ul');
         $this->assertCount($expectedListCount, $h2s);
         $this->assertCount($expectedListCount, $lists);
         $index = 0;

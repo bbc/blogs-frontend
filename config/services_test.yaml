@@ -1,6 +1,6 @@
 parameters:
-    blogs.branding_client.class: BBC\BrandingClient\BrandingStubClient
-    blogs.orbit_client.class: BBC\BrandingClient\OrbitStubClient
+    app.branding_client.class: BBC\BrandingClient\BrandingStubClient
+    app.orbit_client.class: BBC\BrandingClient\OrbitStubClient
 
 services:
     App\BlogsService\Service\BlogService:

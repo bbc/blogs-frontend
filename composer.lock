@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "d6f8d9aef8dcb60d105f73828c7ed1aa",
+    "content-hash": "ef10e326ab486b278b59b0c3e17a7c22",
     "packages": [
         {
             "name": "bbc-rmp/translate",
@@ -3427,12 +3427,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan.git",
-                "reference": "999d2c5304fcced7844d34f2b3102e8a296744fe"
+                "reference": "6cac2bfb0f08404640752b2a9e2fc005f4846f9a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/999d2c5304fcced7844d34f2b3102e8a296744fe",
-                "reference": "999d2c5304fcced7844d34f2b3102e8a296744fe",
+                "url": "https://api.github.com/repos/phpstan/phpstan/zipball/6cac2bfb0f08404640752b2a9e2fc005f4846f9a",
+                "reference": "6cac2bfb0f08404640752b2a9e2fc005f4846f9a",
                 "shasum": ""
             },
             "require": {
@@ -3478,7 +3478,7 @@
                 "MIT"
             ],
             "description": "PHPStan - PHP Static Analysis Tool",
-            "time": "2017-11-14T23:13:05+00:00"
+            "time": "2017-11-16T06:29:12+00:00"
         },
         {
             "name": "phpstan/phpstan-phpunit",
@@ -3486,12 +3486,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "87f1be64dc5b89144006c70b12b400acd548b884"
+                "reference": "5629c0a1f4a9c417cb1077cf6693ad9753895761"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/87f1be64dc5b89144006c70b12b400acd548b884",
-                "reference": "87f1be64dc5b89144006c70b12b400acd548b884",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/5629c0a1f4a9c417cb1077cf6693ad9753895761",
+                "reference": "5629c0a1f4a9c417cb1077cf6693ad9753895761",
                 "shasum": ""
             },
             "require": {
@@ -3523,7 +3523,7 @@
                 "MIT"
             ],
             "description": "PHPUnit extensions and rules for PHPStan",
-            "time": "2017-11-11T17:32:39+00:00"
+            "time": "2017-11-16T06:26:56+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
@@ -4586,6 +4586,59 @@
             "time": "2017-11-07T14:45:01+00:00"
         },
         {
+            "name": "symfony/css-selector",
+            "version": "v4.0.0-BETA4",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/symfony/css-selector.git",
+                "reference": "4d007264ba31da78685a92f49aa13b62cbbd89b4"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/symfony/css-selector/zipball/4d007264ba31da78685a92f49aa13b62cbbd89b4",
+                "reference": "4d007264ba31da78685a92f49aa13b62cbbd89b4",
+                "shasum": ""
+            },
+            "require": {
+                "php": "^7.1.3"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "4.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Symfony\\Component\\CssSelector\\": ""
+                },
+                "exclude-from-classmap": [
+                    "/Tests/"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jean-François Simon",
+                    "email": "jeanfrancois.simon@sensiolabs.com"
+                },
+                {
+                    "name": "Fabien Potencier",
+                    "email": "fabien@symfony.com"
+                },
+                {
+                    "name": "Symfony Community",
+                    "homepage": "https://symfony.com/contributors"
+                }
+            ],
+            "description": "Symfony CssSelector Component",
+            "homepage": "https://symfony.com",
+            "time": "2017-11-07T14:45:01+00:00"
+        },
+        {
             "name": "symfony/debug-bundle",
             "version": "v4.0.0-BETA4",
             "source": {
@@ -5296,6 +5349,7 @@
         "phpstan/phpstan": 20,
         "phpstan/phpstan-phpunit": 20,
         "symfony/browser-kit": 10,
+        "symfony/css-selector": 10,
         "symfony/debug-bundle": 10,
         "symfony/phpunit-bridge": 10,
         "symfony/var-dumper": 10,
@@ -5304,7 +5358,8 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0.8"
+        "php": "^7.0.8",
+        "ext-redis": "*"
     },
     "platform-dev": []
 }
