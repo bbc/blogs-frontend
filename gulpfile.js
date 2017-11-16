@@ -48,8 +48,8 @@ gulp.task('rev', ['sass'], function() {
         .pipe(override())
         .pipe(gulp.dest(staticPathDist))
         .pipe(revdelOriginal()) // delete no-revised file
-        .pipe(rev.manifest('../../var/rev-manifest.json'))
-        .pipe(gulp.dest(staticPathDist));
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('var'));
 });
 
 /*
