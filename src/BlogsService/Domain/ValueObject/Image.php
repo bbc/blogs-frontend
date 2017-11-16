@@ -29,12 +29,12 @@ class Image
             $dimensions = $width . 'x' . $height;
         }
 
-        $this->id = $this->checkExtension($this->id);
+        $this->id = $this->appendExtension($this->id);
 
         return $host . '/images/ic/' . $dimensions . '/' . $this->id;
     }
 
-    public function checkExtension(string $string): string
+    public function appendExtension(string $string): string
     {
         if (preg_match("/(\.jpg|\.jpeg|\.gif|\.png)$/", $string) == 0) {
             return $string . '.jpg';

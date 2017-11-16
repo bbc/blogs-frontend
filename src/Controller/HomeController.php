@@ -15,10 +15,6 @@ class HomeController extends BaseController
         $blogResult = $blogService->getAllBlogs();
         $blogs = $blogResult->getDomainModels();
 
-        if (count($blogs) == 0) {
-            throw new Exception("Blogs is null. Maybe isite is down.");
-        }
-
         $blogsByLetter = $this->getBlogsByLetter($blogs);
 
         return $this->renderWithChrome('home/show.html.twig', [

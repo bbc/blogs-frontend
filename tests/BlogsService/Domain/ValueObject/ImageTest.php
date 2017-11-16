@@ -1,12 +1,12 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\BlogsService\Domain\ValueObject\Image;
+namespace Tests\App\BlogsService\Domain\ValueObject;
 
 use App\BlogsService\Domain\ValueObject\Image;
 use PHPUnit\Framework\TestCase;
 
-class ImageConstructorTest extends TestCase
+class ImageTest extends TestCase
 {
     public function testConstructorSetsMembers()
     {

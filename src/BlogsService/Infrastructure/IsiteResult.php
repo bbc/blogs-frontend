@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Domain\IsiteEntity;
@@ -52,11 +53,4 @@ class IsiteResult
         $totalFetchedItems  = $this->page * $this->pageSize;
         return ($totalFetchedItems < $this->total);
     }
-
-//    public function addPageOfResults(QueryResultInterface $pageResult)
-//    {
-//        $this->items    = array_merge($this->items, $pageResult->getItems());
-//        $this->page     = $pageResult->getPage();
-//        $this->pageSize = $pageResult->getPageSize();
-//    }
 }

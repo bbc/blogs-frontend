@@ -11,51 +11,42 @@ use App\BlogsService\Infrastructure\XmlParser;
 use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
+use PHPUnit_Framework_MockObject_MockObject;
 use SimpleXMLElement;
 
 class IsiteFeedResponseHandlerTest extends TestCase
 {
-    /** TODO test parses search type response correctly */
+    /** @var  Mapper | PHPUnit_Framework_MockObject_MockObject*/
+    private $mockMapper;
+
+    /** @var  XmlParser | PHPUnit_Framework_MockObject_MockObject */
+    private $mockParser;
+
+    /** @var  IsiteFeedResponseHandler */
+    private $handler;
+
     public function testResultQuery()
     {
-        $xml = file_get_contents(__DIR__ . '/resultresponse.xml');
-        $xmlElementObject = new SimpleXMLElement($xml);
+        $response = $this->setUpQueryResponse('/resultresponse.xml');
 
-        $mockMapper = $this->createMock(Mapper::class);
-        $mockParser = $this->createMock(XmlParser::class);
-        $mockParser->method('parse')->willReturn($xmlElementObject);
-
-        $handler = new IsiteFeedResponseHandler($mockMapper, $mockParser);
-
-        $response = new Response(200, [], $xml);
-
-        $mockMapper
+        $this->mockMapper
             ->expects($this->atLeastOnce())
             ->method('getDomainModel');
 
-        $result = $handler->getIsiteResult($response);
+        $result = $this->handler->getIsiteResult($response);
 
         $this->assertInstanceOf(IsiteResult::class, $result);
     }
 
     public function testSearchQuery()
     {
-        $xml = file_get_contents(__DIR__ . '/searchresponse.xml');
-        $xmlElementObject = new SimpleXMLElement($xml);
+        $response = $this->setUpQueryResponse('/searchresponse.xml');
 
-        $mockMapper = $this->createMock(Mapper::class);
-        $mockParser = $this->createMock(XmlParser::class);
-        $mockParser->method('parse')->willReturn($xmlElementObject);
-
-        $handler = new IsiteFeedResponseHandler($mockMapper, $mockParser);
-
-        $response = new Response(200, [], $xml);
-
-        $mockMapper
+        $this->mockMapper
             ->expects($this->atLeastOnce())
             ->method('getDomainModel');
 
-        $result = $handler->getIsiteResult($response);
+        $result = $this->handler->getIsiteResult($response);
 
         $this->assertInstanceOf(IsiteResult::class, $result);
         $this->assertEquals(1, $result->getPage());
@@ -65,29 +56,42 @@ class IsiteFeedResponseHandlerTest extends TestCase
 
     public function testExceptionOnInvalidXMl()
     {
-        $mockMapper = $this->createMock(Mapper::class);
-        $mockParser = $this->createMock(XmlParser::class);
-        $mockParser->method('parse')->willThrowException(new ParseException());
-
-        $handler = new IsiteFeedResponseHandler($mockMapper, $mockParser);
+        $this->mockParser->method('parse')->willThrowException(new ParseException());
+        $this->handler = new IsiteFeedResponseHandler($this->mockMapper, $this->mockParser);
 
         $response = new Response(200, [], 'HERE IS A RANDOM RESPONSE BODY - NOT VALID XML <');
 
         $this->expectException(IsiteResultException::class);
         $this->expectExceptionMessage('Invalid Isite response body.');
 
-        $result = $handler->getIsiteResult($response);
+        $this->handler->getIsiteResult($response);
     }
 
     public function testReturnsEmptyIsiteResultOnNullResponse()
     {
-        $mockMapper = $this->createMock(Mapper::class);
-        $mockParser = $this->createMock(XmlParser::class);
-        $handler = new IsiteFeedResponseHandler($mockMapper, $mockParser);
+        $this->handler = new IsiteFeedResponseHandler($this->mockMapper, $this->mockParser);
 
-        $result = $handler->getIsiteResult(null);
+        $result = $this->handler->getIsiteResult(null);
 
         $this->assertInstanceOf(IsiteResult::class, $result);
         $this->assertEquals([], $result->getDomainModels());
+    }
+
+    public function setUp()
+    {
+        $this->mockMapper = $this->createMock(Mapper::class);
+        $this->mockParser = $this->createMock(XmlParser::class);
+    }
+
+    private function setUpQueryResponse(string $file): Response
+    {
+        $xml = file_get_contents(__DIR__ . $file);
+        $xmlElementObject = new SimpleXMLElement($xml);
+
+        $this->mockParser->method('parse')->willReturn($xmlElementObject);
+
+        $this->handler = new IsiteFeedResponseHandler($this->mockMapper, $this->mockParser);
+
+        return new Response(200, [], $xml);
     }
 }

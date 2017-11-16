@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
-namespace Tests\App\BlogsService\Domain\ValueObject\GUID;
+namespace Tests\App\BlogsService\Domain\ValueObject;
 
 use App\BlogsService\Domain\ValueObject\GUID;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
-class GUIDConstructorTest extends TestCase
+class GUIDTest extends TestCase
 {
     public function testInvalidArgumentException()
     {

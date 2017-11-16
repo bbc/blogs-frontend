@@ -10,14 +10,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:bbc/rmp-translate.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:bbc/guzzle-factory.git"
         }
     ],
     "require": {
-        "php": "^7.0.8",
+        "php": "^7.1.0",
         "ext-redis": "*",
         "bbc-rmp/translate": "^1.8.7",
         "bbc/branding-client": "^2.3",

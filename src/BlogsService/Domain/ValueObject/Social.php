@@ -18,9 +18,9 @@ class Social
         string $facebookUrl,
         string $googlePlusUrl
     ) {
-        $this->twitterUsername  = $twitterUsername;
-        $this->facebookUrl      = $facebookUrl;
-        $this->googlePlusUrl    = $googlePlusUrl;
+        $this->twitterUsername = $twitterUsername;
+        $this->facebookUrl = $facebookUrl;
+        $this->googlePlusUrl = $googlePlusUrl;
     }
 
     public function getTwitterUsername(): string

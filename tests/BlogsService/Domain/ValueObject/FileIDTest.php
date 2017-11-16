@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
-namespace Tests\App\BlogsService\Domain\ValueObject\FileID;
+namespace Tests\App\BlogsService\Domain\ValueObject;
 
 use App\BlogsService\Domain\ValueObject\FileID;
 use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
 
-class FileIDConstructorTest extends TestCase
+class FileIDTest extends TestCase
 {
     public function testInvalidArgumentException()
     {

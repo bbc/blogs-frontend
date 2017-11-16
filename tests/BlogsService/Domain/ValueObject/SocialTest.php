@@ -1,11 +1,11 @@
 <?php
 declare(strict_types = 1);
-namespace Tests\App\BlogsService\Domain\ValueObject\Social;
+namespace Tests\App\BlogsService\Domain\ValueObject;
 
 use App\BlogsService\Domain\ValueObject\Social;
 use PHPUnit\Framework\TestCase;
 
-class SocialConstructorTest extends TestCase
+class SocialTest extends TestCase
 {
     public function testConstructorSetsMembers()
     {
