@@ -13,15 +13,7 @@ class FileIDConstructorTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The FileID supplied is invalid!');
 
-        $testObj = new FileID('**INVALIDVALUE%');
-    }
-
-    public function testConstructorSetsMembers()
-    {
-        $fileId = 'blogs-author-1424161719';
-        $testObj = new FileID($fileId);
-
-        $this->assertEquals($fileId, $testObj->getFileId());
+        new FileID('**INVALIDVALUE%');
     }
 
     public function testToString()

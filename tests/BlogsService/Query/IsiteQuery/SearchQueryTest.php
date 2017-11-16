@@ -34,6 +34,10 @@ class SearchQueryTest extends TestCase
         //check the fields in the stdClass have been set correctly
         $this->assertEquals('blogs', $queryResult->searchChildrenOfProject);
         $this->assertEquals('blogsmetadata', $queryResult->fileType);
+        $this->assertArrayHasKey('or', $queryResult->query);
+        $this->assertArrayHasKey(0, $queryResult->query['or']);
+        $this->assertArrayHasKey(0, $queryResult->query['or'][0]);
+        $this->assertArrayHasKey(1, $queryResult->query['or'][0]);
         $this->assertEquals('blog-name', $queryResult->query['or'][0][0]);
         $this->assertEquals('contains', $queryResult->query['or'][0][1]);
         $this->assertEquals('*', $queryResult->query['or'][0][2]);

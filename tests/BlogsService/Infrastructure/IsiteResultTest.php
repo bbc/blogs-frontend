@@ -42,6 +42,7 @@ class IsiteResultTest extends TestCase
         $result = new IsiteResult(1, 1, 1, $mockDomainModels);
 
         $this->assertInternalType('array', $result->getDomainModels());
+        $this->assertContainsOnlyInstancesOf(Blog::class, $result->getDomainModels());
         $this->assertCount(3, $result->getDomainModels());
     }
 

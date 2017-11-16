@@ -18,14 +18,9 @@ class FileID
         $this->fileId = $fileId;
     }
 
-    public function getFileId(): string
-    {
-        return $this->fileId;
-    }
-
     public function __toString(): string
     {
-        return $this->getFileId();
+        return $this->fileId;
     }
 
     private function isValidFileId(string $fileId): bool

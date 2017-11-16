@@ -4,7 +4,7 @@ namespace App\BlogsService\Domain\ValueObject;
 
 class Comments
 {
-    public function __construct($id)
+    public function __construct(string $id)
     {
     }
 }

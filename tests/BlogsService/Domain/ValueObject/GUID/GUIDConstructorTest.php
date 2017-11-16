@@ -13,15 +13,7 @@ class GUIDConstructorTest extends TestCase
         $this->expectException(InvalidArgumentException::class);
         $this->expectExceptionMessage('The GUID supplied (**INVALIDVALUE%) is invalid');
 
-        $testObj = new GUID('**INVALIDVALUE%');
-    }
-
-    public function testConstructorSetsMembers()
-    {
-        $guid = "63a91e43-f154-4c89-9ccd-9cf10a332f90";
-        $testObj = new GUID($guid);
-
-        $this->assertEquals($guid, $testObj->getGuid());
+        new GUID('**INVALIDVALUE%');
     }
 
     public function testToString()

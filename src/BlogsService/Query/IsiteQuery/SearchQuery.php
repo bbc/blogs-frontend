@@ -2,8 +2,8 @@
 
 namespace App\BlogsService\Query\IsiteQuery;
 
-use stdClass;
 use InvalidArgumentException;
+use stdClass;
 
 class SearchQuery
 {

@@ -18,14 +18,9 @@ class GUID
         $this->guid = $guid;
     }
 
-    public function getGuid(): string
-    {
-        return $this->guid;
-    }
-
     public function __toString(): string
     {
-        return $this->getGuid();
+        return $this->guid;
     }
 
     private function isValidGUID(string $guid): bool

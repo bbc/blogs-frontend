@@ -7,7 +7,6 @@ parameters:
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
-    cache_provider: cache.null_provider
     cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
 
 services:
@@ -80,9 +79,6 @@ services:
                 - '@logger'
             tags:
                 - { name: 'monolog.logger', channel: 'cache' }
-
-    cache.null_provider:
-        class: Symfony\Component\Cache\Adapter\NullAdapter
 
     ### Translations
 

@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Infrastructure\Exception\ParseException;
-use SimpleXMLElement;
 use LibXMLError;
+use SimpleXMLElement;
 
 class XmlParser
 {
