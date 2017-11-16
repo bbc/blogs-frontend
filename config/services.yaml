@@ -1,11 +1,12 @@
 # Put parameters here that don't need to change on each machine where the app is deployed
 # https://symfony.com/doc/current/best_practices/configuration.html#application-related-configuration
 parameters:
-    app.default_locale: 'en_GB'
-    app.orbit_client.class: BBC\BrandingClient\OrbitClient
+    app.api_endpoint: 'https://api.test.bbc.co.uk/isite2-content-reader'
     app.branding_client.class: BBC\BrandingClient\BrandingClient
+    app.default_locale: 'en_GB'
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
+    app.orbit_client.class: BBC\BrandingClient\OrbitClient
     cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
 
 services:
@@ -32,6 +33,20 @@ services:
     App\Controller\:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
+
+    App\BlogsService\Infrastructure\Cache\Cache:
+        arguments: ['@cache.blogs', 'app.%cosmos_component_release%']
+
+    App\BlogsService\Infrastructure\Cache\CacheInterface:
+        alias: App\BlogsService\Infrastructure\Cache\Cache
+
+    App\BlogsService\Service\BlogService:
+        factory: ['@App\BlogsService\Service\ServiceFactory', 'getBlogService']
+
+    App\BlogsService\Service\ServiceFactory:
+        arguments:
+            - '%app.api_endpoint%'
+            - '@csa_guzzle.client.default'
 
     BBC\BrandingClient\BrandingClient:
         class: "%app.branding_client.class%"

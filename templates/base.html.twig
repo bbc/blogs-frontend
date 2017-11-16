@@ -2,7 +2,7 @@
 <html class="{{ branding.getOrbitThemeClasses()|raw }}" lang="{{ tr('language_code') }}">
 <head>
     <meta charset="UTF-8">
-    <title>{% block title %}{% endblock %}</title>
+    <title>{% block title %}BBC {{ tr('page_title_blogs') }}{% endblock %}</title>
     <link rel="icon" href="https://www.bbc.co.uk/favicon.ico" type="image/x-icon">
     <meta name="theme-color" content="{{ branding.getColours().highlight.bg|default('#2B2B2B') }}">
 
@@ -33,7 +33,7 @@
 {{ orb.getBodyfirst()|raw }}
 {{ branding.getBodyFirst()|raw }}
 
-<div class="{% block page_classes %}text-base b-g-p{% endblock %}" role="main">
+<div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" role="main">
     {% block body %}{% endblock %}
 </div>
 {% block javascripts %}{% endblock %}

@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-04-07T13:08:47.345786Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:12.837445Z</creationDateTime><type>blogsmetadata</type><fileId>blogs-meta-data</fileId><guid>b6dda002-8e93-3400-bf29-43431b5bafe0</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogsmetadata">
+  <metadata>
+    <blog-name>About the BBC</blog-name>
+    <blogs-branding-id/>
+    <short-synopsis>Shining a light on the wealth of BBC activities across the organisation.</short-synopsis>
+    <description>This blog explains what the BBC does and how it works. We link to some other blogs and online spaces inside and outside the corporation. The blog is edited by Jon Jacob. </description>
+    <blog-image>p017j1r1</blog-image>
+    <show-image-in-description>false</show-image-in-description>
+    <language>en-GB</language>
+    <istats-countername>corporate.aboutthebbc</istats-countername>
+  <twitter-username>@aboutthebbc</twitter-username><google-plus-url/><facebook-url/><twitter-url>http://twitter.com/aboutthebbc</twitter-url><site-id-comments>blog389</site-id-comments><enable-comments>true</enable-comments><bbc-site>aboutthebbc</bbc-site></metadata>
+<section-9><featured><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:31:30.695919Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:30.695919Z</creationDateTime><type>blogs-post</type><fileId>blogs-post-1421943419</fileId><guid>cf2fb80d-dda3-4e26-9741-ba7a3e753bff</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-post">
+                    <metadata>
+                        <published-date>2015-01-22T15:58:25.953Z</published-date>
+                        <title>Reviews of Wolf Hall</title>
+                        <short-synopsis>A round up of what's being said about the first episode of the period drama based on Hilary Mantel's books.</short-synopsis>
+                        <author>urn:isite:blogs-aboutthebbc:blogs-author-141872709443006</author>
+                        <post-image>p02gg285</post-image>
+                        <file_id>1421943419</file_id>
+                    </metadata>
+                    <content><repeater>
+                    <blog-post-content>urn:isite:blogs-aboutthebbc:blogs-content-1421943248</blog-post-content>
+                </repeater><repeater>
+                            <blog-post-content>urn:isite:blogs-aboutthebbc:blogs-content-1421942788</blog-post-content>
+                        </repeater><repeater>
+                    <blog-post-content>urn:isite:blogs-aboutthebbc:blogs-content-1421946320</blog-post-content>
+                </repeater><repeater>
+                    <blog-post-content>urn:isite:blogs-aboutthebbc:blogs-content-1421946637</blog-post-content>
+                </repeater>
+
+                    </content>
+                    <Tags><tag-content>
+                    <tag>urn:isite:blogs-aboutthebbc:blogs-tag-round-up</tag>
+                </tag-content><tag-content>
+                    <tag>urn:isite:blogs-aboutthebbc:blogs-tag-drama</tag>
+                </tag-content></Tags>
+                </form></document></result></featured></section-9><sidebar-modules><grid-12>
+                    <module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:30:01.670109Z</modifiedDateTime><creationDateTime>2015-03-09T14:30:01.670109Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417446883</fileId><guid>462b8084-ebde-48d1-b52d-746d7ba7590c</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-sidebar-freetext">
+                    <metadata>
+                        <file_id>1417446883</file_id>
+                    </metadata>
+                    <freetext>
+                        <moduletitle>External links about the BBC</moduletitle>
+                        <image/>
+                        <body>&lt;p&gt;&lt;a href="http://www.dailymail.co.uk/news/article-2922663/Record-numbers-watched-TV-iPlayer-year-2-6-billion-hits-BBC-s-online-service-tablets-fuel-catch-boom.html"&gt;Record numbers watched TV on iPlayer last year: 2.6 billion hits for BBC's online service as tablets fuel catch up boom&lt;/a&gt; (Daily Mail)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://metro.co.uk/2015/01/23/radio-1s-big-weekend-2015-taylor-swift-to-perform-first-ever-festival-in-norwich-5033355/"&gt;Radio 1&amp;rsquo;s Big Weekend 2015: Taylor Swift to perform first ever festival in&amp;hellip; NORWICH!&lt;/a&gt; (Metro)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.newstatesman.com/politics/2015/01/greens-will-be-tv-debates-bbc-and-itv-propose-new-line-ups"&gt;The Greens will be in the TV debates, as BBC and ITV propose new line-ups&lt;/a&gt; (New Statesman)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.independent.co.uk/arts-entertainment/tv/news/wolf-hall-named-biggest-new-bbc2-drama-in-a-decade-as-mark-rylance-pulls-in-viewers-9995210.html"&gt;Wolf Hall named biggest new BBC2 drama in a decade as Mark Rylance pulls in viewers&lt;/a&gt; (Independent)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.wired.co.uk/news/archive/2015-01/20/bbc-three-not-for-sale"&gt;BBC Three 'not for sale', despite &amp;pound;100m offer&lt;/a&gt; (Wired)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://advanced-television.com/2015/01/21/bbc-revamps-news-app/"&gt;BBC revamps news app&lt;/a&gt; (Advanced Television)&lt;/p&gt;
+&lt;p&gt;&lt;em&gt;Last updated Friday 23rd January&amp;nbsp;&lt;/em&gt;&lt;/p&gt;</body>
+                    </freetext>
+                </form></document></result></module>
+                </grid-12><grid-12>
+                    <module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:31:20.981983Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:20.981983Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417438429</fileId><guid>bf915a7b-368f-4744-9083-9028d64feef4</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-sidebar-freetext">
+                    <metadata>
+                        <file_id>1417438429</file_id>
+                    </metadata>
+                    <freetext>
+                        <moduletitle>Blogs from across the BBC</moduletitle>
+                        <image/>
+                        <body>&lt;p&gt;Selected by the About the BBC Blog team.&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/eastenders/entries/8b1bfe19-01d0-499d-b114-2d7db8406f47"&gt;Barbara Windsor and Pam St. Clement join EastEnders: Back to Ours&lt;/a&gt; (Eastenders)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/tv/entries/da480a06-1f79-4bfa-ab84-361fb45e43c8"&gt;You can&amp;rsquo;t run or hide: Jessica Hynes on her suffragette comedy&lt;/a&gt;&amp;nbsp;(TV)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/internet/entries/b3237238-a03b-4d7e-967a-80659ab34ebc"&gt;New BBC News app starts to roll out in the UK&lt;/a&gt; (Internet)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/introducing/entries/b0e5a61a-a247-4c65-8a95-8ca6c2d8416c"&gt;BBC Introducing &amp;amp; PRS for Music Foundation head to Austin&lt;/a&gt; (BBC Introducing)&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/collegeofjournalism/entries/a2b334f8-4eb3-42d8-b0d0-3ab3e3b79dcf"&gt;Bilingual and mad about news? World Service has work experience &amp;lsquo;extra&amp;rsquo;&lt;/a&gt; (Academy)&lt;/p&gt;</body>
+                    </freetext>
+                </form></document></result></module>
+                </grid-12><grid-12>
+                    <module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:31:20.981983Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:20.981983Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417441048</fileId><guid>bcd97001-f0cb-43ca-beac-e5a2366d01f6</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-sidebar-freetext">
+                    <metadata>
+                        <file_id>1417441048</file_id>
+                    </metadata>
+                    <freetext>
+                        <moduletitle>Other BBC Blogs</moduletitle>
+                        <image/>
+                        <body>&lt;p&gt;&lt;a href="http://www.bbc.co.uk/news/blogs/the_editors/"&gt;The Editors&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/internet"&gt;BBC Internet Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/rogermosey/"&gt;BBC Sport - Roger Mosey's blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/radio/"&gt;Radio Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/radio3"&gt;Radio 3 Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/radio4"&gt;Radio 4 Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/5live/"&gt;Radio 5 Live Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/tv"&gt;TV Blog&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/writersroom/"&gt;Writersroom&lt;/a&gt;&lt;/p&gt;</body>
+                    </freetext>
+                </form></document></result></module>
+                </grid-12><grid-12>
+                    <module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:31:35.375212Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:35.375212Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417440735</fileId><guid>d7854f9c-d8f0-4d4d-9809-fd72e134ded9</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-sidebar-freetext">
+                    <metadata>
+                        <file_id>1417440735</file_id>
+                    </metadata>
+                    <freetext>
+                        <moduletitle>Archive</moduletitle>
+                        <image/>
+                        <body>&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014"&gt;2014&lt;/a&gt;: &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/1"&gt;January&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/2"&gt;February&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/3"&gt;March&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/4"&gt;April&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/5"&gt;May&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/6"&gt;June&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/7"&gt;July&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/8"&gt;August&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/9"&gt;September&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/10"&gt;October&lt;/a&gt; l &lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2014/11"&gt;November&lt;/a&gt; l December&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2013"&gt;2013&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2012"&gt;2012&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2011"&gt;2011&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2010"&gt;2010&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/blogs/aboutthebbc/by/2009"&gt;2009&lt;/a&gt;&lt;/p&gt;</body>
+                    </freetext>
+                </form></document></result></module>
+                </grid-12><grid-12>
+                    <module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-09T14:31:52.871102Z</modifiedDateTime><creationDateTime>2015-03-09T14:31:52.871102Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417441270</fileId><guid>f54feb68-a17e-4d0a-9b79-f0380e90a40c</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-sidebar-freetext">
+                    <metadata>
+                        <file_id>1417441270</file_id>
+                    </metadata>
+                    <freetext>
+                        <moduletitle>Across the BBC</moduletitle>
+                        <image/>
+                        <body>&lt;p&gt;&lt;a href="http://bbc.in/SZTwyj"&gt;Corrections and Clarifications&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/showsandtours/tickets/"&gt;Tickets and Shows&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href="http://www.bbc.co.uk/aboutthebbc/insidethebbc/"&gt;Inside the BBC&lt;/a&gt;&lt;/p&gt;</body>
+                    </freetext>
+                </form></document></result></module>
+                </grid-12></sidebar-modules><migration><migrated>true</migrated></migration><section-27><is-archived/></section-27></form></document></result>

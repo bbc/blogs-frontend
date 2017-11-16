@@ -20,6 +20,13 @@ abstract class BaseController extends AbstractController
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
 
+    /**
+     * Private so that it cannot be overwritten by a child class, only modified via response()
+     *
+     * @var Response
+     */
+    private $response;
+
     public static function getSubscribedServices()
     {
         return array_merge(parent::getSubscribedServices(), [
@@ -29,7 +36,24 @@ abstract class BaseController extends AbstractController
         ]);
     }
 
-    protected function renderWithChrome($view, array $parameters = [], Response $response = null)
+    public function __construct()
+    {
+        $this->response = new Response();
+        // It is required to set the cache-control header when creating the response object otherwise Symfony
+        // will create and set its value to "no-cache, private" by default
+        $this->response()->setPublic()->setMaxAge(300);
+        // The page can only be displayed in a frame on the same origin as the page itself.
+        $this->response()->headers->set('X-Frame-Options', 'SAMEORIGIN');
+        // Blocks a request if the requested type is different from the MIME type
+        $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
+    }
+
+    protected function response(): Response
+    {
+        return $this->response;
+    }
+
+    protected function renderWithChrome($view, array $parameters = [])
     {
         $branding = $this->requestBranding();
         // We only need to change the translation language if it is different
@@ -50,7 +74,7 @@ abstract class BaseController extends AbstractController
             'orb' => $orb,
             'branding' => $branding,
         ], $parameters);
-        return $this->render($view, $parameters, $response);
+        return $this->render($view, $parameters, $this->response);
     }
 
     protected function request(): Request

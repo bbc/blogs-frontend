@@ -9,3 +9,7 @@ root:
 home:
     path: /blogs
     defaults: { _controller: App\Controller\HomeController }
+
+blog:
+    path: /blogs/{blogId}
+    requirements: { blogId: '[a-z0-9]+' }
