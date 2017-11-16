@@ -1,4 +1,5 @@
 framework:
     assets:
-        json_manifest_path: '%kernel.project_dir%/web/assets/rev-manifest.json'
-        base_path: 'assets'
+        json_manifest_path: '%kernel.project_dir%/var/rev-manifest.json'
+        base_path: ~
+        base_url: ['https://blogs.files.bbci.co.uk/blogs-frontend']
