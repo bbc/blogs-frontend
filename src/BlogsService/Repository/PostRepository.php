@@ -12,20 +12,8 @@ use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
-class PostRepository
+class PostRepository extends AbstractRepository
 {
-    /** @var string */
-    private $apiEndpoint;
-
-    /** @var ClientInterface */
-    private $client;
-
-    public function __construct(string $apiEndpoint, ClientInterface $client)
-    {
-        $this->apiEndpoint = $apiEndpoint;
-        $this->client = $client;
-    }
-
     public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
     {
         $query = new SearchQuery();
@@ -57,17 +45,5 @@ class PostRepository
         $query->setUnfiltered(true);
 
         return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
-    }
-
-    private function getResponse(string $url): ?ResponseInterface
-    {
-        try {
-            return $this->client->request('GET', $url);
-        } catch (GuzzleException $e) {
-            if ($e instanceof ClientException && $e->getCode() == 404) {
-                return null;
-            }
-            throw new IsiteResultException('There was an error retrieving data from iSite.', 0, $e);
-        }
     }
 }
