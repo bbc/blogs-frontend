@@ -1,0 +1,5 @@
+{%- if image.getOption('is_lazy_loaded') -%}
+    <img class="image lazyload" data-src="{{ image.getSrc() }}" data-srcset="{{ image.getSrcsets() }}" data-sizes="auto" alt="{{ image.getOption('alt') }}">
+{%- else -%}
+    <img class="image" src="{{ image.getSrc() }}" srcset="{{ image.getSrcsets() }}" sizes="{{ image.getSizes() }}" alt="{{ image.getOption('alt') }}">
+{%- endif -%}

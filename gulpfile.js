@@ -61,7 +61,10 @@ gulp.task('watch',function() {
     // be really annoying.
     throwError = false;
 
-    gulp.watch([staticPathSrc + sassMatch], ['sass']);
+    gulp.watch(
+        [staticPathSrc + sassMatch, 'src/**/*.scss'],
+        ['sass']
+    );
 });
 
 gulp.task('default', function(cb){
