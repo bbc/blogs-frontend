@@ -28,6 +28,20 @@
     {% block inline_head %}{% endblock %}
 
     <script>document.documentElement.className += ' has-js';</script>
+    <script>
+            requirejs.config({
+                "paths": {
+                    'jquery-1.9': "https://static.bbci.co.uk/frameworks/jquery/0.4.1/sharedmodules/jquery-1.9.1",
+                    'blogs-bootstrap': "{{ asset_js('js/blogs-bootstrap.js') }}"
+                },
+                "priority": ['jquery-1.9'],
+                "map": {
+                    "*": {
+                        "jquery": "jquery-1.9"
+                    }
+                }
+            });
+        </script>
 </head>
 <body>
 {{ orb.getBodyfirst()|raw }}
@@ -36,6 +50,9 @@
 <div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" role="main">
     {% block body %}{% endblock %}
 </div>
+<script>
+    require(['blogs-bootstrap']);
+</script>
 {% block javascripts %}{% endblock %}
 {{ branding.getBodyLast()|raw }}
 {{ orb.getBodylast()|raw }}

@@ -28,7 +28,7 @@
            itemprop="url" href="{{ path('blog', {blogId: blog.getId()|replace({'blogs-': ''}) }) }}">
             <div class="grid-wrapper">
                 <div class="grid 1/3@bpb2 1/3@bpw 1/4@bpw2 1/5@bpe">
-                    {{ ds('image', blog.getImage(), 160, {480: 1/3, 770: 1/4, 1008: '170px'}, {'is_lazy_loaded': false}) }}
+                    {{ ds('image', blog.getImage(), 160, {480: 1/3, 770: 1/4, 1008: '170px'}) }}
                 </div>
                 <div class="grid 2/3@bpb2 2/3@bpw 3/4@bpw2 4/5@bpe">
                     <h3 class="delta no-margin" itemprop="name">{{ blog.getName() }}</h3>
