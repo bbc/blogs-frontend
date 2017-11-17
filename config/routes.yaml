@@ -12,4 +12,5 @@ home:
 
 blog:
     path: /blogs/{blogId}
+    defaults: { _controller: App\Controller\BlogIndexController }
     requirements: { blogId: '[a-z0-9]+' }

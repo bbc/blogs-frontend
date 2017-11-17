@@ -1,0 +1,8 @@
+{% extends 'blogs_base.html.twig' %}
+
+{% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }}{% endblock %}
+
+{% block content %}
+    <h1 class="visually-hidden">{{ blog.getName() }}</h1>
+    <div>A list of posts for {{ blog.getName() }}</div>
+{% endblock %}
