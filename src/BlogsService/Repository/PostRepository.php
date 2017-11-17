@@ -4,7 +4,6 @@ declare(strict_types=1);
 namespace App\BlogsService\Repository;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\ValueObject\IsiteDate;
 use App\BlogsService\Infrastructure\IsiteResultException;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use DateTimeImmutable;
@@ -29,8 +28,6 @@ class PostRepository
 
     public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
     {
-        $isiteDate = (string) new IsiteDate($publishedUntil);
-
         $query = new SearchQuery();
 
         $query->setProject($blog->getId());
@@ -39,19 +36,19 @@ class PostRepository
         $query->setQuery([
             'and' => [
                 [
-                    "ns:published-date",
-                    "<=",
-                    $isiteDate,
-                    "dateTime"
-                ]
-            ]
+                    'ns:published-date',
+                    '<=',
+                    $publishedUntil->format('Y-m-d\TH:i:s.BP'),
+                    'dateTime',
+                ],
+            ],
         ]);
 
         $query->setSort([
             [
                 'elementPath' => '/ns:form/ns:metadata/ns:published-date',
-                'direction' => $sort
-            ]
+                'direction' => $sort,
+            ],
         ]);
 
         $query->setDepth(1);

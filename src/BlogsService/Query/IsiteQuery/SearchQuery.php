@@ -26,10 +26,8 @@ class SearchQuery
 
     public function setNamespace($project, $fileType)
     {
-        $this->q->namespaces = (object) array(
-            'ns' => 'https://production.bbc.co.uk/isite2/project/' .
-                $project .'/'. $fileType
-        );
+        $this->q->namespaces = new stdClass();
+        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/' . $project . '/' . $fileType;
 
         return $this;
     }
@@ -43,7 +41,7 @@ class SearchQuery
             throw new InvalidArgumentException('$pageNumber must be an int');
         }
 
-        $this->q->page = (string)$pageNumber;
+        $this->q->page = (string) $pageNumber;
 
         return $this;
     }

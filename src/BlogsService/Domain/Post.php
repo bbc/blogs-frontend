@@ -10,7 +10,7 @@ use DateTimeImmutable;
 
 class Post extends IsiteEntity
 {
-    /** @var string */
+    /** @var DateTimeImmutable */
     private $publishedDate;
 
     /** @var string */

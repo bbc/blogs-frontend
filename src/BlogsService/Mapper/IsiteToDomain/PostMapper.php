@@ -38,7 +38,7 @@ class PostMapper extends Mapper
                 ->result
                 ->metadata;
             if (is_object($authorMetadata)) {
-                $authorGUID = (string)$authorMetadata->guid;
+                $authorGUID = (string) $authorMetadata->guid;
 
                 if (!empty($authorGUID)) {
                     $author = $this->mapperFactory->createAuthorsMapper()->getDomainModel(

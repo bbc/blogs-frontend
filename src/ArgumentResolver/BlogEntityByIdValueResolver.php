@@ -27,6 +27,7 @@ class BlogEntityByIdValueResolver implements ArgumentValueResolverInterface
 
     public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
+        // @TODO make sure the a blog is returned. Throw an exception if it isn't
         yield $this->blogService->getBlogById($request->attributes->get('blogId'))->getDomainModels()[0];
     }
 }

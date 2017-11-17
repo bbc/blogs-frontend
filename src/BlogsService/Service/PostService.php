@@ -16,7 +16,7 @@ class PostService
     /** @var  IsiteFeedResponseHandler */
     protected $responseHandler;
 
-    /** @var BlogRepository */
+    /** @var PostRepository */
     protected $repository;
 
     /** @var CacheInterface */

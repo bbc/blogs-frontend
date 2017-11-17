@@ -64,5 +64,4 @@ class ServiceFactory
 
         return $this->instances[PostService::class];
     }
-
 }
