@@ -6,6 +6,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\IsiteEntity;
 use App\BlogsService\Infrastructure\MapperFactory;
+use DateTimeImmutable;
 use SimpleXMLElement;
 
 /**
@@ -50,9 +51,9 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getDate($date)
+    protected function getDate($date): DateTimeImmutable
     {
-//        return new DateTime($date);
+        return new DateTimeImmutable($date);
     }
 
     protected function getImage(SimpleXMLElement $pid): Image
@@ -65,13 +66,13 @@ abstract class Mapper
         return new Image($pid);
     }
 
-    protected function getImageIfExists($pid)
+    protected function getImageIfExists($pid): ?Image
     {
-//        $pid = (string) $pid;
-//        if (!empty($pid)) {
-//            return $this->getImage($pid);
-//        }
-//        return null;
+        $pid = (string) $pid;
+        if (!empty($pid)) {
+            return $this->getImage($pid);
+        }
+        return null;
     }
 
     protected function getString(?SimpleXMLElement $val): ?string

@@ -1,5 +1,6 @@
 <?php
 declare(strict_types = 1);
+
 namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
@@ -15,7 +16,10 @@ class MapperFactory
 
     public function createPostMapper(): PostMapper
     {
-//        return new PostMapper($this);
+        if (!isset($this->instances[PostMapper::class])) {
+            $this->instances[PostMapper::class] = new PostMapper($this);
+        }
+        return $this->instances[PostMapper::class];
     }
 
     public function createBlogsmetadataMapper(): BlogMapper
@@ -37,18 +41,18 @@ class MapperFactory
 //        return new CommentForumMapper($this);
 //    }
 //
-//    public function createAuthorsMapper(): AuthorMapper
-//    {
+    public function createAuthorsMapper(): AuthorMapper
+    {
 //        return new AuthorMapper($this);
-//    }
+    }
 
-//    public function createTagMapper(): TagMapper
-//    {
+    public function createTagMapper(): TagMapper
+    {
 //        return new TagMapper($this);
-//    }
-//
-//    public function createContentBlockMapper(): ContentBlockMapper
-//    {
+    }
+
+    public function createContentBlockMapper(): ContentBlockMapper
+    {
 //        return new ContentBlockMapper($this);
-//    }
+    }
 }

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace App\BlogsService\Repository;
 
 use App\BlogsService\Infrastructure\IsiteResultException;
+use App\BlogsService\Query\IsiteQuery\FileIdQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
@@ -35,6 +36,25 @@ class BlogRepository
 
         return $this->getResponse($this->apiEndpoint . '/search?q=' . json_encode($query->getSearchQuery()));
     }
+
+    public function getBlogById(string $blogId): ?ResponseInterface
+    {
+        $query = new FileIdQuery();
+        $query->setProject('blogs-' . $blogId)
+            ->setId('blogs-meta-data')
+            ->setDepth(2);
+
+        return $this->getResponse($this->apiEndpoint . '/content/file?' . http_build_query($query->getParameters()));
+    }
+
+
+
+
+
+
+
+
+
 
     private function getResponse(string $url): ?ResponseInterface
     {
