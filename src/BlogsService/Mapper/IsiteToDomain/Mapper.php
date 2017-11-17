@@ -69,10 +69,11 @@ abstract class Mapper
     protected function getImageIfExists($pid): ?Image
     {
         $pid = (string) $pid;
-        if (!empty($pid)) {
-            return $this->getImage($pid);
+        if (empty($pid)) {
+            return null;
         }
-        return null;
+
+        return $this->getImage($pid);
     }
 
     protected function getString(?SimpleXMLElement $val): ?string

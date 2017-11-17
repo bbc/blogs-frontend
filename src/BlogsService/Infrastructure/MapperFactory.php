@@ -35,12 +35,6 @@ class MapperFactory
         return new ModuleMapper($this);
     }
 
-    //TODO: CHECK THIS - THIS IS DNA, DONT THINK ITS NEEDED
-//    public function createCommentForumMapper()
-//    {
-//        return new CommentForumMapper($this);
-//    }
-//
     public function createAuthorsMapper(): AuthorMapper
     {
         return new AuthorMapper($this);

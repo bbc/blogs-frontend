@@ -5,7 +5,6 @@ namespace App\BlogsService\Domain;
 
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
-use App\BlogsService\Domain\ValueObject\Image;
 use DateTimeImmutable;
 
 class Post extends IsiteEntity
@@ -37,11 +36,10 @@ class Post extends IsiteEntity
     /** @var string */
     private $forumId;
 
-
     public function __construct(
         GUID $guid,
         FileID $fileId,
-        string $forumId, //TODO check with new comments
+        string $forumId,
         DateTimeImmutable $publishedDate,
         string $title,
         string $shortSynopsis,
@@ -62,16 +60,7 @@ class Post extends IsiteEntity
         $this->tags = $tags;
     }
 
-//    public function getForumId($blog)
-//    {
-//        //prefix is "blog_BLOGNAME"
-//        $forumIdPrefix = str_replace("-", "_", $blog->getId());
-//
-//        //full forumid looks like this blog_internet_4898c498-f08e-4242-9cd6-5229536f9e88
-//        return $forumIdPrefix . $this->forumId;
-//    }
-
-    public function getPublishedDate(): string
+    public function getPublishedDate(): DateTimeImmutable
     {
         return $this->publishedDate;
     }
@@ -86,10 +75,10 @@ class Post extends IsiteEntity
         return $this->shortSynopsis;
     }
 
-//    public function getAuthor(): Author
-//    {
-//        return $this->author;
-//    }
+    public function getAuthor(): Author
+    {
+        return $this->author;
+    }
 
     public function getImage(): Image
     {
@@ -114,7 +103,7 @@ class Post extends IsiteEntity
             foreach ($contentBlocks as $content) {
                 if ($content instanceof Clips) {
                     $this->hasVideo = true;
-                    break;
+                    return true;
                 }
             }
         }

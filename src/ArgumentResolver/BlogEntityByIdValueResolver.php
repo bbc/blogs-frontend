@@ -9,6 +9,7 @@ use Generator;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ArgumentValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class BlogEntityByIdValueResolver implements ArgumentValueResolverInterface
 {
@@ -27,7 +28,13 @@ class BlogEntityByIdValueResolver implements ArgumentValueResolverInterface
 
     public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
-        // @TODO make sure the a blog is returned. Throw an exception if it isn't
-        yield $this->blogService->getBlogById($request->attributes->get('blogId'))->getDomainModels()[0];
+        $blogId = $request->attributes->get('blogId');
+        $entity = $this->blogService->getBlogById($blogId)->getDomainModels();
+
+        if (isset($entity[0]) && $entity[0] instanceof Blog) {
+            yield $entity[0];
+        }
+
+        throw new NotFoundHttpException(sprintf('The blog with id "%s" was not found', $blogId));
     }
 }

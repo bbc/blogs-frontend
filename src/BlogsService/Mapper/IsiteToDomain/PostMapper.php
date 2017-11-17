@@ -66,16 +66,15 @@ class PostMapper extends Mapper
             $tagContent = $form->{'Tags'}->{'tag-content'};
 
             foreach ($tagContent as $tag) {
-                if (!isset($tag->{'tag'}->result->document)) {
-                    continue;
-                }
-                $tagMetadata = $tag->{'tag'}->result->metadata;
-                $formMetaData = $this->getFormMetaData($tag->{'tag'}->result);
+                if (isset($tag->{'tag'}->result->document)) {
+                    $tagMetadata = $tag->{'tag'}->result->metadata;
+                    $formMetaData = $this->getFormMetaData($tag->{'tag'}->result);
 
-                if (is_object($formMetaData) && !is_null($tagMetadata)) {
-                    $tags[] = $this->mapperFactory->createTagMapper()->getDomainModel(
-                        $tag->{'tag'}->result
-                    );
+                    if (is_object($formMetaData) && !is_null($tagMetadata)) {
+                        $tags[] = $this->mapperFactory->createTagMapper()->getDomainModel(
+                            $tag->{'tag'}->result
+                        );
+                    }
                 }
             }
 
