@@ -41,7 +41,7 @@ class PostService
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NORMAL
     ): IsiteResult {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl, $blog->getId());
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $page, $perpage, $sort, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,

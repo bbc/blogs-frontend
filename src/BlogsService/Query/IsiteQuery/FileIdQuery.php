@@ -5,7 +5,7 @@ namespace App\BlogsService\Query\IsiteQuery;
 
 class FileIdQuery
 {
-
+    /** @var string[] */
     private $parameters = [];
 
     public function setProject(string $project)

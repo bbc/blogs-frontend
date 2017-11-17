@@ -31,7 +31,7 @@ class BlogService
 
     public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
     {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl);
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
@@ -48,7 +48,7 @@ class BlogService
 
     public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
     {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blogId, $ttl);
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blogId, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
