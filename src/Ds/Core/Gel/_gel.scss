@@ -1,0 +1,12 @@
+/**
+ * Basic.
+ *
+ * GEL styling to be included as standard in the common stylesheet that always
+ * gets loaded.
+ */
+@import 'Generic/variables';
+@import 'Generic/mixins';
+@import 'Base/typography';
+@import 'Objects/grid';
+@import 'Objects/widths';
+@import 'Objects/hidden';

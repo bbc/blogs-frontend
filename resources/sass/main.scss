@@ -8,6 +8,6 @@
 $mq-responsive: true;
 $ie: false;
 
-@import 'components';
+@import 'Ds/ds-components';
 
-@import 'base/print';
+@import 'Ds/Core/Base/print';

@@ -1,9 +1,11 @@
 options:
     formatter: stylish
 files:
-    include: ['resources/assets/sass/*.scss', 'resources/assets/sass/**/*.scss']
+    include: ['resources/sass/*.scss', 'src/Ds/**/*.scss']
     ignore:
-        - 'resources/assets/sass/vendor/*'
+        - 'src/Ds*/Core/Vendor/*'
+        # Ignore as there sass-lint thinks this file is invalid but it isn't
+        - 'src/Ds2013/Core/Helpers/_widths.scss'
 rules:
     # Name Formats
     function-name-format: [2, {convention: hyphenatedlowercase}]

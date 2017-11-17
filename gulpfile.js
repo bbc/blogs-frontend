@@ -12,7 +12,7 @@ const override = require('gulp-rev-css-url');
 const gulpif = require('gulp-if');
 const runSequence = require('run-sequence');
 
-const staticPathSrc = 'resources/assets';
+const staticPathSrc = 'resources';
 const staticPathDist = 'web/assets';
 const sassMatch = '/sass/**/*.scss';
 

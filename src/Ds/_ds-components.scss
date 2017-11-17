@@ -5,18 +5,18 @@
  * so abstract it
  */
 // Variables come first
-@import 'generic/variables';
-@import 'gel/generic/variables';
+@import 'Core/Generic/variables';
+@import 'Core/Gel/Generic/variables';
 // Libraries - MQ, Normalize v1 and GEL
 @import 'sass-mq/mq';
-@import 'vendor/normalize';
-@import 'gel/gel';
+@import 'Core/Vendor/normalize';
+@import 'Core/Gel/gel';
 // Generics - common variables, mixins and helpers
-@import 'generic/mixins';
-@import 'generic/extends';
-@import 'generic/extends_classes';
+@import 'Core/Generic/mixins';
+@import 'Core/Generic/extends';
+@import 'Core/Generic/extends_classes';
 // Base - common styles
-@import 'base/main';
+@import 'Core/Base/main';
 // Objects - Reusable abstractions
 // These are batched into groups based on how "core" they are, for instance the
 // the blogs object uses the media object for some of it's layout so media
@@ -24,23 +24,23 @@
 // blogs and should take prescience when applying styling so it should come
 // after blogs.
 // Core objects
-@import 'objects/media';
-@import 'objects/island';
-@import 'objects/component';
-@import 'objects/nav';
-@import 'objects/prose';
-@import 'objects/code';
-@import 'objects/third-party';
-@import 'objects/playout';
-@import 'objects/counted-list';
-@import 'objects/letters';
-@import 'Ds/Molecule/Image/image';
+@import 'Core/Objects/media';
+@import 'Core/Objects/island';
+@import 'Core/Objects/component';
+@import 'Core/Objects/nav';
+@import 'Core/Objects/prose';
+@import 'Core/Objects/code';
+@import 'Core/Objects/third-party';
+@import 'Core/Objects/playout';
+@import 'Core/Objects/counted-list';
+@import 'Core/Objects/letters';
+@import 'Molecule/Image/image';
 // Modules
 //@import 'module/secondary-navigation';
 //@import 'module/sidebar';
-@import 'module/pagination';
-@import 'module/bbc-datepicker';
-@import 'module/loader';
+@import 'Core/module/pagination';
+@import 'Core/module/bbc-datepicker';
+@import 'Core/module/loader';
 
 
 
