@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
-use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Repository\PostRepository;
 use DateTimeImmutable;
 

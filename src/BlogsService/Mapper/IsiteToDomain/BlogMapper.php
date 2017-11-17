@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
-use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\IsiteEntity;
-use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;

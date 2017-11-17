@@ -11,6 +11,8 @@ use InvalidArgumentException;
 
 class Blog extends IsiteEntity
 {
+    const BLOG_PREFIX = 'blogs-';
+
     /** @var string */
     private $id;
 

@@ -32,21 +32,33 @@ class MapperFactory
 
     public function createModuleMapper(): ModuleMapper
     {
-        return new ModuleMapper($this);
+        if (!isset($this->instances[ModuleMapper::class])) {
+            $this->instances[ModuleMapper::class] = new ModuleMapper($this);
+        }
+        return $this->instances[ModuleMapper::class];
     }
 
     public function createAuthorsMapper(): AuthorMapper
     {
-        return new AuthorMapper($this);
+        if (!isset($this->instances[AuthorMapper::class])) {
+            $this->instances[AuthorMapper::class] = new AuthorMapper($this);
+        }
+        return $this->instances[AuthorMapper::class];
     }
 
     public function createTagMapper(): TagMapper
     {
-        return new TagMapper($this);
+        if (!isset($this->instances[TagMapper::class])) {
+            $this->instances[TagMapper::class] = new TagMapper($this);
+        }
+        return $this->instances[TagMapper::class];
     }
 
     public function createContentBlockMapper(): ContentBlockMapper
     {
-        return new ContentBlockMapper($this);
+        if (!isset($this->instances[ContentBlockMapper::class])) {
+            $this->instances[ContentBlockMapper::class] = new ContentBlockMapper($this);
+        }
+        return $this->instances[ContentBlockMapper::class];
     }
 }

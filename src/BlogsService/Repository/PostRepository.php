@@ -4,12 +4,8 @@ declare(strict_types=1);
 namespace App\BlogsService\Repository;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Infrastructure\IsiteResultException;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use DateTimeImmutable;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 class PostRepository extends AbstractRepository

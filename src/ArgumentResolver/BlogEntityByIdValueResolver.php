@@ -33,8 +33,8 @@ class BlogEntityByIdValueResolver implements ArgumentValueResolverInterface
 
         if (isset($entity[0]) && $entity[0] instanceof Blog) {
             yield $entity[0];
+        } else {
+            throw new NotFoundHttpException(sprintf('The blog with id "%s" was not found', $blogId));
         }
-
-        throw new NotFoundHttpException(sprintf('The blog with id "%s" was not found', $blogId));
     }
 }

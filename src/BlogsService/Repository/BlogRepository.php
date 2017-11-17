@@ -2,12 +2,8 @@
 declare(strict_types = 1);
 namespace App\BlogsService\Repository;
 
-use App\BlogsService\Infrastructure\IsiteResultException;
 use App\BlogsService\Query\IsiteQuery\FileIdQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
-use GuzzleHttp\ClientInterface;
-use GuzzleHttp\Exception\ClientException;
-use GuzzleHttp\Exception\GuzzleException;
 use Psr\Http\Message\ResponseInterface;
 
 class BlogRepository extends AbstractRepository
@@ -28,7 +24,7 @@ class BlogRepository extends AbstractRepository
     public function getBlogById(string $blogId): ?ResponseInterface
     {
         $query = new FileIdQuery();
-        $query->setProject('blogs-' . $blogId)
+        $query->setProject($blogId)
             ->setId('blogs-meta-data')
             ->setDepth(2);
 

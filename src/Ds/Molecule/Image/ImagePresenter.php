@@ -2,9 +2,9 @@
 declare(strict_types = 1);
 namespace App\Ds\Molecule\Image;
 
-use App\Ds\Presenter;
-use App\Ds\InvalidOptionException;
 use App\BlogsService\Domain\Image;
+use App\Ds\InvalidOptionException;
+use App\Ds\Presenter;
 use InvalidArgumentException;
 
 class ImagePresenter extends Presenter
