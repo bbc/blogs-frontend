@@ -1,14 +1,14 @@
 <?php
 declare(strict_types = 1);
-namespace Tests\App\BlogsService\Domain\Blog;
+namespace Tests\App\BlogsService\Domain;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\ValueObject\Image;
+use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Domain\ValueObject\FileID;
 use PHPUnit\Framework\TestCase;
 
-class BlogConstructorTest extends TestCase
+class BlogTest extends TestCase
 {
     private $guid;
     private $fileId;

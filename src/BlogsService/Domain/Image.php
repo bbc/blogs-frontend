@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\BlogsService\Domain\ValueObject;
+namespace App\BlogsService\Domain;
 
 class Image
 {

@@ -1,9 +1,9 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\BlogsService\Domain\ValueObject;
+namespace Tests\App\BlogsService\Domain;
 
-use App\BlogsService\Domain\ValueObject\Image;
+use App\BlogsService\Domain\Image;
 use PHPUnit\Framework\TestCase;
 
 class ImageTest extends TestCase

@@ -3,8 +3,8 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
+use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\IsiteEntity;
-use App\BlogsService\Domain\ValueObject\Image;
 use App\BlogsService\Infrastructure\MapperFactory;
 use SimpleXMLElement;
 

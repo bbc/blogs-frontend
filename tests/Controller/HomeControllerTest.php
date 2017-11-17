@@ -4,9 +4,9 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
-use App\BlogsService\Domain\ValueObject\Image;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use Symfony\Bundle\FrameworkBundle\Client;
