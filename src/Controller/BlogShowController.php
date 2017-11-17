@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Service\BlogService;
+use App\BlogsService\Service\PostService;
 
 class BlogShowController extends BaseController
 {
