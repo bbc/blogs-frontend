@@ -11,7 +11,7 @@ use GuzzleHttp\ClientInterface;
 
 class ServiceFactory
 {
-    /** @var Service[] */
+    /** @var array */
     protected $instances = [];
 
     /** @var string */
