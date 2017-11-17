@@ -32,8 +32,27 @@ class PostService
         $this->cache = $cache;
     }
 
-    public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, ?int $page, ?int $perpage, ?string $sort): IsiteResult
-    {
+    public function getPostsByBlog(
+        Blog $blog,
+        DateTimeImmutable $publishedUntil,
+        int $page = 1,
+        int $perpage = 10,
+        string $sort = 'desc',
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NORMAL
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl, $blog->getId());
 
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsByBlog($blog, $publishedUntil, $page, $perpage, $sort);
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
     }
 }

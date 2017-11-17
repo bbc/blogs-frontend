@@ -27,7 +27,7 @@ class PostRepository
         $this->client = $client;
     }
 
-    public function getPostsByBlogId(Blog $blog, DateTimeImmutable $publishedUntil, int $page = 1, int $perpage = 10, string $sort = 'desc'): ?ResponseInterface
+    public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
     {
         $isiteDate = (string) new IsiteDate($publishedUntil);
 
@@ -59,7 +59,7 @@ class PostRepository
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . json_encode($query->getSearchQuery()));
+        return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
     }
 
     private function getResponse(string $url): ?ResponseInterface

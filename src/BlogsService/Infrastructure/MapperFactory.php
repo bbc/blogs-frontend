@@ -32,7 +32,7 @@ class MapperFactory
 
     public function createModuleMapper(): ModuleMapper
     {
-//        return new ModuleMapper($this);
+        return new ModuleMapper($this);
     }
 
     //TODO: CHECK THIS - THIS IS DNA, DONT THINK ITS NEEDED
@@ -43,16 +43,16 @@ class MapperFactory
 //
     public function createAuthorsMapper(): AuthorMapper
     {
-//        return new AuthorMapper($this);
+        return new AuthorMapper($this);
     }
 
     public function createTagMapper(): TagMapper
     {
-//        return new TagMapper($this);
+        return new TagMapper($this);
     }
 
     public function createContentBlockMapper(): ContentBlockMapper
     {
-//        return new ContentBlockMapper($this);
+        return new ContentBlockMapper($this);
     }
 }

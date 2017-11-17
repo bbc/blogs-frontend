@@ -5,4 +5,11 @@
 {% block content %}
     <h1 class="visually-hidden">{{ blog.getName() }}</h1>
     <div>A list of posts for {{ blog.getName() }}</div>
+
+        <ul class="list-unstyled list-lined">
+        {% for post in posts %}
+            <li class="post br-keyline"><a href="{{ path('post', {blogId: blog.getId()|replace({'blogs-': ''}), guid: post.getGuid }) }}">{{ post.getTitle() }}</a></li>
+        {% endfor %}
+        </ul>
+
 {% endblock %}

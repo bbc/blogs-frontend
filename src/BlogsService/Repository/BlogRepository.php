@@ -47,15 +47,6 @@ class BlogRepository
         return $this->getResponse($this->apiEndpoint . '/content/file?' . http_build_query($query->getParameters()));
     }
 
-
-
-
-
-
-
-
-
-
     private function getResponse(string $url): ?ResponseInterface
     {
         try {

@@ -5,6 +5,7 @@ namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
+use DateTimeImmutable;
 
 class BlogShowController extends BaseController
 {
@@ -12,6 +13,9 @@ class BlogShowController extends BaseController
     {
         $this->setBrandingId($blog->getBrandingId());
 
-        return $this->renderWithChrome('blog/show.html.twig', ['blog' => $blog]);
+        $result = $postService->getPostsByBlog($blog, new DateTimeImmutable());
+        $posts = $result->getDomainModels();
+
+        return $this->renderWithChrome('blog/show.html.twig', ['blog' => $blog, 'posts' => $posts]);
     }
 }

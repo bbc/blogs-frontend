@@ -10,5 +10,6 @@ class ContentBlockMapper extends Mapper
 {
     public function getDomainModel(SimpleXMLElement $isiteObject): ?IsiteEntity
     {
+        return null;
     }
 }

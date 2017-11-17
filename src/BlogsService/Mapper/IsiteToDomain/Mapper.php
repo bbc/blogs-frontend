@@ -51,14 +51,14 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getDate($date): DateTimeImmutable
+    protected function getDate(SimpleXMLElement $date): DateTimeImmutable
     {
-        return new DateTimeImmutable($date);
+        return new DateTimeImmutable($this->getString($date));
     }
 
-    protected function getImage(SimpleXMLElement $pid): Image
+    protected function getImage($pid): Image
     {
-        $pid = $this->getString($pid);
+        $pid = (string) $pid;
         if (empty($pid)) {
             //Default image if no image was present
             $pid = 'p0215q0b';
