@@ -37,10 +37,6 @@ class SearchQuery
      */
     public function setPage(int $pageNumber): SearchQuery
     {
-        if (!is_int($pageNumber)) {
-            throw new InvalidArgumentException('$pageNumber must be an int');
-        }
-
         $this->q->page = (string) $pageNumber;
 
         return $this;
@@ -48,10 +44,6 @@ class SearchQuery
 
     public function setPageSize(int $resultsPerPage): SearchQuery
     {
-        if (!is_int($resultsPerPage)) {
-            throw new InvalidArgumentException('$resultsPerPage must be an int');
-        }
-
         if ($resultsPerPage > self::MAX_PAGE_SIZE || $resultsPerPage < 0) {
             throw new InvalidArgumentException('$resultsPerPage must be between 0 and ' . self::MAX_PAGE_SIZE);
         }
