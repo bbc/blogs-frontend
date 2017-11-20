@@ -10,7 +10,6 @@ use PHPUnit\Framework\TestCase;
 
 class BlogTest extends TestCase
 {
-    private $guid;
     private $fileId;
     private $id;
     private $name;
@@ -30,8 +29,6 @@ class BlogTest extends TestCase
 
     public function setUp()
     {
-        $this->guid           = new GUID("63a91e43-f154-4c89-9ccd-9cf10a332f90");
-        $this->fileId         = new FileID("blogs-Blog-1424161719");
         $this->id             = "blogs-internet";
         $this->name           = "Internet";
         $this->shortSynopsis  = "This is internet blog";
@@ -53,8 +50,6 @@ class BlogTest extends TestCase
     public function testConstructorSetsMembers()
     {
         $testObj = $this->constructBlog();
-        $this->assertSame($this->guid, $testObj->getGuid());
-        $this->assertSame($this->fileId, $testObj->getFileId());
         $this->assertEquals($this->id, $testObj->getId());
         $this->assertEquals($this->name, $testObj->getName());
         $this->assertEquals($this->shortSynopsis, $testObj->getShortSynopsis());
@@ -75,8 +70,6 @@ class BlogTest extends TestCase
     private function constructBlog(): Blog
     {
         return new Blog(
-            $this->guid,
-            $this->fileId,
             $this->id,
             $this->name,
             $this->shortSynopsis,

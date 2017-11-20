@@ -79,8 +79,6 @@ class BlogMapper extends Mapper
         $isArchived = $this->getBoolean($form->{'section-27'}->{'is-archived'});
 
         return new Blog(
-            new GUID($this->getString($this->getMetaData($isiteObject)->guid)),
-            new FileID($this->getString($this->getMetaData($isiteObject)->fileId)),
             $id,
             $name,
             $shortSynopsis,

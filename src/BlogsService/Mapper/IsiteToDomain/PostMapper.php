@@ -77,7 +77,6 @@ class PostMapper extends Mapper
 
             return new Post(
                 new GUID($guid),
-                new FileID($this->getString($this->getMetaData($isiteObject)->fileId)),
                 $forumId,
                 $publishedDate,
                 $title,

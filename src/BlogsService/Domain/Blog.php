@@ -9,7 +9,7 @@ use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Domain\ValueObject\Social;
 use InvalidArgumentException;
 
-class Blog extends IsiteEntity
+class Blog
 {
     const BLOG_PREFIX = 'blogs-';
 
@@ -59,8 +59,6 @@ class Blog extends IsiteEntity
     private $isArchived;
 
     public function __construct(
-        GUID $guid,
-        FileID $fileId,
         string $id,
         string $name,
         string $shortSynopsis,
@@ -77,8 +75,6 @@ class Blog extends IsiteEntity
         Image $image,
         bool $isArchived = false
     ) {
-        parent::__construct($guid, $fileId);
-
         if (!is_bool($showImageInDescription)) {
             throw new InvalidArgumentException('showImageInDescription must be of type boolean');
         }

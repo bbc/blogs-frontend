@@ -147,8 +147,6 @@ class HomeControllerTest extends BaseWebTestCase
     private function createBlog(string $name, bool $isArchived = false): Blog
     {
         return new Blog(
-            new GUID('A98C5A1E-A742-4808-96FA-6F409E799937'),
-            new FileID('anything'),
             'anything',
             $name,
             'anything',

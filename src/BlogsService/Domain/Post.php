@@ -3,11 +3,10 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Domain;
 
-use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
 use DateTimeImmutable;
 
-class Post extends IsiteEntity
+class Post
 {
     /** @var DateTimeImmutable */
     private $publishedDate;
@@ -36,9 +35,11 @@ class Post extends IsiteEntity
     /** @var string */
     private $forumId;
 
+    /** @var GUID */
+    private $guid;
+
     public function __construct(
         GUID $guid,
-        FileID $fileId,
         string $forumId,
         DateTimeImmutable $publishedDate,
         string $title,
@@ -48,8 +49,7 @@ class Post extends IsiteEntity
         array $content = null,
         array $tags = null
     ) {
-        parent::__construct($guid, $fileId);
-
+        $this->guid = $guid;
         $this->forumId = $forumId;
         $this->publishedDate = $publishedDate;
         $this->title = $title;
@@ -58,6 +58,11 @@ class Post extends IsiteEntity
         $this->image = $image;
         $this->content = $content;
         $this->tags = $tags;
+    }
+
+    public function getGuid(): GUID
+    {
+        return $this->guid;
     }
 
     public function getPublishedDate(): DateTimeImmutable
