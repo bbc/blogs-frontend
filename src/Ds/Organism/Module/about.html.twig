@@ -1,0 +1,39 @@
+<div class="sidebox component br-box-subtle">
+    <h2 class="island--squashed br-box-highlight no-margin">{{ tr('module_about_header') }}</h2>
+    <div class="grid-wrapper">
+        {% if about.shouldShowImage() %}
+            <div class="grid 1/2@bpb2 1/2@bpw 1/1@bpw2 1/1@bpe">
+                <img src="{{ about.getImageUrl('320') }}" class="rsp-img"
+                     alt="{{ about.getBlogName() }}"/>
+            </div>
+        {% endif %}
+
+        <div class="{{ about.getProseClasses() }}">
+            <div class="island">
+                <p>{{ about.getDescription() }}</p>
+                {% if about.shouldShowSocial() %}
+                    {% if about.getTwitterUsername() %}
+                        <p>
+                            {{ tr('follow_us_on_twitter', {'%1': '<a href="http://twitter.com/' ~ about.getTwitterUsername() ~ '" target="_blank">' ~ about.getBlogName() ~ '</a>'})|raw }}
+                        </p>
+                    {% endif %}
+                    {% if about.getFacebookUrl() %}
+                        <p>
+                            {{ tr('find_us_on_facebook', {'%1': '<a href="' ~ about.getFacebookUrl() ~ '" target="_blank">Facebook</a>'})|raw }}
+                        </p>
+                    {% endif %}
+                {% endif %}
+                <ul class="list-unstyled">
+                    <li>
+                        <a class="istats--tracker" data-istats-link-location="blogs_global_aside_home"
+                           href="{{ path('blog', {blogId: about.getBlogId() }) }}">{{ tr('module_about_link_home') }}</a>
+                    </li>
+                    <li>
+                        <a class="istats--tracker" data-istats-link-location="blogs_global_aside_explore_all_bbc_blogs"
+                           href="{{ path('home') }}">{{ tr('module_about_link_all_blogs') }}</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -7,6 +7,7 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
 use App\Ds\Module\AboutPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
+use App\Ds\Organism\Module\AboutPresenter;
 
 /**
  * Ds Factory Class for creating presenters.
