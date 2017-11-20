@@ -15,7 +15,7 @@ class BlogMapper extends Mapper
 {
     const BLOG_PREFIX = 'blogs-';
 
-    public function getDomainModel(SimpleXMLElement $isiteObject): ?IsiteEntity
+    public function getDomainModel(SimpleXMLElement $isiteObject): ?Blog
     {
         $formMetaData = $this->getFormMetaData($isiteObject);
         $form = $this->getForm($isiteObject);

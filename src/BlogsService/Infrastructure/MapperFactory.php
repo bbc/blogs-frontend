@@ -6,6 +6,7 @@ namespace App\BlogsService\Infrastructure;
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
 use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
+use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use App\BlogsService\Mapper\IsiteToDomain\TagMapper;
@@ -14,51 +15,41 @@ class MapperFactory
 {
     protected $instances = [];
 
-    public function createPostMapper(): PostMapper
+    public function createPostMapper(): Mapper
     {
-        if (!isset($this->instances[PostMapper::class])) {
-            $this->instances[PostMapper::class] = new PostMapper($this);
-        }
-        return $this->instances[PostMapper::class];
+        return $this->findMapper(PostMapper::class);
     }
 
-    public function createBlogsmetadataMapper(): BlogMapper
+    public function createBlogsmetadataMapper(): Mapper
     {
-        if (!isset($this->instances[BlogMapper::class])) {
-            $this->instances[BlogMapper::class] = new BlogMapper($this);
-        }
-        return $this->instances[BlogMapper::class];
+        return $this->findMapper(BlogMapper::class);
     }
 
-    public function createModuleMapper(): ModuleMapper
+    public function createModuleMapper(): Mapper
     {
-        if (!isset($this->instances[ModuleMapper::class])) {
-            $this->instances[ModuleMapper::class] = new ModuleMapper($this);
-        }
-        return $this->instances[ModuleMapper::class];
+        return $this->findMapper(ModuleMapper::class);
     }
 
-    public function createAuthorsMapper(): AuthorMapper
+    public function createAuthorsMapper(): Mapper
     {
-        if (!isset($this->instances[AuthorMapper::class])) {
-            $this->instances[AuthorMapper::class] = new AuthorMapper($this);
-        }
-        return $this->instances[AuthorMapper::class];
+        return $this->findMapper(AuthorMapper::class);
     }
 
-    public function createTagMapper(): TagMapper
+    public function createTagMapper(): Mapper
     {
-        if (!isset($this->instances[TagMapper::class])) {
-            $this->instances[TagMapper::class] = new TagMapper($this);
-        }
-        return $this->instances[TagMapper::class];
+        return $this->findMapper(TagMapper::class);
     }
 
-    public function createContentBlockMapper(): ContentBlockMapper
+    public function createContentBlockMapper(): Mapper
     {
-        if (!isset($this->instances[ContentBlockMapper::class])) {
-            $this->instances[ContentBlockMapper::class] = new ContentBlockMapper($this);
+        return $this->findMapper(ContentBlockMapper::class);
+    }
+
+    private function findMapper(string $mapperType): Mapper
+    {
+        if (!isset($this->instances[$mapperType])) {
+            $this->instances[$mapperType] = new $mapperType($this);
         }
-        return $this->instances[ContentBlockMapper::class];
+        return $this->instances[$mapperType];
     }
 }

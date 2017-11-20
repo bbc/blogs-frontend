@@ -24,7 +24,7 @@ abstract class Mapper
         $this->mapperFactory = $mapperFactory;
     }
 
-    abstract public function getDomainModel(SimpleXMLElement $isiteObject): ?IsiteEntity;
+    abstract public function getDomainModel(SimpleXMLElement $isiteObject);
 
     protected function getForm(SimpleXMLElement $isiteObject): SimpleXMLElement
     {

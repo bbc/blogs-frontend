@@ -8,7 +8,7 @@ use SimpleXMLElement;
 
 class ContentBlockMapper extends Mapper
 {
-    public function getDomainModel(SimpleXMLElement $isiteObject): ?IsiteEntity
+    public function getDomainModel(SimpleXMLElement $isiteObject): ?ContentBlock
     {
         return null;
     }
