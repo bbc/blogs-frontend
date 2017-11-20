@@ -5,9 +5,10 @@ namespace App\Ds;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
-use App\Ds\Module\AboutPresenter;
+use App\BlogsService\Domain\Module\FreeText;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Module\AboutPresenter;
+use App\Ds\Module\FreetextPresenter;
 
 /**
  * Ds Factory Class for creating presenters.
@@ -20,6 +21,16 @@ class PresenterFactory
     ): AboutPresenter {
         return new AboutPresenter(
             $blog,
+            $options
+        );
+    }
+
+    public function freetextModulePresenter(
+        FreeText $module,
+        array $options = []
+    ): FreetextPresenter {
+        return new FreetextPresenter(
+            $module,
             $options
         );
     }

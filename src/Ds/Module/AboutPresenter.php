@@ -1,9 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Organism\Module;
+namespace App\Ds\Module;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Image;
 use App\Ds\Presenter;
 
 class AboutPresenter extends Presenter
@@ -20,7 +21,7 @@ class AboutPresenter extends Presenter
 
     public function getBlogId(): string
     {
-        return str_replace(Blog::BLOG_PREFIX, '', $this->blog->getId());
+        return $this->blog->getId();
     }
 
     public function getBlogName(): string
@@ -33,18 +34,18 @@ class AboutPresenter extends Presenter
         return $this->blog->getDescription();
     }
 
-    public function getFacebookUrl(): ?string
+    public function getFacebookUrl(): string
     {
         if ($this->blog->getSocial() === null) {
-            return null;
+            return '';
         }
 
         return $this->blog->getSocial()->getFacebookUrl();
     }
 
-    public function getImageUrl(int $width): string
+    public function getImage(): Image
     {
-        return $this->blog->getImage()->getUrl($width);
+        return $this->blog->getImage();
     }
 
     public function getProseClasses(): string
@@ -56,10 +57,10 @@ class AboutPresenter extends Presenter
         return $classes;
     }
 
-    public function getTwitterUsername(): ?string
+    public function getTwitterUsername(): string
     {
         if ($this->blog->getSocial() === null) {
-            return null;
+            return '';
         }
 
         return trim($this->blog->getSocial()->getTwitterUsername(), '@');
