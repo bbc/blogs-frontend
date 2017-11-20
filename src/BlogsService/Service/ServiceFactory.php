@@ -7,6 +7,7 @@ use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;
 use App\BlogsService\Repository\BlogRepository;
+use App\BlogsService\Repository\PostRepository;
 use GuzzleHttp\ClientInterface;
 
 class ServiceFactory
@@ -49,5 +50,18 @@ class ServiceFactory
         }
 
         return $this->instances[BlogService::class];
+    }
+
+    public function getPostService(): PostService
+    {
+        if (!isset($this->instances[PostService::class])) {
+            $this->instances[PostService::class] = new PostService(
+                new PostRepository($this->apiEndpoint, $this->client),
+                new IsiteFeedResponseHandler($this->mapperFactory->createPostMapper(), $this->xmlParser),
+                $this->cache
+            );
+        }
+
+        return $this->instances[PostService::class];
     }
 }

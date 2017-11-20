@@ -1,10 +1,12 @@
 <?php
 declare(strict_types = 1);
+
 namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
 use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
+use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use App\BlogsService\Mapper\IsiteToDomain\TagMapper;
@@ -13,42 +15,41 @@ class MapperFactory
 {
     protected $instances = [];
 
-    public function createPostMapper(): PostMapper
+    public function createPostMapper(): Mapper
     {
-//        return new PostMapper($this);
+        return $this->findMapper(PostMapper::class);
     }
 
-    public function createBlogsmetadataMapper(): BlogMapper
+    public function createBlogsmetadataMapper(): Mapper
     {
-        if (!isset($this->instances[BlogMapper::class])) {
-            $this->instances[BlogMapper::class] = new BlogMapper($this);
+        return $this->findMapper(BlogMapper::class);
+    }
+
+    public function createModuleMapper(): Mapper
+    {
+        return $this->findMapper(ModuleMapper::class);
+    }
+
+    public function createAuthorsMapper(): Mapper
+    {
+        return $this->findMapper(AuthorMapper::class);
+    }
+
+    public function createTagMapper(): Mapper
+    {
+        return $this->findMapper(TagMapper::class);
+    }
+
+    private function findMapper(string $mapperType): Mapper
+    {
+        if (!isset($this->instances[$mapperType])) {
+            $this->instances[$mapperType] = new $mapperType($this);
         }
-        return $this->instances[BlogMapper::class];
+        return $this->instances[$mapperType];
     }
 
-    public function createModuleMapper(): ModuleMapper
-    {
-//        return new ModuleMapper($this);
-    }
-
-    //TODO: CHECK THIS - THIS IS DNA, DONT THINK ITS NEEDED
-//    public function createCommentForumMapper()
+    //    public function createContentBlockMapper(): Mapper
 //    {
-//        return new CommentForumMapper($this);
-//    }
-//
-//    public function createAuthorsMapper(): AuthorMapper
-//    {
-//        return new AuthorMapper($this);
-//    }
-
-//    public function createTagMapper(): TagMapper
-//    {
-//        return new TagMapper($this);
-//    }
-//
-//    public function createContentBlockMapper(): ContentBlockMapper
-//    {
-//        return new ContentBlockMapper($this);
+//        return $this->findMapper(ContentBlockMapper::class);
 //    }
 }

@@ -13,13 +13,10 @@ use GuzzleHttp\Exception\ServerException;
 use GuzzleHttp\Handler\MockHandler;
 use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
-use PHPUnit\Framework\TestCase;
 use Psr\Http\Message\ResponseInterface;
 
-class BlogRepositoryTest extends TestCase
+class BlogRepositoryTest extends RepositoryTest
 {
-    const API_ENDPOINT = 'https://anyendpoint';
-
     public function testAllBlogsQueryIsBuiltCorrectlyAndCallsCorrectUrl()
     {
         $allBlogsUrl = self::API_ENDPOINT . '/search?q={"searchChildrenOfProject":"blogs","fileType":"blogsmetadata","query":{"or":[["blog-name","contains","*"]]},"sort":[{"elementPath":"\/*:form\/*:metadata\/*:blog-name"}],"depth":"0","unfiltered":true}';
@@ -35,16 +32,16 @@ class BlogRepositoryTest extends TestCase
 
     public function testAllBlogsReturnsIsiteResult()
     {
-        $repo = $this->createRepo([$this->createMock(ResponseInterface::class)]);
+        $repo = $this->createBlogRepo([$this->createMock(ResponseInterface::class)]);
 
         $this->assertInstanceOf(ResponseInterface::class, $repo->getAllBlogs());
     }
 
-    public function testEmptyOn404()
+    public function testAllBlogsEmptyOn404()
     {
         $mock404Response = $this->buildMockResponse(404);
 
-        $repo = $this->createRepo([
+        $repo = $this->createBlogRepo([
             new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
         ]);
 
@@ -57,9 +54,9 @@ class BlogRepositoryTest extends TestCase
      * @dataProvider exceptionsTestDataProvider
      * @param GuzzleException $guzzleException
      */
-    public function testExceptions(GuzzleException $guzzleException)
+    public function testAllBlogsExceptions(GuzzleException $guzzleException)
     {
-        $repo = $this->createRepo([$guzzleException]);
+        $repo = $this->createBlogRepo([$guzzleException]);
 
         $this->expectException(IsiteResultException::class);
         $this->expectExceptionMessage('There was an error retrieving data from iSite.');
@@ -87,19 +84,24 @@ class BlogRepositoryTest extends TestCase
         ];
     }
 
-    private function buildMockResponse(int $code)
+    public function testGetBlogByIdEmptyOn404()
     {
-        $mockResponse = $this->createMock(ResponseInterface::class);
-        $mockResponse->method('getStatusCode')->willReturn($code);
+        $mock404Response = $this->buildMockResponse(404);
 
-        return $mockResponse;
+        $repo = $this->createBlogRepo([
+            new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
+        ]);
+
+        $result = $repo->getBlogById('someid');
+
+        $this->assertNull($result);
     }
 
     /**
      * @param GuzzleException[]|ResponseInterface[] $responses
      * @return BlogRepository
      */
-    private function createRepo(array $responses): BlogRepository
+    private function createBlogRepo(array $responses): BlogRepository
     {
         $mock = new MockHandler($responses);
 

@@ -3,10 +3,8 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
-use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\IsiteEntity;
-use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
@@ -17,7 +15,7 @@ class BlogMapper extends Mapper
 {
     const BLOG_PREFIX = 'blogs-';
 
-    public function getDomainModel(SimpleXMLElement $isiteObject): ?IsiteEntity
+    public function getDomainModel(SimpleXMLElement $isiteObject): ?Blog
     {
         $formMetaData = $this->getFormMetaData($isiteObject);
         $form = $this->getForm($isiteObject);
@@ -81,8 +79,6 @@ class BlogMapper extends Mapper
         $isArchived = $this->getBoolean($form->{'section-27'}->{'is-archived'});
 
         return new Blog(
-            new GUID($this->getString($this->getMetaData($isiteObject)->guid)),
-            new FileID($this->getString($this->getMetaData($isiteObject)->fileId)),
             $id,
             $name,
             $shortSynopsis,

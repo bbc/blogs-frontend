@@ -1,4 +1,5 @@
 <?php
+declare(strict_types = 1);
 
 namespace App\BlogsService\Service;
 
@@ -28,9 +29,9 @@ class BlogService
         $this->cache = $cache;
     }
 
-    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
+    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): IsiteResult
     {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl);
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
@@ -38,6 +39,23 @@ class BlogService
             function () {
                 //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getAllBlogs();
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): IsiteResult
+    {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blogId, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blogId) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getBlogById($blogId);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

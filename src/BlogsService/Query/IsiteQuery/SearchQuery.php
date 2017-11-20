@@ -8,6 +8,8 @@ use stdClass;
 
 class SearchQuery
 {
+    const MAX_PAGE_SIZE = 20;
+
     /** @var stdClass */
     private $q;
 
@@ -16,70 +18,40 @@ class SearchQuery
         $this->q = new stdClass();
     }
 
-    /**
-     * Sets the project id
-     * @param string $project
-     * @return SearchQuery
-     */
-//    public function setProject($project)
-//    {
-//        $this->q->project = $project;
-//        return $this;
-//    }
+    public function setProject(string $project): SearchQuery
+    {
+        $this->q->project = $project;
+        return $this;
+    }
 
+    public function setNamespace($project, $fileType)
+    {
+        $this->q->namespaces = new stdClass();
+        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/' . $project . '/' . $fileType;
 
-    /**
-     * Updates the namespace
-     * @return SearchQuery
-     */
-//    public function setNamespace($project, $fileType)
-//    {
-//        $this->q->namespaces = (object) array(
-//            'ns' => 'https://production.bbc.co.uk/isite2/project/' .
-//                $project .'/'. $fileType
-//        );
-//        return $this;
-//    }
+        return $this;
+    }
 
     /**
      * Set which page of results to return.  Not setting this will result in all results being fetched
-     *
-     * @param  int $pageNumber
-     * @return SearchQuery
-     * @throws InvalidArgumentException
      */
-//    public function setPage($pageNumber)
-//    {
-//        if (!is_int($pageNumber)) {
-//            throw new InvalidArgumentException('$pageNumber must be an int');
-//        }
-//
-//        $this->q->page = (string)$pageNumber;
-//
-//        return $this;
-//    }
+    public function setPage(int $pageNumber): SearchQuery
+    {
+        $this->q->page = (string) $pageNumber;
 
-    /**
-     * Set the number of results in each page
-     *
-     * @param  int $resultsPerPage
-     * @return SearchQuery
-     * @throws InvalidArgumentException
-     */
-//    public function setPageSize($resultsPerPage)
-//    {
-//        if (!is_int($resultsPerPage)) {
-//            throw new InvalidArgumentException('$resultsPerPage must be an int');
-//        }
-//
-//        if ($resultsPerPage > self::MAX_PAGE_SIZE || $resultsPerPage < 0) {
-//            throw new InvalidArgumentException('$resultsPerPage must be between 0 and ' . self::MAX_PAGE_SIZE);
-//        }
-//
-//        $this->q->pageSize = (string)$resultsPerPage;
-//
-//        return $this;
-//    }
+        return $this;
+    }
+
+    public function setPageSize(int $resultsPerPage): SearchQuery
+    {
+        if ($resultsPerPage > self::MAX_PAGE_SIZE || $resultsPerPage < 0) {
+            throw new InvalidArgumentException('$resultsPerPage must be between 0 and ' . self::MAX_PAGE_SIZE);
+        }
+
+        $this->q->pageSize = (string) $resultsPerPage;
+
+        return $this;
+    }
 
     /**
      * Sets the parent project for search in children

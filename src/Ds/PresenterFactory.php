@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace App\Ds;
 
-use App\Ds\Molecule\Image\ImagePresenter;
 use App\BlogsService\Domain\Image;
+use App\Ds\Molecule\Image\ImagePresenter;
 
 /**
  * Ds Factory Class for creating presenters.
