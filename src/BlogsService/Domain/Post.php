@@ -98,16 +98,20 @@ class Post extends IsiteEntity
     public function hasVideo(): bool
     {
         if (!isset($this->hasVideo)) {
-            $this->hasVideo = false;
-            $contentBlocks = $this->getContent();
-            foreach ($contentBlocks as $content) {
-                if ($content instanceof Clips) {
-                    $this->hasVideo = true;
-                    return true;
-                }
-            }
+            $this->hasVideo = $this->contentContainsClip();
         }
 
         return $this->hasVideo;
+    }
+
+    private function contentContainsClip(): bool
+    {
+        $contentBlocks = $this->getContent();
+        foreach ($contentBlocks as $content) {
+            if ($content instanceof Clips) {
+                return true;
+            }
+        }
+        return false;
     }
 }
