@@ -1,0 +1,22 @@
+{% extends 'blogs_base.html.twig' %}
+
+{% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }}{% endblock %}
+
+{% block content %}
+    <div class="islet br-box-subtle component text--right">
+        // Next, prev
+    </div>
+
+    <div class="component component--lined br-keyline">
+        <article itemprop="blogPost">
+            <div class="component component--lined br-keyline">
+                <h1 itemprop="name">{{ post.getTitle() }}</h1>
+            </div>
+        </article>
+
+        // POST //
+    </div>
+
+    // MORE POSTS //
+
+{% endblock %}

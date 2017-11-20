@@ -8,6 +8,7 @@ use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Tag;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
+use Exception;
 use SimpleXMLElement;
 
 class PostMapper extends Mapper
@@ -22,8 +23,6 @@ class PostMapper extends Mapper
             $form = $this->getForm($isiteObject);
             $guid = $this->getString($this->getMetaData($isiteObject)->guid);
 
-            //Note this forumid doesn't have a prefix 'blogs_' . $blog->short_project_id .
-            //which is why we get the blog object in domain to add that prefix.
             $forumId = str_replace('-', '_', '_' . $guid);
 
             $publishedDate = $this->getDate($formMetaData->{'published-date'});
@@ -48,7 +47,7 @@ class PostMapper extends Mapper
 
             $image = $this->getImageIfExists($formMetaData->{'post-image'});
 
-            $contentBlocks = array();
+            $contentBlocks = [];
             $contentBlockContent = $form->content->xpath("./*");
 
             foreach ($contentBlockContent as $contentBlock) {
@@ -61,7 +60,7 @@ class PostMapper extends Mapper
                         );
                 }
             }
-            $tags = array();
+            $tags = [];
             $tagContent = $form->{'Tags'}->{'tag-content'};
 
             foreach ($tagContent as $tag) {
@@ -89,7 +88,7 @@ class PostMapper extends Mapper
                 $contentBlocks,
                 $tags
             );
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             return null;
         }
     }

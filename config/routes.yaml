@@ -17,5 +17,5 @@ blog:
 
 post:
     path: /blogs/{blogId}/entries/{guid}
-    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: '' }
+    defaults: { _controller: App\Controller\PostShowController }
     requirements: { blogId: '[a-z0-9]+' }
