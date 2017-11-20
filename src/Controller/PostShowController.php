@@ -21,14 +21,12 @@ class PostShowController extends BaseController
         $testPost = null;
 
         foreach ($posts as $post) {
-            if ((string) $post->getGuid() === $guid)
-            {
+            if ((string) $post->getGuid() === $guid) {
                 $testPost = $post;
             }
         }
 
-        if (!isset($testPost))
-        {
+        if (!isset($testPost)) {
             throw new Exception('The post has not been found, please choose another for testing.');
         }
 
