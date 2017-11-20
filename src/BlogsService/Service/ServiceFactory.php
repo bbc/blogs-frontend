@@ -8,6 +8,7 @@ use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;
 use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Repository\PostRepository;
+use App\BlogsService\Repository\TagRepository;
 use GuzzleHttp\ClientInterface;
 
 class ServiceFactory
@@ -63,5 +64,18 @@ class ServiceFactory
         }
 
         return $this->instances[PostService::class];
+    }
+
+    public function getTagService(): TagService
+    {
+        if (!isset($this->instances[TagService::class])) {
+            $this->instances[TagService::class] = new TagService(
+                new TagRepository($this->apiEndpoint, $this->client),
+                new IsiteFeedResponseHandler($this->mapperFactory->createTagMapper(), $this->xmlParser),
+                $this->cache
+            );
+        }
+
+        return $this->instances[TagService::class];
     }
 }

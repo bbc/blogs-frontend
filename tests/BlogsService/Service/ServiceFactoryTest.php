@@ -41,6 +41,8 @@ class ServiceFactoryTest extends TestCase
     {
         return [
             'BlogService' => ['BlogService', 'createBlogsmetadataMapper'],
+            'PostService' => ['PostService', 'createPostMapper'],
+            'TagService' => ['TagService', 'createTagMapper'],
         ];
     }
 }

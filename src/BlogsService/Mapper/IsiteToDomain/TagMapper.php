@@ -3,13 +3,32 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
-use phpDocumentor\Reflection\DocBlock\Tag;
+use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Tag;
+use App\BlogsService\Domain\ValueObject\FileID;
+use Exception;
 use SimpleXMLElement;
 
 class TagMapper extends Mapper
 {
     public function getDomainModel(SimpleXMLElement $isiteObject): ?Tag
     {
-        return null;
+        $formMetaData = $this->getFormMetaData($isiteObject);
+
+        if (!is_object($formMetaData)) {
+            return null;
+        }
+
+        $name = $this->getString($formMetaData->name);
+
+        try {
+            $fileId = $this->getString($this->getMetaData($isiteObject)->fileId);
+            $fileId = str_replace(Blog::BLOG_PREFIX, "", $fileId);
+            $tag = new Tag(new FileID($fileId), $name);
+
+            return $tag;
+        } catch (Exception $e) {
+            return null;
+        }
     }
 }
