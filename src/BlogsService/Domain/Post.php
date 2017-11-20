@@ -111,12 +111,12 @@ class Post
 
     private function contentContainsClip(): bool
     {
-        $contentBlocks = $this->getContent();
-        foreach ($contentBlocks as $content) {
-            if ($content instanceof Clips) {
-                return true;
-            }
-        }
+//        $contentBlocks = $this->getContent();
+//        foreach ($contentBlocks as $content) {
+//            if ($content instanceof Clips) {
+//                return true;
+//            }
+//        }
         return false;
     }
 }

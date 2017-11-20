@@ -1,3 +1,4 @@
 parameters:
+    app.api_endpoint: 'https://api.test.bbc.co.uk/isite2-content-reader'
     app.feed_env.orbit: 'test'
     app.feed_env.branding: 'test'

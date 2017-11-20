@@ -38,7 +38,7 @@ class PostService
         int $perpage = 10,
         string $sort = 'desc',
         $ttl = CacheInterface::NORMAL,
-        $nullTtl = CacheInterface::NORMAL
+        $nullTtl = CacheInterface::NONE
     ): IsiteResult {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $page, $perpage, $sort, $ttl, $nullTtl);
 

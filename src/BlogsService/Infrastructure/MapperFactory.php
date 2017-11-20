@@ -40,11 +40,6 @@ class MapperFactory
         return $this->findMapper(TagMapper::class);
     }
 
-    public function createContentBlockMapper(): Mapper
-    {
-        return $this->findMapper(ContentBlockMapper::class);
-    }
-
     private function findMapper(string $mapperType): Mapper
     {
         if (!isset($this->instances[$mapperType])) {
@@ -52,4 +47,9 @@ class MapperFactory
         }
         return $this->instances[$mapperType];
     }
+
+    //    public function createContentBlockMapper(): Mapper
+//    {
+//        return $this->findMapper(ContentBlockMapper::class);
+//    }
 }

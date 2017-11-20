@@ -35,7 +35,7 @@ class PostMapper extends Mapper
                 ->result
                 ->metadata;
             if (is_object($authorMetadata)) {
-                $authorGUID = (string) $authorMetadata->guid;
+                $authorGUID = (string) $authorMetadata->{'guid'};
 
                 if (!empty($authorGUID)) {
                     $author = $this->mapperFactory->createAuthorsMapper()->getDomainModel(
@@ -49,16 +49,16 @@ class PostMapper extends Mapper
             $contentBlocks = [];
             $contentBlockContent = $form->content->xpath("./*");
 
-            foreach ($contentBlockContent as $contentBlock) {
-                $result = $contentBlock->{'blog-post-content'}->result;
-
-                if (is_object($result->metadata)) {
-                    $contentBlocks[] = $this->mapperFactory
-                        ->createContentBlockMapper()->getDomainModel(
-                            $result
-                        );
-                }
-            }
+//            foreach ($contentBlockContent as $contentBlock) {
+//                $result = $contentBlock->{'blog-post-content'}->result;
+//
+//                if (is_object($result->metadata)) {
+//                    $contentBlocks[] = $this->mapperFactory
+//                        ->createContentBlockMapper()->getDomainModel(
+//                            $result
+//                        );
+//                }
+//            }
             $tags = [];
             $tagContent = $form->{'Tags'}->{'tag-content'};
 

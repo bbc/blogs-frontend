@@ -34,7 +34,7 @@ class MapperFactoryTest extends TestCase
         return [
             ['method' => 'Authors', 'class' => AuthorMapper::class],
             ['method' => 'Blogsmetadata', 'class' => BlogMapper::class],
-            ['method' => 'ContentBlock', 'class' => ContentBlockMapper::class],
+//            ['method' => 'ContentBlock', 'class' => ContentBlockMapper::class],
             ['method' => 'Module', 'class' => ModuleMapper::class],
             ['method' => 'Post', 'class' => PostMapper::class],
             ['method' => 'Tag', 'class' => TagMapper::class],

@@ -29,7 +29,7 @@ class BlogService
         $this->cache = $cache;
     }
 
-    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
+    public function getAllBlogs($ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): IsiteResult
     {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $ttl, $nullTtl);
 
@@ -46,7 +46,7 @@ class BlogService
         );
     }
 
-    public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NORMAL): IsiteResult
+    public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): IsiteResult
     {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blogId, $ttl, $nullTtl);
 
