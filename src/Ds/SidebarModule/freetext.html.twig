@@ -1,0 +1,11 @@
+<div class="sidebox component br-box-subtle">
+    <h2 class="island--squashed br-box-highlight no-margin">{{ freetext.getTitle() }}</h2>
+    <div class="island">
+        {% if freetext.hasImage() %}
+            <div class="freetext-image">
+                <img class="bpw-visible media__img" src="{{ freetext.getImageUrl(128) }}" alt="">
+            </div>
+        {% endif %}
+        {{ freetext.getBody()|raw }}
+    </div>
+</div>
