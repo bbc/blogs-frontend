@@ -19,7 +19,7 @@ class BlogMapper extends Mapper
     {
         $formMetaData = $this->getFormMetaData($isiteObject);
         $form = $this->getForm($isiteObject);
-        $id = $this->_getProjectId($form);
+        $projectId = $this->_getProjectId($form);
 
         $name = $this->getString($formMetaData->{'blog-name'});
         $shortSynopsis = $this->getString($formMetaData->{'short-synopsis'});
@@ -79,7 +79,7 @@ class BlogMapper extends Mapper
         $isArchived = $this->getBoolean($form->{'section-27'}->{'is-archived'});
 
         return new Blog(
-            $id,
+            $projectId,
             $name,
             $shortSynopsis,
             $description,

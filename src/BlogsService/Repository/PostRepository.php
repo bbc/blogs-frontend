@@ -15,7 +15,7 @@ class PostRepository extends AbstractRepository
         $query = new SearchQuery();
 
         $query->setProject($blog->getId());
-        $query->setNamespace($blog->getId(), 'blogs-post');
+        $query->setNamespace($blog->getProjectId(), 'blogs-post');
 
         $query->setQuery([
             'and' => [

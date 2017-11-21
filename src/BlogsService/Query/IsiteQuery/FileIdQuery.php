@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Query\IsiteQuery;
 
-use App\BlogsService\Domain\Blog;
-
 class FileIdQuery
 {
     /** @var string[] */
@@ -12,7 +10,7 @@ class FileIdQuery
 
     public function setProject(string $project): FileIdQuery
     {
-        $this->parameters['project'] = Blog::BLOG_PREFIX . $project;
+        $this->parameters['project'] = 'blogs-' . $project;
         return $this;
     }
 

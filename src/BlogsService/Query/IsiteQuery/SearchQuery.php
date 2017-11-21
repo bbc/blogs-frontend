@@ -20,7 +20,7 @@ class SearchQuery
 
     public function setProject(string $project): SearchQuery
     {
-        $this->q->project = $project;
+        $this->q->project = 'blogs-' . $project;
         return $this;
     }
 
