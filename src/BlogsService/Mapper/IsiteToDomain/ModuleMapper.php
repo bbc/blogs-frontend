@@ -5,7 +5,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
-use App\BlogsService\Domain\Module\Module;
+use App\BlogsService\Domain\Module\ModuleInterface;
 use Exception;
 use SimpleXMLElement;
 
@@ -13,7 +13,7 @@ class ModuleMapper extends Mapper
 {
     /**
      * @param SimpleXMLElement $isiteObject
-     * @return Module
+     * @return ModuleInterface
      * @throws Exception
      */
     public function getDomainModel(SimpleXMLElement $isiteObject)

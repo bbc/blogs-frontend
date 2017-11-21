@@ -36,6 +36,12 @@ abstract class BlogsBaseController extends BaseController
         return parent::renderWithChrome($view, $parameters);
     }
 
+    protected function setBlog(Blog $blog)
+    {
+        $this->blog = $blog;
+        $this->setBrandingId($blog->getBrandingId());
+    }
+
     /**
      * @return Presenter[]
      */
@@ -51,11 +57,5 @@ abstract class BlogsBaseController extends BaseController
         }
 
         return $modulePresenters;
-    }
-
-    protected function setBlog(Blog $blog)
-    {
-        $this->blog = $blog;
-        $this->setBrandingId($blog->getBrandingId());
     }
 }

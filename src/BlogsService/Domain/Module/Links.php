@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Domain\Module;
 
-class Links implements Module
+class Links implements ModuleInterface
 {
     /** @var string */
     private $title;
