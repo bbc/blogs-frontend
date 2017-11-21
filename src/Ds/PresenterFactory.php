@@ -7,8 +7,8 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\Module\FreeText;
 use App\Ds\Molecule\Image\ImagePresenter;
-use App\Ds\Module\AboutPresenter;
-use App\Ds\Module\FreetextPresenter;
+use App\Ds\SidebarModule\AboutPresenter;
+use App\Ds\SidebarModule\FreetextPresenter;
 
 /**
  * Ds Factory Class for creating presenters.

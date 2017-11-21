@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Module;
+namespace App\Ds\SidebarModule;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
