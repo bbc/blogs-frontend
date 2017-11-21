@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Domain;
 
-use App\BlogsService\Domain\Module\FreeText;
+use App\BlogsService\Domain\Module\Module;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
@@ -53,7 +53,7 @@ class Blog
     /** @var Post */
     private $featuredPost;
 
-    /** @var FreeText[] */
+    /** @var Module[] */
     private $modules;
 
     /** @var bool */
@@ -173,7 +173,7 @@ class Blog
         return $this->featuredPost;
     }
 
-    /** @return FreeText[] */
+    /** @return Module[] */
     public function getModules(): array
     {
         return $this->modules;

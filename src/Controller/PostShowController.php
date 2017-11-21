@@ -7,11 +7,11 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
 
-class PostShowController extends BaseController
+class PostShowController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, string $guid, PostService $postService)
     {
-        $this->setBrandingId($blog->getBrandingId());
+        $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
 
@@ -19,6 +19,6 @@ class PostShowController extends BaseController
             throw $this->createNotFoundException('Post not found');
         }
 
-        return $this->renderWithChrome('post/show.html.twig', ['blog' => $blog, 'post' => $post]);
+        return $this->renderWithChrome('post/show.html.twig', ['post' => $post]);
     }
 }
