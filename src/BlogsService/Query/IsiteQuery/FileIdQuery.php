@@ -3,8 +3,6 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Query\IsiteQuery;
 
-use App\BlogsService\Domain\Blog;
-
 class FileIdQuery
 {
     /** @var string[] */
