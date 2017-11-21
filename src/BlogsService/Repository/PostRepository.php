@@ -19,7 +19,7 @@ class PostRepository extends AbstractRepository
             $query->setProject($blogId);
         }
 
-        return $this->getResponse($this->apiEndpoint . '/content?' . http_build_query($query->getParameters()));
+        return $this->getResponse($query);
     }
 
     public function getPostsByBlog(string $blogId, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
@@ -52,6 +52,6 @@ class PostRepository extends AbstractRepository
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
+        return $this->getResponse($query);
     }
 }

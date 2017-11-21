@@ -16,33 +16,32 @@ class SearchQueryTest extends TestCase
             ->setFileType('blogsmetadata')
             ->setQuery(
                 [
-                    "or" => [
+                    'or' => [
                         [
                             'blog-name', 'contains', '*',
                         ],
                     ],
                 ]
             )
-            ->setSort([["elementPath" => "/*:form/*:metadata/*:blog-name"]])
+            ->setSort([['elementPath' => '/*:form/*:metadata/*:blog-name']])
             ->setDepth(0)
             ->setUnfiltered(true);
 
-        $queryResult = $searchQuery->getSearchQuery();
+        $queryResult = $searchQuery->getPath();
 
-        $this->assertInstanceOf(stdClass::class, $queryResult);
+        $expected = (object) [
+            'searchChildrenOfProject' => 'blogs',
+            'fileType' => 'blogsmetadata',
+            'query' => [
+                'or' => [['blog-name', 'contains', '*']],
+            ],
+            'sort' => [['elementPath' => '/*:form/*:metadata/*:blog-name']],
+            'depth' => 0,
+            'unfiltered' => true,
+        ];
 
-        //check the fields in the stdClass have been set correctly
-        $this->assertEquals('blogs', $queryResult->searchChildrenOfProject);
-        $this->assertEquals('blogsmetadata', $queryResult->fileType);
-        $this->assertArrayHasKey('or', $queryResult->query);
-        $this->assertArrayHasKey(0, $queryResult->query['or']);
-        $this->assertArrayHasKey(0, $queryResult->query['or'][0]);
-        $this->assertArrayHasKey(1, $queryResult->query['or'][0]);
-        $this->assertEquals('blog-name', $queryResult->query['or'][0][0]);
-        $this->assertEquals('contains', $queryResult->query['or'][0][1]);
-        $this->assertEquals('*', $queryResult->query['or'][0][2]);
-        $this->assertEquals('/*:form/*:metadata/*:blog-name', $queryResult->sort[0]['elementPath']);
-        $this->assertEquals('0', $queryResult->depth);
-        $this->assertTrue($queryResult->unfiltered);
+        $this->assertAttributeEquals($expected, 'q', $searchQuery);
+
+        $this->assertEquals('/search?q=' . urlencode(json_encode($expected)), $searchQuery->getPath());
     }
 }

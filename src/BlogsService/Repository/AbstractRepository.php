@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Repository;
 
+use App\BlogsService\Query\IsiteQuery\QueryInterface;
 use App\BlogsService\Infrastructure\IsiteResultException;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
@@ -12,10 +13,10 @@ use Psr\Http\Message\ResponseInterface;
 abstract class AbstractRepository
 {
     /** @var string */
-    protected $apiEndpoint;
+    private $apiEndpoint;
 
     /** @var ClientInterface */
-    protected $client;
+    private $client;
 
     public function __construct(string $apiEndpoint, ClientInterface $client)
     {
@@ -23,10 +24,10 @@ abstract class AbstractRepository
         $this->client = $client;
     }
 
-    protected function getResponse(string $url): ?ResponseInterface
+    protected function getResponse(QueryInterface $query): ?ResponseInterface
     {
         try {
-            return $this->client->request('GET', $url);
+            return $this->client->request('GET', $this->apiEndpoint . $query->getPath());
         } catch (GuzzleException $e) {
             if ($e instanceof ClientException && $e->getCode() == 404) {
                 return null;

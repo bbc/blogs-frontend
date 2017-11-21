@@ -6,7 +6,7 @@ namespace App\BlogsService\Query\IsiteQuery;
 use InvalidArgumentException;
 use stdClass;
 
-class SearchQuery
+class SearchQuery implements QueryInterface
 {
     const MAX_PAGE_SIZE = 20;
 
@@ -18,16 +18,16 @@ class SearchQuery
         $this->q = new stdClass();
     }
 
-    public function setProject(string $project): SearchQuery
+    public function setProject(string $project): self
     {
         $this->q->project = 'blogs-' . $project;
         return $this;
     }
 
-    public function setNamespace(string $project, string $fileType)
+    public function setNamespace(string $blogId, string $fileType)
     {
         $this->q->namespaces = new stdClass();
-        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/blogs-' . $project . '/' . $fileType;
+        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/blogs-' . $blogId . '/' . $fileType;
 
         return $this;
     }
@@ -35,14 +35,14 @@ class SearchQuery
     /**
      * Set which page of results to return.  Not setting this will result in all results being fetched
      */
-    public function setPage(int $pageNumber): SearchQuery
+    public function setPage(int $pageNumber): self
     {
         $this->q->page = (string) $pageNumber;
 
         return $this;
     }
 
-    public function setPageSize(int $resultsPerPage): SearchQuery
+    public function setPageSize(int $resultsPerPage): self
     {
         if ($resultsPerPage > self::MAX_PAGE_SIZE || $resultsPerPage < 0) {
             throw new InvalidArgumentException('$resultsPerPage must be between 0 and ' . self::MAX_PAGE_SIZE);
@@ -58,21 +58,21 @@ class SearchQuery
      * @param string $project
      * @return SearchQuery
      */
-    public function setSearchChildrenOfProject(string $project): SearchQuery
+    public function setSearchChildrenOfProject(string $project): self
     {
         $this->q->searchChildrenOfProject = $project;
 
         return $this;
     }
 
-    public function setFileType(string $fileType): SearchQuery
+    public function setFileType(string $fileType): self
     {
         $this->q->fileType = $fileType;
 
         return $this;
     }
 
-    public function setQuery(array $query): SearchQuery
+    public function setQuery(array $query): self
     {
         $this->q->query = $query;
 
@@ -83,16 +83,16 @@ class SearchQuery
      * @param string[][] $sort
      * @return SearchQuery
      */
-    public function setSort(array $sort): SearchQuery
+    public function setSort(array $sort): self
     {
         $this->q->sort = $sort;
 
         return $this;
     }
 
-    public function setDepth(int $depth): SearchQuery
+    public function setDepth(int $depth): self
     {
-        $this->q->depth = (string) $depth;
+        $this->q->depth = $depth;
 
         return $this;
     }
@@ -102,15 +102,15 @@ class SearchQuery
      * @param bool $unfiltered
      * @return SearchQuery
      */
-    public function setUnfiltered(bool $unfiltered): SearchQuery
+    public function setUnfiltered(bool $unfiltered): self
     {
         $this->q->unfiltered = $unfiltered;
 
         return $this;
     }
 
-    public function getSearchQuery(): stdClass
+    public function getPath(): string
     {
-        return $this->q;
+        return '/search?' . http_build_query(['q' => json_encode($this->q)]);
     }
 }

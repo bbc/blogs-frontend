@@ -16,7 +16,7 @@ class GetAllBlogsTest extends AbstractBlogRepositoryTest
 {
     public function testAllBlogsQueryIsBuiltCorrectlyAndCallsCorrectUrl()
     {
-        $allBlogsUrl = self::API_ENDPOINT . '/search?q={"searchChildrenOfProject":"blogs","fileType":"blogsmetadata","query":{"or":[["blog-name","contains","*"]]},"sort":[{"elementPath":"\/*:form\/*:metadata\/*:blog-name"}],"depth":"0","unfiltered":true}';
+        $allBlogsUrl = self::API_ENDPOINT . '/search?q=' . urlencode('{"searchChildrenOfProject":"blogs","fileType":"blogsmetadata","query":{"or":[["blog-name","contains","*"]]},"sort":[{"elementPath":"\/*:form\/*:metadata\/*:blog-name"}],"depth":0,"unfiltered":true}');
 
         $client = $this->createMock(ClientInterface::class);
         $client->expects($this->once())

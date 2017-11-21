@@ -18,7 +18,7 @@ class BlogRepository extends AbstractRepository
             ->setDepth(0)
             ->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . json_encode($query->getSearchQuery()));
+        return $this->getResponse($query);
     }
 
     public function getBlogById(string $blogId): ?ResponseInterface
@@ -28,6 +28,6 @@ class BlogRepository extends AbstractRepository
             ->setId('blogs-meta-data')
             ->setDepth(2);
 
-        return $this->getResponse($this->apiEndpoint . '/content/file?' . http_build_query($query->getParameters()));
+        return $this->getResponse($query);
     }
 }

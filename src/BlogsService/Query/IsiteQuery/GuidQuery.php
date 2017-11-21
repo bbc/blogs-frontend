@@ -3,32 +3,31 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Query\IsiteQuery;
 
-class GuidQuery
+class GuidQuery implements QueryInterface
 {
-    /** @var string[] */
+    /** @var (int|string)[] */
     private $parameters = [];
 
-    public function setProject(string $project): GuidQuery
+    public function setProject(string $project): self
     {
         $this->parameters['project'] = 'blogs-' . $project;
         return $this;
     }
 
-    public function setContentId(string $id): GuidQuery
+    public function setContentId(string $id): self
     {
         $this->parameters['contentId'] = $id;
         return $this;
     }
 
-    public function setDepth(int $depth): GuidQuery
+    public function setDepth(int $depth): self
     {
-        $this->parameters['depth'] = (string) $depth;
+        $this->parameters['depth'] = $depth;
         return $this;
     }
 
-    /** @return string[] */
-    public function getParameters(): array
+    public function getPath(): string
     {
-        return $this->parameters;
+        return '/content?' . http_build_query($this->parameters);
     }
 }

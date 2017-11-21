@@ -3,32 +3,31 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Query\IsiteQuery;
 
-class FileIdQuery
+class FileIdQuery implements QueryInterface
 {
-    /** @var string[] */
+    /** @var (int|string)[] */
     private $parameters = [];
 
-    public function setProject(string $project): FileIdQuery
+    public function setProject(string $project): self
     {
         $this->parameters['project'] = 'blogs-' . $project;
         return $this;
     }
 
-    public function setId(string $id): FileIdQuery
+    public function setId(string $id): self
     {
         $this->parameters['id'] = $id;
         return $this;
     }
 
-    public function setDepth(int $depth): FileIdQuery
+    public function setDepth(int $depth): self
     {
-        $this->parameters['depth'] = (string) $depth;
+        $this->parameters['depth'] = $depth;
         return $this;
     }
 
-    /** @return string[] */
-    public function getParameters(): array
+    public function getPath(): string
     {
-        return $this->parameters;
+        return '/content/file?' . http_build_query($this->parameters);
     }
 }

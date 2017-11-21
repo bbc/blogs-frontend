@@ -29,6 +29,6 @@ class TagRepository extends AbstractRepository
         $query->setPageSize($limit);
         $query->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
+        return $this->getResponse($query);
     }
 }
