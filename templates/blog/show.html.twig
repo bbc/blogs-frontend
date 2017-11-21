@@ -9,7 +9,7 @@
     <ul class="list-unstyled list-lined">
     {% for post in posts %}
         <li class="post br-keyline">
-            <a href="{{ path('post', {blogId: blog.getId()|replace({'blogs-': ''}), guid: post.getGuid() }) }}">
+            <a href="{{ path('post', {blogId: blog.getId(), guid: post.getGuid() }) }}">
                 {{ post.getTitle() }}
             </a>
         </li>

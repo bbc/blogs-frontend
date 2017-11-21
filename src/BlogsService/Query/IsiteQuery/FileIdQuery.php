@@ -12,7 +12,7 @@ class FileIdQuery
 
     public function setProject(string $project): FileIdQuery
     {
-        $this->parameters['project'] = Blog::BLOG_PREFIX . $project;
+        $this->parameters['project'] = 'blogs-' . $project;
         return $this;
     }
 

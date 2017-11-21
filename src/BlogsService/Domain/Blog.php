@@ -11,7 +11,7 @@ use InvalidArgumentException;
 
 class Blog
 {
-    const BLOG_PREFIX = 'blogs-';
+    private const BLOG_PREFIX = 'blogs-';
 
     /** @var string */
     private $id;
@@ -59,7 +59,7 @@ class Blog
     private $isArchived;
 
     public function __construct(
-        string $id,
+        string $projectId,
         string $name,
         string $shortSynopsis,
         string $description,
@@ -83,7 +83,7 @@ class Blog
             throw new InvalidArgumentException('isArchived must be of type boolean');
         }
 
-        $this->id = $id;
+        $this->id = str_replace(Blog::BLOG_PREFIX, '', $projectId);
         $this->name = $name;
         $this->shortSynopsis = $shortSynopsis;
         $this->description = $description;
@@ -177,5 +177,10 @@ class Blog
     public function getIsArchived(): bool
     {
         return $this->isArchived;
+    }
+
+    public function getProjectId(): string
+    {
+        return self::BLOG_PREFIX . $this->id;
     }
 }

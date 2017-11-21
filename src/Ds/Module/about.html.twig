@@ -3,7 +3,11 @@
     <div class="grid-wrapper">
         {% if about.shouldShowImage() %}
             <div class="grid 1/2@bpb2 1/2@bpw 1/1@bpw2 1/1@bpe">
-                {{ ds('image', about.getImage(), 320, {}) }}
+                {{ ds('image', about.getImage(), 320, {
+                    480: 1/2,
+                    770: 1/3,
+                    1008: '315px'
+                }) }}
             </div>
         {% endif %}
 

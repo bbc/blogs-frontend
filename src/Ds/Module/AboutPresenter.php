@@ -21,7 +21,7 @@ class AboutPresenter extends Presenter
 
     public function getBlogId(): string
     {
-        return str_replace(Blog::BLOG_PREFIX, '', $this->blog->getId());
+        return $this->blog->getId();
     }
 
     public function getBlogName(): string
