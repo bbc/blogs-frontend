@@ -9,6 +9,7 @@ use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\SidebarModule\AboutPresenter;
+use App\Ds\SidebarModule\BlogTagsPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 
@@ -33,6 +34,18 @@ class PresenterFactory
     ): FreetextPresenter {
         return new FreetextPresenter(
             $module,
+            $options
+        );
+    }
+
+    public function blogTagsModulePresenter(
+        Blog $blog,
+        array $tags,
+        array $options = []
+    ): BlogTagsPresenter {
+        return new BlogTagsPresenter(
+            $blog,
+            $tags,
             $options
         );
     }

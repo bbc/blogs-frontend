@@ -46,6 +46,9 @@ services:
     App\BlogsService\Service\PostService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getPostService']
 
+    App\BlogsService\Service\TagService:
+        factory: ['@App\BlogsService\Service\ServiceFactory', 'getTagService']
+
     App\BlogsService\Service\ServiceFactory:
         arguments:
             - '%app.api_endpoint%'

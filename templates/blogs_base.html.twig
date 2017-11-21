@@ -21,10 +21,9 @@
                 {% for modulePresenter in modulePresenters %}
                     {{ ds_presenter(modulePresenter) }}
                 {% endfor %}
-                <div class="sidebox component br-box-subtle">
-                    <h2 class="island--squashed br-box-highlight no-margin">Latest Tags Module</h2>
-                    <div class="grid-wrapper"></div>
-                </div>
+                {% if blogTags is not empty %}
+                    {{ ds('blogTagsModule', blog, blogTags) }}
+                {% endif %}
             </aside>
         </div>
     </div>
