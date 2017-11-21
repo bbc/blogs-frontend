@@ -59,7 +59,7 @@ class Blog
     private $isArchived;
 
     /** @var string */
-    private $project_id;
+    private $projectId;
 
     public function __construct(
         string $projectId,
@@ -101,7 +101,7 @@ class Blog
         $this->featuredPost = $featuredPost;
         $this->modules = $modules;
         $this->isArchived = $isArchived;
-        $this->project_id = $projectId;
+        $this->projectId = $projectId;
     }
 
     public function getId(): string
@@ -185,6 +185,6 @@ class Blog
 
     public function getProjectId(): string
     {
-        return $this->project_id;
+        return $this->projectId;
     }
 }
