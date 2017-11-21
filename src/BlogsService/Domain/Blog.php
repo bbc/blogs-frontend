@@ -58,6 +58,9 @@ class Blog
     /** @var bool */
     private $isArchived;
 
+    /** @var string */
+    private $project_id;
+
     public function __construct(
         string $projectId,
         string $name,
@@ -98,6 +101,7 @@ class Blog
         $this->featuredPost = $featuredPost;
         $this->modules = $modules;
         $this->isArchived = $isArchived;
+        $this->project_id = $projectId;
     }
 
     public function getId(): string
@@ -181,6 +185,6 @@ class Blog
 
     public function getProjectId(): string
     {
-        return self::BLOG_PREFIX . $this->id;
+        return $this->project_id;
     }
 }
