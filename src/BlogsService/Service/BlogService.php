@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Service;
 
+use App\BlogsService\Domain\Blog;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
@@ -46,7 +47,7 @@ class BlogService
         );
     }
 
-    public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): IsiteResult
+    public function getBlogById(string $blogId, $ttl = CacheInterface::NORMAL, $nullTtl = CacheInterface::NONE): ?Blog
     {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blogId, $ttl, $nullTtl);
 
@@ -56,7 +57,8 @@ class BlogService
             function () use ($blogId) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getBlogById($blogId);
-                return $this->responseHandler->getIsiteResult($response);
+                $result = $this->responseHandler->getIsiteResult($response);
+                return $result->getDomainModels()[0] ?? null;
             },
             [],
             $nullTtl

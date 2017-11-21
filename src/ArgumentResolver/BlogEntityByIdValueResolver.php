@@ -29,12 +29,12 @@ class BlogEntityByIdValueResolver implements ArgumentValueResolverInterface
     public function resolve(Request $request, ArgumentMetadata $argument): Generator
     {
         $blogId = $request->attributes->get('blogId');
-        $entities = $this->blogService->getBlogById($blogId)->getDomainModels();
+        $blog = $this->blogService->getBlogById($blogId);
 
-        if (!isset($entities[0]) || !$entities[0] instanceof Blog) {
+        if (!$blog) {
             throw new NotFoundHttpException(sprintf('The blog with id "%s" was not found', $blogId));
         }
 
-        yield $entities[0];
+        yield $blog;
     }
 }
