@@ -3,8 +3,7 @@
     <div class="grid-wrapper">
         {% if about.shouldShowImage() %}
             <div class="grid 1/2@bpb2 1/2@bpw 1/1@bpw2 1/1@bpe">
-                <img src="{{ about.getImageUrl('320') }}" class="rsp-img"
-                     alt="{{ about.getBlogName() }}"/>
+                {{ ds('image', about.getImage(), 320, {}) }}
             </div>
         {% endif %}
 

@@ -6,7 +6,7 @@ namespace App\Ds;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
 use App\Ds\Molecule\Image\ImagePresenter;
-use App\Ds\Organism\Module\AboutPresenter;
+use App\Ds\Module\AboutPresenter;
 
 /**
  * Ds Factory Class for creating presenters.
