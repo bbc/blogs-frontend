@@ -18,4 +18,4 @@ blog:
 post:
     path: /blogs/{blogId}/entries/{guid}
     defaults: { _controller: App\Controller\PostShowController }
-    requirements: { blogId: '[a-z0-9]+' }
+    requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }

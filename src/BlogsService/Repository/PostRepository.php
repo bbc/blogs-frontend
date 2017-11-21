@@ -4,12 +4,25 @@ declare(strict_types=1);
 namespace App\BlogsService\Repository;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 
 class PostRepository extends AbstractRepository
 {
+    public function getPostByGuid(string $guid, string $blogId = ''): ?ResponseInterface
+    {
+        $query = new GuidQuery();
+
+        $query->setContentId($guid);
+        if ($blogId) {
+            $query->setProject($blogId);
+        }
+
+        return $this->getResponse($this->apiEndpoint . '/content?' . http_build_query($query->getParameters()));
+    }
+
     public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
     {
         $query = new SearchQuery();

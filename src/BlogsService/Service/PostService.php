@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Post;
+use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
@@ -29,6 +31,30 @@ class PostService
         $this->repository = $repository;
         $this->responseHandler = $responseHandler;
         $this->cache = $cache;
+    }
+
+    public function getPostByGuid(
+        GUID $guid,
+        ?Blog $blog = null,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): ?Post {
+        $blogId = $blog ? $blog->getId() : '';
+        $guidString =  (string) $guid;
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $guidString, $blogId, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($guidString, $blogId) {
+                $response = $this->repository->getPostByGuid($guidString, $blogId);
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
     }
 
     public function getPostsByBlog(
