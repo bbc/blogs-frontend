@@ -1,21 +1,18 @@
 <?php
+declare(strict_types = 1);
 
-namespace Tests\App\BlogsService\Service;
+namespace Tests\App\BlogsService\Service\BlogService;
 
-use App\BlogsService\Domain\IsiteEntity;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
-use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
 use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Service\BlogService;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use Psr\Http\Message\ResponseInterface;
-use SimpleXMLElement;
 
-class BlogServiceTest extends TestCase
+class GetAllBlogsTest extends TestCase
 {
     /** @var BlogRepository | PHPUnit_Framework_MockObject_MockObject */
     private $mockBlogRepository;
