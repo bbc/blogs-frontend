@@ -30,7 +30,7 @@ class BlogRepositoryTest extends RepositoryTest
         $repo->getAllBlogs();
     }
 
-    public function testAllBlogsReturnsIsiteResult()
+    public function testAllBlogsReturnsResponseObject()
     {
         $repo = $this->createBlogRepo([$this->createMock(ResponseInterface::class)]);
 

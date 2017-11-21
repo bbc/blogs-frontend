@@ -25,6 +25,6 @@ class FileID
 
     private function isValidFileId(string $fileId): bool
     {
-        return !!preg_match('/^[A-Za-z0-9-]*$/', $fileId);
+        return !!preg_match('/^[A-Za-z0-9-]+$/', $fileId);
     }
 }

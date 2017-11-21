@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
-use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Tag;
 use App\BlogsService\Domain\ValueObject\FileID;
 use Exception;
@@ -23,10 +22,9 @@ class TagMapper extends Mapper
 
         try {
             $fileId = $this->getString($this->getMetaData($isiteObject)->fileId);
-            $fileId = str_replace(Blog::BLOG_PREFIX, "", $fileId);
-            $tag = new Tag(new FileID($fileId), $name);
+            $fileId = str_replace('blogs-', '', $fileId);
 
-            return $tag;
+            return new Tag(new FileID($fileId), $name);
         } catch (Exception $e) {
             return null;
         }

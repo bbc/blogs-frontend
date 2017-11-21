@@ -9,6 +9,7 @@ use App\BlogsService\Domain\Module\Links;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
+use App\BlogsService\Service\TagService;
 use Exception;
 
 abstract class BlogsBaseController extends BaseController
@@ -16,20 +17,32 @@ abstract class BlogsBaseController extends BaseController
     /** @var Blog */
     private $blog;
 
+    public static function getSubscribedServices()
+    {
+        return array_merge(parent::getSubscribedServices(), [
+            TagService::class,
+        ]);
+    }
+
     protected function renderWithChrome($view, array $parameters = [])
     {
         if ($this->blog === null) {
             throw new Exception('Must set blog using `setBlog()` before calling this method!');
         }
 
-        if (isset($parameters['modulePresenters'])) {
-            throw new Exception('Parameter modulePresenters should not have already been set');
+        if (isset($parameters['blogTags'])) {
+            throw new Exception('Parameter blogTags should not have already been set');
         }
 
         if (isset($parameters['blog'])) {
             throw new Exception('Parameter blog should not have already been set');
         }
 
+        if (isset($parameters['modulePresenters'])) {
+            throw new Exception('Parameter modulePresenters should not have already been set');
+        }
+
+        $parameters['blogTags'] = $this->getTagsByBlog();
         $parameters['blog'] = $this->blog;
         $parameters['modulePresenters'] = $this->getModulePresenters();
 
@@ -40,6 +53,20 @@ abstract class BlogsBaseController extends BaseController
     {
         $this->blog = $blog;
         $this->setBrandingId($blog->getBrandingId());
+    }
+
+    private function getTagsByBlog(): array
+    {
+        if ($this->blog === null) {
+            throw new Exception('Must set blog using `setBlog()` before calling this method!');
+        }
+
+        $tagService = $this->container->get(TagService::class);
+
+        $result = $tagService->getTagsByBlog($this->blog, 1, 18, false);
+        $tags = $result->getDomainModels();
+
+        return $tags;
     }
 
     /**
@@ -55,7 +82,6 @@ abstract class BlogsBaseController extends BaseController
                 $modulePresenters[] = new LinksPresenter($module);
             }
         }
-
         return $modulePresenters;
     }
 }

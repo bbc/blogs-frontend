@@ -19,3 +19,11 @@ post:
     path: /blogs/{blogId}/entries/{guid}
     defaults: { _controller: App\Controller\PostShowController }
     requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
+
+tag_list:
+    path: /blogs/{blogId}/tags
+    requirements: { blogId: '[a-z0-9]+' }
+
+tag:
+    path: /blogs/{blogId}/tags/{tagId}
+    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
