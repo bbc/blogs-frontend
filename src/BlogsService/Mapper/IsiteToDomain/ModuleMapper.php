@@ -4,6 +4,8 @@ declare(strict_types = 1);
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\Module\FreeText;
+use App\BlogsService\Domain\Module\Links;
+use App\BlogsService\Domain\Module\ModuleInterface;
 use Exception;
 use SimpleXMLElement;
 
@@ -11,7 +13,7 @@ class ModuleMapper extends Mapper
 {
     /**
      * @param SimpleXMLElement $isiteObject
-     * @return FreeText
+     * @return ModuleInterface
      * @throws Exception
      */
     public function getDomainModel(SimpleXMLElement $isiteObject)
@@ -29,9 +31,22 @@ class ModuleMapper extends Mapper
             );
         }
 
-//        if ($type === 'links') {
-//            None of the blogs seem to currently have links. So this shouldn't break any pages....
-//        }
+        if ($type === 'links') {
+            // @codingStandardsIgnoreStart
+            $links = $form->Links->xpath('./*');
+            // @codingStandardsIgnoreEnd
+
+            $heading = array_shift($links);
+            $linksArray = [];
+            foreach ($links as $link) {
+                $linksArray[] = array_map('trim', (array) $link);
+            }
+
+            return new Links(
+                $this->getString($heading),
+                $linksArray
+            );
+        }
 
         throw new Exception('Invalid Module Type : ' . $type);
     }

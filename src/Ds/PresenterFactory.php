@@ -6,8 +6,10 @@ namespace App\Ds;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\Module\FreeText;
+use App\BlogsService\Domain\Module\Links;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\SidebarModule\AboutPresenter;
+use App\Ds\SidebarModule\LinksPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 
 /**
@@ -45,6 +47,16 @@ class PresenterFactory
             $image,
             $defaultWidth,
             $sizes,
+            $options
+        );
+    }
+
+    public function linksModulePresenter(
+        Links $module,
+        array $options = []
+    ): LinksPresenter {
+        return new LinksPresenter(
+            $module,
             $options
         );
     }

@@ -5,7 +5,7 @@ namespace App\BlogsService\Domain\Module;
 
 use App\BlogsService\Domain\Image;
 
-class FreeText
+class FreeText implements ModuleInterface
 {
     /** @var string */
     private $body;
