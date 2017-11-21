@@ -19,19 +19,20 @@ class ModuleMapper extends Mapper
         $type = str_replace('blogs-sidebar-', '', $this->getMetaData($isiteObject)->type);
         $form = $this->getForm($isiteObject);
 
-        switch ($type) {
-            case 'freetext':
-                $moduleData = $form->{'freetext'};
+        if ($type === 'freetext') {
+            $moduleData = $form->{'freetext'};
 
-                return new FreeText(
-                    $this->getString($moduleData->{'moduletitle'}),
-                    $this->getString($moduleData->{'body'}),
-                    $this->getImageIfExists($moduleData->{'image'})
-                );
-//            case 'links':
-//                // None of the blogs seem to current have links. So this shouldn't break any pages....
-            default:
-                throw new Exception('Invalid Module Type : ' . $type); //@TODO should this be inside or outside of the switch statement?
+            return new FreeText(
+                $this->getString($moduleData->{'moduletitle'}),
+                $this->getString($moduleData->{'body'}),
+                $this->getImageIfExists($moduleData->{'image'})
+            );
         }
+
+//        if ($type === 'links') {
+//            None of the blogs seem to currently have links. So this shouldn't break any pages....
+//        }
+
+        throw new Exception('Invalid Module Type : ' . $type);
     }
 }
