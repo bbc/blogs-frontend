@@ -44,7 +44,7 @@ class TagService
             $cacheKey,
             $ttl,
             function () use ($blog, $page, $limit, $sortByName) {
-                $response = $this->repository->getTagsByBlog($blog->getId(), $blog->getProjectId(), $page, $limit, $sortByName);
+                $response = $this->repository->getTagsByBlog($blog->getId(), $page, $limit, $sortByName);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

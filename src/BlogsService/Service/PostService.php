@@ -73,7 +73,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsByBlog($blog, $publishedUntil, $page, $perpage, $sort);
+                $response = $this->repository->getPostsByBlog($blog->getId(), $publishedUntil, $page, $perpage, $sort);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

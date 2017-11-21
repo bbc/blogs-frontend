@@ -3,7 +3,6 @@ declare(strict_types = 1);
 
 namespace Tests\App\BlogsService\Repository\PostRepository;
 
-use App\BlogsService\Domain\Blog;
 use DateTimeImmutable;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
@@ -18,9 +17,7 @@ class PostsByBlogTest extends AbstractPostRepositoryTest
             new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
         ]);
 
-        $mockBlog = $this->createMock(Blog::class);
-
-        $result = $repo->getPostsByBlog($mockBlog, new DateTimeImmutable(), 1, 1, 'desc');
+        $result = $repo->getPostsByBlog('blog-id', new DateTimeImmutable(), 1, 1, 'desc');
 
         $this->assertNull($result);
     }

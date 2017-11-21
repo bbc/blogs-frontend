@@ -24,10 +24,10 @@ class SearchQuery
         return $this;
     }
 
-    public function setNamespace($project, $fileType)
+    public function setNamespace(string $project, string $fileType)
     {
         $this->q->namespaces = new stdClass();
-        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/' . $project . '/' . $fileType;
+        $this->q->namespaces->ns = 'https://production.bbc.co.uk/isite2/project/blogs-' . $project . '/' . $fileType;
 
         return $this;
     }

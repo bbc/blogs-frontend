@@ -14,7 +14,7 @@ class TagsByBlogTest extends AbstractTagRepositoryTest
         $repo = $this->createTagRepo([
             new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
         ]);
-        $result = $repo->getTagsByBlog('blogid', 'projectid', 1, 2, true);
+        $result = $repo->getTagsByBlog('blogid', 1, 2, true);
 
         $this->assertNull($result);
     }

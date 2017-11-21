@@ -8,12 +8,12 @@ use Psr\Http\Message\ResponseInterface;
 
 class TagRepository extends AbstractRepository
 {
-    public function getTagsByBlog(string $blogId, string $projectId, int $page, int $limit, bool $sortByName): ?ResponseInterface
+    public function getTagsByBlog(string $blogId, int $page, int $limit, bool $sortByName): ?ResponseInterface
     {
         $query = new SearchQuery();
 
         $query->setProject($blogId);
-        $query->setNamespace($projectId, 'blogs-tag');
+        $query->setNamespace($blogId, 'blogs-tag');
         $query->setQuery(["ns:name", "contains", "*", ]);
 
         if ($sortByName) {

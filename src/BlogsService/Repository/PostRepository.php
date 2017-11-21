@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Repository;
 
-use App\BlogsService\Domain\Blog;
 use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use DateTimeImmutable;
@@ -23,12 +22,12 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($this->apiEndpoint . '/content?' . http_build_query($query->getParameters()));
     }
 
-    public function getPostsByBlog(Blog $blog, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
+    public function getPostsByBlog(string $blogId, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
     {
         $query = new SearchQuery();
 
-        $query->setProject($blog->getId());
-        $query->setNamespace($blog->getProjectId(), 'blogs-post');
+        $query->setProject($blogId);
+        $query->setNamespace($blogId, 'blogs-post');
 
         $query->setQuery([
             'and' => [

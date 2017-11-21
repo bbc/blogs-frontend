@@ -10,7 +10,7 @@ use SimpleXMLElement;
 
 class BlogMapper extends Mapper
 {
-    const BLOG_PREFIX = 'blogs-';
+    private const BLOG_PREFIX = 'blogs-';
 
     public function getDomainModel(SimpleXMLElement $isiteObject): ?Blog
     {
@@ -76,7 +76,7 @@ class BlogMapper extends Mapper
         $isArchived = $this->getBoolean($form->{'section-27'}->{'is-archived'});
 
         return new Blog(
-            $projectId,
+            str_replace(self::BLOG_PREFIX, '', $projectId),
             $name,
             $shortSynopsis,
             $description,
