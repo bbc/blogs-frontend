@@ -28,7 +28,6 @@ class ModuleMapper extends Mapper
                     $this->getString($moduleData->{'body'}),
                     $this->getImageIfExists($moduleData->{'image'})
                 );
-                break;
 //            case 'links':
 //                // None of the blogs seem to current have links. So this shouldn't break any pages....
             default:
