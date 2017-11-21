@@ -29,7 +29,8 @@ class BlogMapperTest extends TestCase
         /** @var Blog $domainModel */
         $domainModel = $blogMapper->getDomainModel($this->isiteObject);
 
-        $this->assertEquals('blogs-aboutthebbc', $domainModel->getId());
+        $this->assertEquals('blogs-aboutthebbc', $domainModel->getProjectId());
+        $this->assertEquals('aboutthebbc', $domainModel->getId());
         $this->assertEquals('About the BBC', $domainModel->getName());
 
         $this->assertEquals(
