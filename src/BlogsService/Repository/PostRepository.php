@@ -25,7 +25,6 @@ class PostRepository extends AbstractRepository
 
     public function getPostsAfter(
         string $blogId,
-        string $projectId,
         DateTimeImmutable $publishedDate,
         DateTimeImmutable $publishedUntil,
         int $page,
@@ -33,7 +32,7 @@ class PostRepository extends AbstractRepository
     ): ?ResponseInterface {
         $query = new SearchQuery();
         $query->setProject($blogId);
-        $query->setNamespace($projectId, 'blogs-post');
+        $query->setNamespace($blogId, 'blogs-post');
 
         $query->setQuery([
             'and' => [
@@ -63,12 +62,11 @@ class PostRepository extends AbstractRepository
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
+        return $this->getResponse($query);
     }
 
     public function getPostsBefore(
         string $blogId,
-        string $projectId,
         DateTimeImmutable $publishedDate,
         DateTimeImmutable $publishedUntil,
         int $page,
@@ -76,7 +74,7 @@ class PostRepository extends AbstractRepository
     ): ?ResponseInterface {
         $query = new SearchQuery();
         $query->setProject($blogId);
-        $query->setNamespace($projectId, 'blogs-post');
+        $query->setNamespace($blogId, 'blogs-post');
 
         $query->setQuery([
             'and' => [
@@ -106,7 +104,7 @@ class PostRepository extends AbstractRepository
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);
 
-        return $this->getResponse($this->apiEndpoint . '/search?q=' . urlencode(json_encode($query->getSearchQuery())));
+        return $this->getResponse($query);
     }
 
     public function getPostsByBlog(string $blogId, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface

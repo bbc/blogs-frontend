@@ -52,7 +52,6 @@ class GetPostsBeforeTest extends ServiceTest
 
         $blog = $this->createMock(Blog::class);
         $blog->method('getId')->willReturn('some-id');
-        $blog->method('getProjectId')->willReturn('blogs-some-id');
 
         $serviceResult = $postService->getPostsBefore($blog, new DateTimeImmutable(), new DateTimeImmutable());
 

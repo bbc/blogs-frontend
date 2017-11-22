@@ -73,7 +73,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsAfter($blog->getId(), $blog->getProjectId(), $publishedDate, $publishedUntil, $page, $perpage);
+                $response = $this->repository->getPostsAfter($blog->getId(), $publishedDate, $publishedUntil, $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],
@@ -97,7 +97,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBefore($blog->getId(), $blog->getProjectId(), $publishedDate, $publishedUntil, $page, $perpage);
+                $response = $this->repository->getPostsBefore($blog->getId(), $publishedDate, $publishedUntil, $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],
