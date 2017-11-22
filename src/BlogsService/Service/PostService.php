@@ -57,6 +57,54 @@ class PostService
         );
     }
 
+    public function getPostsAfter(
+        Blog $blog,
+        DateTimeImmutable $publishedDate,
+        DateTimeImmutable $publishedUntil,
+        int $page = 1,
+        int $perpage = 1,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsAfter($blog->getId(), $blog->getProjectId(), $publishedDate, $publishedUntil, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getPostsBefore(
+        Blog $blog,
+        DateTimeImmutable $publishedDate,
+        DateTimeImmutable $publishedUntil,
+        int $page = 1,
+        int $perpage = 1,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsBefore($blog->getId(), $blog->getProjectId(), $publishedDate, $publishedUntil, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
     public function getPostsByBlog(
         Blog $blog,
         DateTimeImmutable $publishedUntil,
