@@ -10,6 +10,7 @@ use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
+use DateInterval;
 use DateTimeImmutable;
 
 class PostService
@@ -57,6 +58,57 @@ class PostService
         );
     }
 
+    public function getPostsAfter(
+        Blog $blog,
+        DateTimeImmutable $publishedDate,
+        DateTimeImmutable $publishedUntil,
+        int $page = 1,
+        int $perpage = 1,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): ?Post {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsBetween($blog->getId(), $publishedDate, $publishedUntil, 0, $page, $perpage, 'asc');
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getPostsBefore(
+        Blog $blog,
+        DateTimeImmutable $publishedDate,
+        int $page = 1,
+        int $perpage = 1,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): ?Post {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $publishedDate, $page, $perpage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedDate->sub(new DateInterval('PT1S')), 0, $page, $perpage, 'desc');
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
     public function getPostsByBlog(
         Blog $blog,
         DateTimeImmutable $publishedUntil,
@@ -73,7 +125,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsByBlog($blog->getId(), $publishedUntil, $page, $perpage, $sort);
+                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedUntil, 1, $page, $perpage, $sort);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

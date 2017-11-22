@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
+use DateTimeImmutable;
 
 class PostShowController extends BlogsBaseController
 {
@@ -19,6 +20,17 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
-        return $this->renderWithChrome('post/show.html.twig', ['post' => $post]);
+        $previousPost = $postService->getPostsBefore(
+            $blog,
+            $post->getPublishedDate()
+        );
+
+        $nextPost = $postService->getPostsAfter(
+            $blog,
+            $post->getPublishedDate(),
+            new DateTimeImmutable()
+        );
+
+        return $this->renderWithChrome('post/show.html.twig', ['post' => $post, 'prevPost' => $previousPost, 'nextPost' => $nextPost]);
     }
 }

@@ -7,9 +7,9 @@ use DateTimeImmutable;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
-class PostsByBlogTest extends AbstractPostRepositoryTest
+class PostsBetweenTest extends AbstractPostRepositoryTest
 {
-    public function testPostsByBlogEmptyOn404()
+    public function testPostsAfterEmptyOn404()
     {
         $mock404Response = $this->buildMockResponse(404);
 
@@ -17,7 +17,7 @@ class PostsByBlogTest extends AbstractPostRepositoryTest
             new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
         ]);
 
-        $result = $repo->getPostsByBlog('blog-id', new DateTimeImmutable(), 1, 1, 'desc');
+        $result = $repo->getPostsBetween('blog-id', new DateTimeImmutable(), new DateTimeImmutable(), 1, 1, 1, 'asc');
 
         $this->assertNull($result);
     }

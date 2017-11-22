@@ -5,6 +5,7 @@ namespace App\BlogsService\Repository;
 
 use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
+use DateInterval;
 use DateTimeImmutable;
 use Psr\Http\Message\ResponseInterface;
 
@@ -22,10 +23,16 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
-    public function getPostsByBlog(string $blogId, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
-    {
+    public function getPostsBetween(
+        string $blogId,
+        DateTimeImmutable $afterDate,
+        DateTimeImmutable $beforeDate,
+        int $depth,
+        int $page,
+        int $perpage,
+        string $sort
+    ): ?ResponseInterface {
         $query = new SearchQuery();
-
         $query->setProject($blogId);
         $query->setNamespace($blogId, 'blogs-post');
 
@@ -33,8 +40,14 @@ class PostRepository extends AbstractRepository
             'and' => [
                 [
                     'ns:published-date',
+                    '>',
+                    $afterDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
+                    'dateTime',
+                ],
+                [
+                    'ns:published-date',
                     '<=',
-                    $publishedUntil->format('Y-m-d\TH:i:s.BP'),
+                    $beforeDate->format('Y-m-d\TH:i:s.BP'),
                     'dateTime',
                 ],
             ],
@@ -46,8 +59,7 @@ class PostRepository extends AbstractRepository
                 'direction' => $sort,
             ],
         ]);
-
-        $query->setDepth(1);
+        $query->setDepth($depth);
         $query->setPage($page);
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);
