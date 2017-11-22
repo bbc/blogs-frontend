@@ -36,7 +36,7 @@ class GetPostsAfterTest extends ServiceTest
 
         $this->mockPostRepository
             ->expects($this->once())
-            ->method('getPostsAfter')
+            ->method('getPostsBetween')
             ->willReturn($response);
 
         $isiteResult = $this->createMock(IsiteResult::class);

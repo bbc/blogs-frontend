@@ -23,12 +23,14 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
-    public function getPostsAfter(
+    public function getPostsBetween(
         string $blogId,
-        DateTimeImmutable $publishedDate,
-        DateTimeImmutable $publishedUntil,
+        DateTimeImmutable $afterDate,
+        DateTimeImmutable $beforeDate,
+        int $depth,
         int $page,
-        int $perpage
+        int $perpage,
+        string $sort
     ): ?ResponseInterface {
         $query = new SearchQuery();
         $query->setProject($blogId);
@@ -39,45 +41,13 @@ class PostRepository extends AbstractRepository
                 [
                     'ns:published-date',
                     '>',
-                    $publishedDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
+                    $afterDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
                     'dateTime',
                 ],
                 [
                     'ns:published-date',
                     '<=',
-                    $publishedUntil->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
-                ],
-            ],
-        ]);
-
-        $query->setSort([
-            [
-                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
-                'direction' => 'asc',
-            ],
-        ]);
-        $query->setDepth(0);
-        $query->setPage($page);
-        $query->setPageSize($perpage);
-        $query->setUnfiltered(true);
-
-        return $this->getResponse($query);
-    }
-
-    public function getPostsByBlogPublishedBefore(string $blogId, DateTimeImmutable $publishedUntil, int $depth, int $page, int $perpage, string $sort): ?ResponseInterface
-    {
-        $query = new SearchQuery();
-
-        $query->setProject($blogId);
-        $query->setNamespace($blogId, 'blogs-post');
-
-        $query->setQuery([
-            'and' => [
-                [
-                    'ns:published-date',
-                    '<=',
-                    $publishedUntil->format('Y-m-d\TH:i:s.BP'),
+                    $beforeDate->format('Y-m-d\TH:i:s.BP'),
                     'dateTime',
                 ],
             ],
@@ -89,7 +59,6 @@ class PostRepository extends AbstractRepository
                 'direction' => $sort,
             ],
         ]);
-
         $query->setDepth($depth);
         $query->setPage($page);
         $query->setPageSize($perpage);

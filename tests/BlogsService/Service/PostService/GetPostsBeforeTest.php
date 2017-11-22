@@ -36,7 +36,7 @@ class GetPostsBeforeTest extends ServiceTest
 
         $this->mockPostRepository
             ->expects($this->once())
-            ->method('getPostsByBlogPublishedBefore')
+            ->method('getPostsBetween')
             ->willReturn($response);
 
         $isiteResult = $this->createMock(IsiteResult::class);

@@ -74,7 +74,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsAfter($blog->getId(), $publishedDate, $publishedUntil, $page, $perpage);
+                $response = $this->repository->getPostsBetween($blog->getId(), $publishedDate, $publishedUntil, 0, $page, $perpage, 'asc');
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;
@@ -99,7 +99,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedDate, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsByBlogPublishedBefore($blog->getId(), $publishedDate->sub(new DateInterval('PT1S')), 0, $page, $perpage, 'desc');
+                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedDate->sub(new DateInterval('PT1S')), 0, $page, $perpage, 'desc');
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;
@@ -125,7 +125,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsByBlogPublishedBefore($blog->getId(), $publishedUntil, 1, $page, $perpage, $sort);
+                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedUntil, 1, $page, $perpage, $sort);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],
