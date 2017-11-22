@@ -65,49 +65,7 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
-    public function getPostsBefore(
-        string $blogId,
-        DateTimeImmutable $publishedDate,
-        DateTimeImmutable $publishedUntil,
-        int $page,
-        int $perpage
-    ): ?ResponseInterface {
-        $query = new SearchQuery();
-        $query->setProject($blogId);
-        $query->setNamespace($blogId, 'blogs-post');
-
-        $query->setQuery([
-            'and' => [
-                [
-                    'ns:published-date',
-                    '<',
-                    $publishedDate->sub(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
-                ],
-                [
-                    'ns:published-date',
-                    '<=',
-                    $publishedUntil->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
-                ],
-            ],
-        ]);
-
-        $query->setSort([
-            [
-                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
-                'direction' => 'desc',
-            ],
-        ]);
-        $query->setDepth(0);
-        $query->setPage($page);
-        $query->setPageSize($perpage);
-        $query->setUnfiltered(true);
-
-        return $this->getResponse($query);
-    }
-
-    public function getPostsByBlog(string $blogId, DateTimeImmutable $publishedUntil, int $page, int $perpage, string $sort): ?ResponseInterface
+    public function getPostsByBlogPublishedBefore(string $blogId, DateTimeImmutable $publishedUntil, int $depth, int $page, int $perpage, string $sort): ?ResponseInterface
     {
         $query = new SearchQuery();
 
@@ -132,7 +90,7 @@ class PostRepository extends AbstractRepository
             ],
         ]);
 
-        $query->setDepth(1);
+        $query->setDepth($depth);
         $query->setPage($page);
         $query->setPageSize($perpage);
         $query->setUnfiltered(true);

@@ -10,6 +10,7 @@ use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
+use DateInterval;
 use DateTimeImmutable;
 
 class PostService
@@ -65,7 +66,7 @@ class PostService
         int $perpage = 1,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
-    ): IsiteResult {
+    ): ?Post {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
@@ -74,7 +75,9 @@ class PostService
             function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsAfter($blog->getId(), $publishedDate, $publishedUntil, $page, $perpage);
-                return $this->responseHandler->getIsiteResult($response);
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
             },
             [],
             $nullTtl
@@ -84,21 +87,22 @@ class PostService
     public function getPostsBefore(
         Blog $blog,
         DateTimeImmutable $publishedDate,
-        DateTimeImmutable $publishedUntil,
         int $page = 1,
         int $perpage = 1,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
-    ): IsiteResult {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+    ): ?Post {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
             $ttl,
-            function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
+            function () use ($blog, $publishedDate, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBefore($blog->getId(), $publishedDate, $publishedUntil, $page, $perpage);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsByBlogPublishedBefore($blog->getId(), $publishedDate->sub(new DateInterval('PT1S')), 0, $page, $perpage, 'desc');
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
             },
             [],
             $nullTtl
@@ -121,7 +125,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsByBlog($blog->getId(), $publishedUntil, $page, $perpage, $sort);
+                $response = $this->repository->getPostsByBlogPublishedBefore($blog->getId(), $publishedUntil, 1, $page, $perpage, $sort);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

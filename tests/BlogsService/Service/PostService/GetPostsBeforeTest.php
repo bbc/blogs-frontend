@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Tests\App\BlogsService\Service\PostService;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Post;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
 use App\BlogsService\Service\PostService;
@@ -35,14 +36,18 @@ class GetPostsBeforeTest extends ServiceTest
 
         $this->mockPostRepository
             ->expects($this->once())
-            ->method('getPostsBefore')
+            ->method('getPostsByBlogPublishedBefore')
             ->willReturn($response);
+
+        $isiteResult = $this->createMock(IsiteResult::class);
+        $isiteResult->method('getDomainModels')
+            ->willReturn([$this->createMock(Post::class), $this->createMock(Post::class)]);
 
         $this->mockIsiteFeedResponseHandler
             ->expects($this->once())
             ->method('getIsiteResult')
             ->with($response)
-            ->willReturn($this->createMock(IsiteResult::class));
+            ->willReturn($isiteResult);
 
         $postService = new PostService(
             $this->mockPostRepository,
@@ -53,9 +58,9 @@ class GetPostsBeforeTest extends ServiceTest
         $blog = $this->createMock(Blog::class);
         $blog->method('getId')->willReturn('some-id');
 
-        $serviceResult = $postService->getPostsBefore($blog, new DateTimeImmutable(), new DateTimeImmutable());
+        $serviceResult = $postService->getPostsBefore($blog, new DateTimeImmutable());
 
-        $this->assertInstanceOf(IsiteResult::class, $serviceResult);
+        $this->assertInstanceOf(Post::class, $serviceResult);
     }
 
     public function postProvider(): array

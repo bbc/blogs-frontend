@@ -20,18 +20,17 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
-        $previousPosts = $postService->getPostsBefore(
+        $previousPost = $postService->getPostsBefore(
+            $blog,
+            $post->getPublishedDate()
+        );
+
+        $nextPost = $postService->getPostsAfter(
             $blog,
             $post->getPublishedDate(),
             new DateTimeImmutable()
-        )->getDomainModels();
+        );
 
-        $nextPosts = $postService->getPostsAfter(
-            $blog,
-            $post->getPublishedDate(),
-            new DateTimeImmutable()
-        )->getDomainModels();
-
-        return $this->renderWithChrome('post/show.html.twig', ['post' => $post, 'prevPost' => reset($previousPosts), 'nextPost' => reset($nextPosts)]);
+        return $this->renderWithChrome('post/show.html.twig', ['post' => $post, 'prevPost' => $previousPost, 'nextPost' => $nextPost]);
     }
 }
