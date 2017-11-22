@@ -5,8 +5,6 @@ namespace App\BlogsService\Domain;
 
 use App\BlogsService\Domain\Module\ModuleInterface;
 use App\BlogsService\Domain\ValueObject\Comments;
-use App\BlogsService\Domain\ValueObject\FileID;
-use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Domain\ValueObject\Social;
 use InvalidArgumentException;
 

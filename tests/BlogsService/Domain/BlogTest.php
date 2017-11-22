@@ -4,8 +4,6 @@ namespace Tests\App\BlogsService\Domain;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\ValueObject\GUID;
-use App\BlogsService\Domain\ValueObject\FileID;
 use PHPUnit\Framework\TestCase;
 
 class BlogTest extends TestCase

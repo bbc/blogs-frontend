@@ -2,8 +2,8 @@
 declare(strict_types = 1);
 namespace Tests\App\Ds;
 
-use App\Ds\Presenter;
 use App\Ds\InvalidOptionException;
+use App\Ds\Presenter;
 use PHPUnit\Framework\TestCase;
 
 class PresenterTest extends TestCase

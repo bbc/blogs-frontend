@@ -5,7 +5,6 @@ namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
-use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
 use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;

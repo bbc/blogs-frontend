@@ -72,10 +72,6 @@ class SearchQuery
         return $this;
     }
 
-    /**
-     * @param string[][][] $query
-     * @return SearchQuery
-     */
     public function setQuery(array $query): SearchQuery
     {
         $this->q->query = $query;

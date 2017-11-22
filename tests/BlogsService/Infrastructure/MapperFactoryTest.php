@@ -6,7 +6,6 @@ namespace Tests\App\BlogsService\Infrastructure;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
-use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use App\BlogsService\Mapper\IsiteToDomain\TagMapper;

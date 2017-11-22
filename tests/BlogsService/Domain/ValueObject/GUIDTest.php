@@ -3,8 +3,8 @@ declare(strict_types = 1);
 namespace Tests\App\BlogsService\Domain\ValueObject;
 
 use App\BlogsService\Domain\ValueObject\GUID;
-use PHPUnit\Framework\TestCase;
 use InvalidArgumentException;
+use PHPUnit\Framework\TestCase;
 
 class GUIDTest extends TestCase
 {

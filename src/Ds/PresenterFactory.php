@@ -10,8 +10,8 @@ use App\BlogsService\Domain\Module\Links;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\SidebarModule\AboutPresenter;
 use App\Ds\SidebarModule\BlogTagsPresenter;
-use App\Ds\SidebarModule\LinksPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
+use App\Ds\SidebarModule\LinksPresenter;
 
 /**
  * Ds Factory Class for creating presenters.

@@ -4,8 +4,6 @@ declare(strict_types = 1);
 namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\Post;
-use App\BlogsService\Domain\Tag;
-use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
 use Exception;
 use SimpleXMLElement;
