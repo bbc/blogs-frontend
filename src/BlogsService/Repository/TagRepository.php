@@ -3,7 +3,6 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Repository;
 
-use App\BlogsService\Domain\Blog;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use Psr\Http\Message\ResponseInterface;
 

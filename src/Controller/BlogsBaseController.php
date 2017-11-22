@@ -6,10 +6,10 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
+use App\BlogsService\Service\TagService;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
-use App\BlogsService\Service\TagService;
 use Exception;
 
 abstract class BlogsBaseController extends BaseController
