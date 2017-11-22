@@ -17,6 +17,7 @@ use App\Ds\SidebarModule\AboutPresenter;
 use App\Ds\SidebarModule\BlogTagsPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
+use App\Ds\SidebarModule\UpdatesPresenter;
 
 /**
  * Ds Factory Class for creating presenters.
@@ -101,5 +102,15 @@ class PresenterFactory
         array $options = []
     ): TagsPresenter {
         return new TagsPresenter($tags, $blogId, $options);
+    }
+
+    public function updatesModulePresenter(
+        Blog $blog,
+        array $options = []
+    ): UpdatesPresenter {
+        return new UpdatesPresenter(
+            $blog,
+            $options
+        );
     }
 }
