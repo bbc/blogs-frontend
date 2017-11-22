@@ -1,46 +1,26 @@
 <?php
+declare(strict_types = 1);
 
-namespace Tests\App\BlogsService\Service;
+namespace Tests\App\BlogsService\Service\BlogService;
 
-use App\BlogsService\Domain\IsiteEntity;
-use App\BlogsService\Infrastructure\Cache\CacheInterface;
-use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
-use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
 use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Service\BlogService;
 use GuzzleHttp\Psr7\Response;
-use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
-use Psr\Http\Message\ResponseInterface;
-use SimpleXMLElement;
+use Tests\App\BlogsService\Service\ServiceTest;
 
-class BlogServiceTest extends TestCase
+class GetAllBlogsTest extends ServiceTest
 {
     /** @var BlogRepository | PHPUnit_Framework_MockObject_MockObject */
     private $mockBlogRepository;
-
-    /** @var  IsiteFeedResponseHandler | PHPUnit_Framework_MockObject_MockObject */
-    private $mockIsiteFeedResponseHandler;
-
-    /** @var CacheInterface | PHPUnit_Framework_MockObject_MockObject */
-    private $mockCache;
 
     public function setUp()
     {
         $this->mockBlogRepository = $this->createMock(BlogRepository::class);
 
-        $this->mockIsiteFeedResponseHandler = $this->createMock(IsiteFeedResponseHandler::class);
-
-        $this->mockCache = $this->createMock(CacheInterface::class);
-        $this->mockCache
-            ->expects($this->once())
-            ->method('getOrSet')
-            ->will($this->returnCallback(
-                function (string $key, $ttl, callable $function, array $arguments = []) {
-                    return $function(...$arguments);
-                }
-            ));
+        $this->setUpMockResponseHandler();
+        $this->setUpMockCache();
     }
 
     /**

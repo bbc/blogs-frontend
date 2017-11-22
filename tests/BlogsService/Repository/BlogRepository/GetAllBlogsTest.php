@@ -1,21 +1,18 @@
 <?php
 declare(strict_types = 1);
 
-namespace Tests\App\BlogsService\Repository;
+namespace Tests\App\BlogsService\Repository\BlogRepository;
 
 use App\BlogsService\Infrastructure\IsiteResultException;
 use App\BlogsService\Repository\BlogRepository;
-use GuzzleHttp\Client;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;
 use GuzzleHttp\Exception\ServerException;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
 use GuzzleHttp\Psr7\Request;
 use Psr\Http\Message\ResponseInterface;
 
-class BlogRepositoryTest extends RepositoryTest
+class GetAllBlogsTest extends AbstractBlogRepositoryTest
 {
     public function testAllBlogsQueryIsBuiltCorrectlyAndCallsCorrectUrl()
     {
@@ -82,32 +79,5 @@ class BlogRepositoryTest extends RepositoryTest
                 ),
             ],
         ];
-    }
-
-    public function testGetBlogByIdEmptyOn404()
-    {
-        $mock404Response = $this->buildMockResponse(404);
-
-        $repo = $this->createBlogRepo([
-            new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
-        ]);
-
-        $result = $repo->getBlogById('someid');
-
-        $this->assertNull($result);
-    }
-
-    /**
-     * @param GuzzleException[]|ResponseInterface[] $responses
-     * @return BlogRepository
-     */
-    private function createBlogRepo(array $responses): BlogRepository
-    {
-        $mock = new MockHandler($responses);
-
-        $handler = HandlerStack::create($mock);
-        $client = new Client(['handler' => $handler]);
-
-        return new BlogRepository(self::API_ENDPOINT, $client);
     }
 }
