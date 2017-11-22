@@ -80,7 +80,7 @@ class Post
         return $this->shortSynopsis;
     }
 
-    public function getAuthor(): Author
+    public function getAuthor(): ?Author
     {
         return $this->author;
     }

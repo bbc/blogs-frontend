@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Translate\TranslateProvider;
+use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\BrandingClient;
 use BBC\BrandingClient\BrandingException;
@@ -73,6 +74,7 @@ abstract class BaseController extends AbstractController
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
+            'meta_context' => new MetaContext(),
         ], $parameters);
         return $this->render($view, $parameters, $this->response);
     }

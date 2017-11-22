@@ -3,8 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}BBC {{ tr('page_title_blogs') }}{% endblock %}</title>
+
     <link rel="icon" href="https://www.bbc.co.uk/favicon.ico" type="image/x-icon">
     <meta name="theme-color" content="{{ branding.getColours().highlight.bg|default('#2B2B2B') }}">
+
+    {#- Facebook pages that are allowed to edit FB preview titles and descriptions -#}
+    <meta property="fb:pages" content="{{ meta_context.getBBCFacebookPageIds() }}">
 
     {#- OpenGraph tags for Facebook/Twitter -#}
     <meta property="og:site_name" content="BBC">

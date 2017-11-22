@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-03-13T09:32:23.245009Z</modifiedDateTime><creationDateTime>2015-03-10T10:25:55.166278Z</creationDateTime><type>authors</type><fileId>blogs-author-142615775311299</fileId><guid>ff840d66-30ac-3002-be99-d2a266a70c62</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/authors">
+  <metadata>
+    <first-name>Mark</first-name>
+    <last-name>Damazer</last-name>
+    <name>Mark Damazer</name>
+    <role/>
+    <description/>
+    <picture>p00km646</picture>
+    <file_id>142615775311299</file_id>
+    <facebook-url/>
+    <google-plus-url/>
+    <twitter-username/>
+  </metadata>
+</form></document></result>
