@@ -5,6 +5,7 @@ namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
+use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use Symfony\Bundle\FrameworkBundle\Client;
@@ -155,7 +156,7 @@ class HomeControllerTest extends BaseWebTestCase
             'anything',
             'anything',
             [],
-            null,
+            new Social('', '', ''),
             null,
             null,
             new Image('p0215q0b'), //default provided by mapper

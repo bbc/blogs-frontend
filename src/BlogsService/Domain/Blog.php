@@ -66,7 +66,7 @@ class Blog
         ?string $bbcSite,
         string $brandingId,
         array $modules,
-        Social $social = null,
+        Social $social,
         Comments $comments = null,
         Post $featuredPost = null,
         Image $image,
@@ -140,7 +140,7 @@ class Blog
         return $this->istatsCountername;
     }
 
-    public function getSocial(): ?Social
+    public function getSocial(): Social
     {
         return $this->social;
     }

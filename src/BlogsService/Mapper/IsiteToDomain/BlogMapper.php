@@ -26,14 +26,15 @@ class BlogMapper extends Mapper
         $language = $this->getString($formMetaData->language);
         $istatsCountername = $this->getString($formMetaData->{'istats-countername'});
 
-        $social = null;
-        $twitterUsername = $this->getString($formMetaData->{'twitter-username'});
-        $facebookUrl = $this->getString($formMetaData->{'facebook-url'});
-        $googlePlusUrl = $this->getString($formMetaData->{'google-plus-url'});
-
-        if (!empty($twitterUsername) || !empty($facebookUrl) || !empty($googlePlusUrl)) {
-            $social = new Social($twitterUsername, $facebookUrl, $googlePlusUrl);
+        $twitterUsername = $this->getString($formMetaData->{'twitter-username'}) ?? '';
+        if ($twitterUsername == '@') {
+            $twitterUsername = '';
         }
+
+        $facebookUrl = $this->getString($formMetaData->{'facebook-url'}) ?? '';
+        $googlePlusUrl = $this->getString($formMetaData->{'google-plus-url'}) ?? '';
+
+        $social = new Social($twitterUsername, $facebookUrl, $googlePlusUrl);
 
         // TODO check when integrating new comments module
         $commentsSiteId = $this->getString($formMetaData->{'site-id-comments'});
