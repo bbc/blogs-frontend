@@ -22,3 +22,50 @@ svg.gelicon {
     width: 100%;
     height: 100%;
 }
+
+svg.gelicon--text-base {
+    vertical-align: text-top;
+}
+
+.gelicon--leading {
+    margin-right: $basic-spacing;
+}
+
+.gelicon--trailing {
+    margin-left: $basic-spacing;
+}
+
+svg.gelicon--comments {
+    vertical-align: middle;
+}
+
+/**
+ * Arguments correspond to the text description in the GEL pdf as follows:
+ * $base:     Article body text
+ * $alpha:    Article title or section header
+ * $beta:     Sub header
+ * $gamma:    Strong headline title
+ * $delta:    Slightly enhanced text (not in GEL guidelines)
+ * $centi:    Index body text and image captions
+ * $milli:    Time stamp
+ * $micro:    Small header capitals
+ */
+ @mixin svg-sizing($namespace, $base, $alpha, $beta, $gamma, $delta, $centi, $milli, $micro) {
+    .gelicon--text-base {
+        width: nth($base, 1);
+        height: nth($base, 1);
+    }
+}
+
+$basic-typography: map-get($gel-typography, 'basic');
+@include svg-sizing('', $basic-typography...);
+
+/**
+ * Generate media-query scoped gel-icon sizings that correspond to our font sizings for each breakpoint name defined
+ */
+@each $item in $gel-typography-breakpoints {
+    @include mq-range($item) {
+        $item-typography: map-get($gel-typography, $item);
+        @include svg-sizing('#{$item}-', $item-typography...);
+    }
+}

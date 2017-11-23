@@ -1,0 +1,20 @@
+<a class="block {{- author.getOption('is_slimline') ? '' : ' islet--vertical' -}}" href="{{ path('post', {blogId: author.getBlogId(), guid: author.getGuid()}) }}">
+    <div class="media">
+        {% if author.getImage() %}
+        <div class="1/6 hidden visible@bpw media__img">
+            {{- ds('image', author.getImage(), 112, '112px', {'srcsets': [112]}) -}}
+        </div>
+        {% endif %}
+
+        <div class="media__body">
+            <p class="no-margin {{- author.getOption('is_slimline') ? '' : ' delta' -}}" itemprop="author">
+                {{- author.getName() -}}
+
+                {%- if author.getRole() -%}
+                    {%- if author.getOption('is_slimline') %}, {% else %}</p><p class="no-margin">{% endif -%}
+                    <span class="br-page-text-ontext">{{ author.getRole() }}</span>
+                {%- endif -%}
+            </p>
+        </div>
+    </div>
+</a>

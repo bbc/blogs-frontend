@@ -16,6 +16,7 @@ class PostRepository extends AbstractRepository
         $query = new GuidQuery();
 
         $query->setContentId($guid);
+        $query->setDepth(1);
         if ($blogId) {
             $query->setProject($blogId);
         }
