@@ -5,6 +5,7 @@ namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
+use App\BlogsService\Domain\Tag;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
@@ -126,6 +127,29 @@ class PostService
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedUntil, 1, $page, $perpage, $sort);
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getPostsByTag(
+        Blog $blog,
+        Tag $tag,
+        int $page = 1,
+        int $perpage = 10,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $tag->getId(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $tag, $page, $perpage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsByTagFileId($blog->getId(), (string) $tag->getFileId(), $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

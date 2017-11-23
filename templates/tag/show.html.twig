@@ -1,0 +1,36 @@
+{% extends 'blogs_base.html.twig' %}
+
+{% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_tag_ind') }}: {{ tag.getName() }}{% endblock %}
+
+{% block content %}
+    <div class="islet br-box-subtle component text--right">
+        <a class="istats--tracker" data-istats-link-location="blogs_tag_page_see_all_tags"
+           href="{{ path('tag_list', {blogId: blog.getId()}) }}">{{ tr('link_see_all_tags') }}</a>
+    </div>
+
+    <div class="component component--lined br-keyline">
+        <h1 class="no-margin">{{ tr('header_tag_ind') }}: {{ tag.getName() }}</h1>
+    </div>
+
+    <div class="component">
+        <h2>{{ tr('header_posts') }} ({{ postResults.total }})</h2>
+        {% if postResults.getDomainModels() is empty %}
+            <p>{{ tr('no_results') }}</p>
+        {% else %}
+            <ol class="list-unstyled list-lined">
+                {% for post in postResults.getDomainModels() %}
+                    <li class="br-keyline">
+                        <a href="{{ path('post', {blogId: blog.getId(), guid: post.getGuid() }) }}">
+                            {{ post.getTitle() }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ol>
+            {#<?=$this->commentCountScript($keysForComments);?>#}
+        {% endif %}
+    </div>
+
+    {% if paginatorPresenter %}
+        {{ ds_presenter(paginatorPresenter) }}
+    {% endif %}
+{% endblock %}
