@@ -115,7 +115,7 @@
             </h4>
             {%- if post.getPublishedDate() -%}
                 <p class="text--subtle milli" itemprop="datePublished">
-                    <time>{{ post.getPublishedDate() | date('l d F Y, H:i') }}</time>
+                    <time datetime="{{ post.getPublishedDate() | date('Y-m-d\TH:i:s') }}">{{ post.getPublishedDate() | date('l d F Y, H:i') }}</time>
                 </p>
             {%- endif -%}
         </div>
