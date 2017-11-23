@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "ef10e326ab486b278b59b0c3e17a7c22",
+    "content-hash": "10352021a5d6046f3535e2c9b9117bc8",
     "packages": [
         {
             "name": "bbc-rmp/translate",
@@ -98,6 +98,33 @@
                 "issues": "https://github.com/bbc/branding-client/issues"
             },
             "time": "2017-09-25T14:10:37+00:00"
+        },
+        {
+            "name": "bbc/gel-iconography-assets",
+            "version": "1.2.5",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:bbc/gel-iconography-assets.git",
+                "reference": "908354c3be5baaeccc5e1565ce9b409a8e560c82"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bbc/gel-iconography-assets/zipball/908354c3be5baaeccc5e1565ce9b409a8e560c82",
+                "reference": "908354c3be5baaeccc5e1565ce9b409a8e560c82",
+                "shasum": ""
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BBC\\GEL\\Iconography\\": ""
+                }
+            },
+            "description": "Assets for GEL icons",
+            "support": {
+                "source": "https://github.com/bbc/gel-iconography-assets/tree/1.2.5",
+                "issues": "https://github.com/bbc/gel-iconography-assets/issues"
+            },
+            "time": "2017-09-04T13:45:14+00:00"
         },
         {
             "name": "composer/ca-bundle",
@@ -5358,7 +5385,7 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.0.8",
+        "php": "^7.1.0",
         "ext-redis": "*"
     },
     "platform-dev": []
