@@ -72,7 +72,7 @@
         },
         "post-install-cmd": [
             "@auto-scripts",
-            "php bin/update-gelicons.php"
+            "bin/update-gelicons.php"
         ],
         "post-update-cmd": [
             "@auto-scripts"

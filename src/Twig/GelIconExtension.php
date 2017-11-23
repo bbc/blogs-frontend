@@ -9,6 +9,7 @@ use Twig_Function;
 
 class GelIconExtension extends Twig_Extension
 {
+    /** @var string[][] */
     private $usedIcons = [];
 
     /**
@@ -39,7 +40,7 @@ class GelIconExtension extends Twig_Extension
         return $iconsSource;
     }
 
-    public function gelIcon(string $set, string $icon, string $extraClasses = '')
+    public function gelIcon(string $set, string $icon, string $extraClasses = ''): string
     {
         $set = preg_replace('/[^A-Za-z0-9_-]/', '', $set);
         $icon = preg_replace('/[^A-Za-z0-9_-]/', '', $icon);
@@ -58,7 +59,7 @@ class GelIconExtension extends Twig_Extension
         }
     }
 
-    private function loadSvgSymbol(string $set, string $icon)
+    private function loadSvgSymbol(string $set, string $icon): string
     {
         $path = dirname(dirname(__DIR__)) . join(DIRECTORY_SEPARATOR, ['', 'resources', 'gelicons', $set, $icon]) . '.svg';
         $contents = file_get_contents($path);
