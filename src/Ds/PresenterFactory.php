@@ -9,6 +9,7 @@ use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
+use App\BlogsService\Domain\Tag;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
 use App\Ds\Post\Social\SocialPresenter;
@@ -106,10 +107,12 @@ class PresenterFactory
 
     public function updatesModulePresenter(
         Blog $blog,
+        ?Tag $tag,
         array $options = []
     ): UpdatesPresenter {
         return new UpdatesPresenter(
             $blog,
+            $tag,
             $options
         );
     }

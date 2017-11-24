@@ -2,28 +2,28 @@
     <h2 class="island--squashed br-box-highlight no-margin">{{ tr('module_updates_header') }}</h2>
     <div class="island">
         <p>{{ tr('module_updates_content') }}</p>
-        {#<? if (isset($this->tagFileId)) : ?>#}
-            {#<h3><?=$this->t('module_updates_header_feed_tags') ?>:</h3>#}
-            {#<ul class="list-unstyled list-spaced">#}
+        {% if updates.shouldShowTagFeeds() %}
+            <h3>{{ tr('module_updates_header_feed_tags') }}:</h3>
+            <ul class="list-unstyled list-spaced">
+                <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                        href="{{ path('feed_rss_tags', {blogId: updates.getBlogId(), tagId: updates.getTagId()}) }}">{{ tr('module_updates_link_rss') }}</a>
+                </li>
+                <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                        href="{{ path('feed_atom_tags', {blogId: updates.getBlogId(), tagId: updates.getTagId()}) }}">{{ tr('module_updates_link_atom') }}</a>
+                </li>
+            </ul>
+            <br/>
+        {% endif %}
 
-                {#<li><i class="gelicon--leading gelicon--rss"></i> <a href="<?=$this->buildUrl(array(#}
-                    {#'project_id'    => $blogShortId,#}
-                    {#'file_id'       => $this->tagFileId#}
-                {#), 'feed_rss_tags')?>"><?=$this->t('module_updates_link_rss') ?></a></li>#}
-                {#<li><i class="gelicon--leading gelicon--rss"></i> <a href="<?=$this->buildUrl(array(#}
-                    {#'project_id'    => $blogShortId,#}
-                    {#'file_id'       => $this->tagFileId#}
-                {#), 'feed_atom_tags')?>"><?=$this->t('module_updates_link_atom') ?></a></li>#}
-
-            {#</ul>#}
-            {#<br/>#}
-        {#<? endif; ?>#}
-
-        <h3>{{ tr('module_updates_header_feed') }}</h3>
+        <h3>{{ tr('module_updates_header_feed') }}:</h3>
 
         <ul class="list-unstyled list-spaced">
-            <li><i class="gelicon--leading gelicon--rss"></i> <a href="{{ path('feed_rss', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_rss') }}</a></li>
-            <li><i class="gelicon--leading gelicon--rss"></i> <a href="{{ path('feed_atom', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_atom') }}</a></li>
+            <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                    href="{{ path('feed_rss', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_rss') }}</a>
+            </li>
+            <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                    href="{{ path('feed_atom', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_atom') }}</a>
+            </li>
         </ul>
         <p>
             <a href="http://news.bbc.co.uk/1/hi/help/3223484.stm">{{ tr('module_updates_link_feeds') }}</a>
