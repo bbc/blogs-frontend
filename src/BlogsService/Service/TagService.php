@@ -36,7 +36,7 @@ class TagService
         Blog $blog,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
-    ): Tag {
+    ): ?Tag {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $tagId, $blog->getId(), $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
