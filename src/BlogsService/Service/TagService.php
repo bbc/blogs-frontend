@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Tag;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
@@ -28,6 +29,28 @@ class TagService
         $this->repository = $repository;
         $this->responseHandler = $responseHandler;
         $this->cache = $cache;
+    }
+
+    public function getTagById(
+        string $tagId,
+        Blog $blog,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): ?Tag {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $tagId, $blog->getId(), $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($tagId, $blog) {
+                $response = $this->repository->getTagByFileId($tagId, $blog->getId());
+                $result = $this->responseHandler->getIsiteResult($response);
+
+                return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
     }
 
     public function getTagsByBlog(

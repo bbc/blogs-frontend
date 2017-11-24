@@ -47,6 +47,12 @@
     opacity: 0.8;
 }
 
+svg.pagination__next-previous {
+    width: 14px;
+    height: 16px;
+    vertical-align: text-top;
+}
+
 // TODO use bespoke breakpoint for this
 @include mq-range('bpb1') {
     // Show the first, last and current pages

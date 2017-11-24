@@ -18,4 +18,17 @@ class HtmlUtilitiesExtensionTest extends TestCase
         $extension = new HtmlUtilitiesExtension($mockPackages);
         $this->assertSame('some/example/path-123', $extension->assetJs('some/example/path.js'));
     }
+
+    public function testBuildCssClasses()
+    {
+        $extension = new HtmlUtilitiesExtension(
+            $this->createMock(Packages::class)
+        );
+
+        $this->assertSame('foo baz qux', $extension->buildCssClasses([
+            'foo' => true,
+            'bar' => false,
+            'baz qux' => true,
+        ]));
+    }
 }

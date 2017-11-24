@@ -22,6 +22,7 @@ class HtmlUtilitiesExtension extends Twig_Extension
     {
         return [
             new Twig_Function('asset_js', [$this, 'assetJs']),
+            new Twig_Function('build_css_classes', [$this, 'buildCssClasses']),
         ];
     }
 
@@ -32,5 +33,16 @@ class HtmlUtilitiesExtension extends Twig_Extension
     public function assetJs(string $path): string
     {
         return preg_replace('/\.js$/', '', $this->packages->getUrl($path, null));
+    }
+
+    public function buildCssClasses(array $cssClassTests = []): string
+    {
+        $cssClasses = [];
+        foreach ($cssClassTests as $cssClass => $shouldSet) {
+            if ($shouldSet) {
+                $cssClasses[] = $cssClass;
+            }
+        }
+        return trim(implode(' ', $cssClasses));
     }
 }
