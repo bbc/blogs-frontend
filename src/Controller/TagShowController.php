@@ -21,10 +21,15 @@ class TagShowController extends BlogsBaseController
             throw $this->createNotFoundException('Tag not found');
         }
 
+        $page = (int) $request->query->get('page', 1);
+        if($page < 1) {
+            $page = 1;
+        }
+
         $postResults = $postService->getPostsByTag(
             $blog,
             $tag,
-            (int) $request->query->get('page', 1),
+            $page,
             10
         );
 
