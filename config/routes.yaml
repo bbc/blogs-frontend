@@ -22,6 +22,7 @@ post:
 
 tag_list:
     path: /blogs/{blogId}/tags
+    defaults: { _controller: App\Controller\TagIndexController }
     requirements: { blogId: '[a-z0-9]+' }
 
 tag:
