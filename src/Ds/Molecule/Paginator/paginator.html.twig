@@ -1,13 +1,13 @@
 <ol class="nav nav--banner pagination delta">
     {%- if paginator.getCurrentPage() <= 1 -%}
         <li class="pagination__previous pagination--disabled">
-            {{ gelicon('core', 'previous', 'next-previous gelicon--leading') }}
+            {{ gelicon('core', 'previous', 'pagination__next-previous gelicon--leading') }}
             <span>{{ tr('link_previous') }}</span>
         </li>
     {%- else -%}
         <li class="pagination__previous">
             <a href="?page={{ paginator.getCurrentPage() - 1 }}" rel="prev">
-                {{ gelicon('core', 'previous', 'next-previous gelicon--leading') }}
+                {{ gelicon('core', 'previous', 'pagination__next-previous gelicon--leading') }}
                 <span>{{ tr('link_previous') }}</span>
             </a>
         </li>
@@ -41,13 +41,13 @@
     {%- if paginator.getCurrentPage() >= paginator.getPageCount() -%}
         <li class="pagination__next pagination--disabled">
             <span>{{ tr('link_next') }}</span>
-            {{ gelicon('core', 'next', 'next-previous gelicon--trailing') }}
+            {{ gelicon('core', 'next', 'pagination__next-previous gelicon--trailing') }}
         </li>
     {%- else -%}
         <li class="pagination__next">
             <a href="?page={{ paginator.getCurrentPage() + 1 }}" rel="next">
                 <span>{{ tr('link_next') }}</span>
-                {{ gelicon('core', 'next', 'next-previous gelicon--trailing') }}
+                {{ gelicon('core', 'next', 'pagination__next-previous gelicon--trailing') }}
             </a>
         </li>
     {%- endif -%}
