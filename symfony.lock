@@ -355,5 +355,8 @@
     },
     "symfony/css-selector": {
         "version": "v4.0.0-beta3"
+    },
+    "bbc/gel-iconography-assets": {
+        "version": "1.2.5"
     }
 }
