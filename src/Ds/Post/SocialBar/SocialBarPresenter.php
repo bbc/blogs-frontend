@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Post\Social;
+namespace App\Ds\Post\SocialBar;
 
 use App\BlogsService\Domain\Post;
 use App\Ds\Presenter;
 
-class SocialPresenter extends Presenter
+class SocialBarPresenter extends Presenter
 {
     /** @var Post */
     private $post;

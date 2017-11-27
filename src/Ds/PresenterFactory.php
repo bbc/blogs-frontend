@@ -11,7 +11,7 @@ use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
-use App\Ds\Post\Social\SocialPresenter;
+use App\Ds\Post\SocialBar\SocialBarPresenter;
 use App\Ds\Post\Tags\TagsPresenter;
 use App\Ds\SidebarModule\AboutPresenter;
 use App\Ds\SidebarModule\BlogTagsPresenter;
@@ -87,12 +87,12 @@ class PresenterFactory
         return new AuthorPresenter($author, $blogId, $options);
     }
 
-    public function postSocialPresenter(
+    public function postSocialBarPresenter(
         Post $post,
         string $blogId,
         array $options = []
-    ): SocialPresenter {
-        return new SocialPresenter($post, $blogId, $options);
+    ): SocialBarPresenter {
+        return new SocialBarPresenter($post, $blogId, $options);
     }
 
     public function postTagsPresenter(

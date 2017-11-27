@@ -97,7 +97,7 @@
 
                 {# TODO only show this if a blog has a comments siteId  #}
                 {% if true %}
-                    {{ ds('postSocial', post, blog.getId())}}
+                    {{ ds('postSocialBar', post, blog.getId())}}
                 {% endif %}
             </div>
 
@@ -112,7 +112,7 @@
         {% endif %}
 
         {% if true %}
-            {{ ds('postSocial', post, blog.getId())}}
+            {{ ds('postSocialBar', post, blog.getId())}}
         {% endif %}
 
         {# TODO only show this if a blog has a comments siteId  #}
