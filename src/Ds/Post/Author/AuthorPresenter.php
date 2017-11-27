@@ -5,6 +5,7 @@ namespace App\Ds\Post\Author;
 
 use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Image;
+use App\Ds\InvalidOptionException;
 use App\Ds\Presenter;
 
 class AuthorPresenter extends Presenter

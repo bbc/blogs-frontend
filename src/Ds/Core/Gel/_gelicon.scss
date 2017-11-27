@@ -50,7 +50,7 @@ svg.gelicon--comments {
  * $milli:    Time stamp
  * $micro:    Small header capitals
  */
- @mixin svg-sizing($namespace, $base, $alpha, $beta, $gamma, $delta, $centi, $milli, $micro) {
+@mixin svg-sizing($namespace, $base, $alpha, $beta, $gamma, $delta, $centi, $milli, $micro) {
     .gelicon--text-base {
         width: nth($base, 1);
         height: nth($base, 1);
