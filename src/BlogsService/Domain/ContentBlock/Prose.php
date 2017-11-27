@@ -1,51 +1,26 @@
 <?php
+declare(strict_types = 1);
 
-namespace BBC\BlogsService\Domain\ContentBlock;
+namespace App\BlogsService\Domain\ContentBlock;
 
-use BBC\BlogsService\Domain\ContentBlock;
-
-/**
- *      Content Block Prose DOMAIN.
- *
- *      A DOMAIN which provides Prose content blocks within a post
- *
- *      @category   Blogs
- *
- *      @copyright  Copyright (c) 2014 BBC (http://www.bbc.co.uk)
- *
- *      @link       https://confluence.dev.bbc.co.uk/display/blogs4
- *
- *      @version    1.0
- */
-class Prose extends ContentBlock
+class Prose extends AbstractContentBlock
 {
-    /**
-     * @var string
-     */
+    /** @var string */
     private $prose;
 
-    public function __construct(
-        $type,
-        $prose
-    ) {
-        parent::__construct($type);
-
+    public function __construct(string $prose)
+    {
         $this->prose = $prose;
     }
 
-    public function getCharacterCount()
+    public function getCharacterCount(): int
     {
         $prose = (string) $this->prose;
 
         return strlen(strip_tags($prose));
     }
 
-    /**
-     * Gets the value of prose.
-     *
-     * @return string
-     */
-    public function getProse()
+    public function getProse(): string
     {
         return $this->prose;
     }

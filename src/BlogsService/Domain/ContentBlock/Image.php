@@ -1,49 +1,25 @@
 <?php
+declare(strict_types=1);
 
-namespace BBC\BlogsService\Domain\ContentBlock;
+namespace App\BlogsService\Domain\ContentBlock;
 
-use BBC\BlogsService\Domain\ContentBlock;
-use BBC\BlogsService\Domain\ValueObject\Image as ValueObjectImage;
+use App\BlogsService\Domain\Image as DomainImage;
 
-/**
- *      Content Block image DOMAIN.
- *
- *      A DOMAIN which provides Image content blocks within a post
- *
- *      @category   Blogs
- *
- *      @copyright  Copyright (c) 2014 BBC (http://www.bbc.co.uk)
- *
- *      @link       https://confluence.dev.bbc.co.uk/display/blogs4
- *
- *      @version    1.0
- */
-class Image extends ContentBlock
+class Image extends AbstractContentBlock
 {
-    /**
-     * @var Image
-     */
+    /** @var Image */
     private $image;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $caption;
 
-    /**
-     * @var bool
-     */
+    /** @var bool */
     private $hasCaption;
 
-    public function __construct(
-        $type,
-        ValueObjectImage $image = null,
-        $caption = null
-    ) {
-        parent::__construct($type);
-
-        $this->image    = $image;
-        $this->caption  = $caption;
+    public function __construct(DomainImage $image = null, string $caption = null)
+    {
+        $this->image = $image;
+        $this->caption = $caption;
 
         if (empty($caption)) {
             $this->hasCaption = false;
@@ -52,32 +28,17 @@ class Image extends ContentBlock
         }
     }
 
-    /**
-     * Gets the value of image.
-     *
-     * @return Image
-     */
-    public function getImage()
+    public function getImage(): Image
     {
         return $this->image;
     }
 
-    /**
-     * Gets the value of caption.
-     *
-     * @return string
-     */
-    public function getCaption()
+    public function getCaption(): string
     {
         return $this->caption;
     }
 
-    /**
-     * Gets the value of hasCaption.
-     *
-     * @return bool
-     */
-    public function hasCaption()
+    public function hasCaption(): bool
     {
         return $this->hasCaption;
     }

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Post\Content\ImageBlock;
+namespace App\Ds\ContentBlock\ImageBlock;
 
 use App\BlogsService\Domain\ContentBlock\Image;
 use App\Ds\Presenter;

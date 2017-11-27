@@ -1,61 +1,28 @@
 <?php
+declare(strict_types = 1);
 
-namespace BBC\BlogsService\Domain\ContentBlock;
+namespace App\BlogsService\Domain\ContentBlock;
 
-use BBC\BlogsService\Domain\ContentBlock;
-
-/**
- *      Content Block Social DOMAIN.
- *
- *      A DOMAIN which provides Social content blocks within a post
- *
- *      @category   Blogs
- *
- *      @copyright  Copyright (c) 2014 BBC (http://www.bbc.co.uk)
- *
- *      @link       https://confluence.dev.bbc.co.uk/display/blogs4
- *
- *      @version    1.0
- */
-class Social extends ContentBlock
+class Social extends AbstractContentBlock
 {
-    /**
-     * @var string
-     */
+    /** @var string  */
     private $link;
 
-    /**
-     * @var string
-     */
+    /** @var string */
     private $alt;
 
-    public function __construct(
-        $type,
-        $link,
-        $alt
-    ) {
-        parent::__construct($type);
-
+    public function __construct(string $link, string $alt)
+    {
         $this->link = $link;
         $this->alt = $alt;
     }
 
-    /**
-     * Gets the value of link.
-     *
-     * @return string
-     */
-    public function getLink()
+    public function getLink(): string
     {
         return $this->link;
     }
 
-    /**
-     * Gets the value of alt.
-     *
-     * @return string
-     */
-    public function getAlt()
+    public function getAlt(): string
     {
         return $this->alt;
     }

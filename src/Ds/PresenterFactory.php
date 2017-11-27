@@ -13,6 +13,7 @@ use App\BlogsService\Domain\Tag;
 use App\Ds\Molecule\AuthorAtoZ\AuthorAtoZPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
+use App\Ds\Post\Content\ContentPresenter;
 use App\Ds\Post\PostSummary\PostSummaryPresenter;
 use App\Ds\Post\SocialBar\SocialBarPresenter;
 use App\Ds\Post\Tags\TagsPresenter;
@@ -100,6 +101,13 @@ class PresenterFactory
         array $options = []
     ): AuthorPresenter {
         return new AuthorPresenter($author, $blogId, $options);
+    }
+
+    public function postContentPresenter(
+        array $contentBlocks,
+        array $options = []
+    ): ContentPresenter {
+        return new ContentPresenter($contentBlocks, $options);
     }
 
     public function postSocialBarPresenter(
