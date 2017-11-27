@@ -17,4 +17,3 @@ class CodeBlockPresenter extends Presenter
         $this->content = $content;
     }
 }
-

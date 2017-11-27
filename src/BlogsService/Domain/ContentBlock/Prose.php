@@ -15,7 +15,7 @@ class Prose extends AbstractContentBlock
 
     public function getCharacterCount(): int
     {
-        $prose = (string) $this->prose;
+        $prose = $this->prose;
 
         return strlen(strip_tags($prose));
     }

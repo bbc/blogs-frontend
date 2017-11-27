@@ -15,7 +15,7 @@ class Code extends AbstractContentBlock
 
     public function getCharacterCount(): int
     {
-        $code = (string) $this->code;
+        $code = $this->code;
         return strlen($code);
     }
 

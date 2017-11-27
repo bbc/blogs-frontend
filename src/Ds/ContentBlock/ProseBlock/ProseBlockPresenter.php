@@ -17,4 +17,3 @@ class ProseBlockPresenter extends Presenter
         $this->content = $content;
     }
 }
-

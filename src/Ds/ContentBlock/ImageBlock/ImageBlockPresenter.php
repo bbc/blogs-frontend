@@ -17,4 +17,3 @@ class ImageBlockPresenter extends Presenter
         $this->content = $content;
     }
 }
-

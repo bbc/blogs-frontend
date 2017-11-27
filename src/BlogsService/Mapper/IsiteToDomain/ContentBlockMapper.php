@@ -78,18 +78,21 @@ class ContentBlockMapper extends Mapper
         $typeWithPrefix = $this->getMetaData($isiteObject)->type;
         if (!empty($typeWithPrefix)) {
             return str_replace("blogs-content-", "", $typeWithPrefix);
-        } else {
-            return null;
         }
+
+        return null;
     }
 
     private function getPlaylistType($id, $url): ?string
     {
         if (!empty($id)) {
             return 'pid';
-        } elseif (!empty($url)) {
+        }
+
+        if (!empty($url)) {
             return 'xml';
         }
+
         return null;
     }
 }
