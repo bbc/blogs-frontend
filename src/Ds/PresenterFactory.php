@@ -9,6 +9,7 @@ use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
+use App\BlogsService\Domain\Tag;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
 use App\Ds\Post\SocialBar\SocialBarPresenter;
@@ -17,6 +18,7 @@ use App\Ds\SidebarModule\AboutPresenter;
 use App\Ds\SidebarModule\BlogTagsPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
+use App\Ds\SidebarModule\UpdatesPresenter;
 
 /**
  * Ds Factory Class for creating presenters.
@@ -101,5 +103,17 @@ class PresenterFactory
         array $options = []
     ): TagsPresenter {
         return new TagsPresenter($tags, $blogId, $options);
+    }
+
+    public function updatesModulePresenter(
+        Blog $blog,
+        ?Tag $tag,
+        array $options = []
+    ): UpdatesPresenter {
+        return new UpdatesPresenter(
+            $blog,
+            $tag,
+            $options
+        );
     }
 }

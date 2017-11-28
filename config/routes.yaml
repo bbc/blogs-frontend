@@ -28,3 +28,19 @@ tag:
     path: /blogs/{blogId}/tags/{tagId}
     defaults: { _controller: App\Controller\TagShowController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+feed_atom:
+    path: /blogs/{blogId}/atom
+    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+feed_rss:
+    path: /blogs/{blogId}/rss
+    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+feed_atom_tags:
+    path: /blogs/{blogId}/tags/{tagId}/atom
+    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+feed_rss_tags:
+    path: /blogs/{blogId}/tags/{tagId}/rss
+    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
