@@ -14,7 +14,12 @@ class TagIndexController extends BlogsBaseController
     {
         $this->setBlog($blog);
 
-        $tagsResult = $tagService->getTagsByBlog($blog, (int) $request->query->get('page', 1), 10);
+        $page = (int) $request->query->get('page', 1);
+        if ($page < 1) {
+            $page = 1;
+        }
+
+        $tagsResult = $tagService->getTagsByBlog($blog, $page, 10);
 
         $paginator = null;
         if ($tagsResult->getTotal() > $tagsResult->getPageSize()) {
