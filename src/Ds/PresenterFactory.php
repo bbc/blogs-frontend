@@ -12,6 +12,7 @@ use App\BlogsService\Domain\Module\Links;
 use App\BlogsService\Domain\Tag;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
+use App\Ds\Post\PostSummary\PostSummaryPresenter;
 use App\Ds\Post\SocialBar\SocialBarPresenter;
 use App\Ds\Post\Tags\TagsPresenter;
 use App\Ds\SidebarModule\AboutPresenter;
@@ -19,12 +20,21 @@ use App\Ds\SidebarModule\BlogTagsPresenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use App\Ds\SidebarModule\UpdatesPresenter;
+use App\Translate\TranslateProvider;
 
 /**
  * Ds Factory Class for creating presenters.
  */
 class PresenterFactory
 {
+    /** @var TranslateProvider */
+    private $translateProvider;
+
+    public function __construct(TranslateProvider $translateProvider)
+    {
+        $this->translateProvider = $translateProvider;
+    }
+
     public function aboutModulePresenter(
         Blog $blog,
         array $options = []
@@ -95,6 +105,14 @@ class PresenterFactory
         array $options = []
     ): SocialBarPresenter {
         return new SocialBarPresenter($post, $blogId, $options);
+    }
+
+    public function postSummaryPresenter(
+        Blog $blog,
+        Post $post,
+        array $options = []
+    ): PostSummaryPresenter {
+        return new PostSummaryPresenter($this->translateProvider, $blog, $post, $options);
     }
 
     public function postTagsPresenter(
