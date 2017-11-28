@@ -20,7 +20,7 @@
             <ol class="list-unstyled list-lined">
                 {% for post in postResults.getDomainModels() %}
                     <li class="br-keyline">
-                        {{ ds('postSummary', blog, post, {'h_tag': 3, 'show_author': post.getAuthor() is not null, 'show_image': post.getImage() is not null }) }}
+                        {{ ds('postSummary', blog, post, {'h_tag': 3}) }}
                     </li>
                 {% endfor %}
             </ol>

@@ -13,7 +13,7 @@
             {{ post_summary.getPublishedDate() }}
         </time>
     </p>
-    {% if post_summary.getOption('show_author') %}
+    {% if post_summary.shouldShowAuthor() %}
         {{ ds('postAuthor', post_summary.getPost().getAuthor(), post_summary.getBlogId(), post_summary.getOption('author_options')) }}
     {% endif %}
     <div class="media islet--vertical">

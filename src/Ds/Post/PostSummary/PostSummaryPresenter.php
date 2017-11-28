@@ -63,6 +63,11 @@ class PostSummaryPresenter extends Presenter
         return null !== $featuredPost && $featuredPost->getGuid() === $this->post->getGuid();
     }
 
+    public function shouldShowAuthor(): bool
+    {
+        return $this->getOption('show_author') && $this->post->getAuthor();
+    }
+
     public function shouldShowImage(): bool
     {
         return $this->getOption('show_image') && $this->post->getImage();
