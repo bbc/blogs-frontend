@@ -16,4 +16,9 @@ class CodeBlockPresenter extends Presenter
         parent::__construct($options);
         $this->content = $content;
     }
+
+    public function getCode(): string
+    {
+        return $this->content->getCode();
+    }
 }

@@ -1,1 +1,6 @@
-Im an image block.
+<div class="component">
+    <img src="{{ image_block.getImageUrl() }}" class="rsp-img">
+    {%- if image_block.getCaption() -%}
+        <p><em>{{- image_block.getCaption() -}}</em></p>
+    {%- endif -%}
+</div>

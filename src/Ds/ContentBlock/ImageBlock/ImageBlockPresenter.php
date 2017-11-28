@@ -9,11 +9,21 @@ use App\Ds\Presenter;
 class ImageBlockPresenter extends Presenter
 {
     /** @var Image */
-    private $content;
+    private $image;
 
-    public function __construct(Image $content, array $options = [])
+    public function __construct(Image $image, array $options = [])
     {
         parent::__construct($options);
-        $this->content = $content;
+        $this->image = $image;
+    }
+
+    public function getImageUrl(): string
+    {
+        return $this->image->getImage()->getUrl(640);
+    }
+
+    public function getCaption(): string
+    {
+        return $this->image->getCaption();
     }
 }

@@ -13,22 +13,13 @@ class Image extends AbstractContentBlock
     /** @var string */
     private $caption;
 
-    /** @var bool */
-    private $hasCaption;
-
-    public function __construct(DomainImage $image = null, string $caption = null)
+    public function __construct(DomainImage $image = null, string $caption = '')
     {
         $this->image = $image;
         $this->caption = $caption;
-
-        if (empty($caption)) {
-            $this->hasCaption = false;
-        } else {
-            $this->hasCaption = true;
-        }
     }
 
-    public function getImage(): Image
+    public function getImage(): DomainImage
     {
         return $this->image;
     }
@@ -36,10 +27,5 @@ class Image extends AbstractContentBlock
     public function getCaption(): string
     {
         return $this->caption;
-    }
-
-    public function hasCaption(): bool
-    {
-        return $this->hasCaption;
     }
 }

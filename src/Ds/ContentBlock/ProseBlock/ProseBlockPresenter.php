@@ -16,4 +16,9 @@ class ProseBlockPresenter extends Presenter
         parent::__construct($options);
         $this->content = $content;
     }
+
+    public function getProse(): string
+    {
+        return $this->content->getProse();
+    }
 }
