@@ -7,13 +7,13 @@ use App\BlogsService\Domain\Image as DomainImage;
 
 class Image extends AbstractContentBlock
 {
-    /** @var Image */
+    /** @var DomainImage */
     private $image;
 
     /** @var string */
     private $caption;
 
-    public function __construct(DomainImage $image = null, string $caption = '')
+    public function __construct(DomainImage $image, string $caption)
     {
         $this->image = $image;
         $this->caption = $caption;
