@@ -1,5 +1,5 @@
 <div class="component">
-    <img src="{{ image_block.getImageUrl() }}" class="rsp-img">
+    {{ ds('image', image_block.getImage(), 320, {770: '66.66vw', 1008: '613px'}, {'is_lazy_loaded': false}) }}
     {%- if image_block.getCaption() -%}
         <p><em>{{- image_block.getCaption() -}}</em></p>
     {%- endif -%}

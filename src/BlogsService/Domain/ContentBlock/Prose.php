@@ -17,7 +17,7 @@ class Prose extends AbstractContentBlock
     {
         $prose = $this->prose;
 
-        return strlen(strip_tags($prose));
+        return mb_strlen(strip_tags($prose));
     }
 
     public function getProse(): string

@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Ds\ContentBlock\ImageBlock;
 
 use App\BlogsService\Domain\ContentBlock\Image;
+use App\BlogsService\Domain\Image as DomainImage;
 use App\Ds\Presenter;
 
 class ImageBlockPresenter extends Presenter
@@ -17,9 +18,9 @@ class ImageBlockPresenter extends Presenter
         $this->image = $image;
     }
 
-    public function getImageUrl(): string
+    public function getImage(): DomainImage
     {
-        return $this->image->getImage()->getUrl(640);
+        return $this->image->getImage();
     }
 
     public function getCaption(): string

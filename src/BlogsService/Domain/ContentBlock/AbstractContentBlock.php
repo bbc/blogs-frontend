@@ -7,6 +7,10 @@ abstract class AbstractContentBlock
 {
     public function getCharacterCount(): int
     {
-        return 200; // items take up 200 characters by default
+        // This is a default value allocated to content blocks such as clips
+        // for the purposes of post truncation
+        // TODO check this when implementing post truncation
+
+        return 200;
     }
 }

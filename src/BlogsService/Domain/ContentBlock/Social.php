@@ -3,6 +3,10 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Domain\ContentBlock;
 
+/**
+ * This is a content block, which authors use to embed objects from
+ * external sites, for example a Tweet or a Vimeo video
+ */
 class Social extends AbstractContentBlock
 {
     /** @var string  */
@@ -22,6 +26,9 @@ class Social extends AbstractContentBlock
         return $this->link;
     }
 
+    /**
+     * For accessibility and fallback for Javascript embed
+     */
     public function getAlt(): string
     {
         return $this->alt;

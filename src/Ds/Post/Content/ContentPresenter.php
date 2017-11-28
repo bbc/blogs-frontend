@@ -15,6 +15,7 @@ use App\Ds\ContentBlock\ImageBlock\ImageBlockPresenter;
 use App\Ds\ContentBlock\ProseBlock\ProseBlockPresenter;
 use App\Ds\ContentBlock\SocialBlock\SocialBlockPresenter;
 use App\Ds\Presenter;
+use App\Exception\InvalidContentBlockException;
 
 class ContentPresenter extends Presenter
 {
@@ -55,6 +56,6 @@ class ContentPresenter extends Presenter
             return new CodeBlockPresenter($contentBlock);
         }
 
-        // TODO throw exception if an invalid content block was passed in
+        throw new InvalidContentBlockException('Could not display invalid Content Block');
     }
 }
