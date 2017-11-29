@@ -13,6 +13,13 @@ class ClipsBlockPresenter extends Presenter
 
     private $containerId;
 
+    private static $COUNTER = 0;
+
+    private static function getClipsBlockCount()
+    {
+        return self::$COUNTER++;
+    }
+
     public function __construct(Clips $content, array $options = [])
     {
         parent::__construct($options);
@@ -22,7 +29,7 @@ class ClipsBlockPresenter extends Presenter
     public function getContainerId(): string
     {
         if (!isset($this->containerId)) {
-            $this->containerId = 'smp-' . (string) microtime(true) * 10000;
+            $this->containerId = 'smp-' . self::getClipsBlockCount();
         }
 
         return $this->containerId;
