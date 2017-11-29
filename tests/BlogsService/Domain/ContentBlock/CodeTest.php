@@ -9,11 +9,15 @@ class CodeTest extends TestCase
 {
     public function testConstructor()
     {
-        $code = new Code(
-            'i-am-some-code'
-        );
+        $code = new Code('i-am-some-code');
 
         $this->assertEquals('i-am-some-code', $code->getCode());
         $this->assertEquals(14, $code->getCharacterCount());
+    }
+
+    public function testMultibyteCharacterCount()
+    {
+        $code = new Code('丂丅丏');
+        $this->assertEquals(3, $code->getCharacterCount());
     }
 }

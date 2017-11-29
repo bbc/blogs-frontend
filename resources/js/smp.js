@@ -20,7 +20,7 @@ define('smp',['jquery-1.9'], function ($) {
                 appName: "blogs",
                 appType: "web",
                 // counterName : window.bbcBlogs.counterName || null,
-                counterName : 'test', //TODO THIS IS JUST TEMPORARY FIX IT PROPERLY
+                counterName : 'test', //TODO THIS IS JUST TEMPORARY FIX IT PROPERLY - https://jira.dev.bbc.co.uk/browse/BLOGS-1303
                 playerProfile: 'smp',
                 responsive: true,
                 superResponsive: true,

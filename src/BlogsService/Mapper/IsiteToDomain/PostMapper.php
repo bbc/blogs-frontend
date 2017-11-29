@@ -47,14 +47,13 @@ class PostMapper extends Mapper
             $contentBlocks = [];
             $contentBlockContent = $form->content->xpath("./*");
 
+            $contentBlockMapper = $this->mapperFactory->createContentBlockMapper();
+
             foreach ($contentBlockContent as $contentBlock) {
                 $result = $contentBlock->{'blog-post-content'}->result;
 
                 if (is_object($result->metadata)) {
-                    $contentBlocks[] = $this->mapperFactory
-                        ->createContentBlockMapper()->getDomainModel(
-                            $result
-                        );
+                    $contentBlocks[] = $contentBlockMapper->getDomainModel($result);
                 }
             }
             $tags = [];
