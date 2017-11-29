@@ -49,6 +49,8 @@
             <meta name="twitter:creator" content="{{ author.getSocial().getTwitterUsername() }}">
         {%- endif -%}
     {%- endif -%}
+
+    {{ parent() }}
 {% endblock %}
 
 {%- block content -%}

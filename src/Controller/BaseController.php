@@ -35,7 +35,6 @@ abstract class BaseController extends AbstractController
             BrandingClient::class,
             OrbitClient::class,
             TranslateProvider::class,
-            CosmosInfo::class,
         ]);
     }
 
@@ -49,14 +48,6 @@ abstract class BaseController extends AbstractController
         $this->response()->headers->set('X-Frame-Options', 'SAMEORIGIN');
         // Blocks a request if the requested type is different from the MIME type
         $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
-
-        // For SMP to operate in sandbox
-
-//        dump($this->container);die;
-//
-//        if ($this->container->get(CosmosInfo::class)->getAppEnvironment() === 'dev') {
-//            $this->response()->headers->set('Access-Control-Allow-Origin', '*');
-//        }
     }
 
     protected function response(): Response

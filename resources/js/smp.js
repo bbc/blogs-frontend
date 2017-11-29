@@ -20,7 +20,7 @@ define('smp',['jquery-1.9'], function ($) {
                 appName: "blogs",
                 appType: "web",
                 // counterName : window.bbcBlogs.counterName || null,
-                counterName : 'test',
+                counterName : 'test', //TODO THIS IS JUST TEMPORARY FIX IT PROPERLY
                 playerProfile: 'smp',
                 responsive: true,
                 superResponsive: true,
@@ -59,12 +59,10 @@ define('smp',['jquery-1.9'], function ($) {
             message_container.addClass(spinner_class).html(this.options.messages.loading);
 
             if (this.options.pid) {
-                if (location.protocol === "https:") {
-                    // Temporary url, we will use www. once programmes is on https
-                    url = 'https://ssl.bbc.co.uk/programmes/' + this.options.pid + '/playlist.json?callback=?';
+                if (cosmos_env === 'sandbox') {
+                    url = 'https://www.bbc.co.uk/programmes/' + this.options.pid + '/playlist.json';
                 } else {
-                    url = 'http://www.bbc.co.uk/programmes/' + this.options.pid + '/playlist.json';
-                    // url = 'http://' + window.location.host + '/programmes/' + this.options.pid + '/playlist.json';
+                    url = 'https://' + window.location.host + '/programmes/' + this.options.pid + '/playlist.json';
                 }
             } else if (this.options.xml) {
                 url = this.options.xml;

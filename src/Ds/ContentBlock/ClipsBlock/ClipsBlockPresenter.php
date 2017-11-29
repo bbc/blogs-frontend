@@ -50,8 +50,8 @@ class ClipsBlockPresenter extends Presenter
                 'pid' => $this->content->getId(),
                 'playerSettings' => (object) [
                     'delayEmbed' => true,
-                    'externalEmbedUrl' => 'http://www.bbc.co.uk/programmes/' . $this->content->getId() . '/player'
-                ]
+                    'externalEmbedUrl' => 'http://www.bbc.co.uk/programmes/' . $this->content->getId() . '/player',
+                ],
             ];
         }
 
@@ -59,10 +59,9 @@ class ClipsBlockPresenter extends Presenter
             $player = (object) [
                 'container' => '#' . $this->getContainerId(),
                 'xml' => $this->content->getUrl(),
-                'externalEmbedUrl' => null
+                'externalEmbedUrl' => null,
             ];
         }
         return json_encode($player);
     }
-
 }
