@@ -11,9 +11,58 @@ class ClipsBlockPresenter extends Presenter
     /** @var Clips */
     private $content;
 
+    private $containerId;
+
     public function __construct(Clips $content, array $options = [])
     {
         parent::__construct($options);
         $this->content = $content;
     }
+
+    public function getContainerId(): string
+    {
+        if (!isset($this->containerId)) {
+            $this->containerId = 'smp-' . (string) microtime(true) * 10000;
+        }
+
+        return $this->containerId;
+    }
+
+    public function getCaption(): string
+    {
+        return $this->content->getCaption();
+    }
+
+    public function canRenderPlayer(): bool
+    {
+        return (bool) $this->content->getPlaylistType();
+    }
+
+    public function getPlayer(): string
+    {
+        $playlistType = $this->content->getPlaylistType();
+
+        $player = null;
+
+        if ($playlistType == 'pid') {
+            $player = (object) [
+                'container' => '#' . $this->getContainerId(),
+                'pid' => $this->content->getId(),
+                'playerSettings' => (object) [
+                    'delayEmbed' => true,
+                    'externalEmbedUrl' => 'http://www.bbc.co.uk/programmes/' . $this->content->getId() . '/player'
+                ]
+            ];
+        }
+
+        if ($playlistType == 'xml') {
+            $player = (object) [
+                'container' => '#' . $this->getContainerId(),
+                'xml' => $this->content->getUrl(),
+                'externalEmbedUrl' => null
+            ];
+        }
+        return json_encode($player);
+    }
+
 }

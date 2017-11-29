@@ -1,1 +1,22 @@
 ////////////////////////// <br/>CLIPS BLOCK<br/> ////////////////////////// <br/><br/>
+
+<div class="component">
+    <div id="{{ clips_block.getContainerId() }}" class="smp">
+        <div class="smp__overlay">
+            <div class="smp__message js-loading-message delta">
+                <noscript>{{ tr('javascript_required') }}</noscript>
+            </div>
+        </div>
+    </div>
+    {%- if clips_block.getCaption() -%}
+        <p>
+            <em>{{ clips_block.getCaption() }}</em>
+        </p>
+    {%- endif -%}
+</div>
+
+<script>
+    require(['smp'], function(SMP) {
+        new SMP({{ clips_block.getPlayer()|raw }});
+    });
+</script>
