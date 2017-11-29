@@ -19,6 +19,14 @@ class Image extends AbstractContentBlock
         $this->caption = $caption;
     }
 
+    public function getCharacterCount(): int
+    {
+        // This is a default value for the purposes of post truncation
+        // TODO check this when implementing post truncation
+
+        return 200;
+    }
+
     public function getImage(): DomainImage
     {
         return $this->image;

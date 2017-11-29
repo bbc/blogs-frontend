@@ -14,6 +14,9 @@ class SocialBlockPresenter extends Presenter
     /** @var string */
     private $randId;
 
+    /** @var int */
+    private static $COUNTER = 0;
+
     public function __construct(Social $content, array $options = [])
     {
         parent::__construct($options);
@@ -33,9 +36,14 @@ class SocialBlockPresenter extends Presenter
     public function getContainerId(): string
     {
         if (!isset($this->randId)) {
-            $this->randId = 'third-party-' . (string) microtime(true) * 10000;
+            $this->randId = 'third-party-' . self::getSocialBlockCount();
         }
 
         return $this->randId;
+    }
+
+    private static function getSocialBlockCount(): int
+    {
+        return self::$COUNTER++;
     }
 }

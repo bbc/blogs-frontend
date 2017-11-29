@@ -15,11 +15,6 @@ class ClipsBlockPresenter extends Presenter
 
     private static $COUNTER = 0;
 
-    private static function getClipsBlockCount()
-    {
-        return self::$COUNTER++;
-    }
-
     public function __construct(Clips $content, array $options = [])
     {
         parent::__construct($options);
@@ -70,5 +65,10 @@ class ClipsBlockPresenter extends Presenter
             ];
         }
         return json_encode($player);
+    }
+
+    private static function getClipsBlockCount(): int
+    {
+        return self::$COUNTER++;
     }
 }
