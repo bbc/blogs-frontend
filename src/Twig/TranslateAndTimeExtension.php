@@ -5,8 +5,10 @@ namespace App\Twig;
 
 use App\Translate\TranslatableTrait;
 use App\Translate\TranslateProvider;
+use DateTimeInterface;
 use Twig_Extension;
 use Twig_Function;
+use Twig_SimpleFilter;
 
 /**
  * The local time functions make use of Translate fairly heavily.
@@ -21,6 +23,14 @@ class TranslateAndTimeExtension extends Twig_Extension
         $this->translateProvider = $translateProvider;
     }
 
+    /** @return Twig_SimpleFilter[] */
+    public function getFilters(): array
+    {
+        return [
+            new Twig_SimpleFilter('local_date_intl', [$this, 'localDateIntlWrapper']),
+        ];
+    }
+
     /**
      * {@inheritdoc}
      */
@@ -29,6 +39,11 @@ class TranslateAndTimeExtension extends Twig_Extension
         return [
             new Twig_Function('tr', [$this, 'trWrapper']),
         ];
+    }
+
+    public function localDateIntlWrapper(DateTimeInterface $dateTime, string $format): string
+    {
+        return $this->localDateIntl($dateTime, $format);
     }
 
     public function trWrapper(

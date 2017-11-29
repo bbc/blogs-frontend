@@ -27,14 +27,6 @@ use App\Translate\TranslateProvider;
  */
 class PresenterFactory
 {
-    /** @var TranslateProvider */
-    private $translateProvider;
-
-    public function __construct(TranslateProvider $translateProvider)
-    {
-        $this->translateProvider = $translateProvider;
-    }
-
     public function aboutModulePresenter(
         Blog $blog,
         array $options = []
@@ -112,7 +104,7 @@ class PresenterFactory
         Post $post,
         array $options = []
     ): PostSummaryPresenter {
-        return new PostSummaryPresenter($this->translateProvider, $blog, $post, $options);
+        return new PostSummaryPresenter($blog, $post, $options);
     }
 
     public function postTagsPresenter(

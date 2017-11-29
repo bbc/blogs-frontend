@@ -25,16 +25,12 @@ class PostSummaryPresenter extends Presenter
     /** @var Post */
     private $post;
 
-    /** @var TranslateProvider */
-    private $translateProvider;
-
-    public function __construct(TranslateProvider $translateProvider, Blog $blog, Post $post, array $options = [])
+    public function __construct(Blog $blog, Post $post, array $options = [])
     {
         parent::__construct($options);
 
         $this->blog = $blog;
         $this->post = $post;
-        $this->translateProvider = $translateProvider;
     }
 
     public function getBlogId(): string
@@ -45,15 +41,6 @@ class PostSummaryPresenter extends Presenter
     public function getPost(): Post
     {
         return $this->post;
-    }
-
-    public function getPublishedDate(): string
-    {
-        $days = ['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'];
-        $dayKey = $days[strftime('%w', $this->post->getPublishedDate()->getTimestamp())];
-        $dayName = ucfirst($this->translateProvider->getTranslate()->translate($dayKey, []));
-
-        return strftime($dayName . ' %d %B %Y, %R', $this->post->getPublishedDate()->getTimestamp());
     }
 
     public function isFeaturedPost(): bool
