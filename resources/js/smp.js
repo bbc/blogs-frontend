@@ -59,10 +59,9 @@ define('smp',['jquery-1.9'], function ($) {
             message_container.addClass(spinner_class).html(this.options.messages.loading);
 
             if (this.options.pid) {
+                url = 'https://' + window.location.host + '/programmes/' + this.options.pid + '/playlist.json';
                 if (cosmos_env === 'sandbox') {
                     url = 'https://www.bbc.co.uk/programmes/' + this.options.pid + '/playlist.json';
-                } else {
-                    url = 'https://' + window.location.host + '/programmes/' + this.options.pid + '/playlist.json';
                 }
             } else if (this.options.xml) {
                 url = this.options.xml;

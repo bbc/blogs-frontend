@@ -15,32 +15,32 @@ class MapperFactory
 {
     protected $instances = [];
 
-    public function createPostMapper(): Mapper
+    public function createPostMapper(): PostMapper
     {
         return $this->findMapper(PostMapper::class);
     }
 
-    public function createBlogsmetadataMapper(): Mapper
+    public function createBlogsmetadataMapper(): BlogMapper
     {
         return $this->findMapper(BlogMapper::class);
     }
 
-    public function createModuleMapper(): Mapper
+    public function createModuleMapper(): ModuleMapper
     {
         return $this->findMapper(ModuleMapper::class);
     }
 
-    public function createAuthorsMapper(): Mapper
+    public function createAuthorsMapper(): AuthorMapper
     {
         return $this->findMapper(AuthorMapper::class);
     }
 
-    public function createTagMapper(): Mapper
+    public function createTagMapper(): TagMapper
     {
         return $this->findMapper(TagMapper::class);
     }
 
-    public function createContentBlockMapper(): Mapper
+    public function createContentBlockMapper(): ContentBlockMapper
     {
         return $this->findMapper(ContentBlockMapper::class);
     }

@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Translate\TranslateProvider;
-use App\ValueObject\CosmosInfo;
 use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\BrandingClient;

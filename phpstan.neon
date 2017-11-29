@@ -3,6 +3,7 @@ parameters:
         - '#Calling method getContent\(\) on possibly null value of type Symfony\\Component\\HttpFoundation\\Response|null#'
         - '#Call to an undefined method Tests\\App\\Translate\\TranslatableTraitTest::tr\(\).#'
         - '#RedisCluster#' #PHPStan does not play well with RedisCluster it seems
+        - '#Method App\\BlogsService\\Infrastructure\\MapperFactory::\w*Mapper\(\) should return App\\BlogsService\\Mapper\\IsiteToDomain\\\w*Mapper but returns App\\BlogsService\\Mapper\\IsiteToDomain\\Mapper.#'
         - '#Call to an undefined method Tests\\App\\Twig\\TranslateAndTimeExtensionTest::localDateIntl\(\).#'
 
 includes:
