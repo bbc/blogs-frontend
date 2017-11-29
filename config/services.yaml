@@ -35,7 +35,7 @@ services:
         tags: ['controller.service_arguments']
 
     App\BlogsService\Infrastructure\Cache\Cache:
-        arguments: ['@cache.blogs', 'app.%cosmos_component_release%']
+        arguments: ['@cache.blogs', 'blogs-frontend.app.%cosmos_component_release%']
 
     App\BlogsService\Infrastructure\Cache\CacheInterface:
         alias: App\BlogsService\Infrastructure\Cache\Cache
