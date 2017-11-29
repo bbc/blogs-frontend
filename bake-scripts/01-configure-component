@@ -30,10 +30,12 @@ def rewrite_application_parameters(symfony_env, config):
         fastcgi_param APP_ENV {symfony_env};
         fastcgi_param APP_SECRET {secret};
         fastcgi_param APP_REDIS_ENDPOINT {redis_endpoint};
+        fastcgi_param COSMOS_ENV {cosmos_environment}
     """.format(
         symfony_env = symfony_env,
         secret = config["secure_configuration"]["secret"],
         redis_endpoint = config["configuration"]["redis_endpoint"],
+        cosmos_environment = config["environment"],
     )
 
     content = open(nginxConfFile).read()

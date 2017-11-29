@@ -58,7 +58,7 @@ services:
             - '@csa_guzzle.client.default'
 
     App\ValueObject\CosmosInfo:
-        arguments: ['%cosmos_component_release%', '%env(APP_ENV)%']
+        arguments: ['%cosmos_component_release%', '%env(COSMOS_ENV)%']
 
     BBC\BrandingClient\BrandingClient:
         class: "%app.branding_client.class%"
