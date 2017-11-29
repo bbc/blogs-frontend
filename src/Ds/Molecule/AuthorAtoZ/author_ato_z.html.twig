@@ -1,0 +1,11 @@
+<div class="letters-clamp">
+    <ol class="letters nav delta">
+        {%- for letter in 'a'..'z' -%}
+            <li class="letters__page br-box-page br-page-bg-onborder">
+                <a href="{{ path('author_index_atoz_letter', {blogId: author_ato_z.getBlogId(), letter: letter }) }}" class="br-page-link-onbg015 br-page-linkhover-onbg--hover br-page-bg-ontext--hover">
+                    {{ letter }}
+                </a>
+            </li>
+        {%- endfor -%}
+    </ol>
+</div>

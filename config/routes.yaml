@@ -10,6 +10,15 @@ home:
     path: /blogs
     defaults: { _controller: App\Controller\HomeController }
 
+author_index_atoz:
+    path: /blogs/{blogId}/authors/a-z
+    defaults: { _controller: App\Controller\AuthorIndexAtoZController }
+    requirements: { blogId: '[a-z0-9]+' }
+
+author_index_atoz_letter:
+    path: /blogs/{blogId}/authors/a-z/{letter}
+    requirements: { blogId: '[a-z0-9]+', letter: '[a-z]' }
+
 blog:
     path: /blogs/{blogId}
     defaults: { _controller: App\Controller\BlogShowController }
