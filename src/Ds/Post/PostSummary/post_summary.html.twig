@@ -23,7 +23,7 @@
                     class="istats--tracker" data-istats-link-location="blogs_featured_post"
                 {% endif %}
                 href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
-                <img class="one-third media__img" src="{{ post_summary.getPost().getImage().getUrl(192,108) }}"
+                <img class="1/3 media__img" src="{{ post_summary.getPost().getImage().getUrl(192,108) }}"
                      alt="{{ post_summary.getPost.getTitle() }}"/>
             </a>
         {% endif %}

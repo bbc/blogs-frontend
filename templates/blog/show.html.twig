@@ -4,6 +4,13 @@
 
 {% block content %}
     <h1 class="visually-hidden">{{ blog.getName() }}</h1>
+    {% if blog.getFeaturedPost() %}
+        <div class="component island br-box-subtle">
+            <h2>{{ tr('module_featured_post_header') }}</h2>
+            {{ ds('postSummary', blog, blog.getFeaturedPost(), {'h_tag': 3, 'h_class': 'alpha', 'author_options': {'is_slimline': true}}) }}
+        </div>
+    {% endif %}
+
     <div>A list of posts for {{ blog.getName() }}</div>
 
     <ul class="list-unstyled list-lined">
