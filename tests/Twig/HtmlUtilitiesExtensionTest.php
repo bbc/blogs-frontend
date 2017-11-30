@@ -12,11 +12,11 @@ class HtmlUtilitiesExtensionTest extends TestCase
     {
         $mockPackages = $this->createMock(Packages::class);
         $mockPackages->expects($this->once())->method('getUrl')
-            ->with('some/example/path.js')
-            ->willReturn('some/example/path-123');
+            ->with('js/some/example/path.js')
+            ->willReturn('js/some/example/path-123');
 
         $extension = new HtmlUtilitiesExtension($mockPackages);
-        $this->assertSame('some/example/path-123', $extension->assetJs('some/example/path.js'));
+        $this->assertSame('js/some/example/path-123', $extension->assetJs('some/example/path.js'));
     }
 
     public function testBuildCssClasses()
