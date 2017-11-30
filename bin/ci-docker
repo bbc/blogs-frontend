@@ -10,7 +10,7 @@ if ! (php --version | grep -q "PHP 7.") ; then
     exit 1
 fi
 
-export APP_ENV=prod;
+source .env.build
 
 # setup and run composer
 if [ -n "$OAUTH" ]; then
