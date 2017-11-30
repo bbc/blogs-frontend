@@ -56,8 +56,7 @@ class PostRepository extends AbstractRepository
         int $page,
         int $perpage,
         string $sort
-    ): ?ResponseInterface
-    {
+    ): ?ResponseInterface {
         $query = new SearchQuery();
         $query->setProject($blogId);
         $query->setNamespace($blogId, 'blogs-post');

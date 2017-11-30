@@ -25,8 +25,7 @@ class AuthorService
         AuthorRepository $repository,
         IsiteFeedResponseHandler $responseHandler,
         CacheInterface $cache
-    )
-    {
+    ) {
         $this->repository = $repository;
         $this->responseHandler = $responseHandler;
         $this->cache = $cache;
