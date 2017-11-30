@@ -49,6 +49,8 @@
             <meta name="twitter:creator" content="{{ author.getSocial().getTwitterUsername() }}">
         {%- endif -%}
     {%- endif -%}
+
+    {{ parent() }}
 {% endblock %}
 
 {%- block content -%}
@@ -102,8 +104,7 @@
             </div>
 
             <div class="description">
-                {# TODO replace this with actual content blocks #}
-                <div class="component">I AM A FAKE CONTENT BLOCK, THE BLOG CONTENT GOES HERE</div>
+                {{ ds('postContent', post.getContent()) }}
             </div>
         </article>
 

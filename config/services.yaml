@@ -4,6 +4,7 @@ parameters:
     app.api_endpoint: 'https://api.live.bbc.co.uk/isite2-content-reader'
     app.branding_client.class: BBC\BrandingClient\BrandingClient
     app.default_locale: 'en_GB'
+    app.endpoint_host: 'https://www.bbc.co.uk'
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
@@ -35,7 +36,7 @@ services:
         tags: ['controller.service_arguments']
 
     App\BlogsService\Infrastructure\Cache\Cache:
-        arguments: ['@cache.blogs', 'app.%cosmos_component_release%']
+        arguments: ['@cache.blogs', 'blogs-frontend.app.%cosmos_component_release%']
 
     App\BlogsService\Infrastructure\Cache\CacheInterface:
         alias: App\BlogsService\Infrastructure\Cache\Cache
@@ -56,6 +57,9 @@ services:
         arguments:
             - '%app.api_endpoint%'
             - '@csa_guzzle.client.default'
+
+    App\ValueObject\CosmosInfo:
+        arguments: ['%cosmos_component_release%', '%env(COSMOS_ENV)%', '%app.endpoint_host%']
 
     BBC\BrandingClient\BrandingClient:
         class: "%app.branding_client.class%"

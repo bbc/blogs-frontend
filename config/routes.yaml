@@ -22,10 +22,6 @@ author_index_atoz:
 author_index_atoz_letter:
     path: /blogs/{blogId}/authors/a-z/{letter}
     requirements: { blogId: '[a-z0-9]+', letter: '[a-z]' }
-    
-author_show:
-    path: /blogs/{blogId}/authors/{guid}
-    requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
 
 author_show:
     path: /blogs/{blogId}/authors/{guid}

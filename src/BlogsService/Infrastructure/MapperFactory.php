@@ -5,6 +5,7 @@ namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
+use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
 use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
@@ -14,29 +15,34 @@ class MapperFactory
 {
     protected $instances = [];
 
-    public function createPostMapper(): Mapper
+    public function createPostMapper(): PostMapper
     {
         return $this->findMapper(PostMapper::class);
     }
 
-    public function createBlogsmetadataMapper(): Mapper
+    public function createBlogsmetadataMapper(): BlogMapper
     {
         return $this->findMapper(BlogMapper::class);
     }
 
-    public function createModuleMapper(): Mapper
+    public function createModuleMapper(): ModuleMapper
     {
         return $this->findMapper(ModuleMapper::class);
     }
 
-    public function createAuthorsMapper(): Mapper
+    public function createAuthorsMapper(): AuthorMapper
     {
         return $this->findMapper(AuthorMapper::class);
     }
 
-    public function createTagMapper(): Mapper
+    public function createTagMapper(): TagMapper
     {
         return $this->findMapper(TagMapper::class);
+    }
+
+    public function createContentBlockMapper(): ContentBlockMapper
+    {
+        return $this->findMapper(ContentBlockMapper::class);
     }
 
     private function findMapper(string $mapperType): Mapper
@@ -46,9 +52,4 @@ class MapperFactory
         }
         return $this->instances[$mapperType];
     }
-
-    //    public function createContentBlockMapper(): Mapper
-//    {
-//        return $this->findMapper(ContentBlockMapper::class);
-//    }
 }

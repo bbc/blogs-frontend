@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html class="{{ branding.getOrbitThemeClasses()|raw }}" lang="{{ tr('language_code') }}">
+<html class="{{ branding.getOrbitThemeClasses()|raw }} b-reith-sans-font" lang="{{ tr('language_code') }}">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}BBC {{ tr('page_title_blogs') }}{% endblock %}</title>
@@ -34,7 +34,10 @@
             requirejs.config({
                 "paths": {
                     'jquery-1.9': "https://static.bbci.co.uk/frameworks/jquery/0.4.1/sharedmodules/jquery-1.9.1",
-                    'blogs-bootstrap': "{{ asset_js('js/blogs-bootstrap.js') }}"
+                    'blogs-bootstrap': "{{ asset_js('blogs-bootstrap.js') }}",
+                    'smp': "{{ asset_js('smp.js') }}",
+                    'third-party': "{{ asset_js('third-party.js') }}",
+                    'bump-3' : '//emp.bbci.co.uk/emp/bump-3/bump-3'
                 },
                 "priority": ['jquery-1.9'],
                 "map": {

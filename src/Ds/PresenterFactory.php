@@ -13,6 +13,7 @@ use App\BlogsService\Domain\Tag;
 use App\Ds\Molecule\AuthorAtoZ\AuthorAtoZPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
+use App\Ds\Post\Content\ContentPresenter;
 use App\Ds\Post\PostSummary\PostSummaryPresenter;
 use App\Ds\Post\SocialBar\SocialBarPresenter;
 use App\Ds\Post\Tags\TagsPresenter;
@@ -22,12 +23,21 @@ use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use App\Ds\SidebarModule\UpdatesPresenter;
 use App\Translate\TranslateProvider;
+use App\ValueObject\CosmosInfo;
 
 /**
  * Ds Factory Class for creating presenters.
  */
 class PresenterFactory
 {
+    /** @var CosmosInfo */
+    private $cosmosInfo;
+
+    public function __construct(CosmosInfo $cosmosInfo)
+    {
+        $this->cosmosInfo = $cosmosInfo;
+    }
+
     public function authorAtoZPresenter(
         Blog $blog,
         array $options = []
@@ -100,6 +110,13 @@ class PresenterFactory
         array $options = []
     ): AuthorPresenter {
         return new AuthorPresenter($author, $blogId, $options);
+    }
+
+    public function postContentPresenter(
+        array $contentBlocks,
+        array $options = []
+    ): ContentPresenter {
+        return new ContentPresenter($contentBlocks, $this->cosmosInfo, $options);
     }
 
     public function postSocialBarPresenter(

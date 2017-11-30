@@ -1,5 +1,9 @@
 {% extends 'base.html.twig' %}
 
+{% block inline_head %}
+    <script type="text/javascript">var endpoint_host="{{ endpointHost }}";</script>
+{% endblock %}
+
 {% block body %}
     <div class="grid-wrapper">
         <div class="grid 2/3@bpw2 2/3@bpe">
@@ -25,3 +29,4 @@
         </div>
     </div>
 {% endblock %}
+

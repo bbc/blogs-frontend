@@ -30,6 +30,8 @@ gulp.task('js:clean', function () {
 gulp.task('js', ['js:clean'], function () {
     const modulesToOptimize = [
         staticPathSrc + '/js/**/blogs-bootstrap.js',
+        staticPathSrc + '/js/**/third-party.js',
+        staticPathSrc + '/js/**/smp.js',
     ];
 
     const config = {

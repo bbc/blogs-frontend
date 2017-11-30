@@ -1,0 +1,17 @@
+<div class="component">
+    <div class="third-party" id="{{ social_block.getContainerId() }}">
+        <p class="text--center">
+            <a href="{{ social_block.getLink() }}">
+                {{- social_block.getAlt() -}}
+            </a>
+        </p>
+    </div>
+    <script>
+        require(['jquery-1.9', 'third-party'], function($, ThirdParty) {
+            var embed = new ThirdParty({
+                container : $('#{{ social_block.getContainerId() }}'),
+                url       : {{ social_block.getLink()| json_encode(constant('JSON_UNESCAPED_SLASHES'))|raw }}
+            });
+        });
+    </script>
+</div>

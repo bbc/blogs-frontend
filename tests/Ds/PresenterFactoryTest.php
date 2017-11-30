@@ -5,6 +5,7 @@ namespace Tests\App\Ds;
 use App\BlogsService\Domain\Image;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\PresenterFactory;
+use App\ValueObject\CosmosInfo;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -15,9 +16,13 @@ class PresenterFactoryTest extends TestCase
     /** @var PresenterFactory */
     private $factory;
 
+    /** @var CosmosInfo */
+    private $mockCosmosInfo;
+
     public function setUp()
     {
-        $this->factory = new PresenterFactory();
+        $this->mockCosmosInfo = $this->createMock(CosmosInfo::class);
+        $this->factory = new PresenterFactory($this->mockCosmosInfo);
     }
 
     public function testImage()

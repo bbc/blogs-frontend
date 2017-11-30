@@ -10,6 +10,7 @@ use App\BlogsService\Service\TagService;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
+use App\ValueObject\CosmosInfo;
 use Exception;
 
 abstract class BlogsBaseController extends BaseController
@@ -21,6 +22,7 @@ abstract class BlogsBaseController extends BaseController
     {
         return array_merge(parent::getSubscribedServices(), [
             TagService::class,
+            CosmosInfo::class,
         ]);
     }
 
@@ -45,6 +47,7 @@ abstract class BlogsBaseController extends BaseController
         $parameters['blogTags'] = $this->getTagsByBlog();
         $parameters['blog'] = $this->blog;
         $parameters['modulePresenters'] = $this->getModulePresenters();
+        $parameters['endpointHost'] = $this->container->get(CosmosInfo::class)->getEndpointHost();
 
         return parent::renderWithChrome($view, $parameters);
     }

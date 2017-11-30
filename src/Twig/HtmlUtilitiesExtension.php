@@ -32,7 +32,7 @@ class HtmlUtilitiesExtension extends Twig_Extension
      */
     public function assetJs(string $path): string
     {
-        return preg_replace('/\.js$/', '', $this->packages->getUrl($path, null));
+        return preg_replace('/\.js$/', '', $this->packages->getUrl('js/' . $path, null));
     }
 
     public function buildCssClasses(array $cssClassTests = []): string
