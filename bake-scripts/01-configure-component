@@ -74,7 +74,7 @@ def regenerate_cache(symfony_env):
     # The warmup in cache:clear doesn't quite do what you expect so we should
     # call cache:warmup explicitly
     # http://symfony.com/blog/new-in-symfony-3-3-deprecated-cache-clear-with-warmup
-    console_env = {'APP_ENV': symfony_env}
+    console_env = {'APP_ENV': symfony_env, 'APP_RELEASE_NUMBER' : 0}
     subprocess.call(['php', appConsoleFile, 'cache:clear', '--no-warmup', '--no-debug'], env=console_env)
     subprocess.call(['php', appConsoleFile, 'cache:warmup', '--no-debug'], env=console_env)
 
