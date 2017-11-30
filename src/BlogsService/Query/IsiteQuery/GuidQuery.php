@@ -30,4 +30,10 @@ class GuidQuery implements QueryInterface
     {
         return '/content?' . http_build_query($this->parameters);
     }
+
+    public function setPreview(bool $preview)
+    {
+        $this->parameters['preview'] = $preview ? 'true' : 'false';
+        return $this;
+    }
 }
