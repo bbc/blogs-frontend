@@ -10,6 +10,10 @@ home:
     path: /blogs
     defaults: { _controller: App\Controller\HomeController }
 
+author_index:
+    path: /blogs/{blogId}/authors
+    requirements: { blogId: '[a-z0-9]+' }
+
 author_index_atoz:
     path: /blogs/{blogId}/authors/a-z
     defaults: { _controller: App\Controller\AuthorIndexAtoZController }
@@ -21,6 +25,11 @@ author_index_atoz_letter:
     
 author_show:
     path: /blogs/{blogId}/authors/{guid}
+    requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
+
+author_show:
+    path: /blogs/{blogId}/authors/{guid}
+    defaults: { _controller: App\Controller\AuthorShowController }
     requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
 
 blog:

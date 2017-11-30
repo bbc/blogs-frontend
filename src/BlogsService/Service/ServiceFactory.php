@@ -6,6 +6,7 @@ use App\BlogsService\Infrastructure\Cache\Cache;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;
+use App\BlogsService\Repository\AuthorRepository;
 use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Repository\PostRepository;
 use App\BlogsService\Repository\TagRepository;
@@ -38,6 +39,19 @@ class ServiceFactory
         $this->apiEndpoint = $apiEndpoint;
         $this->client = $client;
         $this->xmlParser = $xmlParser;
+    }
+
+    public function getAuthorService(): AuthorService
+    {
+        if (!isset($this->instances[AuthorService::class])) {
+            $this->instances[AuthorService::class] = new AuthorService(
+                new AuthorRepository($this->apiEndpoint, $this->client),
+                new IsiteFeedResponseHandler($this->mapperFactory->createAuthorsMapper(), $this->xmlParser),
+                $this->cache
+            );
+        }
+
+        return $this->instances[AuthorService::class];
     }
 
     public function getBlogService(): BlogService

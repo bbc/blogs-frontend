@@ -1,5 +1,5 @@
 <?php
-declare(strict_types=1);
+declare(strict_types = 1);
 
 namespace App\BlogsService\Repository;
 
@@ -11,6 +11,30 @@ use Psr\Http\Message\ResponseInterface;
 
 class PostRepository extends AbstractRepository
 {
+    public function getPostsByAuthorFileId(string $blogId, string $authorFileId, int $page, int $perpage)
+    {
+        $query = new SearchQuery();
+        $query->setProject($blogId);
+        $query->setNamespace($blogId, 'blogs-post');
+        $query->setQuery([
+            'ns:author',
+            'contains',
+            $authorFileId,
+        ]);
+        $query->setDepth(1);
+        $query->setPage($page);
+        $query->setPageSize($perpage);
+        $query->setUnfiltered(true); //Experimental
+        $query->setSort([
+            [
+                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                'direction' => 'desc',
+            ],
+        ]);
+
+        return $this->getResponse($query);
+    }
+
     public function getPostByGuid(string $guid, string $blogId = ''): ?ResponseInterface
     {
         $query = new GuidQuery();
@@ -76,8 +100,8 @@ class PostRepository extends AbstractRepository
         $query->setQuery(['ns:tag', 'contains', $tagFileId]);
         $query->setSort([
             [
-                'elementPath'   => '/ns:form/ns:metadata/ns:published-date',
-                'direction'     => 'desc',
+                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                'direction' => 'desc',
             ],
         ]);
         $query->setDepth(1);

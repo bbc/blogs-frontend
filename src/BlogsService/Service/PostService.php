@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Service;
 
+use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Tag;
@@ -104,6 +105,29 @@ class PostService
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getPostsByAuthor(
+        Blog $blog,
+        Author $author,
+        int $page = 1,
+        int $perPage = 20,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $author->getFileId(), $page, $perPage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $author, $page, $perPage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsByAuthorFileId($blog->getId(), (string) $author->getFileId(), $page, $perPage);
+                return $this->responseHandler->getIsiteResult($response);
             },
             [],
             $nullTtl

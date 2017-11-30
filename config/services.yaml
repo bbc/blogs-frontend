@@ -40,6 +40,9 @@ services:
     App\BlogsService\Infrastructure\Cache\CacheInterface:
         alias: App\BlogsService\Infrastructure\Cache\Cache
 
+    App\BlogsService\Service\AuthorService:
+        factory: ['@App\BlogsService\Service\ServiceFactory', 'getAuthorService']
+
     App\BlogsService\Service\BlogService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getBlogService']
 
