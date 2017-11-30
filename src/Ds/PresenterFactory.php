@@ -10,6 +10,7 @@ use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
 use App\BlogsService\Domain\Tag;
+use App\Ds\Author\AuthorSummary\AuthorSummaryPresenter;
 use App\Ds\Molecule\AuthorAtoZ\AuthorAtoZPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
@@ -44,6 +45,20 @@ class PresenterFactory
     ): AuthorAtoZPresenter {
         return new AuthorAtoZPresenter(
             $blog,
+            $options
+        );
+    }
+
+    public function authorSummaryPresenter(
+        Author $author,
+        string $blogId,
+        int $postCount,
+        array $options = []
+    ): AuthorSummaryPresenter {
+        return new AuthorSummaryPresenter(
+            $author,
+            $blogId,
+            $postCount,
             $options
         );
     }

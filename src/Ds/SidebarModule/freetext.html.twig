@@ -3,7 +3,7 @@
     <div class="island">
         {% if freetext.hasImage() %}
             <div class="freetext-image">
-                <img class="bpw-visible media__img" src="{{ freetext.getImageUrl(128) }}" alt="">
+                <img class="visible@bpw media__img" src="{{ freetext.getImageUrl(128) }}" alt="">
             </div>
         {% endif %}
         {{ freetext.getBody()|raw }}

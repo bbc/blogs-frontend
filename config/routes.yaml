@@ -21,6 +21,7 @@ author_index_atoz:
 
 author_index_atoz_letter:
     path: /blogs/{blogId}/authors/a-z/{letter}
+    defaults: { _controller: App\Controller\AuthorShowAtoZController }
     requirements: { blogId: '[a-z0-9]+', letter: '[a-z]' }
 
 author_show:

@@ -1,0 +1,18 @@
+<a itemprop="url" rel="author" class="istats--tracker" href="{{ path('author_show', {blogId: author_summary.getBlogId(), guid: author_summary.getAuthor().getGuid()}) }}" data-istats-link-location="blogs_global_author">
+    <div class="grid-wrapper">
+        <div class="grid 1/3 1/1@bpw">
+            {{- ds('image', author_summary.getAuthor().getImage(), 196, {770: 1/3, 1008: '196px'}) -}}
+        </div>
+        <div class="grid 2/3 1/1@bpw">
+            <h{{ author_summary.getOption('h_tag') }} class="gamma no-margin" itemprop="name">
+                {{ author_summary.getAuthor().getName() }}
+            </h{{ author_summary.getOption('h_tag') }}>
+            {% if author_summary.getAuthor().getRole() %}
+                <p class="no-margin br-page-text-ontext">{{ author_summary.getAuthor().getRole() }}</p>
+            {% endif %}
+            {% if author_summary.getPostCount() %}
+                <p class="no-margin">{{ tr('post', author_summary.getPostCount()) }}</p>
+            {% endif %}
+        </div>
+    </div>
+</a>
