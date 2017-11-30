@@ -5,6 +5,7 @@ namespace App\Ds\ContentBlock\ClipsBlock;
 
 use App\BlogsService\Domain\ContentBlock\Clips;
 use App\Ds\Presenter;
+use App\ValueObject\CosmosInfo;
 
 class ClipsBlockPresenter extends Presenter
 {
@@ -15,10 +16,14 @@ class ClipsBlockPresenter extends Presenter
 
     private static $COUNTER = 0;
 
-    public function __construct(Clips $content, array $options = [])
+    /** @var CosmosInfo */
+    private $cosmosInfo;
+
+    public function __construct(Clips $content, CosmosInfo $cosmosInfo, array $options = [])
     {
         parent::__construct($options);
         $this->content = $content;
+        $this->cosmosInfo = $cosmosInfo;
     }
 
     public function getContainerId(): string
@@ -47,12 +52,14 @@ class ClipsBlockPresenter extends Presenter
         $player = null;
 
         if ($playlistType == 'pid') {
+            $externalEmbedUrl = $this->cosmosInfo->getEndpointHost() . '/programmes/' . $this->content->getId() . '/player';
+
             $player = (object) [
                 'container' => '#' . $this->getContainerId(),
                 'pid' => $this->content->getId(),
                 'playerSettings' => (object) [
                     'delayEmbed' => true,
-                    'externalEmbedUrl' => 'http://www.bbc.co.uk/programmes/' . $this->content->getId() . '/player',
+                    'externalEmbedUrl' => $externalEmbedUrl,
                 ],
             ];
         }

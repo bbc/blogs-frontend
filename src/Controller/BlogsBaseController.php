@@ -47,7 +47,7 @@ abstract class BlogsBaseController extends BaseController
         $parameters['blogTags'] = $this->getTagsByBlog();
         $parameters['blog'] = $this->blog;
         $parameters['modulePresenters'] = $this->getModulePresenters();
-        $parameters['cosmosEnvironment'] = $this->container->get(CosmosInfo::class)->getAppEnvironment();
+        $parameters['endpointHost'] = $this->container->get(CosmosInfo::class)->getEndpointHost();
 
         return parent::renderWithChrome($view, $parameters);
     }

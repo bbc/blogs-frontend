@@ -16,15 +16,20 @@ use App\Ds\ContentBlock\ProseBlock\ProseBlockPresenter;
 use App\Ds\ContentBlock\SocialBlock\SocialBlockPresenter;
 use App\Ds\Presenter;
 use App\Exception\InvalidContentBlockException;
+use App\ValueObject\CosmosInfo;
 
 class ContentPresenter extends Presenter
 {
     /** @var Presenter[] */
     private $postPresenters;
 
-    public function __construct(array $contentBlocks, array $options = [])
+    /** @var CosmosInfo */
+    private $cosmosInfo;
+
+    public function __construct(array $contentBlocks, CosmosInfo $cosmosInfo, array $options = [])
     {
         parent::__construct($options);
+        $this->cosmosInfo = $cosmosInfo;
         $this->postPresenters = array_map([$this, 'findPresenter'], $contentBlocks);
     }
 
@@ -49,7 +54,7 @@ class ContentPresenter extends Presenter
         }
 
         if ($contentBlock instanceof Clips) {
-            return new ClipsBlockPresenter($contentBlock);
+            return new ClipsBlockPresenter($contentBlock, $this->cosmosInfo);
         }
 
         if ($contentBlock instanceof Code) {

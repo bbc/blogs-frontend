@@ -15,6 +15,7 @@
         <env name="APP_SECRET" value="s$cretf0rt3st" />
         <env name="APP_REDIS_ENDPOINT" value="" />
         <env name="APP_RELEASE_NUMBER" value="0" />
+        <env name="COSMOS_ENV" value="" />
         <!-- define your env variables for the test env here -->
     </php>
 
