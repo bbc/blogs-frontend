@@ -23,7 +23,7 @@ class CodeBlockPresenter extends Presenter
 
     public function getCode(): string
     {
-        if($this->charLimit === null) {
+        if ($this->charLimit === null) {
             return $this->content->getCode();
         }
 

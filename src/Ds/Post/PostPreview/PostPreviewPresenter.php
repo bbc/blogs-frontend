@@ -62,7 +62,7 @@ class PostPreviewPresenter extends Presenter
     {
         $limit = $this->charLimit;
         $presenters = [];
-        foreach($this->post->getContent() as $contentBlock) {
+        foreach ($this->post->getContent() as $contentBlock) {
             $presenters[] = $this->findPresenter($contentBlock, $limit);
             $limit -= $contentBlock->getCharacterCount();
             if ($limit <= 0) {
