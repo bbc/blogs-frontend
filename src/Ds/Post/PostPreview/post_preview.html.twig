@@ -1,0 +1,29 @@
+<div itemprop="blogPost">
+    <h3 class="beta">
+        <a itemprop="url" href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid()}) }}">
+            <span itemprop="name">{{ post_preview.getPost().getTitle() }}</span>
+        </a>
+    </h3>
+    <p class="text--subtle milli no-margin" itemprop="datePublished">
+        <time datetime="{{ post_preview.getPost().getPublishedDate()|date(constant('DATE_ATOM')) }}">
+            {{ post_preview.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
+        </time>
+    </p>
+    {{ ds('postAuthor', post_preview.getPost().getAuthor(), post_preview.getBlogId()) }}
+    {% if post_preview.getPost().getTags() %}
+        {{ ds('postTags', post_preview.getPost().getTags(), post_preview.getBlogId()) }}
+    {% endif %}
+    {% for presenter in post_preview.getContentPresenters() %}
+        {{ ds_presenter(presenter) }}
+    {% endfor %}
+    {% if post_preview.shouldShowShowMoreLink() %}
+        <p>
+            <a href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
+        </p>
+    {% endif %}
+
+    {# TODO only show this if a blog has a comments siteId  #}
+    {% if true %}
+        {{ ds('postSocialBar', post_preview.getPost(), post_preview.getBlogId())}}
+    {% endif %}
+</div>

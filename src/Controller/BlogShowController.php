@@ -16,6 +16,8 @@ class BlogShowController extends BlogsBaseController
         $result = $postService->getPostsByBlog($blog, new DateTimeImmutable());
         $posts = $result->getDomainModels();
 
+        //@TODO NetStat Video stuff
+
         return $this->renderWithChrome('blog/show.html.twig', ['posts' => $posts]);
     }
 }

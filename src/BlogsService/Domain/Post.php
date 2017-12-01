@@ -3,6 +3,7 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Domain;
 
+use App\BlogsService\Domain\ContentBlock\AbstractContentBlock;
 use App\BlogsService\Domain\ContentBlock\Clips;
 use App\BlogsService\Domain\ValueObject\GUID;
 use DateTimeImmutable;
@@ -91,6 +92,7 @@ class Post
         return $this->image;
     }
 
+    /** @return AbstractContentBlock[] */
     public function getContent(): array
     {
         return $this->content;

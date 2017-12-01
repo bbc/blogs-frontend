@@ -358,5 +358,8 @@
     },
     "bbc/gel-iconography-assets": {
         "version": "1.2.5"
+    },
+    "cakephp/utility": {
+        "version": "3.5.6"
     }
 }
