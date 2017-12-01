@@ -8,6 +8,7 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
+use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\AuthorRepository;
 
 class AuthorService
@@ -50,6 +51,28 @@ class AuthorService
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getAuthorsByLetter(
+        Blog $blog,
+        string $letter,
+        int $page = 1,
+        int $limit = 20,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $letter, $page, $limit, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $letter, $page, $limit) {
+                $response = $this->repository->getAuthorsByLetter($blog->getId(), $letter, $page, $limit);
+                return $this->responseHandler->getIsiteResult($response);
             },
             [],
             $nullTtl
