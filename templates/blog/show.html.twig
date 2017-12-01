@@ -1,5 +1,7 @@
 {% extends 'blogs_base.html.twig' %}
 
+{% import _self as blogShow %}
+
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }}{% endblock %}
 
 {% block content %}
@@ -11,16 +13,26 @@
         </div>
     {% endif %}
 
-    <div>A list of posts for {{ blog.getName() }}</div>
-
-    <ul class="list-unstyled list-lined">
-    {% for post in posts %}
-        <li class="post br-keyline">
-            <a href="{{ path('post', {blogId: blog.getId(), guid: post.getGuid() }) }}">
-                {{ post.getTitle() }}
-            </a>
-        </li>
-    {% endfor %}
-    </ul>
-
+    {% if posts is empty %}
+        <p class="beta">{{ tr('no_posts') }}</p>
+    {% else %}
+        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
+        <ul class="list-unstyled list-lined">
+            {% for post in posts %}
+                <li class="post br-keyline">
+                    <a href="{{ path('post', {blogId: blog.getId(), guid: post.getGuid() }) }}">
+                        {{ post.getTitle() }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
+    {% endif %}
 {% endblock %}
+
+{% macro seeAllBar(blogId, postDate) %}
+    <div>
+        <a class="istats--tracker islet br-box-subtle component text--right" data-istats-link-location="blogs_see_all_posts" href="{{ path('posts_year_month', {blogId: blogId, year: postDate.format('Y'), month: postDate.format('m')}) }}">{{ tr ('link_see_all_posts') }}</a>
+    </div>
+{% endmacro %}
+
