@@ -38,6 +38,10 @@ post:
     defaults: { _controller: App\Controller\PostShowController }
     requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
 
+posts_year_month:
+    path: /blogs/{blogId}/entries/{year}/{month}
+    requirements: { blogId: '[a-z0-9]+', year: '\d{4}', month: '\d{2}' }
+
 tag_list:
     path: /blogs/{blogId}/tags
     defaults: { _controller: App\Controller\TagIndexController }
