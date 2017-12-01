@@ -22,18 +22,17 @@ use App\ValueObject\CosmosInfo;
 
 class PostPreviewPresenter extends Presenter
 {
-    /** @var int */
-    private $charLimit;
-
     /** @var Blog */
     private $blog;
 
+    /** @var int */
+    private $charLimit;
+
+    /** @var CosmosInfo */
+    private $cosmosInfo;
+
     /** @var Post */
     private $post;
-    /**
-     * @var CosmosInfo
-     */
-    private $cosmosInfo;
 
     /** @var bool */
     private $showReadMore = false;
