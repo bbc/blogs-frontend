@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\ContentBlock\ProseBlock;
+namespace App\Ds\Post\ContentBlock\ProseBlock;
 
 use App\BlogsService\Domain\ContentBlock\Prose;
 use App\Ds\Presenter;

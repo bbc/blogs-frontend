@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\ContentBlock\ImageBlock;
+namespace App\Ds\Post\ContentBlock\ImageBlock;
 
 use App\BlogsService\Domain\ContentBlock\Image;
 use App\BlogsService\Domain\Image as DomainImage;

@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\ContentBlock\CodeBlock;
+namespace App\Ds\Post\ContentBlock\CodeBlock;
 
 use App\BlogsService\Domain\ContentBlock\Code;
 use App\Ds\Presenter;

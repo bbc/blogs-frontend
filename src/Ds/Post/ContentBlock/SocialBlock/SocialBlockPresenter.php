@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\ContentBlock\SocialBlock;
+namespace App\Ds\Post\ContentBlock\SocialBlock;
 
 use App\BlogsService\Domain\ContentBlock\Social;
 use App\Ds\Presenter;

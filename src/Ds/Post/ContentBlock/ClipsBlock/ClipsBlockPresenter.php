@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\ContentBlock\ClipsBlock;
+namespace App\Ds\Post\ContentBlock\ClipsBlock;
 
 use App\BlogsService\Domain\ContentBlock\Clips;
 use App\Ds\Presenter;
