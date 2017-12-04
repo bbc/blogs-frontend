@@ -12,8 +12,10 @@ use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
+use Cake\Chronos\Date;
 use DateInterval;
 use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 
 class PostService
 {
@@ -158,6 +160,35 @@ class PostService
         );
     }
 
+    public function getPostsByMonth(
+        Blog $blog,
+        int $year,
+        int $month,
+        int $page = 1,
+        int $perpage = 10,
+        string $sort = 'desc',
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+
+        $dateFrom = Chronos::create($year, $month, 2)->startOfMonth();
+        $dateUntil = Chronos::create($year, $month, 2)->endOfMonth();
+
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $dateFrom, $dateUntil, $page, $perpage, $sort, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $dateFrom, $dateUntil, $page, $perpage, $sort) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $response = $this->repository->getPostsBetween($blog->getId(), $dateFrom, $dateUntil, 1, $page, $perpage, $sort);
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
     public function getPostsByTag(
         Blog $blog,
         Tag $tag,
@@ -175,6 +206,35 @@ class PostService
                 //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsByTagFileId($blog->getId(), (string) $tag->getFileId(), $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    /** @return int[] */
+    public function getPostCountForMonthsInYear(
+        Blog $blog,
+        int $year,
+        array $months,
+        $ttl = CacheInterface::X_LONG,
+        $nullTtl = CacheInterface::NONE
+    ): array {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $year, join('_', $months));
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $year, $months) {
+                $responses = $this->repository->getPostsForMonthsInYear($blog->getId(), $year, $months, 1, 1, 1, 'desc');
+
+                $result = [];
+
+                foreach ($responses as $key => $response) {
+                    $result[$key] = $this->responseHandler->getIsiteResult($response)->getTotal();
+                }
+
+                return $result;
             },
             [],
             $nullTtl

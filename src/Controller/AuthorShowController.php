@@ -26,10 +26,7 @@ class AuthorShowController extends BlogsBaseController
 
         //@TODO NEDSTAT
 
-        $page = (int) $request->query->get('page', 1);
-        if ($page < 1) {
-            $page = 1;
-        }
+        $page = $this->getPageNumber($request);
 
         $postResult = $postService->getPostsByAuthor($blog, $author, $page);
 

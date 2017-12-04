@@ -1,0 +1,39 @@
+{% extends 'blogs_base.html.twig' %}
+
+{% block title -%}
+    BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_archive_month') }}, {{ datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|local_date_intl('yyyy') -}}
+{%- endblock %}
+
+{%- block content -%}
+    <div class="component">
+        <h1>{{- tr('header_archive_month') -}}
+            <span class="visually-hidden">
+                {{- datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|local_date_intl('yyyy') -}}
+            </span>
+        </h1>
+    </div>
+
+    {{- ds('datePicker', blog, datePicker) -}}
+
+    <div class="component">
+        <h2>{{ tr('header_posts') }} ({{ totalPostsMonth }})</h2>
+        {%- if posts -%}
+            <ol class="list-unstyled list-lined">
+                {%- for post in posts -%}
+                <li class="br-keyline">
+                    {{- ds('postSummary', blog, post, {'show_image': true, 'show_author': false, 'h_tag': 3}) -}}
+                </li>
+                {%- endfor -%}
+            </ol>
+        {%- else -%}
+            <p>
+                {{- tr('no_posts') -}}
+            </p>
+        {%- endif -%}
+    </div>
+
+    {%- if paginatorPresenter -%}
+        {{- ds_presenter(paginatorPresenter) -}}
+    {%- endif -%}
+
+{%- endblock -%}

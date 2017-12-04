@@ -359,6 +359,9 @@
     "bbc/gel-iconography-assets": {
         "version": "1.2.5"
     },
+    "cakephp/chronos": {
+        "version": "1.1.2"
+    },
     "cakephp/utility": {
         "version": "3.5.6"
     }
