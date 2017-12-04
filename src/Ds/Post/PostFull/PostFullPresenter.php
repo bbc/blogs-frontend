@@ -1,12 +1,12 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Post\Content;
+namespace App\Ds\Post\PostFull;
 
 use App\Ds\Post\AbstractPostPresenter;
 use App\ValueObject\CosmosInfo;
 
-class ContentPresenter extends AbstractPostPresenter
+class PostFullPresenter extends AbstractPostPresenter
 {
     public function __construct(array $contentBlocks, CosmosInfo $cosmosInfo, array $options = [])
     {
