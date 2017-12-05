@@ -89,8 +89,6 @@ class AboutTemplateTest extends BaseTemplateTestCase
         $this->assertEquals('_blank', $link->attr('target'));
         $this->assertEquals('http://www.facebook.com/bbc', $link->attr('href'));
 
-
-
         $twitter = $crawler->filterXPath('//a[contains(@href, "twitter")]');
         $link = $twitter->first();
         $this->assertEquals('_blank', $link->attr('target'));
