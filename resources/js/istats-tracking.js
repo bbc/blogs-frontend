@@ -7,7 +7,7 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
 
     StatsTracking.prototype = {
         initial_options: {
-            trackingAttribute: 'data-linktrack',
+            trackingAttribute: 'data-istats-link-location',
             labelPrefix: 'programmes_'
         },
         setOptions: function (options) {
@@ -31,7 +31,7 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
             });
         },
         hardcodedItems: function () {
-            // Because of the nature of these items we can't add the "data-linktrack" attribute inside the HTML so
+            // Because of the nature of these items we can't add the "data-istats-link-location" attribute inside the HTML so
             // it is required to hardcode a list of custom "istats.track" calls
             istats.track("internal", {
                 region: $(".br-masthead .service-brand-logo-master"),
