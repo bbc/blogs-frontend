@@ -14,7 +14,7 @@
             <ul class="list-unstyled list-lined">
                 {% for tag in tagResult.getDomainModels() %}
                     <li class="br-keyline delta">
-                        <a class="istats--tracker" data-istats-link-location="blogs_global_tag" href="{{ path('tag', {blogId: blog.getId(), tagId: tag.getId()}) }}">
+                        <a data-istats-link-location="blogs_global_tag" href="{{ path('tag', {blogId: blog.getId(), tagId: tag.getId()}) }}">
                             {{ tag.getName() }}
                         </a>
                     </li>
