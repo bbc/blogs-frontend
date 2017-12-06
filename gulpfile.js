@@ -32,6 +32,7 @@ gulp.task('js', ['js:clean'], function () {
         staticPathSrc + '/js/**/blogs-bootstrap.js',
         staticPathSrc + '/js/**/third-party.js',
         staticPathSrc + '/js/**/smp.js',
+        staticPathSrc + '/js/**/bbc-datepicker.js',
     ];
 
     const config = {

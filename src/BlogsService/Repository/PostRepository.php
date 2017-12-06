@@ -5,8 +5,10 @@ namespace App\BlogsService\Repository;
 
 use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
+use Cake\Chronos\Chronos;
 use DateInterval;
 use DateTimeImmutable;
+use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
 class PostRepository extends AbstractRepository
@@ -90,6 +92,73 @@ class PostRepository extends AbstractRepository
         $query->setUnfiltered(true);
 
         return $this->getResponse($query);
+    }
+
+    /**
+     * @param string $blogId
+     * @param int $year
+     * @param int[] $months
+     * @param int $depth
+     * @param int $page
+     * @param int $perpage
+     * @param string $sort
+     * @return ResponseInterface[]
+     */
+    public function getPostsForMonthsInYear(
+        string $blogId,
+        int $year,
+        array $months,
+        int $depth,
+        int $page,
+        int $perpage,
+        string $sort
+    ): array {
+        $queries = [];
+        foreach ($months as $month) {
+            if (!is_int($month)) {
+                throw new InvalidArgumentException('Argument months must be an array of integers');
+            }
+
+            $yearMonth = Chronos::create($year, $month, 2);
+            $afterDate = $yearMonth->startOfMonth();
+            $beforeDate = $yearMonth->endOfMonth();
+
+            $query = new SearchQuery();
+            $query->setProject($blogId);
+            $query->setNamespace($blogId, 'blogs-post');
+
+            $query->setQuery([
+                'and' => [
+                    [
+                        'ns:published-date',
+                        '>',
+                        $afterDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
+                    [
+                        'ns:published-date',
+                        '<=',
+                        $beforeDate->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
+                ],
+            ]);
+
+            $query->setSort([
+                [
+                    'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                    'direction' => $sort,
+                ],
+            ]);
+            $query->setDepth($depth);
+            $query->setPage($page);
+            $query->setPageSize($perpage);
+            $query->setUnfiltered(true);
+
+            $queries[$month] = $query;
+        }
+
+        return $this->getParallelResponses($queries);
     }
 
     public function getPostsByTagFileId(string $blogId, string $tagFileId, int $page, int $perpage): ?ResponseInterface

@@ -12,6 +12,8 @@ use App\BlogsService\Domain\Module\Links;
 use App\BlogsService\Domain\Tag;
 use App\Ds\Author\AuthorSummary\AuthorSummaryPresenter;
 use App\Ds\Molecule\AuthorAtoZ\AuthorAtoZPresenter;
+use App\Ds\Molecule\DatePicker\DatePicker;
+use App\Ds\Molecule\DatePicker\DatePickerPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
 use App\Ds\Post\PostFull\PostFullPresenter;
@@ -177,6 +179,16 @@ class PresenterFactory
             $blog,
             $tag,
             $options
+        );
+    }
+
+    public function datePickerPresenter(
+        Blog $blog,
+        DatePicker $datePicker
+    ): DatePickerPresenter {
+        return new DatePickerPresenter(
+            $blog,
+            $datePicker
         );
     }
 }

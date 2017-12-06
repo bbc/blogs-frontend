@@ -1,0 +1,57 @@
+<div class="bbc-datepicker">
+    <input class="bbc-datepicker__checkbox bbc-datepicker__checkbox-year" type="radio" tabindex="-1" name="datepicker_checkbox" id="bbc-datepicker-year" >
+    <h3 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-year">
+        <label tabindex="-1" class="br-pseudolink" for="bbc-datepicker-year">
+            {{- gelicon('core', 'next', 'gelicon--text-base bbc-datepicker__title') -}}
+            {{- date_picker.getChosenMonthYear()|date('Y') -}}
+        </label>
+    </h3>
+    <input class="bbc-datepicker__checkbox bbc-datepicker__checkbox-month" type="radio" tabindex="-1" name="datepicker_checkbox" id="bbc-datepicker-month" checked >
+    <h3 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-month">
+        <label tabindex="-1" class="br-pseudolink" for="bbc-datepicker-month">
+            {{- gelicon('core', 'next', 'gelicon--text-base bbc-datepicker__title') -}}
+            {{- date_picker.getChosenMonthYear()|local_date_intl('MMMM') -}}
+        </label>
+    </h3>
+    <div class="bbc-datepicker__box bbc-datepicker__box-year">
+        <div class="br-box-highlight island gamma">
+            <ol class="list-unstyled grid-wrapper list-spaced">
+                {% for year in date_picker.getPostsYearRange() %}
+                    <li class="bbc-datepicker__box-year-number grid 1/2@bpb2 1/3@bpw">
+                        <div class="grid__inner">
+                            <a class="istats--tracker" data-istats-link-location="blogs_date_aggregation_year" href="
+                                {{- path('posts_year_month', {'blogId': date_picker.getBlogId(), 'year': year, 'month' : date_picker.getChosenMonthYear()|date('m')}) -}}
+                            ">
+                                {{- year -}}
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+    <div class="bbc-datepicker__box bbc-datepicker__box-month">
+        <div class="br-box-highlight island gamma">
+            <ol class="list-unstyled grid-wrapper list-spaced">
+                {% for month in date_picker.getMonthsOfTheYear() %}
+                    <li class="bbc-datepicker__box-month-name grid 1/2@bpb2 1/3@bpw">
+                        <div class="grid__inner">
+                            <a class="istats--tracker" data-istats-link-location="blogs_date_aggregation_month" href="
+                                {{- path('posts_year_month', {
+                                    'blogId': date_picker.getBlogId(),
+                                    'year': date_picker.getChosenMonthYear()|date('Y'),
+                                    'month' : month|date('m')}) -}}" data-month="
+                                {{- month|date('m') -}}
+                            ">
+                                {{- month|local_date_intl('MMMM') }} ({{- date_picker.getMonthlyTotal(loop.index) -}})
+                            </a>
+                        </div>
+                    </li>
+                {% endfor %}
+            </ol>
+        </div>
+    </div>
+</div>
+<script>
+    require(['bbc-datepicker']);
+</script>

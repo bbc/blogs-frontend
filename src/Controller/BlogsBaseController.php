@@ -12,6 +12,7 @@ use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use App\ValueObject\CosmosInfo;
 use Exception;
+use Symfony\Component\HttpFoundation\Request;
 
 abstract class BlogsBaseController extends BaseController
 {
@@ -56,6 +57,13 @@ abstract class BlogsBaseController extends BaseController
     {
         $this->blog = $blog;
         $this->setBrandingId($blog->getBrandingId());
+    }
+
+    protected function getPageNumber(Request $request): int
+    {
+        $page = (int) $request->query->get('page', 1);
+
+        return $page > 1 ? $page : 1;
     }
 
     private function getTagsByBlog(): array

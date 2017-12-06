@@ -39,8 +39,19 @@ post:
     defaults: { _controller: App\Controller\PostShowController }
     requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
 
+posts_date_redirect:
+    path: /blogs/{blogId}/entries
+    defaults: { _controller: App\Controller\PostByDateRedirectController }
+    requirements: { blogId: '[a-z0-9]+' }
+
+posts_year:
+    path: /blogs/{blogId}/entries/{year}
+    requirements: { blogId: '[a-z0-9]+', year: '\d{4}' }
+    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: posts_year_month, permanent: true, month: '01' }
+
 posts_year_month:
     path: /blogs/{blogId}/entries/{year}/{month}
+    defaults: { _controller: App\Controller\PostByDateController }
     requirements: { blogId: '[a-z0-9]+', year: '\d{4}', month: '\d{2}' }
 
 tag_list:
