@@ -59,6 +59,12 @@ services:
             - '%app.api_endpoint%'
             - '@csa_guzzle.client.default'
 
+    App\Service\CommentsService:
+        arguments:
+            - '%env(COMMENTS_API_KEY)%'
+            - '%env(COSMOS_ENV)%'
+            - '@BBC\ProgrammesMorphLibrary\MorphClient'
+
     App\ValueObject\CosmosInfo:
         arguments: ['%cosmos_component_release%', '%env(COSMOS_ENV)%', '%app.endpoint_host%']
 

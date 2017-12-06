@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
+use App\Service\CommentsService;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use Cake\Chronos\Chronos;
@@ -14,7 +15,7 @@ use Exception;
 class PostShowController extends BlogsBaseController
 {
     /** @throws MorphErrorException|Exception */
-    public function __invoke(Blog $blog, string $guid, PostService $postService, MorphClient $morphClient)
+    public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $this->setBlog($blog);
 
@@ -48,17 +49,7 @@ class PostShowController extends BlogsBaseController
             Chronos::now()
         );
 
-        $comments = $morphClient->getView(
-            'bbc-morph-comments-view',
-            'comments-module',
-            [
-                'apiKey' => $this->container->get('%env(COMMENTS_API_KEY)%'),
-                'mode' => 'embedded',
-                'idctaEnv' => 'int',
-                'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
-            ],
-            []
-        );
+        $comments = $commentsService->fetchPostComments($blog, $post);
 
         return $this->renderWithChrome(
             'post/show.html.twig',
