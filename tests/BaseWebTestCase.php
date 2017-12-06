@@ -3,6 +3,7 @@ declare(strict_types = 1);
 namespace Tests\App;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Component\DomCrawler\Crawler;
 
 abstract class BaseWebTestCase extends WebTestCase
 {
@@ -36,14 +37,19 @@ abstract class BaseWebTestCase extends WebTestCase
         }
     }
 
-    public function extractIstatsLabels($crawler)
+    /**
+     * @param Crawler $crawler
+     * @return string[]
+     */
+    public function extractIstatsLabels(Crawler $crawler): array
     {
         $labels = [];
-        $extractedValues = $crawler->filter("orbit-template-params")->extract(['data-values']);
-        $labelsObject = json_decode($extractedValues[0]);
+        $extractedValues = $crawler->filter('orbit-template-params')->attr('data-values');
+        $labelsObject = json_decode($extractedValues);
         foreach ($labelsObject->analyticsLabels as $item) {
             $labels[$item->key] = urldecode($item->value);
         }
+
         return $labels;
     }
 }

@@ -11,7 +11,13 @@ class AuthorIndexAtoZController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog)
     {
         $this->setBlog($blog);
+        $this->counterName = 'authors';
 
         return $this->renderWithChrome('author/index_atoz.html.twig');
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'author_indexatoz';
     }
 }

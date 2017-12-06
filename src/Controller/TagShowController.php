@@ -7,6 +7,8 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
+use App\ValueObject\AnalyticsCounterName;
+use App\ValueObject\IstatsAnalyticsLabels;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagShowController extends BlogsBaseController
@@ -21,7 +23,11 @@ class TagShowController extends BlogsBaseController
             throw $this->createNotFoundException('Tag not found');
         }
 
+        $this->counterName = 'tags.' . $tag->getName();
+
         $page = $this->getPageNumber($request);
+
+        $this->otherIstatsLabels = ['page' => (string) $page];
 
         $postResults = $postService->getPostsByTag(
             $blog,
@@ -47,5 +53,10 @@ class TagShowController extends BlogsBaseController
                 'paginatorPresenter' => $paginator,
             ]
         );
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'tag_show';
     }
 }

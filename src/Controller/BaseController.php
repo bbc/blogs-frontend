@@ -4,6 +4,9 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\Translate\TranslateProvider;
+use App\ValueObject\AnalyticsCounterName;
+use App\ValueObject\CosmosInfo;
+use App\ValueObject\IstatsAnalyticsLabels;
 use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\BrandingClient;
@@ -15,6 +18,15 @@ use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends AbstractController
 {
+    /** @var string */
+    protected $counterName = '';
+
+    /** @var bool */
+    protected $hasVideo = false;
+
+    /** @var mixed[] */
+    protected $otherIstatsLabels = [];
+
     /** @var string */
     private $brandingId = 'br-07918';
 
@@ -34,6 +46,7 @@ abstract class BaseController extends AbstractController
             BrandingClient::class,
             OrbitClient::class,
             TranslateProvider::class,
+            CosmosInfo::class,
         ]);
     }
 
@@ -49,12 +62,19 @@ abstract class BaseController extends AbstractController
         $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
     }
 
+    abstract protected function getIstatsPageType(): string;
+
     protected function response(): Response
     {
         return $this->response;
     }
 
-    protected function renderWithChrome($view, array $parameters = [])
+    /**
+     * @param string $view
+     * @param mixed[] $parameters
+     * @return Response
+     */
+    protected function renderWithChrome(string $view, array $parameters = [])
     {
         $branding = $this->requestBranding();
         // We only need to change the translation language if it is different
@@ -62,6 +82,8 @@ abstract class BaseController extends AbstractController
         $locale = $branding->getLocale();
 
         $translateProvider = $this->container->get(TranslateProvider::class);
+        $cosmosInfo = $this->container->get(CosmosInfo::class);
+        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->getIstatsPageType(), $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
 
         $translateProvider->setLocale($locale);
         $orb = $this->container->get(OrbitClient::class)->getContent([
@@ -70,6 +92,8 @@ abstract class BaseController extends AbstractController
         ], [
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'programmes-content',
+            'analyticsCounterName' => (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName),
+            'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
         ]);
         $parameters = array_merge([
             'orb' => $orb,

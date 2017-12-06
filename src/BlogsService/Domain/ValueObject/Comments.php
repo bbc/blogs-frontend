@@ -10,4 +10,9 @@ class Comments
     {
         $this->id = $id;
     }
+
+    public function isEnabled(): bool
+    {
+        return !empty($this->id);
+    }
 }

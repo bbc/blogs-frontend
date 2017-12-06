@@ -20,6 +20,19 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
+        $this->hasVideo = $post->hasVideo();
+        $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
+
+        $istatsLabels = [
+            'post_title' => $post->getTitle(),
+            'published_date' => $post->getPublishedDate()->format('F j, Y, g:i a'),
+        ];
+        if ($post->getAuthor() !== null) {
+            $istatsLabels['post_author'] = $post->getAuthor()->getName();
+        }
+
+        $this->otherIstatsLabels = $istatsLabels;
+
         $previousPost = $postService->getPostsBefore(
             $blog,
             $post->getPublishedDate()
@@ -31,6 +44,18 @@ class PostShowController extends BlogsBaseController
             new DateTimeImmutable()
         );
 
-        return $this->renderWithChrome('post/show.html.twig', ['post' => $post, 'prevPost' => $previousPost, 'nextPost' => $nextPost]);
+        return $this->renderWithChrome(
+            'post/show.html.twig',
+            [
+                'post' => $post,
+                'prevPost' => $previousPost,
+                'nextPost' => $nextPost,
+            ]
+        );
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'post_show';
     }
 }
