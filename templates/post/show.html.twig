@@ -50,6 +50,10 @@
         {%- endif -%}
     {%- endif -%}
 
+    {%- for script in comments.getHead() -%}
+        {{ script|raw }}
+    {%- endfor -%}
+
     {{ parent() }}
 {% endblock %}
 
@@ -117,7 +121,7 @@
 
         {% if blog.getComments() and blog.getComments().isEnabled() %}
             <div class="component" id="comments">
-                COMMENTS GO HERE
+                {{ comments.getBody()|raw }}
             </div>
         {% endif %}
     </div>
@@ -133,6 +137,10 @@
             {%- endif -%}
         </div>
     {%- endif -%}
+
+    {%- for script in comments.getBodyLast() -%}
+        {{ script|raw }}
+    {%- endfor -%}
 {%- endblock -%}
 
 {% macro morePosts(blogId, post, header, istatsLocation) %}
