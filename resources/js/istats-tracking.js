@@ -7,8 +7,7 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
 
     StatsTracking.prototype = {
         initial_options: {
-            trackingAttribute: 'data-istats-link-location',
-            labelPrefix: 'programmes_'
+            trackingAttribute: 'data-istats-link-location'
         },
         setOptions: function (options) {
             this.options = $.extend(true, {}, this.initial_options, options);
@@ -18,15 +17,13 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
             this.hardcodedItems();
         },
         trackLinks: function (context) {
-            var _this = this,
-                label;
+            var _this = this;
             context = context || $('body');
             var links = context.find('[' + this.options.trackingAttribute + ']');
             links.each(function () {
-                label = $(this).attr(_this.options.trackingAttribute);
                 istats.track("internal", {
                     region: $(this),
-                    linkLocation: _this.options.labelPrefix + label
+                    linkLocation: $(this).attr(_this.options.trackingAttribute)
                 });
             });
         },
@@ -35,7 +32,7 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
             // it is required to hardcode a list of custom "istats.track" calls
             istats.track("internal", {
                 region: $(".br-masthead .service-brand-logo-master"),
-                linkLocation: 'programmes_global_ribbon'
+                linkLocation: 'blogs_global_ribbon'
             });
         }
     };
