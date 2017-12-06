@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
 use App\Service\CommentsService;
-use BBC\ProgrammesMorphLibrary\MorphClient;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use Cake\Chronos\Chronos;
 use Exception;
