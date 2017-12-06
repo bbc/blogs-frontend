@@ -14,7 +14,8 @@ use App\Ds\Author\AuthorSummary\AuthorSummaryPresenter;
 use App\Ds\Molecule\AuthorAtoZ\AuthorAtoZPresenter;
 use App\Ds\Molecule\Image\ImagePresenter;
 use App\Ds\Post\Author\AuthorPresenter;
-use App\Ds\Post\Content\ContentPresenter;
+use App\Ds\Post\PostFull\PostFullPresenter;
+use App\Ds\Post\PostPreview\PostPreviewPresenter;
 use App\Ds\Post\PostSummary\PostSummaryPresenter;
 use App\Ds\Post\SocialBar\SocialBarPresenter;
 use App\Ds\Post\Tags\TagsPresenter;
@@ -127,11 +128,20 @@ class PresenterFactory
         return new AuthorPresenter($author, $blogId, $options);
     }
 
-    public function postContentPresenter(
+    public function postFullPresenter(
         array $contentBlocks,
         array $options = []
-    ): ContentPresenter {
-        return new ContentPresenter($contentBlocks, $this->cosmosInfo, $options);
+    ): PostFullPresenter {
+        return new PostFullPresenter($contentBlocks, $this->cosmosInfo, $options);
+    }
+
+    public function postPreviewPresenter(
+        Blog $blog,
+        Post $post,
+        int $charLimit,
+        array $options = []
+    ): PostPreviewPresenter {
+        return new PostPreviewPresenter($this->cosmosInfo, $blog, $post, $charLimit, $options);
     }
 
     public function postSocialBarPresenter(

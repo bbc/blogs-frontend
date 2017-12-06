@@ -17,15 +17,24 @@
         <p class="beta">{{ tr('no_posts') }}</p>
     {% else %}
         {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
+
+        {#$keysForComments = array();#}
+        <h2 class="visually-hidden">{{ tr('header_posts') }}</h2>
+        {% set charLimit = 1200 %}
         <ul class="list-unstyled list-lined">
             {% for post in posts %}
+                {#$keysForComments[] = $post->getForumId($this->blog);#}
+                {# for first three post character limit is 1200 #}
+                {# for the rest it is 600 #}
+                {% if loop.index0 == 3 %}
+                    {% set charLimit = 600 %}
+                {% endif %}
                 <li class="post br-keyline">
-                    <a href="{{ path('post', {blogId: blog.getId(), guid: post.getGuid() }) }}">
-                        {{ post.getTitle() }}
-                    </a>
+                    {{ ds('postPreview', blog, post, charLimit) }}
                 </li>
             {% endfor %}
         </ul>
+        {#<?=$this->commentCountScript($keysForComments);?>#}
         {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
     {% endif %}
 {% endblock %}

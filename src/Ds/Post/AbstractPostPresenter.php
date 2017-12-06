@@ -1,7 +1,7 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Ds\Post\Content;
+namespace App\Ds\Post;
 
 use App\BlogsService\Domain\ContentBlock\AbstractContentBlock;
 use App\BlogsService\Domain\ContentBlock\Clips;
@@ -9,29 +9,22 @@ use App\BlogsService\Domain\ContentBlock\Code;
 use App\BlogsService\Domain\ContentBlock\Image;
 use App\BlogsService\Domain\ContentBlock\Prose;
 use App\BlogsService\Domain\ContentBlock\Social;
-use App\Ds\ContentBlock\ClipsBlock\ClipsBlockPresenter;
-use App\Ds\ContentBlock\CodeBlock\CodeBlockPresenter;
-use App\Ds\ContentBlock\ImageBlock\ImageBlockPresenter;
-use App\Ds\ContentBlock\ProseBlock\ProseBlockPresenter;
-use App\Ds\ContentBlock\SocialBlock\SocialBlockPresenter;
+use App\Ds\Post\ContentBlock\ClipsBlock\ClipsBlockPresenter;
+use App\Ds\Post\ContentBlock\CodeBlock\CodeBlockPresenter;
+use App\Ds\Post\ContentBlock\ImageBlock\ImageBlockPresenter;
+use App\Ds\Post\ContentBlock\ProseBlock\ProseBlockPresenter;
+use App\Ds\Post\ContentBlock\SocialBlock\SocialBlockPresenter;
 use App\Ds\Presenter;
 use App\Exception\InvalidContentBlockException;
 use App\ValueObject\CosmosInfo;
 
-class ContentPresenter extends Presenter
+class AbstractPostPresenter extends Presenter
 {
-    /** @var Presenter[] */
-    private $postPresenters;
-
     /** @var CosmosInfo */
-    private $cosmosInfo;
+    protected $cosmosInfo;
 
-    public function __construct(array $contentBlocks, CosmosInfo $cosmosInfo, array $options = [])
-    {
-        parent::__construct($options);
-        $this->cosmosInfo = $cosmosInfo;
-        $this->postPresenters = array_map([$this, 'findPresenter'], $contentBlocks);
-    }
+    /** @var Presenter[] */
+    protected $postPresenters;
 
     /** @return Presenter[] */
     public function getContentPresenters(): array
@@ -39,10 +32,10 @@ class ContentPresenter extends Presenter
         return $this->postPresenters;
     }
 
-    private function findPresenter(AbstractContentBlock $contentBlock): Presenter
+    protected function findPresenter(AbstractContentBlock $contentBlock, int $limit = null): Presenter
     {
         if ($contentBlock instanceof Prose) {
-            return new ProseBlockPresenter($contentBlock);
+            return new ProseBlockPresenter($contentBlock, $limit);
         }
 
         if ($contentBlock instanceof Social) {
@@ -58,7 +51,7 @@ class ContentPresenter extends Presenter
         }
 
         if ($contentBlock instanceof Code) {
-            return new CodeBlockPresenter($contentBlock);
+            return new CodeBlockPresenter($contentBlock, $limit);
         }
 
         throw new InvalidContentBlockException('Could not display invalid Content Block');
