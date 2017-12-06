@@ -9,7 +9,9 @@
             {{ post_preview.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
         </time>
     </p>
-    {{ ds('postAuthor', post_preview.getPost().getAuthor(), post_preview.getBlogId()) }}
+    {%- if post_preview.getPost().getAuthor() -%}
+        {{- ds('postAuthor', post_preview.getPost().getAuthor(), post_preview.getBlogId()) -}}
+    {%- endif -%}
     {% if post_preview.getPost().getTags() %}
         {{ ds('postTags', post_preview.getPost().getTags(), post_preview.getBlogId()) }}
     {% endif %}
