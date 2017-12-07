@@ -14,10 +14,10 @@ class DatePicker
     /** @var int */
     private $month;
 
-    /** @var Date */
+    /** @var DateTimeImmutable */
     private $latestPostDate;
 
-    /** @var Date */
+    /** @var DateTimeImmutable */
     private $oldestPostDate;
 
     /** @var int[] */
