@@ -78,4 +78,26 @@ class AuthorService
             $nullTtl
         );
     }
+
+    public function getAuthorsByBlog(
+        Blog $blog,
+        int $page = 1,
+        int $limit = 20,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): IsiteResult {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $page, $limit, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $page, $limit) {
+                $response = $this->repository->getAuthorsByBlog($blog->getId(), $page, $limit);
+
+                return $this->responseHandler->getIsiteResult($response);
+            },
+            [],
+            $nullTtl
+        );
+    }
 }

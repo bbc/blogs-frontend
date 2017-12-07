@@ -40,4 +40,26 @@ class AuthorRepository extends AbstractRepository
 
         return $this->getResponse($query);
     }
+
+    public function getAuthorsByBlog(string $blogId, int $page, int $limit): ?ResponseInterface
+    {
+        $query = new SearchQuery();
+        $query->setProject($blogId);
+        $query->setNamespace($blogId, 'authors');
+        $query->setQuery([
+            'ns:last-name',
+            'contains',
+            '*',
+        ]);
+        $query->setSort([
+            [
+                'elementPath' => '/ns:form/ns:metadata/ns:last-name',
+                'direction' => 'asc',
+            ],
+        ]);
+        $query->setPage($page);
+        $query->setPageSize($limit);
+
+        return $this->getResponse($query);
+    }
 }
