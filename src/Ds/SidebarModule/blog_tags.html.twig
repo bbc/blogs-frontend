@@ -5,13 +5,13 @@
             <ul class="list-unstyled list--comma">
                 {%- for tag in blog_tags.getBlogTags() -%}
                     <li>
-                        <a class="istats--tracker" data-istats-link-location="blogs_global_aside_tag"
+                        <a data-istats-link-location="blogs_global_aside_tag"
                            href="{{ path('tag', {blogId: blog_tags.getBlogId(), tagId: tag.getId() }) }}"> {{ tag.getName() }}</a></li>
                 {%- endfor -%}
             </ul>
         </div>
         <p>
-            <a class="istats--tracker" data-istats-link-location="blogs_global_aside_see_all_tags"
+            <a data-istats-link-location="blogs_global_aside_see_all_tags"
                href="{{ path('tag_list', { blogId: blog_tags.getBlogId() }) }}">{{ tr('link_see_all_tags') }}</a>
         </p>
     </div>

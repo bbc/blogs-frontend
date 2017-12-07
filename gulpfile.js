@@ -41,6 +41,7 @@ gulp.task('js', ['js:clean'], function () {
             "jquery-1.9": "empty:",
             "respimg": "../../node_modules/lazysizes/plugins/respimg/ls.respimg",
             "lazysizes": "../../node_modules/lazysizes/lazysizes-umd",
+            'istats-1': 'empty:',
         },
         "optimize": 'uglify',
         "map": {

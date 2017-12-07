@@ -41,7 +41,7 @@
 
 {% macro seeAllBar(blogId, postDate) %}
     <div>
-        <a class="istats--tracker islet br-box-subtle component text--right" data-istats-link-location="blogs_see_all_posts" href="{{ path('posts_year_month', {blogId: blogId, year: postDate.format('Y'), month: postDate.format('m')}) }}">{{ tr ('link_see_all_posts') }}</a>
+        <a class="islet br-box-subtle component text--right" data-istats-link-location="blogs_see_all_posts" href="{{ path('posts_year_month', {blogId: blogId, year: postDate.format('Y'), month: postDate.format('m')}) }}">{{ tr ('link_see_all_posts') }}</a>
     </div>
 {% endmacro %}
 

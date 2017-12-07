@@ -2,7 +2,7 @@
     <h{{ post_summary.getOption('h_tag') }} class="{{ post_summary.getOption('h_class') }} no-margin">
         <a itemprop="url"
             {% if post_summary.isFeaturedPost() %}
-                class="istats--tracker" data-istats-link-location="blogs_featured_post"
+                data-istats-link-location="blogs_featured_post"
             {% endif %}
            href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
             <span itemprop="name">{{ post_summary.getPost.getTitle() }}</span>
@@ -20,7 +20,7 @@
         {% if post_summary.shouldShowImage() %}
             <a
                 {% if post_summary.isFeaturedPost() %}
-                    class="istats--tracker" data-istats-link-location="blogs_featured_post"
+                    data-istats-link-location="blogs_featured_post"
                 {% endif %}
                 href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
                 <img class="1/3 media__img" src="{{ post_summary.getPost().getImage().getUrl(192,108) }}"
@@ -34,7 +34,7 @@
             <p>
                 <a
                     {% if post_summary.isFeaturedPost() %}
-                        class="istats--tracker" data-istats-link-location="blogs_featured_post"
+                        data-istats-link-location="blogs_featured_post"
                     {% endif %}
                     href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
             </p>
