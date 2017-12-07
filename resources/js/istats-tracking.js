@@ -14,7 +14,6 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
         },
         init: function () {
             this.trackLinks();
-            this.hardcodedItems();
         },
         trackLinks: function (context) {
             var _this = this;
@@ -25,14 +24,6 @@ define(['jquery-1.9', 'istats-1'], function ($, istats) {
                     region: $(this),
                     linkLocation: $(this).attr(_this.options.trackingAttribute)
                 });
-            });
-        },
-        hardcodedItems: function () {
-            // Because of the nature of these items we can't add the "data-istats-link-location" attribute inside the HTML so
-            // it is required to hardcode a list of custom "istats.track" calls
-            istats.track("internal", {
-                region: $(".br-masthead .service-brand-logo-master"),
-                linkLocation: 'blogs_global_ribbon'
             });
         }
     };
