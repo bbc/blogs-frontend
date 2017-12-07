@@ -69,7 +69,7 @@ class PostByDateController extends BlogsBaseController
         $currentMonth = (int) $now->format('m');
 
         if ($year > $currentYear) {
-            return array_fill(0, 12, 0);
+            return array_fill(1, 12, 0);
         }
 
         $monthsToQuery = [];
