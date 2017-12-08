@@ -24,9 +24,16 @@ class AuthorShowController extends BlogsBaseController
             throw $this->createNotFoundException('Author not found');
         }
 
-        //@TODO NEDSTAT
+        $this->counterName = 'authors.' . $author->getName();
 
         $page = $this->getPageNumber($request);
+
+        $this->otherIstatsLabels = [
+            'author_name' => $author->getName(),
+            'author_role' => $author->getRole(),
+            'author_description' => $author->getDescription(),
+            'page' => (string) $page,
+        ];
 
         $postResult = $postService->getPostsByAuthor($blog, $author, $page);
 
@@ -35,6 +42,14 @@ class AuthorShowController extends BlogsBaseController
             $paginator = new PaginatorPresenter($postResult->getPage(), $postResult->getPageSize(), $postResult->getTotal());
         }
 
-        return $this->renderWithChrome('author/show.html.twig', ['author' => $author, 'paginatorPresenter' => $paginator, 'postResult' => $postResult]);
+        return $this->renderWithChrome(
+            'author/show.html.twig',
+            ['author' => $author, 'paginatorPresenter' => $paginator, 'postResult' => $postResult]
+        );
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'author_show';
     }
 }

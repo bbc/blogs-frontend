@@ -23,11 +23,10 @@ abstract class BlogsBaseController extends BaseController
     {
         return array_merge(parent::getSubscribedServices(), [
             TagService::class,
-            CosmosInfo::class,
         ]);
     }
 
-    protected function renderWithChrome($view, array $parameters = [])
+    protected function renderWithChrome(string $view, array $parameters = [])
     {
         if ($this->blog === null) {
             throw new Exception('Must set blog using `setBlog()` before calling this method!');

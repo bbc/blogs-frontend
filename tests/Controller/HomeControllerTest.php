@@ -8,6 +8,7 @@ use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
+use App\ValueObject\IstatsAnalyticsLabels;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
@@ -24,6 +25,15 @@ class HomeControllerTest extends BaseWebTestCase
         $blog = $this->createBlog('First Blog');
 
         $crawler = $this->getCrawlerForPage($client, [$blog]);
+
+        $labels = $this->extractIstatsLabels($crawler);
+        $this->assertEquals('blogs5', $labels['app_name']);
+        $this->assertEquals('blogs', $labels['prod_name']);
+        $this->assertEquals('index_index', $labels['blogs_page_type']);
+        $this->assertEquals('1', $labels['page_number']);
+        $this->assertEquals('false', $labels['has_emp']);
+        $this->assertEquals('main index for all blogs', $labels['page_type']);
+        $this->assertTrue(is_numeric($labels['app_version']));
 
         $this->assertLists($crawler, ['F' => ['First Blog']]);
         $this->assertResponseStatusCode($client, 200);

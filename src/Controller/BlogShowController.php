@@ -4,7 +4,9 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
+use App\ValueObject\IstatsAnalyticsLabels;
 use DateTimeImmutable;
 
 class BlogShowController extends BlogsBaseController
@@ -14,10 +16,32 @@ class BlogShowController extends BlogsBaseController
         $this->setBlog($blog);
 
         $result = $postService->getPostsByBlog($blog, new DateTimeImmutable());
+
+        /** @var Post[] $posts */
         $posts = $result->getDomainModels();
 
-        //@TODO NetStat Video stuff
+        $this->hasVideo = $this->postsContainVideo($posts);
 
         return $this->renderWithChrome('blog/show.html.twig', ['posts' => $posts]);
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'index_single';
+    }
+
+    /**
+     * @param Post[] $posts
+     * @return bool
+     */
+    private function postsContainVideo(array $posts): bool
+    {
+        foreach ($posts as $post) {
+            if ($post->hasVideo()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

@@ -15,11 +15,15 @@ class AuthorShowAtoZController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $letter, AuthorService $authorService, PostService $postService)
     {
         $this->setBlog($blog);
+        $this->counterName = 'authors';
 
         $page = (int) $request->query->get('page', 1);
         if ($page < 1) {
             $page = 1;
         }
+
+        $this->otherIstatsLabels = ['page' => (string) $page];
+
         $authorsResult = $authorService->getAuthorsByLetter($blog, $letter, $page);
         /** @var Author[] $authors */
         $authors = $authorsResult->getDomainModels();
@@ -49,5 +53,10 @@ class AuthorShowAtoZController extends BlogsBaseController
                 'paginatorPresenter' => $paginator,
             ]
         );
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'author_letter';
     }
 }

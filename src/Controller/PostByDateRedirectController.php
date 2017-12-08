@@ -4,16 +4,12 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Service\PostService;
-use App\Ds\Molecule\DatePicker\DatePicker;
-use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Cake\Chronos\Date;
-use InvalidArgumentException;
-use Symfony\Component\HttpFoundation\Request;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
-class PostByDateRedirectController extends BlogsBaseController
+class PostByDateRedirectController extends AbstractController
 {
-    public function __invoke(Request $request, Blog $blog)
+    public function __invoke(Blog $blog)
     {
         $now = new Date('now');
 

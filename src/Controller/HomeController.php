@@ -22,6 +22,11 @@ class HomeController extends BaseController
         ]);
     }
 
+    protected function getIstatsPageType(): string
+    {
+        return 'index_index';
+    }
+
     private function removePrefix($prefix, $str): string
     {
         return trim(preg_replace('/^' . preg_quote($prefix, '/') . '/', '', $str));

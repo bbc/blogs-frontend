@@ -6,6 +6,8 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\TagService;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
+use App\ValueObject\AnalyticsCounterName;
+use App\ValueObject\IstatsAnalyticsLabels;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagIndexController extends BlogsBaseController
@@ -13,8 +15,11 @@ class TagIndexController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, TagService $tagService)
     {
         $this->setBlog($blog);
+        $this->counterName = 'tags';
 
         $page = $this->getPageNumber($request);
+
+        $this->otherIstatsLabels = ['page' => (string) $page];
 
         $tagsResult = $tagService->getTagsByBlog($blog, $page, 10);
 
@@ -23,6 +28,17 @@ class TagIndexController extends BlogsBaseController
             $paginator = new PaginatorPresenter($tagsResult->getPage(), $tagsResult->getPageSize(), $tagsResult->getTotal());
         }
 
-        return $this->renderWithChrome('tag/index.html.twig', ['tagResult' => $tagsResult, 'paginatorPresenter' => $paginator]);
+        return $this->renderWithChrome(
+            'tag/index.html.twig',
+            [
+                'tagResult' => $tagsResult,
+                'paginatorPresenter' => $paginator,
+            ]
+        );
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'tag_index';
     }
 }
