@@ -53,6 +53,11 @@ class PostByDateController extends BlogsBaseController
         );
     }
 
+    protected function getIstatsPageType(): string
+    {
+        return 'post_date';
+    }
+
     private function validMonth(int $month): bool
     {
         return ($month > 0 && $month <= 12);
