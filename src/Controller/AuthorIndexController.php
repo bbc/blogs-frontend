@@ -40,4 +40,9 @@ class AuthorIndexController extends BlogsBaseController
             ]
         );
     }
+
+    protected function getIstatsPageType(): string
+    {
+        return 'author_index';
+    }
 }

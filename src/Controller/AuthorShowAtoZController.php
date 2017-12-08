@@ -17,9 +17,9 @@ class AuthorShowAtoZController extends BlogsBaseController
         $this->setBlog($blog);
         $this->counterName = 'authors';
 
-        $this->otherIstatsLabels = ['page' => (string) $page];
-
         $page = $this->getPageNumber($request);
+
+        $this->otherIstatsLabels = ['page' => (string) $page];
 
         $authorsResult = $authorService->getAuthorsByLetter($blog, $letter, $page);
 
@@ -27,7 +27,6 @@ class AuthorShowAtoZController extends BlogsBaseController
         $authors = $authorsResult->getDomainModels();
 
         $authorPostResults = $postService->getPostsForAuthors($blog, $authors, 1, 1);
-
         $paginator = null;
         if ($authorsResult->getTotal() > $authorsResult->getPageSize()) {
             $paginator = new PaginatorPresenter($authorsResult->getPage(), $authorsResult->getPageSize(), $authorsResult->getTotal());
