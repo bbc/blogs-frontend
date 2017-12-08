@@ -94,6 +94,34 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
+    public function getPostsForAuthors(string $blogId, array $authorIds, int $page, int $perpage): array
+    {
+        $queries = [];
+        foreach ($authorIds as $authorId) {
+            $query = new SearchQuery();
+            $query->setProject($blogId);
+            $query->setNamespace($blogId, 'blogs-post');
+            $query->setQuery([
+                'ns:author',
+                'contains',
+                $authorId,
+            ]);
+            $query->setDepth(1);
+            $query->setPage($page);
+            $query->setPageSize($perpage);
+            $query->setUnfiltered(true); //Experimental
+            $query->setSort([
+                [
+                    'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                    'direction' => 'desc',
+                ],
+            ]);
+            $queries[$authorId] = $query;
+        }
+
+        return $this->getParallelResponses($queries);
+    }
+
     /**
      * @param string $blogId
      * @param int $year

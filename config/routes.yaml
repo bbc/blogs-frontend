@@ -12,6 +12,7 @@ home:
 
 author_index:
     path: /blogs/{blogId}/authors
+    defaults: { _controller: App\Controller\AuthorIndexController }
     requirements: { blogId: '[a-z0-9]+' }
 
 author_index_atoz:

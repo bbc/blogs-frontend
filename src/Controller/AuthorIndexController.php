@@ -10,23 +10,21 @@ use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Symfony\Component\HttpFoundation\Request;
 
-class AuthorShowAtoZController extends BlogsBaseController
+class AuthorIndexController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, string $letter, AuthorService $authorService, PostService $postService)
+    public function __invoke(Request $request, Blog $blog, AuthorService $authorService, PostService $postService)
     {
         $this->setBlog($blog);
-        $this->counterName = 'authors';
 
         $page = $this->getPageNumber($request);
 
-        $this->otherIstatsLabels = ['page' => (string) $page];
-
-        $authorsResult = $authorService->getAuthorsByLetter($blog, $letter, $page);
+        $authorsResult = $authorService->getAuthorsByBlog($blog, $page);
 
         /** @var Author[] $authors */
         $authors = $authorsResult->getDomainModels();
 
         $authorPostResults = $postService->getPostsForAuthors($blog, $authors, 1, 1);
+
         $paginator = null;
         if ($authorsResult->getTotal() > $authorsResult->getPageSize()) {
             $paginator = new PaginatorPresenter($authorsResult->getPage(), $authorsResult->getPageSize(), $authorsResult->getTotal());
@@ -38,13 +36,13 @@ class AuthorShowAtoZController extends BlogsBaseController
                 'authorPostResults' => $authorPostResults,
                 'authors' => $authors,
                 'paginatorPresenter' => $paginator,
-                'showAZ' => true,
+                'showAZ' => $paginator !== null,
             ]
         );
     }
 
     protected function getIstatsPageType(): string
     {
-        return 'author_letter';
+        return 'author_index';
     }
 }

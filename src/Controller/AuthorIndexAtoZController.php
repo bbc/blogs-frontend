@@ -13,7 +13,7 @@ class AuthorIndexAtoZController extends BlogsBaseController
         $this->setBlog($blog);
         $this->counterName = 'authors';
 
-        return $this->renderWithChrome('author/index_atoz.html.twig');
+        return $this->renderWithChrome('author/index.html.twig', ['showAZ' => true]);
     }
 
     protected function getIstatsPageType(): string

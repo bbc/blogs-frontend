@@ -160,6 +160,51 @@ class PostService
         );
     }
 
+    /**
+     * @param Blog $blog
+     * @param Author[] $authors
+     * @param int $page
+     * @param int $perPage
+     * @param string $ttl
+     * @param string $nullTtl
+     * @return IsiteResult[]
+     */
+    public function getPostsForAuthors(
+        Blog $blog,
+        array $authors,
+        int $page = 1,
+        int $perPage = 20,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): array {
+        $authorIds = array_map(
+            function (Author $author) {
+                return (string) $author->getFileId();
+            },
+            $authors
+        );
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), implode('-', $authorIds), $page, $perPage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $authorIds, $page, $perPage) {
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $responses = $this->repository->getPostsForAuthors($blog->getId(), $authorIds, $page, $perPage);
+
+                $result = [];
+
+                foreach ($responses as $key => $response) {
+                    $result[$key] = $this->responseHandler->getIsiteResult($response);
+                }
+
+                return $result;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
     public function getPostsByMonth(
         Blog $blog,
         int $year,
