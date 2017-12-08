@@ -6,5 +6,11 @@ services:
     App\BlogsService\Service\BlogService:
         public: true
 
+    App\BlogsService\Service\PostService:
+        public: true
+
+    App\BlogsService\Service\TagService:
+        public: true
+
     cache.null_provider:
         class: Symfony\Component\Cache\Adapter\NullAdapter

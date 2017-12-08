@@ -22,8 +22,6 @@ class Image extends AbstractContentBlock
     public function getCharacterCount(): int
     {
         // This is a default value for the purposes of post truncation
-        // TODO check this when implementing post truncation
-
         return 200;
     }
 

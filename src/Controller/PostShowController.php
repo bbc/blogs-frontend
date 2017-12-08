@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 
 class PostShowController extends BlogsBaseController
 {
@@ -41,7 +41,7 @@ class PostShowController extends BlogsBaseController
         $nextPost = $postService->getPostsAfter(
             $blog,
             $post->getPublishedDate(),
-            new DateTimeImmutable()
+            Chronos::now()
         );
 
         return $this->renderWithChrome(

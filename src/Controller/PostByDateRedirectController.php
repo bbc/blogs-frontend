@@ -11,7 +11,7 @@ class PostByDateRedirectController extends AbstractController
 {
     public function __invoke(Blog $blog)
     {
-        $now = new Date('now');
+        $now = Date::now();
 
         return $this->redirectToRoute(
             'posts_year_month',

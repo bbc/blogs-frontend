@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 
 class BlogShowController extends BlogsBaseController
 {
@@ -14,7 +14,7 @@ class BlogShowController extends BlogsBaseController
     {
         $this->setBlog($blog);
 
-        $result = $postService->getPostsByBlog($blog, new DateTimeImmutable());
+        $result = $postService->getPostsByBlog($blog, Chronos::now());
 
         /** @var Post[] $posts */
         $posts = $result->getDomainModels();

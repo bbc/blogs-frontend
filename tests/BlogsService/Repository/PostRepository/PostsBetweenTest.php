@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Tests\App\BlogsService\Repository\PostRepository;
 
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
 
@@ -17,7 +17,8 @@ class PostsBetweenTest extends AbstractPostRepositoryTest
             new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
         ]);
 
-        $result = $repo->getPostsBetween('blog-id', new DateTimeImmutable(), new DateTimeImmutable(), 1, 1, 1, 'asc');
+        $now = Chronos::now();
+        $result = $repo->getPostsBetween('blog-id', $now, $now, 1, 1, 1, 'asc');
 
         $this->assertNull($result);
     }

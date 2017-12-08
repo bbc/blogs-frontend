@@ -6,11 +6,11 @@ namespace App\BlogsService\Domain;
 use App\BlogsService\Domain\ContentBlock\AbstractContentBlock;
 use App\BlogsService\Domain\ContentBlock\Clips;
 use App\BlogsService\Domain\ValueObject\GUID;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 
 class Post
 {
-    /** @var DateTimeImmutable */
+    /** @var Chronos */
     private $publishedDate;
 
     /** @var string */
@@ -43,7 +43,7 @@ class Post
     public function __construct(
         GUID $guid,
         string $forumId,
-        DateTimeImmutable $publishedDate,
+        Chronos $publishedDate,
         string $title,
         string $shortSynopsis,
         Author $author = null,
@@ -67,7 +67,7 @@ class Post
         return $this->guid;
     }
 
-    public function getPublishedDate(): DateTimeImmutable
+    public function getPublishedDate(): Chronos
     {
         return $this->publishedDate;
     }
