@@ -9,7 +9,6 @@ use App\BlogsService\Domain\ContentBlock\Image;
 use App\BlogsService\Domain\ContentBlock\Prose;
 use App\BlogsService\Domain\ContentBlock\Social;
 use App\Exception\InvalidContentBlockException;
-use Exception;
 use SimpleXMLElement;
 
 class ContentBlockMapper extends Mapper

@@ -3,8 +3,8 @@ declare(strict_types=1);
 
 namespace App\BlogsService\Repository;
 
-use App\BlogsService\Query\IsiteQuery\QueryInterface;
 use App\BlogsService\Infrastructure\IsiteResultException;
+use App\BlogsService\Query\IsiteQuery\QueryInterface;
 use GuzzleHttp\ClientInterface;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Exception\GuzzleException;

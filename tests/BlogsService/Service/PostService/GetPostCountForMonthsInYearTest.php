@@ -4,11 +4,9 @@ declare(strict_types = 1);
 namespace Tests\App\BlogsService\Service\PostService;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Post;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
 use App\BlogsService\Service\PostService;
-use DateTimeImmutable;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_MockObject_MockObject;
 use Tests\App\BlogsService\Service\ServiceTest;

@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
-use App\ValueObject\IstatsAnalyticsLabels;
 use DateTimeImmutable;
 
 class BlogShowController extends BlogsBaseController
