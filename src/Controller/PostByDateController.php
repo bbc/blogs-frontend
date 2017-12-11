@@ -8,7 +8,7 @@ use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use Symfony\Component\HttpFoundation\Request;
 
 class PostByDateController extends BlogsBaseController
@@ -32,15 +32,17 @@ class PostByDateController extends BlogsBaseController
             $paginator = new PaginatorPresenter($postResult->getPage(), $postResult->getPageSize(), $postResult->getTotal());
         }
 
+        $nowDateTime = Chronos::now();
+
         /** @var Post[] $latestPosts */
-        $latestPosts = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'desc')->getDomainModels();
+        $latestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'desc')->getDomainModels();
         /** @var Post[] $oldestPosts */
-        $oldestPosts = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'asc')->getDomainModels();
+        $oldestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'asc')->getDomainModels();
 
-        $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : new Date();
-        $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : new Date();
+        $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : $nowDateTime;
+        $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : $nowDateTime;
 
-        $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $year, $postService, $totalPostsMonth);
+        $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $year, $postService, $totalPostsMonth, $nowDateTime);
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
@@ -70,9 +72,8 @@ class PostByDateController extends BlogsBaseController
      * Returns a 1-indexed 12 element array of post counts, one for each month, in order
      * @return int[]
      */
-    private function getCountsForAllMonthsInChosenYear(Blog $blog, int $year, PostService $postService, int $currentMonthTotalPosts): array
+    private function getCountsForAllMonthsInChosenYear(Blog $blog, int $year, PostService $postService, int $currentMonthTotalPosts, Chronos $now): array
     {
-        $now = new Date();
         $currentYear = (int) $now->format('Y');
         $currentMonth = (int) $now->format('m');
 

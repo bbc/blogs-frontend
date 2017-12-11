@@ -22,7 +22,7 @@ class PostMapper extends Mapper
 
             $forumId = str_replace('-', '_', '_' . $guid);
 
-            $publishedDate = $this->getDate($formMetaData->{'published-date'});
+            $publishedDate = $this->getDateTime($formMetaData->{'published-date'});
             $title = $this->getString($formMetaData->{'title'});
             $shortSynopsis = $this->getString($formMetaData->{'short-synopsis'});
 

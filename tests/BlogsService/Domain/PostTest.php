@@ -10,7 +10,7 @@ use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Domain\ValueObject\Social;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 use PHPUnit\Framework\TestCase;
 
 class PostTest extends TestCase
@@ -20,7 +20,7 @@ class PostTest extends TestCase
         $guid = new GUID('63a91e43-f154-4c89-9ccd-9cf10a332f90');
 
         $forumId = '_63a91e43_f154_4c89_9ccd_9cf10a332f90';
-        $publishedDate = new DateTimeImmutable('2015-04-28T10:54:04.614+01:00');
+        $publishedDate = new Chronos('2015-04-28T10:54:04.614+01:00');
         $title = 'Liam\'s leaving';
         $shortSynopsis = 'It’s been confirmed that James Forde will be waving goodbye to his role as Liam Butcher. Liam’s on-screen departure is set for later in the year, although we’re keeping details of how he’ll exit under wraps for now.';
         $author = new Author(

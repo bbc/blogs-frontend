@@ -8,7 +8,7 @@ use App\BlogsService\Domain\Post;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
 use App\BlogsService\Service\PostService;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_MockObject_MockObject;
 use Tests\App\BlogsService\Service\ServiceTest;
@@ -58,7 +58,7 @@ class GetPostsBeforeTest extends ServiceTest
         $blog = $this->createMock(Blog::class);
         $blog->method('getId')->willReturn('some-id');
 
-        $serviceResult = $postService->getPostsBefore($blog, new DateTimeImmutable());
+        $serviceResult = $postService->getPostsBefore($blog, Chronos::now());
 
         $this->assertInstanceOf(Post::class, $serviceResult);
     }

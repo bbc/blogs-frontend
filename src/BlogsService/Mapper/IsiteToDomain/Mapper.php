@@ -5,7 +5,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Infrastructure\MapperFactory;
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 use SimpleXMLElement;
 
 /**
@@ -50,9 +50,9 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getDate(SimpleXMLElement $date): DateTimeImmutable
+    protected function getDateTime(SimpleXMLElement $date): Chronos
     {
-        return new DateTimeImmutable($this->getString($date));
+        return new Chronos($this->getString($date));
     }
 
     protected function getImage($pid): Image

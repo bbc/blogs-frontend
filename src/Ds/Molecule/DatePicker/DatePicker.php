@@ -3,8 +3,9 @@ declare(strict_types = 1);
 
 namespace App\Ds\Molecule\DatePicker;
 
+use Cake\Chronos\Chronos;
+use Cake\Chronos\ChronosInterface;
 use Cake\Chronos\Date;
-use DateTimeImmutable;
 
 class DatePicker
 {
@@ -14,10 +15,10 @@ class DatePicker
     /** @var int */
     private $month;
 
-    /** @var DateTimeImmutable */
+    /** @var Chronos */
     private $latestPostDate;
 
-    /** @var DateTimeImmutable */
+    /** @var Chronos */
     private $oldestPostDate;
 
     /** @var int[] */
@@ -26,7 +27,7 @@ class DatePicker
     /** @var Date */
     private $chosenMonthYear;
 
-    public function __construct(int $year, int $month, DateTimeImmutable $latestPostDate, DateTimeImmutable $oldestPostDate, array $monthlyTotals)
+    public function __construct(int $year, int $month, Chronos $latestPostDate, Chronos $oldestPostDate, array $monthlyTotals)
     {
         $this->year = $year;
         $this->month = $month;
@@ -46,12 +47,12 @@ class DatePicker
         return $this->month;
     }
 
-    public function getLatestPostDate(): DateTimeImmutable
+    public function getLatestPostDate(): ChronosInterface
     {
         return $this->latestPostDate;
     }
 
-    public function getOldestPostDate(): DateTimeImmutable
+    public function getOldestPostDate(): ChronosInterface
     {
         return $this->oldestPostDate;
     }

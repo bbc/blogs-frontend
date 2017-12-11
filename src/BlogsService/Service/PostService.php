@@ -13,12 +13,10 @@ use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
 use Cake\Chronos\Chronos;
-use DateInterval;
-use DateTimeImmutable;
 
 class PostService
 {
-    /** @var  IsiteFeedResponseHandler */
+    /** @var IsiteFeedResponseHandler */
     protected $responseHandler;
 
     /** @var PostRepository */
@@ -63,8 +61,8 @@ class PostService
 
     public function getPostsAfter(
         Blog $blog,
-        DateTimeImmutable $publishedDate,
-        DateTimeImmutable $publishedUntil,
+        Chronos $publishedDate,
+        Chronos $publishedUntil,
         int $page = 1,
         int $perpage = 1,
         $ttl = CacheInterface::NORMAL,
@@ -89,7 +87,7 @@ class PostService
 
     public function getPostsBefore(
         Blog $blog,
-        DateTimeImmutable $publishedDate,
+        Chronos $publishedDate,
         int $page = 1,
         int $perpage = 1,
         $ttl = CacheInterface::NORMAL,
@@ -102,7 +100,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedDate, $page, $perpage) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedDate->sub(new DateInterval('PT1S')), 0, $page, $perpage, 'desc');
+                $response = $this->repository->getPostsBetween($blog->getId(), Chronos::create(1970, 1, 1), $publishedDate->subSecond(), 0, $page, $perpage, 'desc');
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;
@@ -137,7 +135,7 @@ class PostService
 
     public function getPostsByBlog(
         Blog $blog,
-        DateTimeImmutable $publishedUntil,
+        Chronos $publishedUntil,
         int $page = 1,
         int $perpage = 10,
         string $sort = 'desc',
@@ -151,7 +149,7 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), new DateTimeImmutable('1970-01-01'), $publishedUntil, 1, $page, $perpage, $sort);
+                $response = $this->repository->getPostsBetween($blog->getId(), Chronos::create(1970, 1, 1), $publishedUntil, 1, $page, $perpage, $sort);
                 return $this->responseHandler->getIsiteResult($response);
             },
             [],

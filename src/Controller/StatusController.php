@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace App\Controller;
 
-use DateTimeImmutable;
+use Cake\Chronos\Chronos;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -18,7 +18,7 @@ class StatusController extends AbstractController
 
         // Other people get a better info screen
         return $this->render('status/status.html.twig', [
-            'now' => new DateTimeImmutable(),
+            'now' => Chronos::now(),
         ]);
     }
 }

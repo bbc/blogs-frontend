@@ -6,8 +6,6 @@ namespace App\BlogsService\Repository;
 use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use Cake\Chronos\Chronos;
-use DateInterval;
-use DateTimeImmutable;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
 
@@ -52,8 +50,8 @@ class PostRepository extends AbstractRepository
 
     public function getPostsBetween(
         string $blogId,
-        DateTimeImmutable $afterDate,
-        DateTimeImmutable $beforeDate,
+        Chronos $afterDate,
+        Chronos $beforeDate,
         int $depth,
         int $page,
         int $perpage,
@@ -68,7 +66,7 @@ class PostRepository extends AbstractRepository
                 [
                     'ns:published-date',
                     '>',
-                    $afterDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
+                    $afterDate->addSecond()->format('Y-m-d\TH:i:s.BP'),
                     'dateTime',
                 ],
                 [
@@ -160,7 +158,7 @@ class PostRepository extends AbstractRepository
                     [
                         'ns:published-date',
                         '>',
-                        $afterDate->add(new DateInterval('PT1S'))->format('Y-m-d\TH:i:s.BP'),
+                        $afterDate->addSecond()->format('Y-m-d\TH:i:s.BP'),
                         'dateTime',
                     ],
                     [
