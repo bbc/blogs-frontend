@@ -8,7 +8,6 @@ use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
-use App\ValueObject\IstatsAnalyticsLabels;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;

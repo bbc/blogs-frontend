@@ -7,8 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
-use App\ValueObject\AnalyticsCounterName;
-use App\ValueObject\IstatsAnalyticsLabels;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagShowController extends BlogsBaseController

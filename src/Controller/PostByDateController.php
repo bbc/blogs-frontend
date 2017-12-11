@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
@@ -31,15 +32,17 @@ class PostByDateController extends BlogsBaseController
             $paginator = new PaginatorPresenter($postResult->getPage(), $postResult->getPageSize(), $postResult->getTotal());
         }
 
-        $latestPost = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'desc')->getDomainModels();
-        $oldestPost = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'asc')->getDomainModels();
+        /** @var Post[] $latestPosts */
+        $latestPosts = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'desc')->getDomainModels();
+        /** @var Post[] $oldestPosts */
+        $oldestPosts = $postService->getPostsByBlog($blog, new Date(), 1, 1, 'asc')->getDomainModels();
 
-        $latestPostDate = isset($latestPost[0]) ? $latestPost[0]->getPublishedDate() : new Date();
-        $oldestpostDate = isset($oldestPost[0]) ? $oldestPost[0]->getPublishedDate() : new Date();
+        $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : new Date();
+        $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : new Date();
 
         $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $year, $postService, $totalPostsMonth);
 
-        $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestpostDate, $monthlyTotals);
+        $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
         return $this->renderWithChrome(
             'post/by_date.html.twig',

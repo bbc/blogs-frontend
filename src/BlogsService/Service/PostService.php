@@ -12,10 +12,9 @@ use App\BlogsService\Infrastructure\Cache\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
-use Cake\Chronos\Date;
+use Cake\Chronos\Chronos;
 use DateInterval;
 use DateTimeImmutable;
-use Cake\Chronos\Chronos;
 
 class PostService
 {

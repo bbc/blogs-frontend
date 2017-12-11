@@ -4,7 +4,6 @@ namespace Tests\App\BlogsService\Query\IsiteQuery;
 
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
 use PHPUnit\Framework\TestCase;
-use stdClass;
 
 class SearchQueryTest extends TestCase
 {

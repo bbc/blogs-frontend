@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Ds\InvalidOptionException;
 use App\Ds\Presenter;
-use App\Translate\TranslateProvider;
 
 class PostSummaryPresenter extends Presenter
 {
