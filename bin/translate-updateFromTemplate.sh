@@ -15,7 +15,7 @@ fi
 
 SCRIPTPATH=$( cd $(dirname $0) ; pwd -P )
 
-TRPATH="${SCRIPTPATH}/../config/translations/${1}"
+TRPATH="${SCRIPTPATH}/../translations/${1}"
 
 for i in `ls "$TRPATH"/*.po`; do
     msgmerge -N --backup=none -U $i "${TRPATH}/${1}.pot"

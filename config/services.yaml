@@ -95,8 +95,8 @@ services:
     RMP\Translate\TranslateFactory:
         arguments:
             - fallback_locale: 'en_GB'
-              cachepath: '%kernel.cache_dir%/config/translations'
+              cachepath: '%kernel.cache_dir%/translations'
               domains: ['blogs']
               default_domain: 'blogs'
               debug: '%kernel.debug%'
-              basepath: '%kernel.project_dir%/config/translations'
+              basepath: '%kernel.project_dir%/translations'
