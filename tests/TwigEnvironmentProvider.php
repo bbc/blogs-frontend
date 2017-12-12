@@ -59,7 +59,7 @@ class TwigEnvironmentProvider
             'domains' => ['blogs'],
             'default_domain' => 'blogs',
             'debug' => true,
-            'basepath' => __DIR__ . '/../config/translations',
+            'basepath' => __DIR__ . '/../translations',
         ]);
         $translateProvider = new TranslateProvider($translateFactory);
         $assetPackages = new Packages(new Package(new EmptyVersionStrategy()));
