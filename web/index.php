@@ -12,7 +12,10 @@ if (!isset($_SERVER['APP_ENV'])) {
     (new Dotenv())->load(__DIR__.'/../.env');
 }
 
-if ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))) {
+$appEnv = $_SERVER['APP_ENV'] ?? 'prod';
+$debugMode = $_SERVER['APP_DEBUG'] ?? ($appEnv === 'dev');
+
+if ($debugMode) {
     umask(0000);
 
     Debug::enable();
@@ -20,7 +23,7 @@ if ($_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev'))) {
 
 // Request::setTrustedProxies(['0.0.0.0/0'], Request::HEADER_FORWARDED);
 
-$kernel = new Kernel($_SERVER['APP_ENV'] ?? 'dev', $_SERVER['APP_DEBUG'] ?? ('prod' !== ($_SERVER['APP_ENV'] ?? 'dev')));
+$kernel = new Kernel($appEnv, $debugMode);
 $request = Request::createFromGlobals();
 $response = $kernel->handle($request);
 $response->send();
