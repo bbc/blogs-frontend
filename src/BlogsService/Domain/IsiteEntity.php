@@ -5,6 +5,9 @@ namespace App\BlogsService\Domain;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
 
+/**
+ * @TODO This isn't used except in typehints, what do we want to do with it?
+ */
 abstract class IsiteEntity
 {
     /** @var GUID */

@@ -8,7 +8,7 @@ class Code extends AbstractContentBlock
     /** @var string  */
     private $code;
 
-    /** @var int */
+    /** @var int|null */
     private $charCount;
 
     public function __construct(string $code)
@@ -18,7 +18,7 @@ class Code extends AbstractContentBlock
 
     public function getCharacterCount(): int
     {
-        if (!isset($this->charCount)) {
+        if ($this->charCount === null) {
             $this->charCount = mb_strlen($this->code);
         }
 

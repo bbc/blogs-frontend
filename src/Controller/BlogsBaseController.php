@@ -6,7 +6,9 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
+use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\TagService;
+use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
@@ -24,6 +26,15 @@ abstract class BlogsBaseController extends BaseController
         return array_merge(parent::getSubscribedServices(), [
             TagService::class,
         ]);
+    }
+
+    protected function createPaginator(IsiteResult $result): ?PaginatorPresenter
+    {
+        if ($result->getTotal() > $result->getPageSize()) {
+            return new PaginatorPresenter($result->getPage(), $result->getPageSize(), $result->getTotal());
+        }
+
+        return null;
     }
 
     protected function renderWithChrome(string $view, array $parameters = [])

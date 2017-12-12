@@ -97,8 +97,7 @@
                     {{ ds('postTags', post.getTags(), blog.getId()) }}
                 {% endif %}
 
-                {# TODO only show this if a blog has a comments siteId  #}
-                {% if true %}
+                {% if blog.getComments() and blog.getComments().isEnabled() %}
                     {{ ds('postSocialBar', post, blog.getId())}}
                 {% endif %}
             </div>
@@ -112,12 +111,11 @@
             {{ ds('postTags', post.getTags(), blog.getId()) }}
         {% endif %}
 
-        {% if true %}
+        {% if blog.getComments() and blog.getComments().isEnabled() %}
             {{ ds('postSocialBar', post, blog.getId())}}
         {% endif %}
 
-        {# TODO only show this if a blog has a comments siteId  #}
-        {% if true %}
+        {% if blog.getComments() and blog.getComments().isEnabled() %}
             <div class="component" id="comments">
                 COMMENTS GO HERE
             </div>
