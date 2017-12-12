@@ -8,6 +8,9 @@
     "bbc/gel-iconography-assets": {
         "version": "1.2.5"
     },
+    "bbc/programmes-morph-library": {
+        "version": "dev-master"
+    },
     "cakephp/chronos": {
         "version": "1.1.2"
     },

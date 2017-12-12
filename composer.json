@@ -14,6 +14,10 @@
         {
             "type": "vcs",
             "url": "git@github.com:bbc/gel-iconography-assets.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:bbc/programmes-morph-library.git"
         }
     ],
     "require": {
@@ -22,6 +26,7 @@
         "bbc-rmp/translate": "^1.8.7",
         "bbc/branding-client": "^2.3",
         "bbc/gel-iconography-assets": "^1.2",
+        "bbc/programmes-morph-library": "dev-master@dev",
         "cakephp/chronos": "^1.1",
         "cakephp/utility": "^3.5",
         "csa/guzzle-bundle": "^3.0",
