@@ -1,14 +1,14 @@
 {% extends 'blogs_base.html.twig' %}
 
 {% block title -%}
-    BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_archive_month') }}, {{ datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|date('yyyy') -}}
+    BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_archive_month') }}, {{ datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|date('Y') -}}
 {%- endblock %}
 
 {%- block content -%}
     <div class="component">
         <h1>{{- tr('header_archive_month') -}}
             <span class="visually-hidden">
-                {{- datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|date('yyyy') -}}
+                {{- datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|date('Y') -}}
             </span>
         </h1>
     </div>

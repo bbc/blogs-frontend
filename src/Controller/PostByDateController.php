@@ -87,15 +87,13 @@ class PostByDateController extends BlogsBaseController
         // Query all months except the one we're viewing as that's already retrieved
         if ($viewYear < $currentYear) {
             $monthsToQuery = range(1, 12);
-            unset($monthsToQuery[$viewMonth]);
         } else {
             // We are viewing current year, we don't want to query months that are in the future
             $monthsToQuery = range(1, $currentMonth);
-
-            if (isset($monthsToQuery[$viewMonth])) {
-                unset($monthsToQuery[$viewMonth]);
-            }
         }
+
+        // Avoid querying as we already have this count
+        unset($monthsToQuery[$viewMonth]);
 
         $results = $postService->getPostCountForMonthsInYear($blog, $viewYear, $monthsToQuery);
 

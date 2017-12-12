@@ -17,7 +17,6 @@ use Tests\App\BaseWebTestCase;
  */
 class PostByDateControllerTest extends BaseWebTestCase
 {
-
     public function testViewFutureMakesNoCountCalls()
     {
         $time = new ApplicationTimeProvider();
