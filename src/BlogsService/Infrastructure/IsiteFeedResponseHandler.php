@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace App\BlogsService\Infrastructure;
 
-use App\BlogsService\Domain\IsiteEntity;
 use App\BlogsService\Infrastructure\Exception\ParseException;
 use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use Psr\Http\Message\ResponseInterface;
@@ -77,7 +76,7 @@ class IsiteFeedResponseHandler
 
     /**
      * @param SimpleXMLElement[] $items
-     * @return IsiteEntity[]
+     * @return array
      */
     private function mapDomainModels(array $items): array
     {
