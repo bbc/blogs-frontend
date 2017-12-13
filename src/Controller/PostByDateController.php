@@ -93,7 +93,7 @@ class PostByDateController extends BlogsBaseController
         }
 
         // Avoid querying as we already have this count
-        unset($monthsToQuery[$viewMonth]);
+        unset($monthsToQuery[$viewMonth-1]);
 
         $results = $postService->getPostCountForMonthsInYear($blog, $viewYear, $monthsToQuery);
 
