@@ -24,8 +24,7 @@
         </p>
     {% endif %}
 
-    {# TODO only show this if a blog has a comments siteId  #}
-    {% if true %}
+    {% if post_preview.hasCommentsEnabled() %}
         {{ ds('postSocialBar', post_preview.getPost(), post_preview.getBlogId())}}
     {% endif %}
 </div>

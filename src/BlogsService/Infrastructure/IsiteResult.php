@@ -3,20 +3,17 @@ declare(strict_types = 1);
 
 namespace App\BlogsService\Infrastructure;
 
-use App\BlogsService\Domain\IsiteEntity;
-
 class IsiteResult
 {
     /** @var int */
-    private $page = null;
+    private $page;
 
     /** @var int */
-    private $pageSize = null;
+    private $pageSize;
 
     /** @var int */
-    private $total = null;
+    private $total;
 
-    /** @var IsiteEntity[] */
     private $domainModels = [];
 
     public function __construct(int $page, int $pageSize, int $total, array $domainModels)
@@ -42,7 +39,6 @@ class IsiteResult
         return $this->total;
     }
 
-    /** @return IsiteEntity[] */
     public function getDomainModels(): array
     {
         return $this->domainModels;

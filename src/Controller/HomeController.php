@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\IsiteEntity;
 use App\BlogsService\Service\BlogService;
 
 class HomeController extends BaseController
@@ -33,7 +32,7 @@ class HomeController extends BaseController
     }
 
     /**
-     * @param Blog[]|IsiteEntity[] $blogs
+     * @param Blog[] $blogs
      * @return Blog[]
      */
     private function getBlogsByLetter(array $blogs): array

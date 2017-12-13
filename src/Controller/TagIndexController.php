@@ -5,7 +5,6 @@ namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\TagService;
-use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagIndexController extends BlogsBaseController
@@ -21,10 +20,7 @@ class TagIndexController extends BlogsBaseController
 
         $tagsResult = $tagService->getTagsByBlog($blog, $page, 10);
 
-        $paginator = null;
-        if ($tagsResult->getTotal() > $tagsResult->getPageSize()) {
-            $paginator = new PaginatorPresenter($tagsResult->getPage(), $tagsResult->getPageSize(), $tagsResult->getTotal());
-        }
+        $paginator = $this->createPaginator($tagsResult);
 
         return $this->renderWithChrome(
             'tag/index.html.twig',

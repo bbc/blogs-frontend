@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
-use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Symfony\Component\HttpFoundation\Request;
 
 class TagShowController extends BlogsBaseController
@@ -38,10 +37,7 @@ class TagShowController extends BlogsBaseController
             throw $this->createNotFoundException('No posts were found for the tag ' . $tag->getName());
         }
 
-        $paginator = null;
-        if ($postResults->getTotal() > $postResults->getPageSize()) {
-            $paginator = new PaginatorPresenter($postResults->getPage(), $postResults->getPageSize(), $postResults->getTotal());
-        }
+        $paginator = $this->createPaginator($postResults);
 
         return $this->renderWithChrome(
             'tag/show.html.twig',

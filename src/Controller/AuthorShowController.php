@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\AuthorService;
 use App\BlogsService\Service\PostService;
-use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Symfony\Component\HttpFoundation\Request;
 
 class AuthorShowController extends BlogsBaseController
@@ -37,10 +36,7 @@ class AuthorShowController extends BlogsBaseController
 
         $postResult = $postService->getPostsByAuthor($blog, $author, $page);
 
-        $paginator = null;
-        if ($postResult->getTotal() > $postResult->getPageSize()) {
-            $paginator = new PaginatorPresenter($postResult->getPage(), $postResult->getPageSize(), $postResult->getTotal());
-        }
+        $paginator = $this->createPaginator($postResult);
 
         return $this->renderWithChrome(
             'author/show.html.twig',

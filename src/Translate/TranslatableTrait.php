@@ -48,11 +48,7 @@ trait TranslatableTrait
 
         $this->dateFormatterCache[$cacheKey]->setPattern($format);
         $output = $this->dateFormatterCache[$cacheKey]->format($dateTime->getTimestamp());
-        //@TODO figure out if we need RMP\Translate's DateCorrection or if our OS now correctly handles these spellings
-        /*
-        $dateCorrection = new DateCorrection();
-        $output = $dateCorrection->fixSpelling($output, $this->translateProvider->getTranslate()->getLocale());
-        */
+
         return $output;
     }
 

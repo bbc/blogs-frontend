@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
-use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use Cake\Chronos\Chronos;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -27,10 +26,7 @@ class PostByDateController extends BlogsBaseController
         $totalPostsMonth = $postResult->getTotal();
         $posts = $postResult->getDomainModels();
 
-        $paginator = null;
-        if ($totalPostsMonth > $postResult->getPageSize()) {
-            $paginator = new PaginatorPresenter($postResult->getPage(), $postResult->getPageSize(), $postResult->getTotal());
-        }
+        $paginator = $this->createPaginator($postResult);
 
         $nowDateTime = Chronos::now();
 
