@@ -14,6 +14,7 @@ define('smp',['jquery-1.9'], function ($) {
         },
         initial_options : {
             container : null,
+            endpointHost: 'https://www.bbc.co.uk',
             playerSettings : {
                 product : "iplayer",
                 siteID : 'iPlayer',
@@ -59,7 +60,7 @@ define('smp',['jquery-1.9'], function ($) {
             message_container.addClass(spinner_class).html(this.options.messages.loading);
 
             if (this.options.pid) {
-                url = endpoint_host + '/programmes/' + this.options.pid + '/playlist.json';
+                url = this.options.endpointHost + '/programmes/' + this.options.pid + '/playlist.json';
             } else if (this.options.xml) {
                 url = this.options.xml;
                 this.loadXMLPlayer(url);

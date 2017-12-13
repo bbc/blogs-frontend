@@ -57,6 +57,7 @@ class ClipsBlockPresenter extends Presenter
             $player = (object) [
                 'container' => '#' . $this->getContainerId(),
                 'pid' => $this->content->getId(),
+                'endpointHost' => $this->cosmosInfo->getEndpointHost(),
                 'playerSettings' => (object) [
                     'delayEmbed' => true,
                     'externalEmbedUrl' => $externalEmbedUrl,
