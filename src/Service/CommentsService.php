@@ -6,6 +6,7 @@ namespace App\Service;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use BBC\ProgrammesMorphLibrary\Entity\MorphView;
+use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 
 class CommentsService
@@ -26,7 +27,21 @@ class CommentsService
         $this->client = $client;
     }
 
-    public function fetchPostComments(Blog $blog, Post $post): ?MorphView
+    public function queuePostComments(Blog $blog, Post $post): void
+    {
+        $this->client->queueView(
+            'bbc-morph-comments-view',
+            [
+                'apiKey' => $this->apiKey,
+                'mode' => 'embedded',
+                'idctaEnv' => $this->env,
+                'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
+            ],
+            []
+        );
+    }
+
+    public function getPostComments(Blog $blog, Post $post): ?MorphView
     {
         return $this->client->getView(
             'bbc-morph-comments-view',
@@ -37,7 +52,8 @@ class CommentsService
                 'idctaEnv' => $this->env,
                 'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
             ],
-            []
+            [],
+            'There was an error when fetching the comments. Please try again in a few moments.'
         );
     }
 }

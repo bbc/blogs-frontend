@@ -24,6 +24,8 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
+        $commentsService->queuePostComments($blog, $post);
+
         $this->hasVideo = $post->hasVideo();
         $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
 
@@ -48,7 +50,7 @@ class PostShowController extends BlogsBaseController
             Chronos::now()
         );
 
-        $comments = $commentsService->fetchPostComments($blog, $post);
+        $comments = $commentsService->getPostComments($blog, $post);
 
         return $this->renderWithChrome(
             'post/show.html.twig',
