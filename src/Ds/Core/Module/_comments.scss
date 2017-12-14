@@ -1,0 +1,20 @@
+#comments a {
+    &:hover,
+    &:active,
+    &:focus {
+        color: black;
+    }
+}
+
+#comments ul,
+#comments li {
+    list-style: none outside none;
+    margin: 0;
+}
+
+/* Override iOS rendering rounding and applying
+ * gradient to submit button */
+#comments input[type=submit] {
+    -webkit-appearance: none;
+    -webkit-border-radius: 0;
+}
