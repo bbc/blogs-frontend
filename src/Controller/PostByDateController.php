@@ -35,10 +35,10 @@ class PostByDateController extends BlogsBaseController
         /** @var Post[] $oldestPosts */
         $oldestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'asc')->getDomainModels();
 
+        $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $postService, $year, $month, $totalPostsMonth, $nowDateTime);
+
         $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : $nowDateTime;
         $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : $nowDateTime;
-
-        $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $year, $postService, $totalPostsMonth, $nowDateTime);
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
@@ -68,33 +68,33 @@ class PostByDateController extends BlogsBaseController
      * Returns a 1-indexed 12 element array of post counts, one for each month, in order
      * @return int[]
      */
-    private function getCountsForAllMonthsInChosenYear(Blog $blog, int $year, PostService $postService, int $currentMonthTotalPosts, Chronos $now): array
+    private function getCountsForAllMonthsInChosenYear(Blog $blog, PostService $postService, int $viewYear, int $viewMonth, int $viewMonthTotalPosts, Chronos $now): array
     {
         $currentYear = (int) $now->format('Y');
         $currentMonth = (int) $now->format('m');
 
-        if ($year > $currentYear) {
+        if ($viewYear > $currentYear) {
             return array_fill(1, 12, 0);
         }
 
         $monthsToQuery = [];
 
-        if ($year < $currentYear) {
+        // If year is in the past we need the counts for all months
+        // Query all months except the one we're viewing as that's already retrieved
+        if ($viewYear < $currentYear) {
             $monthsToQuery = range(1, 12);
-            return $postService->getPostCountForMonthsInYear($blog, $year, $monthsToQuery);
+        } else {
+            // We are viewing current year, we don't want to query months that are in the future
+            $monthsToQuery = range(1, $currentMonth);
         }
 
-        // We are in current year, we only want to query for months that have already happened
-        for ($i = 1; $i < 13; $i++) {
-            if ($i < $currentMonth) {
-                $monthsToQuery[] = $i;
-            }
-        }
+        // Avoid querying as we already have this count
+        unset($monthsToQuery[$viewMonth-1]);
 
-        $results = $postService->getPostCountForMonthsInYear($blog, $year, $monthsToQuery);
+        $results = $postService->getPostCountForMonthsInYear($blog, $viewYear, $monthsToQuery);
 
         // We have already got this count
-        $results[$currentMonth] = $currentMonthTotalPosts;
+        $results[$viewMonth] = $viewMonthTotalPosts;
 
         // All unfetched months this year are yet to happen, so they have 0 posts
         for ($i = 1; $i < 13; $i++) {
