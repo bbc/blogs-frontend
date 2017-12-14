@@ -5,6 +5,7 @@ namespace App\Service;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
+use App\Translate\TranslateProvider;
 use BBC\ProgrammesMorphLibrary\Entity\MorphView;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use BBC\ProgrammesMorphLibrary\MorphClient;
@@ -24,12 +25,16 @@ class CommentsService
     /** @var LoggerInterface */
     private $logger;
 
-    public function __construct(LoggerInterface $logger, MorphClient $client, string $apiKey, string $env)
+    /** @var TranslateProvider */
+    private $translateProvider;
+
+    public function __construct(LoggerInterface $logger, TranslateProvider $translateProvider, MorphClient $client, string $apiKey, string $env)
     {
         $this->apiKey = $apiKey;
         $this->env = $env;
         $this->client = $client;
         $this->logger = $logger;
+        $this->translateProvider = $translateProvider;
     }
 
     public function queuePostComments(Blog $blog, Post $post): void
@@ -58,16 +63,14 @@ class CommentsService
                     'idctaEnv' => $this->env,
                     'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
                 ],
-                [],
-                'There was an error when fetching the comments. Please try again in a few moments.'
+                []
             );
-        }
-        catch (MorphErrorException $e) {
+        } catch (MorphErrorException $e) {
             $this->logger->error($e->getMessage());
             return new MorphView(
                 'comments-module',
                 [],
-                'There was an error when fetching the comments. Please try again in a few moments.',
+                $this->translateProvider->getTranslate()->translate('error_comments'),
                 []
             );
         }
