@@ -28,8 +28,13 @@ class CommentsService
     /** @var TranslateProvider */
     private $translateProvider;
 
-    public function __construct(LoggerInterface $logger, TranslateProvider $translateProvider, MorphClient $client, string $apiKey, string $env)
-    {
+    public function __construct(
+        LoggerInterface $logger,
+        TranslateProvider $translateProvider,
+        MorphClient $client,
+        string $apiKey,
+        string $env
+    ) {
         $this->apiKey = $apiKey;
         $this->env = $env;
         $this->client = $client;
