@@ -62,6 +62,7 @@ services:
 
     App\Service\CommentsService:
         arguments:
+            - '@logger'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
             - '%env(COMMENTS_API_KEY)%'
             - '%app.feed_env.comments%'
