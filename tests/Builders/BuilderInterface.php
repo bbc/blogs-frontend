@@ -1,9 +1,10 @@
 <?php
 declare(strict_types = 1);
 
-namespace App\Builders;
+namespace Tests\App\Builders;
 
 interface BuilderInterface
 {
+    public static function default();
     public function build();
 }

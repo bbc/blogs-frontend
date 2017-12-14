@@ -13,10 +13,10 @@ use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
-use App\Builders\PostBuilder;
 use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
 use Tests\App\BaseWebTestCase;
+use Tests\App\Builders\PostBuilder;
 
 /**
  * @covers \App\Controller\PostByDateController

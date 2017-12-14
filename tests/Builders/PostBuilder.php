@@ -1,6 +1,7 @@
 <?php
 declare(strict_types = 1);
-namespace App\Builders;
+
+namespace Tests\App\Builders;
 
 use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\ContentBlock\Prose;
