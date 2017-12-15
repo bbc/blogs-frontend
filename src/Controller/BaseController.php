@@ -84,6 +84,7 @@ abstract class BaseController extends AbstractController
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->getIstatsPageType(), $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
+        $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
         $translateProvider->setLocale($locale);
         $orb = $this->container->get(OrbitClient::class)->getContent([
@@ -92,13 +93,14 @@ abstract class BaseController extends AbstractController
         ], [
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'programmes-content',
-            'analyticsCounterName' => (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName),
+            'analyticsCounterName' => $istatsCounterName,
             'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
         ]);
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
             'meta_context' => new MetaContext(),
+            'istats_counter_name' => $istatsCounterName,
         ], $parameters);
         return $this->render($view, $parameters, $this->response);
     }
