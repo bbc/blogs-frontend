@@ -6,8 +6,6 @@ define('smp',['jquery-1.9'], function ($) {
         this.options = {};
         this.setOptions(options);
         this.init();
-
-        console.log(window);
     };
 
     SMP.prototype = {
