@@ -37,9 +37,6 @@ class Blog
     /** @var Social */
     private $social;
 
-    /** @var Comments */
-    private $comments;
-
     /** @var string */
     private $bbcSite;
 
@@ -55,6 +52,9 @@ class Blog
     /** @var bool */
     private $isArchived;
 
+    /** @var bool */
+    private $isCommentsEnabled;
+
     public function __construct(
         string $id,
         string $name,
@@ -67,7 +67,7 @@ class Blog
         string $brandingId,
         array $modules,
         Social $social,
-        Comments $comments = null,
+        bool $isCommentsEnabled,
         Post $featuredPost = null,
         Image $image,
         bool $isArchived = false
@@ -89,12 +89,12 @@ class Blog
         $this->language = $language;
         $this->istatsCountername = $istatsCountername;
         $this->social = $social;
-        $this->comments = $comments;
         $this->bbcSite = $bbcSite;
         $this->brandingId = $brandingId;
         $this->featuredPost = $featuredPost;
         $this->modules = $modules;
         $this->isArchived = $isArchived;
+        $this->isCommentsEnabled = $isCommentsEnabled;
     }
 
     public function getId(): string
@@ -145,9 +145,9 @@ class Blog
         return $this->social;
     }
 
-    public function getComments(): ?Comments
+    public function isCommentsEnabled(): bool
     {
-        return $this->comments;
+        return $this->isCommentsEnabled;
     }
 
     public function getBbcSite(): string

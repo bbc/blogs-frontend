@@ -50,9 +50,11 @@
         {%- endif -%}
     {%- endif -%}
 
-    {%- for script in comments.getHead() -%}
-        {{ script|raw }}
-    {%- endfor -%}
+    {%- if blog.isCommentsEnaled() -%}
+        {%- for script in comments.getHead() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- endif -%}
 
     {{ parent() }}
 {% endblock %}
@@ -119,11 +121,11 @@
             {{ ds('postSocialBar', post, blog.getId())}}
         {% endif %}
 
-        {% if blog.getComments() and blog.getComments().isEnabled() %}
-            <div class="component" id="comments">
+        {%- if blog.isCommentsEnaled() -%}
+            <div class="component comments-section" id="comments">
                 {{ comments.getBody()|raw }}
             </div>
-        {% endif %}
+        {%- endif -%}
     </div>
 
     {%- if prevPost or nextPost -%}
@@ -138,9 +140,11 @@
         </div>
     {%- endif -%}
 
-    {%- for script in comments.getBodyLast() -%}
-        {{ script|raw }}
-    {%- endfor -%}
+    {%- if blog.isCommentsEnaled() -%}
+        {%- for script in comments.getBodyLast() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- endif -%}
 {%- endblock -%}
 
 {% macro morePosts(blogId, post, header, istatsLocation) %}

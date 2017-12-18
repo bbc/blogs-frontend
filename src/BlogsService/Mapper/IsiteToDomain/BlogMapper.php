@@ -36,9 +36,7 @@ class BlogMapper extends Mapper
 
         $social = new Social($twitterUsername, $facebookUrl, $googlePlusUrl);
 
-        // TODO check when integrating new comments module
-        $commentsSiteId = $this->getString($formMetaData->{'site-id-comments'});
-        $comments = new Comments($commentsSiteId);
+        $isCommentsEnabled = ($this->getString($formMetaData->{'site-id-comments'}) ?? '') !== '';
 
         $bbcSite = $this->getString($formMetaData->{'bbc-site'});
         $brandingId = $this->getString($formMetaData->{'blogs-branding-id'});
@@ -88,7 +86,7 @@ class BlogMapper extends Mapper
             $brandingId,
             $modules,
             $social,
-            $comments,
+            $isCommentsEnabled,
             $featuredPost,
             $image,
             $isArchived

@@ -50,7 +50,7 @@ class CommentsService
                 'apiKey' => $this->apiKey,
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
-                'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
+                'forumId' => $this->getForumId($blog, $post),
             ],
             []
         );
@@ -66,7 +66,7 @@ class CommentsService
                     'apiKey' => $this->apiKey,
                     'mode' => 'embedded',
                     'idctaEnv' => $this->env,
-                    'forumId' => 'blogs_' . $blog->getId() . $post->getForumId(),
+                    'forumId' => $this->getForumId($blog, $post),
                 ],
                 []
             );
@@ -79,5 +79,10 @@ class CommentsService
                 []
             );
         }
+    }
+
+    private function getForumId(Blog $blog, Post $post): string
+    {
+        return 'blogs_' . $blog->getId() . $post->getForumId();
     }
 }

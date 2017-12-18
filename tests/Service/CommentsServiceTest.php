@@ -1,13 +1,14 @@
 <?php
 declare(strict_types=1);
 
-namespace Tests\App\Controller;
+namespace Tests\App\Service;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Service\CommentsService;
 use App\Translate\TranslateProvider;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
+use BBC\ProgrammesMorphLibrary\MorphClient;
 use PHPUnit\Framework\TestCase;
 use Psr\Log\LoggerInterface;
 use RMP\Translate\TranslateFactory;
@@ -29,14 +30,13 @@ class CommentsServiceTest extends TestCase
 
     public function testGetPostCommentsCatchesExceptionAndReturnsErrorMessage()
     {
-        $client = $this->createMock(CommentsService::class)
-            ->method('getView')
-            ->willThrowException(new MorphErrorException());
+        $client = $this->createMock(MorphClient::class);
+        $client->method('getView')->willThrowException(new MorphErrorException());
 
         $service = new CommentsService($this->logger, $this->translateProvider, $client, 'asd', 'test');
         $response = $service->getPostComments($this->blog, $this->post);
         $this->assertEquals([], $response->getHead());
-        $this->assertEquals([], $response->getBody());
+        $this->assertEquals('error_comments', $response->getBody());
         $this->assertEquals([], $response->getBodyLast());
     }
 }

@@ -166,7 +166,7 @@ class HomeControllerTest extends BaseWebTestCase
             'anything',
             [],
             new Social('', '', ''),
-            null,
+            false,
             null,
             new Image('p0215q0b'), //default provided by mapper
             $isArchived
