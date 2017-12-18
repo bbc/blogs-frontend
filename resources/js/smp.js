@@ -18,10 +18,9 @@ define('smp',['jquery-1.9'], function ($) {
             playerSettings : {
                 product : "iplayer",
                 siteID : 'iPlayer',
-                appName: "blogs",
+                appName: "blogs5",
                 appType: "web",
-                // counterName : window.bbcBlogs.counterName || null,
-                counterName : 'test', //TODO THIS IS JUST TEMPORARY FIX IT PROPERLY - https://jira.dev.bbc.co.uk/browse/BLOGS-1303
+                counterName : window.bbcBlogs.counterName,
                 playerProfile: 'smp',
                 responsive: true,
                 superResponsive: true,
