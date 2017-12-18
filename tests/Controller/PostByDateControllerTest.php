@@ -288,7 +288,7 @@ class PostByDateControllerTest extends BaseWebTestCase
             'br-08799',
             [new FreeText('Free Text Title', 'Here is some free text, for free!')],
             new Social('@testblogtwitter', 'testblogfacebook', 'testbloggoogle'),
-            null,
+            false,
             null,
             new Image('p017j1r1'),
             false

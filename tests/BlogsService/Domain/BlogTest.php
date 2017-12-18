@@ -58,7 +58,7 @@ class BlogTest extends TestCase
         $this->assertEquals($this->language, $testObj->getLanguage());
         $this->assertEquals($this->istatsCountername, $testObj->getIstatsCountername());
         $this->assertSame($this->social, $testObj->getSocial());
-        $this->assertSame($this->isCommentsAvailabe, $testObj->isCommentsEnabled());
+        $this->assertSame($this->isCommentsAvailabe, $testObj->hasCommentsEnabled());
         $this->assertEquals($this->bbcSite, $testObj->getBbcSite());
         $this->assertEquals($this->brandingId, $testObj->getBrandingId());
         $this->assertSame($this->modules, $testObj->getModules());

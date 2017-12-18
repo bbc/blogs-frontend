@@ -53,7 +53,7 @@ class Blog
     private $isArchived;
 
     /** @var bool */
-    private $isCommentsEnabled;
+    private $hasCommentsEnabled;
 
     public function __construct(
         string $id,
@@ -67,7 +67,7 @@ class Blog
         string $brandingId,
         array $modules,
         Social $social,
-        bool $isCommentsEnabled,
+        bool $hasCommentsEnabled,
         Post $featuredPost = null,
         Image $image,
         bool $isArchived = false
@@ -94,7 +94,7 @@ class Blog
         $this->featuredPost = $featuredPost;
         $this->modules = $modules;
         $this->isArchived = $isArchived;
-        $this->isCommentsEnabled = $isCommentsEnabled;
+        $this->hasCommentsEnabled = $hasCommentsEnabled;
     }
 
     public function getId(): string
@@ -145,9 +145,9 @@ class Blog
         return $this->social;
     }
 
-    public function isCommentsEnabled(): bool
+    public function hasCommentsEnabled(): bool
     {
-        return $this->isCommentsEnabled;
+        return $this->hasCommentsEnabled;
     }
 
     public function getBbcSite(): string
