@@ -12,7 +12,6 @@ use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
-use App\ValueObject\CosmosInfo;
 use Exception;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -58,7 +57,6 @@ abstract class BlogsBaseController extends BaseController
         $parameters['blogTags'] = $this->getTagsByBlog();
         $parameters['blog'] = $this->blog;
         $parameters['modulePresenters'] = $this->getModulePresenters();
-        $parameters['endpointHost'] = $this->container->get(CosmosInfo::class)->getEndpointHost();
 
         return parent::renderWithChrome($view, $parameters);
     }
