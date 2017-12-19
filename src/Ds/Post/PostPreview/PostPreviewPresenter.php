@@ -45,11 +45,7 @@ class PostPreviewPresenter extends AbstractPostPresenter
 
     public function hasCommentsEnabled(): bool
     {
-        if ($this->blog->getComments() === null) {
-            return false;
-        }
-
-        return $this->blog->getComments()->isEnabled();
+        return $this->blog->hasCommentsEnabled();
     }
 
     /** Presenter[] */

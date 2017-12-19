@@ -21,7 +21,7 @@ class BlogTest extends TestCase
     private $brandingId;
     private $modules;
     private $social;
-    private $comments;
+    private $isCommentsAvailabe;
     private $featuredPost;
     private $image;
     private $isArchived;
@@ -38,7 +38,7 @@ class BlogTest extends TestCase
         $this->modules        = array();
         $this->istatsCountername = 'eastenders';
         $this->social         = new Social('', '', '');
-        $this->comments       = null;
+        $this->isCommentsAvailabe = false;
         $this->bbcSite        = 'kl-bitesize';
         $this->brandingId     = 'internetblog';
         $this->featuredPost   = null; /** TODO ADD A FEATURED POST WHEN POSTS IMPLEMENTED */
@@ -58,7 +58,7 @@ class BlogTest extends TestCase
         $this->assertEquals($this->language, $testObj->getLanguage());
         $this->assertEquals($this->istatsCountername, $testObj->getIstatsCountername());
         $this->assertSame($this->social, $testObj->getSocial());
-        $this->assertSame($this->comments, $testObj->getComments());
+        $this->assertSame($this->isCommentsAvailabe, $testObj->hasCommentsEnabled());
         $this->assertEquals($this->bbcSite, $testObj->getBbcSite());
         $this->assertEquals($this->brandingId, $testObj->getBrandingId());
         $this->assertSame($this->modules, $testObj->getModules());
@@ -80,7 +80,7 @@ class BlogTest extends TestCase
             $this->brandingId,
             $this->modules,
             $this->social,
-            $this->comments,
+            $this->isCommentsAvailabe,
             $this->featuredPost,
             $this->image,
             $this->isArchived

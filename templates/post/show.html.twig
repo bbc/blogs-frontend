@@ -50,6 +50,12 @@
         {%- endif -%}
     {%- endif -%}
 
+    {%- if blog.hasCommentsEnabled() -%}
+        {%- for script in comments.getHead() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- endif -%}
+
     {{ parent() }}
 {% endblock %}
 
@@ -97,7 +103,7 @@
                     {{ ds('postTags', post.getTags(), blog.getId()) }}
                 {% endif %}
 
-                {% if blog.getComments() and blog.getComments().isEnabled() %}
+                {% if blog.hasCommentsEnabled() %}
                     {{ ds('postSocialBar', post, blog.getId())}}
                 {% endif %}
             </div>
@@ -111,15 +117,15 @@
             {{ ds('postTags', post.getTags(), blog.getId()) }}
         {% endif %}
 
-        {% if blog.getComments() and blog.getComments().isEnabled() %}
+        {% if blog.hasCommentsEnabled() %}
             {{ ds('postSocialBar', post, blog.getId())}}
         {% endif %}
 
-        {% if blog.getComments() and blog.getComments().isEnabled() %}
-            <div class="component" id="comments">
-                COMMENTS GO HERE
+        {%- if blog.hasCommentsEnabled() -%}
+            <div class="component comments-section" id="comments">
+                {{ comments.getBody()|raw }}
             </div>
-        {% endif %}
+        {%- endif -%}
     </div>
 
     {%- if prevPost or nextPost -%}
@@ -132,6 +138,12 @@
                 {{ postShow.morePosts(blog.getId(), nextPost, 'link_next', 'blogs_post_bottom_next') }}
             {%- endif -%}
         </div>
+    {%- endif -%}
+
+    {%- if blog.hasCommentsEnabled() -%}
+        {%- for script in comments.getBodyLast() -%}
+            {{ script|raw }}
+        {%- endfor -%}
     {%- endif -%}
 {%- endblock -%}
 

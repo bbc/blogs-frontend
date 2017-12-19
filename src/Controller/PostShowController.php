@@ -6,11 +6,15 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
+use App\Service\CommentsService;
+use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use Cake\Chronos\Chronos;
+use Exception;
 
 class PostShowController extends BlogsBaseController
 {
-    public function __invoke(Blog $blog, string $guid, PostService $postService)
+    /** @throws MorphErrorException|Exception */
+    public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $this->setBlog($blog);
 
@@ -19,6 +23,8 @@ class PostShowController extends BlogsBaseController
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
         }
+
+        $commentsService->queuePostComments($blog, $post);
 
         $this->hasVideo = $post->hasVideo();
         $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
@@ -44,12 +50,15 @@ class PostShowController extends BlogsBaseController
             Chronos::now()
         );
 
+        $comments = $commentsService->getPostComments($blog, $post);
+
         return $this->renderWithChrome(
             'post/show.html.twig',
             [
                 'post' => $post,
                 'prevPost' => $previousPost,
                 'nextPost' => $nextPost,
+                'comments' => $comments,
             ]
         );
     }

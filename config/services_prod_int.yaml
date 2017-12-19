@@ -1,5 +1,7 @@
 parameters:
     app.api_endpoint: 'https://api.test.bbc.co.uk/isite2-content-reader'
     app.endpoint_host: 'https://www.int.bbc.co.uk'
+    app.morph.endpoint: 'https://morph.test.api.bbci.co.uk'
     app.feed_env.orbit: 'test'
     app.feed_env.branding: 'test'
+    app.feed_env.comments: 'test'

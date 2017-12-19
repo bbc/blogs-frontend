@@ -7,7 +7,9 @@ parameters:
     app.endpoint_host: 'https://www.bbc.co.uk'
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
+    app.feed_env.comments: 'live'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
+    app.morph.endpoint: 'https://morph.api.bbci.co.uk'
     cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
 
 services:
@@ -58,6 +60,14 @@ services:
             - '%app.api_endpoint%'
             - '@csa_guzzle.client.default'
 
+    App\Service\CommentsService:
+        arguments:
+            - '@logger'
+            - '@App\Translate\TranslateProvider'
+            - '@BBC\ProgrammesMorphLibrary\MorphClient'
+            - '%env(COMMENTS_API_KEY)%'
+            - '%app.feed_env.comments%'
+
     App\ValueObject\CosmosInfo:
         arguments: ['%cosmos_component_release%', '%env(COSMOS_ENV)%', '%app.endpoint_host%']
 
@@ -77,6 +87,12 @@ services:
             - env: '%app.feed_env.orbit%'
               cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.orbit'
               mustache: { cache: '%kernel.cache_dir%/mustache' }
+
+    BBC\ProgrammesMorphLibrary\MorphClient:
+        arguments:
+            - '@logger'
+            - '@csa_guzzle.client.default'
+            - '%app.morph.endpoint%'
 
     cache.default_redis_provider:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'

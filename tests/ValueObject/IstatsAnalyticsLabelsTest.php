@@ -38,7 +38,7 @@ class IstatsAnalyticsLabelsTest extends TestCase
     {
         $blog = $this->createMock(Blog::class);
         $blog->method('getBbcSite')->willReturn('bbc_site');
-        $blog->method('getComments')->willReturn(new Comments('site_id'));
+        $blog->method('hasCommentsEnabled')->willReturn(true);
         $blog->method('getName')->willReturn('name');
         $blog->method('getId')->willReturn('project_id');
         $blog->method('getLanguage')->willReturn('language');

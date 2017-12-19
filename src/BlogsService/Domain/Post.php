@@ -62,6 +62,11 @@ class Post
         $this->tags = $tags;
     }
 
+    public function getForumId(): string
+    {
+        return $this->forumId;
+    }
+
     public function getGuid(): GUID
     {
         return $this->guid;

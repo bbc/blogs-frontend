@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "cc75335ec9965dfa772f70ce349ffe96",
+    "content-hash": "60fa1754cb7be40bbc19315257ad76e7",
     "packages": [
         {
             "name": "bbc-rmp/translate",
@@ -125,6 +125,48 @@
                 "issues": "https://github.com/bbc/gel-iconography-assets/issues"
             },
             "time": "2017-09-04T13:45:14+00:00"
+        },
+        {
+            "name": "bbc/programmes-morph-library",
+            "version": "v0.1",
+            "source": {
+                "type": "git",
+                "url": "git@github.com:bbc/programmes-morph-library.git",
+                "reference": "69613f03b285768ba5826268aae0a57bb68703d8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/69613f03b285768ba5826268aae0a57bb68703d8",
+                "reference": "69613f03b285768ba5826268aae0a57bb68703d8",
+                "shasum": ""
+            },
+            "require": {
+                "guzzlehttp/guzzle": "^6.0",
+                "psr/log": "^1.0.0"
+            },
+            "require-dev": {
+                "escapestudios/symfony2-coding-standard": "^3.0",
+                "phpstan/phpstan": "^0.9",
+                "phpstan/phpstan-phpunit": "^0.9",
+                "phpunit/phpunit": "^6.0",
+                "squizlabs/php_codesniffer": "^3.1"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BBC\\ProgrammesMorphLibrary\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\BBC\\ProgrammesMorphLibrary\\": "tests/"
+                }
+            },
+            "support": {
+                "source": "https://github.com/bbc/programmes-morph-library/tree/v0.1",
+                "issues": "https://github.com/bbc/programmes-morph-library/issues"
+            },
+            "time": "2017-12-19T16:21:32+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -3864,16 +3906,16 @@
         },
         {
             "name": "phpstan/phpstan-phpunit",
-            "version": "0.9.1",
+            "version": "0.9.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpstan/phpstan-phpunit.git",
-                "reference": "39c77aa5757e3bc08120e9af655c381ed789dadb"
+                "reference": "96d24214755c07dc5e7d7595f4233b080412ed04"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/39c77aa5757e3bc08120e9af655c381ed789dadb",
-                "reference": "39c77aa5757e3bc08120e9af655c381ed789dadb",
+                "url": "https://api.github.com/repos/phpstan/phpstan-phpunit/zipball/96d24214755c07dc5e7d7595f4233b080412ed04",
+                "reference": "96d24214755c07dc5e7d7595f4233b080412ed04",
                 "shasum": ""
             },
             "require": {
@@ -3905,7 +3947,7 @@
                 "MIT"
             ],
             "description": "PHPUnit extensions and rules for PHPStan",
-            "time": "2017-12-02T19:37:58+00:00"
+            "time": "2017-12-11T09:46:38+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
