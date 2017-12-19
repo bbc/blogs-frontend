@@ -24,7 +24,7 @@
         </p>
     {% endif %}
 
-    {% if post_preview.getBlog().hasCommentsEnabled() %}
+    {% if post_preview.hasCommentsEnabled() %}
         {{ ds('postSocialBar', post_preview.getPost(), post_preview.getBlogId())}}
     {% endif %}
 </div>
