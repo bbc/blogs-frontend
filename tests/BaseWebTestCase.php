@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace Tests\App;
 
+use App\Helper\ApplicationTimeProvider;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
@@ -35,6 +36,12 @@ abstract class BaseWebTestCase extends WebTestCase
         } else {
             $this->assertNotEmpty($client->getResponse()->headers->get('Content-Language'));
         }
+    }
+
+    public function tearDown()
+    {
+        ApplicationTimeProvider::clearTestDateTime();
+        parent::tearDown();
     }
 
     /**

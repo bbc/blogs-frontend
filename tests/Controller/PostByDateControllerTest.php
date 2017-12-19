@@ -4,11 +4,6 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\Module\FreeText;
-use App\BlogsService\Domain\Tag;
-use App\BlogsService\Domain\ValueObject\FileID;
-use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
@@ -16,7 +11,9 @@ use App\BlogsService\Service\TagService;
 use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
 use Tests\App\BaseWebTestCase;
+use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\PostBuilder;
+use Tests\App\Builders\TagBuilder;
 
 /**
  * @covers \App\Controller\PostByDateController
@@ -29,9 +26,7 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewCurrentMonthYear()
     {
-        $time = new ApplicationTimeProvider();
-        $now = Chronos::create(2017, 9, 8, 13, 55);
-        $time->setTestDateTime($now);
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 9, 8, 13, 55));
 
         $client = static::createClient();
 
@@ -42,7 +37,7 @@ class PostByDateControllerTest extends BaseWebTestCase
         ];
 
         $tags = $this->createTestTags();
-        $blog = $this->createTestBlog();
+        $blog = BlogBuilder::default()->build();
 
         $isiteResultPosts = new IsiteResult(1, 20, count($posts), $posts);
         $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
@@ -115,8 +110,6 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();
         $this->assertEquals('Saturday 02 September 2017, 09:00', trim($firstPostDate));
-
-        $time->clearTestDateTime();
     }
 
     /**
@@ -125,8 +118,7 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInPast()
     {
-        $time = new ApplicationTimeProvider();
-        $time->setTestDateTime(Chronos::create(2017, 12, 5, 12, 51));
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 12, 5, 12, 51));
 
         $client = static::createClient();
 
@@ -143,7 +135,7 @@ class PostByDateControllerTest extends BaseWebTestCase
         ];
 
         $tags = $this->createTestTags();
-        $blog = $this->createTestBlog();
+        $blog = BlogBuilder::default()->build();
 
         $isiteResultPosts = new IsiteResult(1, 30, count($posts), $posts);
         $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
@@ -219,8 +211,6 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();
         $this->assertEquals('Monday 04 April 2016, 09:00', trim($firstPostDate));
-
-        $time->clearTestDateTime();
     }
 
     /**
@@ -229,8 +219,7 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInFuture()
     {
-        $time = new ApplicationTimeProvider();
-        $time->setTestDateTime(Chronos::create(2016, 2, 3, 11, 30));
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2016, 2, 3, 11, 30));
 
         $client = static::createClient();
 
@@ -270,36 +259,13 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $blogPosts = $crawler->filterXPath('//div[@itemprop="blogPost"]');
         $this->assertEquals(0, $blogPosts->count());
-
-        $time->clearTestDateTime();
-    }
-
-    private function createTestBlog(): Blog
-    {
-        return new Blog(
-            'testblog',
-            'Test Blog',
-            'This is the short synopsis of the test blog. It\'s short.',
-            'This is the description of the test blog. It\'s not as short as the short synopsis',
-            false,
-            'en-GB',
-            'test.testblog',
-            '',
-            'br-08799',
-            [new FreeText('Free Text Title', 'Here is some free text, for free!')],
-            new Social('@testblogtwitter', 'testblogfacebook', 'testbloggoogle'),
-            false,
-            null,
-            new Image('p017j1r1'),
-            false
-        );
     }
 
     private function createTestTags(): array
     {
         return [
-            new Tag(new FileID('tagfileid'), 'sometag'),
-            new Tag(new FileID('tagfileid2'), 'someothertag'),
+            TagBuilder::default()->build(),
+            TagBuilder::default()->build(),
         ];
     }
 }

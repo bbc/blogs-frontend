@@ -4,13 +4,12 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
+use Tests\App\Builders\BlogBuilder;
 
 /**
  * @covers \App\Controller\HomeController
@@ -21,7 +20,7 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('First Blog');
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog]);
 
@@ -43,8 +42,8 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('First Blog');
-        $blog2 = $this->createBlog('Fake Blog');
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
+        $blog2 = BlogBuilder::default()->withName('Fake Blog')->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
 
@@ -57,8 +56,8 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('First Blog');
-        $blog2 = $this->createBlog('Second Blog');
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
+        $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
 
@@ -71,8 +70,8 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('First Blog', true);
-        $blog2 = $this->createBlog('Second Blog');
+        $blog = BlogBuilder::default()->withName('First Blog')->withIsArchived(true)->build();
+        $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
 
@@ -85,8 +84,8 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('BBC Blog A Name');
-        $blog2 = $this->createBlog('Blog BBC Some Name');
+        $blog = BlogBuilder::default()->withName('BBC Blog A Name')->build();
+        $blog2 = BlogBuilder::default()->withName('Blog BBC Some Name')->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
 
@@ -109,7 +108,7 @@ class HomeControllerTest extends BaseWebTestCase
     {
         $client = static::createClient();
 
-        $blog = $this->createBlog('First Blog', true);
+        $blog = BlogBuilder::default()->withIsArchived(true)->build();
 
         $crawler = $this->getCrawlerForPage($client, [$blog]);
 
@@ -150,27 +149,6 @@ class HomeControllerTest extends BaseWebTestCase
             $this->assertList($h2s->eq($index), $lists->eq($index)->filter('h3'), $heading, $titles);
             ++$index;
         }
-    }
-
-    private function createBlog(string $name, bool $isArchived = false): Blog
-    {
-        return new Blog(
-            'anything',
-            $name,
-            'anything',
-            'anything',
-            false,
-            'anything',
-            'anything',
-            'anything',
-            'anything',
-            [],
-            new Social('', '', ''),
-            false,
-            null,
-            new Image('p0215q0b'), //default provided by mapper
-            $isArchived
-        );
     }
 
     /**
