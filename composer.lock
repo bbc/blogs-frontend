@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5225ec7f14c0a2c8b61268b8af92c6ad",
+    "content-hash": "60fa1754cb7be40bbc19315257ad76e7",
     "packages": [
         {
             "name": "bbc-rmp/translate",
@@ -128,16 +128,16 @@
         },
         {
             "name": "bbc/programmes-morph-library",
-            "version": "dev-master",
+            "version": "v0.1",
             "source": {
                 "type": "git",
                 "url": "git@github.com:bbc/programmes-morph-library.git",
-                "reference": "005d04411c864d0c3b1a32b252bb3140c388338d"
+                "reference": "69613f03b285768ba5826268aae0a57bb68703d8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/005d04411c864d0c3b1a32b252bb3140c388338d",
-                "reference": "005d04411c864d0c3b1a32b252bb3140c388338d",
+                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/69613f03b285768ba5826268aae0a57bb68703d8",
+                "reference": "69613f03b285768ba5826268aae0a57bb68703d8",
                 "shasum": ""
             },
             "require": {
@@ -163,10 +163,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/bbc/programmes-morph-library/tree/master",
+                "source": "https://github.com/bbc/programmes-morph-library/tree/v0.1",
                 "issues": "https://github.com/bbc/programmes-morph-library/issues"
             },
-            "time": "2017-12-08T11:56:04+00:00"
+            "time": "2017-12-19T16:21:32+00:00"
         },
         {
             "name": "cakephp/chronos",
@@ -5716,7 +5716,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "bbc/programmes-morph-library": 20,
         "symfony/lts": 20
     },
     "prefer-stable": false,

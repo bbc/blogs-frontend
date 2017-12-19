@@ -93,7 +93,6 @@ services:
             - '@logger'
             - '@csa_guzzle.client.default'
             - '%app.morph.endpoint%'
-            - 3
 
     cache.default_redis_provider:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
