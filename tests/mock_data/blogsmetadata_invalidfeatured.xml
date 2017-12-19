@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2016-06-16T13:31:26.067868Z</modifiedDateTime><creationDateTime>2014-11-27T10:22:17.693104Z</creationDateTime><type>blogsmetadata</type><fileId>blogs-meta-data</fileId><guid>38954b6f-15f1-3327-b4bb-2732e5bc44bf</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/blogsmetadata"><metadata><blog-name>Being Human</blog-name><blogs-branding-id>br-07916</blogs-branding-id><short-synopsis>Welcome to the Being Human blog, where we bring you all the inside info (including exclusive extra scenes) from your favourite BBC Three drama. With a werewolf, a vampire and a ghost, anything can happen so stick around and find out!</short-synopsis><description>Welcome to the Being Human blog, where we bring you all the inside info (including exclusive extra scenes) from your favourite BBC Three drama. With a werewolf, a vampire and a ghost, anything can happen so stick around and find out.</description><blog-image/><show-image-in-description>false</show-image-in-description><language>en-GB</language><istats-countername>beinghuman</istats-countername><site-id-twitter/><forum-id-twitter/><enable-twitter>false</enable-twitter><enable-sharing>true</enable-sharing><header-text-twitter/><twitter-username/><google-plus-url/><facebook-url/><twitter-url>http://twitter.com/</twitter-url><site-id-comments>blogbeinghuman</site-id-comments><enable-comments>true</enable-comments><bbc-site/><twitter-header-text/><twitter-footer-text/></metadata><section-9><featured><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><fileId>blogs-post-141702218293123</fileId></metadata><document/></result></featured></section-9><sidebar-modules><grid-12><module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-04-23T09:39:56.695709Z</modifiedDateTime><creationDateTime>2014-12-03T15:35:16.02094Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417012590</fileId><guid>87e7e77c-32bf-422b-85c1-9bd3b38e6290</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/blogs-sidebar-freetext">
+    <metadata>
+        <file_id>1417012590</file_id>
+    </metadata>
+    <freetext>
+        <moduletitle>Blog Archive</moduletitle>
+        <image/>
+        <body>&lt;p&gt;Catch up on all the series 1 to 4 blog posts in our &lt;a href="http://www.bbc.co.uk/blogs/beinghuman/archives.html"&gt;blog archive&lt;/a&gt;&lt;/p&gt;</body>
+    </freetext>
+</form></document></result></module></grid-12><grid-12><module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-04-23T09:39:56.695709Z</modifiedDateTime><creationDateTime>2014-12-03T15:35:16.02094Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417014847</fileId><guid>f49615fc-e202-4ca9-9b4d-3dd55f40d7b5</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/blogs-sidebar-freetext">
+    <metadata>
+        <file_id>1417014847</file_id>
+    </metadata>
+    <freetext>
+        <moduletitle>Being Human on Twitter</moduletitle>
+        <image/>
+        <body>&lt;p&gt;Follow us on Twitter &lt;a href="http://www.twitter.com/bbcbeinghuman"&gt;@bbcbeinghuman&lt;/a&gt;&lt;/p&gt;</body>
+    </freetext>
+</form></document></result></module></grid-12><grid-12><module><result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2015-04-23T09:39:56.695709Z</modifiedDateTime><creationDateTime>2014-12-03T15:35:16.02094Z</creationDateTime><type>blogs-sidebar-freetext</type><fileId>blogs-sidebar-1417014933</fileId><guid>33b94f06-e191-48e4-b2f5-a9b16dcc827a</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/blogs-sidebar-freetext">
+    <metadata>
+        <file_id>1417014933</file_id>
+    </metadata>
+    <freetext>
+        <moduletitle>Being Human on Facebook</moduletitle>
+        <image/>
+        <body>&lt;p&gt;Like our &lt;a href="https://www.facebook.com/BBC.Being.Human?ref=ts"&gt;Being Human Facebook page&lt;/a&gt;.&lt;/p&gt;</body>
+    </freetext>
+</form></document></result></module></grid-12></sidebar-modules><migration><migrated>true</migrated></migration><section-27><is-archived/></section-27></form></document></result>
