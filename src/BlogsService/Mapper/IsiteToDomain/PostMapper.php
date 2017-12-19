@@ -52,7 +52,7 @@ class PostMapper extends Mapper
             foreach ($contentBlockContent as $contentBlock) {
                 $result = $contentBlock->{'blog-post-content'}->result;
 
-                if (is_object($result->metadata)) {
+                if (is_object($result->metadata) && $contentBlockMapper->getDomainModel($result)) {
                     $contentBlocks[] = $contentBlockMapper->getDomainModel($result);
                 }
             }
