@@ -11,6 +11,7 @@ parameters:
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
     app.morph.endpoint: 'https://morph.api.bbci.co.uk'
     cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
+    locale: 'en'
 
 services:
     # default configuration for services in *this* file
