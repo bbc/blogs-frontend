@@ -12,6 +12,7 @@ const autoprefixer = require('gulp-autoprefixer');
 const override = require('gulp-rev-css-url');
 const gulpif = require('gulp-if');
 const runSequence = require('run-sequence');
+const ts = require('gulp-typescript');
 
 const staticPathSrc = 'resources';
 const staticPathDist = 'web/assets';
@@ -27,7 +28,7 @@ gulp.task('js:clean', function () {
     return del([staticPathDist + '/js']);
 });
 
-gulp.task('js', ['js:clean'], function () {
+gulp.task('js', ['js:clean', 'typescript'], function () {
     const modulesToOptimize = [
         staticPathSrc + '/js/**/blogs-bootstrap.js',
         staticPathSrc + '/js/**/third-party.js',
@@ -56,6 +57,14 @@ gulp.task('js', ['js:clean'], function () {
         .pipe(requirejsOptimize(config))
         .pipe(gulpif(isSandbox, sourcemaps.write('.')))
         .pipe(gulp.dest(staticPathDist + '/js'));
+});
+
+gulp.task('typescript', function() {
+    return gulp.src(staticPathSrc + '/js/bbc-datepicker.ts')
+        .pipe(ts({
+            outFile: 'bbc-datepicker.js'
+        }))
+        .pipe(gulp.dest(staticPathSrc + '/js'));
 });
 
 // ------
