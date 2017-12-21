@@ -60,10 +60,8 @@ gulp.task('js', ['js:clean', 'typescript'], function () {
 });
 
 gulp.task('typescript', function() {
-    return gulp.src(staticPathSrc + '/js/bbc-datepicker.ts')
-        .pipe(ts({
-            outFile: 'bbc-datepicker.js'
-        }))
+    return gulp.src(staticPathSrc + '/js/*.ts')
+        .pipe(ts())
         .pipe(gulp.dest(staticPathSrc + '/js'));
 });
 
