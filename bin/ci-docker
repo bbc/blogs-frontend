@@ -36,7 +36,7 @@ php --version
 yarn gulp-ci
 
 # Run PHPUnit
-vendor/bin/phpunit || RESULT=1
+bin/phpunit || RESULT=1
 
 # Run PHPCS
 vendor/bin/phpcs -n --report=checkstyle --report-file=build/reports/checkstyle.xml || RESULT=1

@@ -8,7 +8,7 @@ if ! (php --version | grep -q "PHP 7.1.") ; then
     fi
 fi
 
-vendor/bin/phpunit
+bin/phpunit
 vendor/bin/phpcs
 yarn run lint
 vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7
