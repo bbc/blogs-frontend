@@ -55,8 +55,6 @@ class BlogMapperTest extends TestCase
         /** @var Blog $domainModel */
         $blog = $blogMapper->getDomainModel($isiteObject);
 
-        $featuredPost = $blog->getFeaturedPost();
-
-        $this->assertNull($featuredPost);
+        $this->assertNull($blog->getFeaturedPost());
     }
 }
