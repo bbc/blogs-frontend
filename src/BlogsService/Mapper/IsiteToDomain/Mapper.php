@@ -45,7 +45,7 @@ abstract class Mapper
      * @param  SimpleXMLElement $isiteObject
      * @return SimpleXMLElement
      */
-    protected function getFormMetaData(SimpleXMLElement $isiteObject): SimpleXMLElement
+    protected function getFormMetaData(SimpleXMLElement $isiteObject): ?SimpleXMLElement
     {
         return $this->getForm($isiteObject)->metadata;
     }

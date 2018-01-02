@@ -1,0 +1,70 @@
+ <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+    <metadata>
+        <modifiedDateTime>2017-12-19T15:36:58.093096Z</modifiedDateTime>
+        <creationDateTime>2014-11-26T18:17:57.937624Z</creationDateTime>
+        <type>blogs-post</type>
+        <fileId>blogs-post-141702218293123</fileId>
+        <guid>20ada456-190f-3e66-9fcd-4c5091110af7</guid>
+    </metadata>
+    <document>
+        <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/blogs-post">
+            <metadata>
+                <published-date>2013-03-15T18:00:56Z</published-date>
+                <title>Episode 6 Gallery</title>
+                <short-synopsis>Episode 6 Gallery and Goodbye</short-synopsis>
+                <author>
+                    <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+                        <metadata>
+                            <modifiedDateTime>2015-04-23T09:39:56.695709Z</modifiedDateTime>
+                            <creationDateTime>2014-11-26T18:17:57.937624Z</creationDateTime>
+                            <type>authors</type>
+                            <fileId>blogs-author-141702218126224</fileId>
+                            <guid>4c0a6de0-ee25-3ef9-b9f8-813761135756</guid>
+                        </metadata>
+                        <document>
+                            <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-beinghuman/authors">
+                                <metadata>
+                                    <first-name>BH Insider</first-name>
+                                    <last-name>Steve</last-name>
+                                    <name>BH Insider Steve</name>
+                                    <role>Online Team</role>
+                                    <description/>
+                                    <picture>p0112c54</picture>
+                                    <file_id>141702218126224</file_id>
+                                    <facebook-url/>
+                                    <google-plus-url/>
+                                    <twitter-username/>
+                                </metadata>
+                            </form>
+                        </document>
+                    </result>
+                </author>
+                <file_id>141702218293123</file_id>
+                <post-image>p0112c54</post-image>
+            </metadata>
+            <content>
+                <repeater>
+                    <blog-post-content>
+                        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+                            <metadata>
+                                <fileId>blogs-content-141702218259634</fileId>
+                            </metadata>
+                            <document/>
+                        </result>
+                    </blog-post-content>
+                </repeater>
+                <repeater>
+                    <blog-post-content>
+                        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+                            <metadata>
+                                <fileId>blogs-content-141702218260366</fileId>
+                            </metadata>
+                            <document/>
+                        </result>
+                    </blog-post-content>
+                </repeater>
+            </content>
+            <Tags/>
+        </form>
+    </document>
+</result>
