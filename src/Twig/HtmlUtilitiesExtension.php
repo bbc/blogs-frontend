@@ -10,9 +10,15 @@ class HtmlUtilitiesExtension extends Twig_Extension
 {
     private $packages;
 
+    private $snippets;
+
+    private $smps;
+
     public function __construct(Packages $packages)
     {
         $this->packages = $packages;
+        $this->snippets = [];
+        $this->smps = [];
     }
 
     /**
@@ -23,6 +29,9 @@ class HtmlUtilitiesExtension extends Twig_Extension
         return [
             new Twig_Function('asset_js', [$this, 'assetJs']),
             new Twig_Function('build_css_classes', [$this, 'buildCssClasses']),
+            new Twig_Function('add_script_snippet', [$this, 'addScriptSnippet']),
+            new Twig_Function('build_script_snippets', [$this, 'buildScriptSnippets']),
+            new Twig_Function('add_smp', [$this, 'addSmp']),
         ];
     }
 
@@ -44,5 +53,44 @@ class HtmlUtilitiesExtension extends Twig_Extension
             }
         }
         return trim(implode(' ', $cssClasses));
+    }
+
+    public function addScriptSnippet(string $snippet)
+    {
+        $this->snippets[] = $snippet;
+    }
+
+    public function addSmp(string $player)
+    {
+        $this->smps[] = $player;
+    }
+
+    public function buildScriptSnippets(): string
+    {
+        if (empty($this->snippets) && empty($this->smps)) {
+            return '';
+        }
+
+        $snippetsSource = '<script>';
+        $snippetsSource .= $this->buildSmps();
+
+        foreach ($this->snippets as $snippet) {
+            $snippetsSource .= $snippet;
+        }
+        $snippetsSource .= '</script>';
+        return $snippetsSource;
+    }
+
+    private function buildSmps(): string
+    {
+        if (empty($this->smps)) {
+            return '';
+        }
+        $smps = 'require([\'smp\'], function(SMP) {';
+        foreach ($this->smps as $player) {
+            $smps .= 'new SMP(' . $player . ');';
+        }
+        $smps .= '});';
+        return $smps;
     }
 }

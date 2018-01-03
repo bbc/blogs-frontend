@@ -37,3 +37,9 @@
     {%- endif -%}
 
 {%- endblock -%}
+{%- block javascripts -%}
+    <script>
+        require(['bbc-datepicker']);
+    </script>
+    {{- parent() -}}
+{%- endblock -%}
