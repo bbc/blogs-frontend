@@ -31,7 +31,6 @@ class HtmlUtilitiesExtension extends Twig_Extension
             new Twig_Function('build_css_classes', [$this, 'buildCssClasses']),
             new Twig_Function('add_script_snippet', [$this, 'addScriptSnippet']),
             new Twig_Function('build_script_snippets', [$this, 'buildScriptSnippets']),
-            new Twig_Function('add_smp', [$this, 'addSmp']),
         ];
     }
 
@@ -57,12 +56,9 @@ class HtmlUtilitiesExtension extends Twig_Extension
 
     public function addScriptSnippet(string $snippet)
     {
-        $this->snippets[] = $snippet;
-    }
-
-    public function addSmp(string $player)
-    {
-        $this->smps[] = $player;
+        if ($snippet) {
+            $this->snippets[] = $snippet;
+        }
     }
 
     public function buildScriptSnippets(): string
@@ -72,25 +68,11 @@ class HtmlUtilitiesExtension extends Twig_Extension
         }
 
         $snippetsSource = '<script>';
-        $snippetsSource .= $this->buildSmps();
-
         foreach ($this->snippets as $snippet) {
             $snippetsSource .= $snippet;
         }
         $snippetsSource .= '</script>';
-        return $snippetsSource;
-    }
 
-    private function buildSmps(): string
-    {
-        if (empty($this->smps)) {
-            return '';
-        }
-        $smps = 'require([\'smp\'], function(SMP) {';
-        foreach ($this->smps as $player) {
-            $smps .= 'new SMP(' . $player . ');';
-        }
-        $smps .= '});';
-        return $smps;
+        return $snippetsSource;
     }
 }
