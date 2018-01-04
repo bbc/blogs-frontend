@@ -3,11 +3,11 @@ declare(strict_types = 1);
 
 namespace Tests\App\Controller;
 
+use App\BlogsService\Domain\Tag;
 use App\BlogsService\Infrastructure\IsiteResult;
-use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\TagService;
+use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
-use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\TagBuilder;
 
 /**
@@ -15,37 +15,21 @@ use Tests\App\Builders\TagBuilder;
  */
 class TagIndexControllerTest extends BaseWebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setTestBlog();
+    }
+
     public function testBlogWithTags()
     {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $tags = [
+        $crawler = $this->getCrawlerForPage([
             TagBuilder::default()->withName('First Tag')->build(),
             TagBuilder::default()->build(),
             TagBuilder::default()->build(),
-        ];
+        ]);
 
-        $iSiteResult = new IsiteResult(1, 10, count($tags), $tags);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService
-            ->expects($this->exactly(2)) //tags are also included in sidebar
-            ->method('getTagsByBlog')
-            ->willReturn($iSiteResult);
-
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/tags');
-
-        $tagsTitle = $crawler->filterXPath('//h1')->first()->text();
-        $this->assertEquals('Tags (3)', $tagsTitle);
+        $this->assertTagsTitle($crawler, 'Tags (3)');
 
         $tagsList = $crawler->filterXPath('//ul')->first();
         $tagsDisplayed = $tagsList->filterXPath('//li');
@@ -59,17 +43,26 @@ class TagIndexControllerTest extends BaseWebTestCase
 
     public function testBlogNoTags()
     {
-        $client = static::createClient();
+        $crawler = $this->getCrawlerForPage([]);
 
-        $blog = BlogBuilder::default()->build();
+        $this->assertTagsTitle($crawler, 'Tags (0)');
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
+        $noTags = $crawler->filterXPath('//p')->first()->text();
+        $this->assertEquals('There are no results', $noTags);
+    }
 
-        $client->getContainer()->set(BlogService::class, $blogService);
+    private function assertTagsTitle(Crawler $crawler, string $title)
+    {
+        $tagsTitle = $crawler->filterXPath('//h1')->first()->text();
+        $this->assertEquals($title, $tagsTitle);
+    }
 
-        $tags = [];
-
+    /**
+     * @param Tag[] $tags
+     * @return Crawler
+     */
+    private function getCrawlerForPage(array $tags): Crawler
+    {
         $iSiteResult = new IsiteResult(1, 10, count($tags), $tags);
 
         $tagService = $this->createMock(TagService::class);
@@ -78,14 +71,8 @@ class TagIndexControllerTest extends BaseWebTestCase
             ->method('getTagsByBlog')
             ->willReturn($iSiteResult);
 
-        $client->getContainer()->set(TagService::class, $tagService);
+        $this->client->getContainer()->set(TagService::class, $tagService);
 
-        $crawler = $client->request('GET', '/blogs/testblog/tags');
-
-        $tagsTitle = $crawler->filterXPath('//h1')->first()->text();
-        $this->assertEquals('Tags (0)', $tagsTitle);
-
-        $noTags = $crawler->filterXPath('//p')->first()->text();
-        $this->assertEquals('There are no results', $noTags);
+        return $this->client->request('GET', '/blogs/testblog/tags');
     }
 }

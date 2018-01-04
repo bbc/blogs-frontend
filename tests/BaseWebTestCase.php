@@ -2,12 +2,21 @@
 declare(strict_types = 1);
 namespace Tests\App;
 
+use App\BlogsService\Infrastructure\IsiteResult;
+use App\BlogsService\Service\BlogService;
+use App\BlogsService\Service\TagService;
 use App\Helper\ApplicationTimeProvider;
+use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
+use Tests\App\Builders\BlogBuilder;
+use Tests\App\Builders\TagBuilder;
 
 abstract class BaseWebTestCase extends WebTestCase
 {
+    /** @var Client $client */
+    protected $client;
+
     public function assertResponseStatusCode($client, $expectedCode)
     {
         $actualCode = $client->getResponse()->getStatusCode();
@@ -38,6 +47,11 @@ abstract class BaseWebTestCase extends WebTestCase
         }
     }
 
+    public function setUp()
+    {
+        $this->client = static::createClient();
+    }
+
     public function tearDown()
     {
         ApplicationTimeProvider::clearTestDateTime();
@@ -58,5 +72,30 @@ abstract class BaseWebTestCase extends WebTestCase
         }
 
         return $labels;
+    }
+
+    protected function setTestBlog()
+    {
+        $blog = BlogBuilder::default()->build();
+
+        $blogService = $this->createMock(BlogService::class);
+        $blogService->method('getBlogById')->willReturn($blog);
+
+        $this->client->getContainer()->set(BlogService::class, $blogService);
+    }
+
+    protected function setTestTags()
+    {
+        $tags = [
+            TagBuilder::default()->build(),
+            TagBuilder::default()->build(),
+        ];
+
+        $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
+
+        $tagService = $this->createMock(TagService::class);
+        $tagService->method('getTagsByBlog')->willReturn($isiteResultTags);
+
+        $this->client->getContainer()->set(TagService::class, $tagService);
     }
 }

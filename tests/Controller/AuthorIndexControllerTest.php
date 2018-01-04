@@ -3,15 +3,14 @@ declare(strict_types = 1);
 
 namespace Tests\App\Controller;
 
+use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\AuthorService;
-use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
-use App\BlogsService\Service\TagService;
+use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
 use Tests\App\Builders\AuthorBuilder;
-use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\PostBuilder;
 
 /**
@@ -19,49 +18,25 @@ use Tests\App\Builders\PostBuilder;
  */
 class AuthorIndexControllerTest extends BaseWebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setTestBlog();
+        $this->setTestTags();
+    }
+
     public function testBlogWithAuthorsDisplaysAuthorsAndPosts()
     {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $authors = [
-            AuthorBuilder::default()->withName('Alice Smith')->withFileId(new FileID('alicesmith'))->build(),
-            AuthorBuilder::default()->withName('Bob Jones')->withFileId(new FileID('bobjones'))->build(),
-        ];
-
-        $iSiteResult = new iSiteResult(1, 10, count($authors), $authors);
-
-        $authorService = $this->createMock(AuthorService::class);
-        $authorService
-            ->expects($this->once())
-            ->method('getAuthorsByBlog')
-            ->willReturn($iSiteResult);
-
-        $client->getContainer()->set(AuthorService::class, $authorService);
-
-        $posts = [
-            'alicesmith' => new iSiteResult(1, 1, 4, [PostBuilder::default()->withTitle('Alice\'s Post')->build()]),
-            'bobjones' => new iSiteResult(1, 1, 4, [PostBuilder::default()->withTitle('Bob\'s Post')->build()]),
-        ];
-
-        $postService = $this->createMock(PostService::class);
-        $postService
-            ->expects($this->once())
-            ->method('getPostsForAuthors')
-            ->willReturn($posts);
-
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $tagService = $this->createMock(TagService::class);
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/authors');
+        $crawler = $this->getCrawlerForPage(
+            [
+                AuthorBuilder::default()->withName('Alice Smith')->withFileId(new FileID('alicesmith'))->build(),
+                AuthorBuilder::default()->withName('Bob Jones')->withFileId(new FileID('bobjones'))->build(),
+            ],
+            [
+                'alicesmith' => new iSiteResult(1, 1, 4, [PostBuilder::default()->withTitle('Alice\'s Post')->build()]),
+                'bobjones' => new iSiteResult(1, 1, 4, [PostBuilder::default()->withTitle('Bob\'s Post')->build()]),
+            ]
+        );
 
         $authorList = $crawler->filterXPath('//ol//li');
         $this->assertEquals(2, $authorList->count());
@@ -83,45 +58,14 @@ class AuthorIndexControllerTest extends BaseWebTestCase
 
     public function testAuthorWithNoPosts()
     {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $authors = [
-            AuthorBuilder::default()->withName('Alice Smith')->withFileId(new FileID('alicesmith'))->build(),
-        ];
-
-        $iSiteResult = new iSiteResult(1, 10, count($authors), $authors);
-
-        $authorService = $this->createMock(AuthorService::class);
-        $authorService
-            ->expects($this->once())
-            ->method('getAuthorsByBlog')
-            ->willReturn($iSiteResult);
-
-        $client->getContainer()->set(AuthorService::class, $authorService);
-
-        $posts = [
-            'alicesmith' => new iSiteResult(1, 1, 0, []),
-        ];
-
-        $postService = $this->createMock(PostService::class);
-        $postService
-            ->expects($this->once())
-            ->method('getPostsForAuthors')
-            ->willReturn($posts);
-
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $tagService = $this->createMock(TagService::class);
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/authors');
+        $crawler = $this->getCrawlerForPage(
+            [
+                AuthorBuilder::default()->withName('Alice Smith')->withFileId(new FileID('alicesmith'))->build(),
+            ],
+            [
+                'alicesmith' => new iSiteResult(1, 1, 0, []),
+            ]
+        );
 
         $authorList = $crawler->filterXPath('//ol//li');
 
@@ -135,16 +79,29 @@ class AuthorIndexControllerTest extends BaseWebTestCase
 
     public function testBlogWithNoAuthors()
     {
-        $client = static::createClient();
+        $crawler = $this->getCrawlerForPage([], []);
+        $this->assertEquals('There are no results', $crawler->filterXPath('//h1')->last()->text());
+    }
 
-        $blog = BlogBuilder::default()->build();
+    /**
+     * @param Author[] $authors
+     * @param IsiteResult[] $posts
+     * @return Crawler
+     */
+    private function getCrawlerForPage(array $authors, array $posts): Crawler
+    {
+        $this->createAuthorsByBlog($authors);
+        $this->createPostsForAuthors($posts);
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
+        return $this->client->request('GET', '/blogs/testblog/authors');
+    }
 
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $iSiteResult = new iSiteResult(1, 10, 0, []);
+    /**
+     * @param Author[] $authors
+     */
+    private function createAuthorsByBlog(array $authors)
+    {
+        $iSiteResult = new iSiteResult(1, 10, count($authors), $authors);
 
         $authorService = $this->createMock(AuthorService::class);
         $authorService
@@ -152,21 +109,20 @@ class AuthorIndexControllerTest extends BaseWebTestCase
             ->method('getAuthorsByBlog')
             ->willReturn($iSiteResult);
 
-        $client->getContainer()->set(AuthorService::class, $authorService);
+        $this->client->getContainer()->set(AuthorService::class, $authorService);
+    }
 
+    /**
+     * @param IsiteResult[] $posts
+     */
+    private function createPostsForAuthors(array $posts)
+    {
         $postService = $this->createMock(PostService::class);
         $postService
             ->expects($this->once())
             ->method('getPostsForAuthors')
-            ->willReturn([]);
+            ->willReturn($posts);
 
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $tagService = $this->createMock(TagService::class);
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/authors');
-
-        $this->assertEquals('There are no results', $crawler->filterXPath('//h1')->last()->text());
+        $this->client->getContainer()->set(PostService::class, $postService);
     }
 }

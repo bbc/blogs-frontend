@@ -3,150 +3,108 @@ declare(strict_types = 1);
 
 namespace Tests\App\Controller;
 
+use App\BlogsService\Domain\Author;
+use App\BlogsService\Domain\Post;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\AuthorService;
-use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
-use App\BlogsService\Service\TagService;
+use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
 use Tests\App\Builders\AuthorBuilder;
-use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\PostBuilder;
-use Tests\App\Builders\TagBuilder;
 
 /**
  * @covers \App\Controller\AuthorShowController
  */
 class AuthorShowControllerTest extends BaseWebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+
+        $this->setTestBlog();
+        $this->setTestTags();
+    }
+
     public function testAuthorWithPosts()
     {
-        $client = static::createClient();
+        $crawler = $this->getCrawlerForPage(
+            AuthorBuilder::default()
+                ->withName('John Smith')
+                ->build(),
+            [
+                PostBuilder::default()->build(),
+                PostBuilder::default()->build(),
+            ]
+        );
 
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $author = AuthorBuilder::default()
-            ->withName('John Smith')
-            ->build();
-
-        $authorService = $this->createMock(AuthorService::class);
-        $authorService->method('getAuthorByGuid')->willReturn($author);
-
-        $client->getContainer()->set(AuthorService::class, $authorService);
-
-        $posts = [
-            PostBuilder::default()->build(),
-            PostBuilder::default()->build(),
-        ];
-
-        $postIsiteResult = new iSiteResult(1, 10, count($posts), $posts);
-
-        $postService = $this->createMock(PostService::class);
-        $postService->method('getPostsByAuthor')->willReturn($postIsiteResult);
-
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $tags = [
-            TagBuilder::default()->build(),
-            TagBuilder::default()->build(),
-        ];
-
-        $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService->method('getTagsByBlog')->willReturn($isiteResultTags);
-
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/authors/a85738d8-bb18-4a7c-8418-68db6a47661f');
-
-        $authorName = $crawler->filterXPath('//h1')->first()->text();
-        $this->assertEquals('John Smith', $authorName);
+        $this->assertAuthorName($crawler, 'John Smith');
+        $this->assertPostsDisplayedCount($crawler, 2);
 
         $authorPostsCount = $crawler->filterXPath('//p[@class="no-margin text--shout"]//strong')->first()->text();
         $this->assertEquals('Blog posts in total 2', $authorPostsCount);
-
-        $postsDisplayed = $crawler->filterXPath('//ol//li')->count();
-        $this->assertEquals(2, $postsDisplayed);
     }
 
     public function testAuthorNoPosts()
     {
-        $client = static::createClient();
+        $crawler = $this->getCrawlerForPage(
+            AuthorBuilder::default()
+                ->withName('John Smith')
+                ->build(),
+            []
+        );
 
-        $blog = BlogBuilder::default()->build();
+        $this->assertAuthorName($crawler, 'John Smith');
+        $this->assertPostsDisplayedCount($crawler, 0);
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
+        $authorPostsCount = $crawler->filterXPath('//p[@class="no-margin text--shout"]//strong');
+        $this->assertEquals(0, $authorPostsCount->count());
+    }
 
-        $client->getContainer()->set(BlogService::class, $blogService);
+    public function testNoAuthor()
+    {
+        $this->getCrawlerForPage(null, []);
+        $this->assertResponseStatusCode($this->client, 404);
+    }
 
-        $author = AuthorBuilder::default()
-            ->withName('John Smith')
-            ->build();
+    private function assertAuthorName(Crawler $crawler, string $name)
+    {
+        $authorName = $crawler->filterXPath('//h1')->first()->text();
+        $this->assertEquals($name, $authorName);
+    }
 
-        $authorService = $this->createMock(AuthorService::class);
-        $authorService->method('getAuthorByGuid')->willReturn($author);
+    private function assertPostsDisplayedCount(Crawler $crawler, int $count)
+    {
+        $postsDisplayed = $crawler->filterXPath('//ol//li')->count();
+        $this->assertEquals($count, $postsDisplayed);
+    }
 
-        $client->getContainer()->set(AuthorService::class, $authorService);
+    private function getCrawlerForPage(?Author $author, array $posts): Crawler
+    {
+        $this->createAuthorByGuid($author);
+        $this->createPostsByAuthor($posts);
 
-        $posts = [];
+        return $this->client->request('GET', '/blogs/testblog/authors/a85738d8-bb18-4a7c-8418-68db6a47661f');
+    }
 
+    /**
+     * @param Post[] $posts
+     */
+    private function createPostsByAuthor(array $posts)
+    {
         $postIsiteResult = new iSiteResult(1, 10, count($posts), $posts);
 
         $postService = $this->createMock(PostService::class);
         $postService->method('getPostsByAuthor')->willReturn($postIsiteResult);
 
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $tags = [
-            TagBuilder::default()->build(),
-            TagBuilder::default()->build(),
-        ];
-
-        $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService->method('getTagsByBlog')->willReturn($isiteResultTags);
-
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/authors/a85738d8-bb18-4a7c-8418-68db6a47661f');
-
-        $authorName = $crawler->filterXPath('//h1')->first()->text();
-        $this->assertEquals('John Smith', $authorName);
-
-        $authorPostsCount = $crawler->filterXPath('//p[@class="no-margin text--shout"]//strong');
-        $this->assertEquals(0, $authorPostsCount->count());
-
-        $postsDisplayed = $crawler->filterXPath('//ol//li')->count();
-        $this->assertEquals(0, $postsDisplayed);
+        $this->client->getContainer()->set(PostService::class, $postService);
     }
 
-    public function testNoAuthor()
+    private function createAuthorByGuid(?Author $author)
     {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
         $authorService = $this->createMock(AuthorService::class);
-        $authorService->method('getAuthorByGuid')->willReturn(null);
+        $authorService->method('getAuthorByGuid')->willReturn($author);
 
-        $client->getContainer()->set(AuthorService::class, $authorService);
-        $client->getContainer()->set(PostService::class, $this->createMock(PostService::class));
-        $client->getContainer()->set(TagService::class, $this->createMock(TagService::class));
-
-        $client->request('GET', '/blogs/testblog/authors/a85738d8-bb18-4a7c-8418-68db6a47661f');
-        $this->assertResponseStatusCode($client, 404);
+        $this->client->getContainer()->set(AuthorService::class, $authorService);
     }
 }

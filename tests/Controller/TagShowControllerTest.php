@@ -3,12 +3,13 @@ declare(strict_types = 1);
 
 namespace Tests\App\Controller;
 
+use App\BlogsService\Domain\Post;
+use App\BlogsService\Domain\Tag;
 use App\BlogsService\Infrastructure\IsiteResult;
-use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
+use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
-use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\PostBuilder;
 use Tests\App\Builders\TagBuilder;
 
@@ -17,43 +18,21 @@ use Tests\App\Builders\TagBuilder;
  */
 class TagShowControllerTest extends BaseWebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setTestBlog();
+    }
+
     public function testTagShowWithPosts()
     {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $tag = TagBuilder::default()->withName('Test Tag')->build();
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService
-            ->expects($this->once())
-            ->method('getTagById')
-            ->willReturn($tag);
-
-        $client->getContainer()->set(TagService::class, $tagService);
-
-        $posts = [
-            PostBuilder::default()->build(),
-            PostBuilder::default()->build(),
-        ];
-
-        $iSiteResult = new IsiteResult(1, 10, count($posts), $posts);
-
-        $postService = $this->createMock(PostService::class);
-        $postService
-            ->expects($this->once())
-            ->method('getPostsByTag')
-            ->willReturn($iSiteResult);
-
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $crawler = $client->request('GET', '/blogs/testblog/tags/testtag');
+        $crawler = $this->getCrawlerForPage(
+            TagBuilder::default()->withName('Test Tag')->build(),
+            [
+                PostBuilder::default()->build(),
+                PostBuilder::default()->build(),
+            ]
+        );
 
         $title = $crawler->filterXPath('//div//h1')->first()->text();
         $this->assertEquals('Tagged with: Test Tag', $title);
@@ -67,27 +46,49 @@ class TagShowControllerTest extends BaseWebTestCase
 
     public function testTagShowNoPosts()
     {
-        $client = static::createClient();
+        $this->getCrawlerForPage(
+            TagBuilder::default()->withName('Test Tag')->build(),
+            []
+        );
 
-        $blog = BlogBuilder::default()->build();
+        $this->assertResponseStatusCode($this->client, 404);
+    }
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
+    public function testNoTag()
+    {
+        $this->createTagById(null);
+        $this->client->getContainer()->set(PostService::class, $this->createMock(PostService::class));
 
-        $client->getContainer()->set(BlogService::class, $blogService);
+        $this->client->request('GET', '/blogs/testblog/tags/testtag');
+        $this->assertResponseStatusCode($this->client, 404);
+    }
 
-        $tag = TagBuilder::default()->withName('Test Tag')->build();
+    /**
+     * @param Tag|null $tag
+     * @param Post[] $posts
+     * @return Crawler
+     */
+    private function getCrawlerForPage(?Tag $tag, array $posts): Crawler
+    {
+        $this->createTagById($tag);
+        $this->createPostsByTag($posts);
 
+        return $this->client->request('GET', '/blogs/testblog/tags/testtag');
+    }
+
+    private function createTagById(?Tag $tag)
+    {
         $tagService = $this->createMock(TagService::class);
         $tagService
             ->expects($this->once())
             ->method('getTagById')
             ->willReturn($tag);
 
-        $client->getContainer()->set(TagService::class, $tagService);
+        $this->client->getContainer()->set(TagService::class, $tagService);
+    }
 
-        $posts = [];
-
+    private function createPostsByTag($posts)
+    {
         $iSiteResult = new IsiteResult(1, 10, count($posts), $posts);
 
         $postService = $this->createMock(PostService::class);
@@ -96,33 +97,6 @@ class TagShowControllerTest extends BaseWebTestCase
             ->method('getPostsByTag')
             ->willReturn($iSiteResult);
 
-        $client->getContainer()->set(PostService::class, $postService);
-
-        $client->request('GET', '/blogs/testblog/tags/testtag');
-        $this->assertResponseStatusCode($client, 404);
-    }
-
-    public function testNoTag()
-    {
-        $client = static::createClient();
-
-        $blog = BlogBuilder::default()->build();
-
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService
-            ->expects($this->once())
-            ->method('getTagById')
-            ->willReturn(null);
-
-        $client->getContainer()->set(TagService::class, $tagService);
-        $client->getContainer()->set(PostService::class, $this->createMock(PostService::class));
-
-        $client->request('GET', '/blogs/testblog/tags/testtag');
-        $this->assertResponseStatusCode($client, 404);
+        $this->client->getContainer()->set(PostService::class, $postService);
     }
 }
