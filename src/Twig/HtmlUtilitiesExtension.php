@@ -12,13 +12,10 @@ class HtmlUtilitiesExtension extends Twig_Extension
 
     private $snippets;
 
-    private $smps;
-
     public function __construct(Packages $packages)
     {
         $this->packages = $packages;
         $this->snippets = [];
-        $this->smps = [];
     }
 
     /**

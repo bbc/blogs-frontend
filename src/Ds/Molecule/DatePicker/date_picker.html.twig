@@ -48,3 +48,7 @@
         </div>
     </div>
 </div>
+{%- set snippet -%}
+    require(['bbc-datepicker']);
+{%- endset -%}
+{{- add_script_snippet(snippet) -}}
