@@ -48,6 +48,58 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
+    public function getPostsBetweenParallel(
+        string $blogId,
+        array $ranges,
+        int $depth,
+        int $page,
+        int $perpage
+    ): array {
+        $queries = [];
+
+        foreach ($ranges as $key => $range) {
+            if (!isset($range['afterDate']) || !isset($range['beforeDate']) || !isset($range['sort'])) {
+                throw new InvalidArgumentException('getPostsBetweenParallel range elements must have afterDate, beforeDate and sort indexes set');
+            }
+
+            $query = new SearchQuery();
+            $query->setProject($blogId);
+            $query->setNamespace($blogId, 'blogs-post');
+
+            $query->setQuery([
+                'and' => [
+                    [
+                        'ns:published-date',
+                        '>',
+                        $range['afterDate']->addSecond()->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
+                    [
+                        'ns:published-date',
+                        '<=',
+                        $range['beforeDate']->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
+                ],
+            ]);
+
+            $query->setSort([
+                [
+                    'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                    'direction' => $range['sort'],
+                ],
+            ]);
+            $query->setDepth($depth);
+            $query->setPage($page);
+            $query->setPageSize($perpage);
+            $query->setUnfiltered(true);
+
+            $queries[$key] = $query;
+        }
+
+        return $this->getParallelResponses($queries);
+    }
+
     public function getPostsBetween(
         string $blogId,
         Chronos $afterDate,

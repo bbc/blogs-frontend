@@ -24,7 +24,9 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
-        $commentsService->queuePostComments($blog, $post);
+        if ($blog->hasCommentsEnabled()) {
+            $commentsService->queuePostComments($blog, $post);
+        }
 
         $this->hasVideo = $post->hasVideo();
         $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
@@ -39,18 +41,12 @@ class PostShowController extends BlogsBaseController
 
         $this->otherIstatsLabels = $istatsLabels;
 
-        $previousPost = $postService->getPostsBefore(
-            $blog,
-            $post->getPublishedDate()
-        );
+        $prevNextPosts = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
-        $nextPost = $postService->getPostsAfter(
-            $blog,
-            $post->getPublishedDate(),
-            Chronos::now()
-        );
+        $previousPost = isset($prevNextPosts['previousPost']) ? $prevNextPosts['previousPost'] : null;
+        $nextPost = isset($prevNextPosts['nextPost']) ? $prevNextPosts['nextPost'] : null;
 
-        $comments = $commentsService->getPostComments($blog, $post);
+        $comments = $blog->hasCommentsEnabled() ? $commentsService->getPostComments($blog, $post) : null;
 
         return $this->renderWithChrome(
             'post/show.html.twig',

@@ -47,15 +47,15 @@ class PostByDateControllerTest extends BaseWebTestCase
         $postService->method('getPostsByMonth')->willReturn($isiteResultPosts);
 
         $postService
-            ->method('getPostsByBlog')
-            ->will($this->onConsecutiveCalls(
-                new IsiteResult(1, 1, 1, [$posts[0]]),
-                new IsiteResult(1, 1, 1, [
-                    PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2013, 4, 29, 9, 45))
-                        ->build(),
-                ])
-            ));
+            ->method('getOldestPostAndLatestPost')
+            ->willReturn(
+                [
+                    'latestPost' => $posts[0],
+                    'oldestPost' => PostBuilder::default()
+                                    ->withPublishedDate(Chronos::create(2013, 4, 29, 9, 45))
+                                    ->build(),
+                ]
+            );
 
         // Because the keys need to match we need to replicate how controller does this
         $expectedMonthsToQuery = [1, 2, 3, 4, 5, 6, 7, 8, 9];

@@ -30,15 +30,12 @@ class PostByDateController extends BlogsBaseController
 
         $nowDateTime = Chronos::now();
 
-        /** @var Post[] $latestPosts */
-        $latestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'desc')->getDomainModels();
-        /** @var Post[] $oldestPosts */
-        $oldestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'asc')->getDomainModels();
+        $oldestAndLatestPosts = $postService->getOldestPostAndLatestPost($blog, $nowDateTime);
 
         $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $postService, $year, $month, $totalPostsMonth, $nowDateTime);
 
-        $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : $nowDateTime;
-        $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : $nowDateTime;
+        $latestPostDate = isset($oldestAndLatestPosts['latestPost']) ? $oldestAndLatestPosts['latestPost']->getPublishedDate() : $nowDateTime;
+        $oldestPostDate = isset($oldestAndLatestPosts['oldestPost']) ? $oldestAndLatestPosts['oldestPost']->getPublishedDate() : $nowDateTime;
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 

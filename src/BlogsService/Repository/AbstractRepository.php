@@ -62,7 +62,6 @@ abstract class AbstractRepository
                 throw new IsiteResultException('There was an error retrieving data from iSite.', 0, $e);
             }
         }
-
         return $results;
     }
 }
