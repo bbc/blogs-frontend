@@ -17,7 +17,7 @@ class SmpExtension extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new Twig_Function('add_smp', [$this, 'addSmp']),

@@ -15,7 +15,7 @@ class GelIconExtension extends Twig_Extension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions()
+    public function getFunctions(): array
     {
         return [
             new Twig_Function('gelicons_source', [$this, 'gelIconsSource'], [
