@@ -65,7 +65,11 @@
     require(['blogs-bootstrap']);
 </script>
 {% block javascripts %}{% endblock %}
-{{ add_script_snippet(build_smps()) }}
+
+{% if build_smps() %}
+    {{ add_script_snippet_in_footer(build_smps()) }}
+{% endif %}
+
 {{ build_script_snippets()|raw }}
 {{ branding.getBodyLast()|raw }}
 {{ orb.getBodylast()|raw }}

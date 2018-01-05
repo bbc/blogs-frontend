@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Twig;
 
+use InvalidArgumentException;
 use Symfony\Component\Asset\Packages;
 use Twig_Extension;
 use Twig_Function;
@@ -26,7 +27,7 @@ class HtmlUtilitiesExtension extends Twig_Extension
         return [
             new Twig_Function('asset_js', [$this, 'assetJs']),
             new Twig_Function('build_css_classes', [$this, 'buildCssClasses']),
-            new Twig_Function('add_script_snippet', [$this, 'addScriptSnippet']),
+            new Twig_Function('add_script_snippet_in_footer', [$this, 'addScriptSnippetInFooter']),
             new Twig_Function('build_script_snippets', [$this, 'buildScriptSnippets']),
         ];
     }
@@ -51,11 +52,13 @@ class HtmlUtilitiesExtension extends Twig_Extension
         return trim(implode(' ', $cssClasses));
     }
 
-    public function addScriptSnippet(string $snippet)
+    public function addScriptSnippetInFooter(string $snippet)
     {
-        if ($snippet) {
-            $this->snippets[] = $snippet;
+        if (!$snippet) {
+            throw new InvalidArgumentException('Snippet should not be empty');
         }
+
+        $this->snippets[] = $snippet;
     }
 
     public function buildScriptSnippets(): string

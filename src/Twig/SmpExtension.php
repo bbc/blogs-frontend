@@ -30,10 +30,10 @@ class SmpExtension extends Twig_Extension
         $this->smps[] = $player;
     }
 
-    public function buildSmps(): string
+    public function buildSmps(): ?string
     {
         if (empty($this->smps)) {
-            return '';
+            return null;
         }
         $smps = 'require([\'smp\'], function(SMP) {';
         foreach ($this->smps as $player) {
