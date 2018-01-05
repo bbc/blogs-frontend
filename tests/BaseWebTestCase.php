@@ -2,6 +2,8 @@
 declare(strict_types = 1);
 namespace Tests\App;
 
+use App\BlogsService\Domain\Blog;
+use App\BlogsService\Domain\Tag;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\TagService;
@@ -9,7 +11,6 @@ use App\Helper\ApplicationTimeProvider;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\TagBuilder;
 
 abstract class BaseWebTestCase extends WebTestCase
@@ -76,7 +77,7 @@ abstract class BaseWebTestCase extends WebTestCase
 
     protected function setTestBlog()
     {
-        $blog = BlogBuilder::default()->build();
+        $blog = $this->createMock(Blog::class);
 
         $blogService = $this->createMock(BlogService::class);
         $blogService->method('getBlogById')->willReturn($blog);
@@ -87,8 +88,8 @@ abstract class BaseWebTestCase extends WebTestCase
     protected function setTestTags()
     {
         $tags = [
-            TagBuilder::default()->build(),
-            TagBuilder::default()->build(),
+            $this->createMock(Tag::class),
+            $this->createMock(Tag::class),
         ];
 
         $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);

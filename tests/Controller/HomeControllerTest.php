@@ -18,11 +18,9 @@ class HomeControllerTest extends BaseWebTestCase
 {
     public function testOneBlog()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withName('First Blog')->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog]);
 
         $labels = $this->extractIstatsLabels($crawler);
         $this->assertEquals('blogs5', $labels['app_name']);
@@ -34,88 +32,76 @@ class HomeControllerTest extends BaseWebTestCase
         $this->assertTrue(is_numeric($labels['app_version']));
 
         $this->assertLists($crawler, ['F' => ['First Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testTwoBlogsWithSameFirstLetter()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withName('First Blog')->build();
         $blog2 = BlogBuilder::default()->withName('Fake Blog')->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['F' => ['First Blog', 'Fake Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testTwoBlogsWithDifferentFirstLetters()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withName('First Blog')->build();
         $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['F' => ['First Blog'], 'S' => ['Second Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testArchivedBlogDoesntShow()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withName('First Blog')->withIsArchived(true)->build();
         $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['S' => ['Second Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testBlogsHaveUndesireablePrefixesRemovedWhenChoosingGrouping()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withName('BBC Blog A Name')->build();
         $blog2 = BlogBuilder::default()->withName('Blog BBC Some Name')->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['A' => ['BBC Blog A Name'], 'B' => ['Blog BBC Some Name']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testNoBlogs()
     {
-        $client = static::createClient();
+        $this->getCrawlerForPage($this->client, []);
 
-        $this->getCrawlerForPage($client, []);
-
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testNoNonArchivedBlogs()
     {
-        $client = static::createClient();
-
         $blog = BlogBuilder::default()->withIsArchived(true)->build();
 
-        $crawler = $this->getCrawlerForPage($client, [$blog]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog]);
 
         $this->assertCount(1, $crawler->filter('h1+div')->first()->filter('p'));
         $this->assertEquals('There are no results', $crawler->filter('h1+div')->first()->filter('p')->text());
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     /**
