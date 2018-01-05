@@ -66,8 +66,9 @@
 </script>
 {% block javascripts %}{% endblock %}
 
-{% if build_smps() %}
-    {{ add_script_snippet_in_footer(build_smps()) }}
+{% set smps = build_smps() %}
+{% if smps %}
+    {{ add_script_snippet_in_footer(smps) }}
 {% endif %}
 
 {{ build_script_snippets()|raw }}
