@@ -57,7 +57,7 @@ abstract class AbstractRepository
                 $results[$key] = $promise->wait();
             } catch (GuzzleException $e) {
                 if ($e instanceof ClientException && $e->getCode() == 404) {
-                    $results[$key] = null;
+                    return [];
                 }
                 throw new IsiteResultException('There was an error retrieving data from iSite.', 0, $e);
             }

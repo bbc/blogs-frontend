@@ -6,41 +6,72 @@ namespace Tests\App\BlogsService\Repository\PostRepository;
 use Cake\Chronos\Chronos;
 use GuzzleHttp\Exception\ClientException;
 use GuzzleHttp\Psr7\Request;
+use InvalidArgumentException;
+use Psr\Http\Message\ResponseInterface;
 
 class PostsBetweenParallelTest extends AbstractPostRepositoryTest
 {
     public function testPostsBetweenParallelCalls()
     {
-//        $mockResponse = $this->buildMockResponse(200);
-//
-//        $repo = $this->createPostRepo([
-//            new Request('GET', 'test', $mockResponse)
-//        ]);
+        $mockResponse = $this->buildMockResponse(200);
+
+        $repo = $this->createPostRepo([
+            $mockResponse,
+            $mockResponse,
+        ]);
+
+        $now = Chronos::now();
+        $ranges = [
+            'firstRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
+            'secondRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
+        ];
+
+        $result = $repo->getPostsBetweenParallel('blog-id', $ranges, 1, 1, 1);
+
+        $this->assertInternalType('array', $result);
+        $this->assertCount(2, $result);
+        $this->assertContainsOnly(ResponseInterface::class, $result);
+        $this->assertArrayHasKey('firstRequest', $result);
+        $this->assertArrayHasKey('secondRequest', $result);
     }
 
-
-    public function testPostsAfterEmptyOn404()
+    /**
+     * @dataProvider rangesProvider
+     */
+    public function testArrayKeyExceptions(array $range)
     {
-//        $mock404Response = $this->buildMockResponse(404);
-//
-//        $repo = $this->createPostRepo([
-//            new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
-//        ]);
-//
-//        $now = Chronos::now();
-//
-//        $ranges = [
-//            'someindex' => [
-//                'afterDate' => $now,
-//                'beforeDate' => $now,
-//                'sort' => 'asc',
-//            ]
-//        ];
-//
-//        $result = $repo->getPostsBetweenParallel('blog-id', $ranges,1, 1, 1);
-//
-//        dump($result);die;
-//
-//        $this->assertContainsOnly('null', $result);
+        $repo = $this->createPostRepo([]);
+
+        $this->expectException(InvalidArgumentException::class);
+        $repo->getPostsBetweenParallel('blog-id', [$range], 1, 1, 1);
+    }
+
+    public function rangesProvider(): array
+    {
+        return [
+            'invalid_array_key' => [['someArrayKey' => true]],
+            'missing_array_key' => [['afterDate' => true, 'beforeDate' => true]],
+            'no_array_keys' => [[true, true, true]],
+        ];
+    }
+
+    public function testEmptyOn404()
+    {
+        $mock404Response = $this->buildMockResponse(404);
+
+        $repo = $this->createPostRepo([
+            new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
+            new ClientException('Error Communicating with Server', new Request('GET', 'test'), $mock404Response),
+        ]);
+
+        $now = Chronos::now();
+        $ranges = [
+            'firstRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
+            'secondRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
+        ];
+
+        $result = $repo->getPostsBetweenParallel('blog-id', $ranges, 1, 1, 1);
+
+        $this->assertEquals([], $result);
     }
 }
