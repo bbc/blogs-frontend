@@ -6,12 +6,14 @@
             </a>
         </p>
     </div>
-    <script>
-        require(['jquery-1.9', 'third-party'], function($, ThirdParty) {
-            var embed = new ThirdParty({
-                container : $('#{{ social_block.getContainerId() }}'),
-                url       : {{ social_block.getLink()| json_encode(constant('JSON_UNESCAPED_SLASHES'))|raw }}
-            });
-        });
-    </script>
 </div>
+
+{%- set snippet -%}
+    require(['jquery-1.9', 'third-party'], function($, ThirdParty) { {#--#}
+        var embed = new ThirdParty({ {#--#}
+            container : $('#{{ social_block.getContainerId() }}'), {#--#}
+            url : {{ social_block.getLink()| json_encode(constant('JSON_UNESCAPED_SLASHES'))|raw }} {#--#}
+        }); {#--#}
+    });
+{%- endset -%}
+{{- add_script_snippet_in_footer(snippet) -}}

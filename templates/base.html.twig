@@ -51,7 +51,7 @@
             window.bbcBlogs = {
                 "counterName" : "{{ istats_counter_name }}"
             }
-        </script>
+    </script>
 </head>
 <body>
 {{ orb.getBodyfirst()|raw }}
@@ -65,6 +65,13 @@
     require(['blogs-bootstrap']);
 </script>
 {% block javascripts %}{% endblock %}
+
+{% set smps = build_smps() %}
+{% if smps %}
+    {{ add_script_snippet_in_footer(smps) }}
+{% endif %}
+
+{{ build_script_snippets()|raw }}
 {{ branding.getBodyLast()|raw }}
 {{ orb.getBodylast()|raw }}
 </body>

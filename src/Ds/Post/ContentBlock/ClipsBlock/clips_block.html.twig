@@ -13,8 +13,4 @@
     {%- endif -%}
 </div>
 
-<script>
-    require(['smp'], function(SMP) {
-        new SMP({{ clips_block.getPlayer()|raw }});
-    });
-</script>
+{{- add_smp(clips_block.getPlayer()) -}}
