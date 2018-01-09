@@ -3,6 +3,9 @@ parameters:
     app.orbit_client.class: BBC\BrandingClient\OrbitStubClient
 
 services:
+    App\BlogsService\Service\AuthorService:
+        public: true
+
     App\BlogsService\Service\BlogService:
         public: true
 

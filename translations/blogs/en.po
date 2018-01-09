@@ -47,7 +47,7 @@ msgid "blog_post_count_author"
 msgid_plural "blog_post_count_author %count%"
 msgstr[0] "Blog post in total 0"
 msgstr[1] "Blog post in total 1"
-msgstr[2] "Blog posts in total  %count%"
+msgstr[2] "Blog posts in total %count%"
 
 #. English (no items): "0 posts about %tag% on this blog".
 #. English (one item): "1 post about %tag% on this blog".

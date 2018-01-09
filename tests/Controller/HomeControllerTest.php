@@ -4,13 +4,12 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
+use Tests\App\Builders\BlogBuilder;
 
 /**
  * @covers \App\Controller\HomeController
@@ -19,11 +18,9 @@ class HomeControllerTest extends BaseWebTestCase
 {
     public function testOneBlog()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
 
-        $blog = $this->createBlog('First Blog');
-
-        $crawler = $this->getCrawlerForPage($client, [$blog]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog]);
 
         $labels = $this->extractIstatsLabels($crawler);
         $this->assertEquals('blogs5', $labels['app_name']);
@@ -35,88 +32,76 @@ class HomeControllerTest extends BaseWebTestCase
         $this->assertTrue(is_numeric($labels['app_version']));
 
         $this->assertLists($crawler, ['F' => ['First Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testTwoBlogsWithSameFirstLetter()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
+        $blog2 = BlogBuilder::default()->withName('Fake Blog')->build();
 
-        $blog = $this->createBlog('First Blog');
-        $blog2 = $this->createBlog('Fake Blog');
-
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['F' => ['First Blog', 'Fake Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testTwoBlogsWithDifferentFirstLetters()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withName('First Blog')->build();
+        $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
-        $blog = $this->createBlog('First Blog');
-        $blog2 = $this->createBlog('Second Blog');
-
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['F' => ['First Blog'], 'S' => ['Second Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testArchivedBlogDoesntShow()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withName('First Blog')->withIsArchived(true)->build();
+        $blog2 = BlogBuilder::default()->withName('Second Blog')->build();
 
-        $blog = $this->createBlog('First Blog', true);
-        $blog2 = $this->createBlog('Second Blog');
-
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['S' => ['Second Blog']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testBlogsHaveUndesireablePrefixesRemovedWhenChoosingGrouping()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withName('BBC Blog A Name')->build();
+        $blog2 = BlogBuilder::default()->withName('Blog BBC Some Name')->build();
 
-        $blog = $this->createBlog('BBC Blog A Name');
-        $blog2 = $this->createBlog('Blog BBC Some Name');
-
-        $crawler = $this->getCrawlerForPage($client, [$blog, $blog2]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog, $blog2]);
 
         $this->assertLists($crawler, ['A' => ['BBC Blog A Name'], 'B' => ['Blog BBC Some Name']]);
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testNoBlogs()
     {
-        $client = static::createClient();
+        $this->getCrawlerForPage($this->client, []);
 
-        $this->getCrawlerForPage($client, []);
-
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     public function testNoNonArchivedBlogs()
     {
-        $client = static::createClient();
+        $blog = BlogBuilder::default()->withIsArchived(true)->build();
 
-        $blog = $this->createBlog('First Blog', true);
-
-        $crawler = $this->getCrawlerForPage($client, [$blog]);
+        $crawler = $this->getCrawlerForPage($this->client, [$blog]);
 
         $this->assertCount(1, $crawler->filter('h1+div')->first()->filter('p'));
         $this->assertEquals('There are no results', $crawler->filter('h1+div')->first()->filter('p')->text());
-        $this->assertResponseStatusCode($client, 200);
-        $this->assertHasRequiredResponseHeaders($client);
+        $this->assertResponseStatusCode($this->client, 200);
+        $this->assertHasRequiredResponseHeaders($this->client);
     }
 
     /**
@@ -150,27 +135,6 @@ class HomeControllerTest extends BaseWebTestCase
             $this->assertList($h2s->eq($index), $lists->eq($index)->filter('h3'), $heading, $titles);
             ++$index;
         }
-    }
-
-    private function createBlog(string $name, bool $isArchived = false): Blog
-    {
-        return new Blog(
-            'anything',
-            $name,
-            'anything',
-            'anything',
-            false,
-            'anything',
-            'anything',
-            'anything',
-            'anything',
-            [],
-            new Social('', '', ''),
-            false,
-            null,
-            new Image('p0215q0b'), //default provided by mapper
-            $isArchived
-        );
     }
 
     /**

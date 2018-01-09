@@ -12,6 +12,7 @@ use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Domain\ValueObject\Social;
 use Cake\Chronos\Chronos;
+use Faker\Factory;
 
 class PostBuilder implements BuilderInterface
 {
@@ -44,16 +45,26 @@ class PostBuilder implements BuilderInterface
 
     public function build()
     {
+        $faker = Factory::create();
+
         return new Post(
-            $this->guid,
-            $this->forumId,
-            $this->publishedDate,
-            $this->title,
-            $this->shortSynopsis,
-            $this->author,
-            $this->image,
-            $this->content,
-            $this->tags
+            $this->guid ?? new GUID($faker->uuid),
+            $this->forumId ?? $faker->word,
+            $this->publishedDate ?? Chronos::create($faker->year, $faker->month, $faker->dayOfMonth, $faker->numberBetween(0, 23), $faker->numberBetween(0, 59)),
+            $this->title ?? (string) $faker->words(3, true),
+            $this->shortSynopsis ?? $faker->sentence(),
+            $this->author ?? new Author(
+                new GUID($faker->uuid),
+                new FileID($faker->slug(2)),
+                $faker->name(),
+                (string) $faker->words(3, true),
+                $faker->sentence(),
+                new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
+                new Social('', '', '')
+            ),
+            $this->image ?? new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
+            $this->content ?? [new Prose((string) $faker->sentences(2, true))],
+            $this->tags ?? [new Tag(new FileID($faker->slug(2)), $faker->word)]
         );
     }
 
@@ -114,26 +125,5 @@ class PostBuilder implements BuilderInterface
     public static function default()
     {
         return new self();
-    }
-
-    public function __construct()
-    {
-        $this->guid = new GUID('72cd7d2e-ff79-4f1f-9ae0-1118c5aa727a');
-        $this->forumId = 'forumid';
-        $this->publishedDate = Chronos::create(2017, 5, 9, 12, 20);
-        $this->title = 'Post Title';
-        $this->shortSynopsis = 'This is the post short synopsis';
-        $this->author = new Author(
-            new GUID('72cd7d2e-ff79-4f1f-9ae0-1118c5aa727b'),
-            new FileID('thisisafileid'),
-            'Author Name',
-            'Author Role',
-            'Author Description',
-            new Image('p017j1r1'),
-            new Social('', '', '')
-        );
-        $this->image = new Image('p017j1r1');
-        $this->content = [new Prose('This is a prose block in a post. It is a string of text.')];
-        $this->tags = [new Tag(new FileID('tagfileid'), 'sometag')];
     }
 }

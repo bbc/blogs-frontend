@@ -4,18 +4,13 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\Module\FreeText;
-use App\BlogsService\Domain\Tag;
-use App\BlogsService\Domain\ValueObject\FileID;
-use App\BlogsService\Domain\ValueObject\Social;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\BlogService;
 use App\BlogsService\Service\PostService;
-use App\BlogsService\Service\TagService;
 use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
 use Tests\App\BaseWebTestCase;
+use Tests\App\Builders\BlogBuilder;
 use Tests\App\Builders\PostBuilder;
 
 /**
@@ -23,17 +18,19 @@ use Tests\App\Builders\PostBuilder;
  */
 class PostByDateControllerTest extends BaseWebTestCase
 {
+    public function setUp()
+    {
+        parent::setUp();
+        $this->setTestTags();
+    }
+
     /**
      * Test that when user requests a month in the current year, the counts are queried only for
      * past and present months. Test also the view month's posts are displayed.
      */
     public function testViewCurrentMonthYear()
     {
-        $time = new ApplicationTimeProvider();
-        $now = Chronos::create(2017, 9, 8, 13, 55);
-        $time->setTestDateTime($now);
-
-        $client = static::createClient();
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 9, 8, 13, 55));
 
         $posts = [
             PostBuilder::default()
@@ -41,16 +38,10 @@ class PostByDateControllerTest extends BaseWebTestCase
                 ->build(),
         ];
 
-        $tags = $this->createTestTags();
-        $blog = $this->createTestBlog();
+        $blog = BlogBuilder::default()->build();
+        $this->setBlog($blog);
 
         $isiteResultPosts = new IsiteResult(1, 20, count($posts), $posts);
-        $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService->method('getTagsByBlog')->willReturn($isiteResultTags);
-
-        $client->getContainer()->set(TagService::class, $tagService);
 
         $postService = $this->createMock(PostService::class);
         $postService->method('getPostsByMonth')->willReturn($isiteResultPosts);
@@ -87,14 +78,9 @@ class PostByDateControllerTest extends BaseWebTestCase
                 ]
             );
 
-        $client->getContainer()->set(PostService::class, $postService);
+        $this->client->getContainer()->set(PostService::class, $postService);
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService->method('getBlogById')->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $crawler = $client->request('GET', '/blogs/aboutthebbc/entries/2017/09');
+        $crawler = $this->client->request('GET', '/blogs/aboutthebbc/entries/2017/09');
 
         // DatePicker
         $datePicker = $crawler->filterXPath('//div[@class="bbc-datepicker"]');
@@ -115,8 +101,6 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();
         $this->assertEquals('Saturday 02 September 2017, 09:00', trim($firstPostDate));
-
-        $time->clearTestDateTime();
     }
 
     /**
@@ -125,10 +109,7 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInPast()
     {
-        $time = new ApplicationTimeProvider();
-        $time->setTestDateTime(Chronos::create(2017, 12, 5, 12, 51));
-
-        $client = static::createClient();
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 12, 5, 12, 51));
 
         $posts = [
             PostBuilder::default()
@@ -142,16 +123,10 @@ class PostByDateControllerTest extends BaseWebTestCase
                 ->build(),
         ];
 
-        $tags = $this->createTestTags();
-        $blog = $this->createTestBlog();
+        $blog = BlogBuilder::default()->build();
+        $this->setBlog($blog);
 
         $isiteResultPosts = new IsiteResult(1, 30, count($posts), $posts);
-        $isiteResultTags = new IsiteResult(1, 1, count($tags), $tags);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService->method('getTagsByBlog')->willReturn($isiteResultTags);
-
-        $client->getContainer()->set(TagService::class, $tagService);
 
         $postService = $this->createMock(PostService::class);
         $postService
@@ -195,16 +170,9 @@ class PostByDateControllerTest extends BaseWebTestCase
                 12 => 4,
             ]);
 
-        $client->getContainer()->set(PostService::class, $postService);
+        $this->client->getContainer()->set(PostService::class, $postService);
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService
-            ->method('getBlogById')
-            ->willReturn($blog);
-
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $crawler = $client->request('GET', '/blogs/aboutthebbc/entries/2016/04');
+        $crawler = $this->client->request('GET', '/blogs/aboutthebbc/entries/2016/04');
 
         $datePickerMonths = $crawler->filterXPath('//li[contains(@class, "bbc-datepicker__box-month-name")]');
 
@@ -219,8 +187,6 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();
         $this->assertEquals('Monday 04 April 2016, 09:00', trim($firstPostDate));
-
-        $time->clearTestDateTime();
     }
 
     /**
@@ -229,19 +195,11 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInFuture()
     {
-        $time = new ApplicationTimeProvider();
-        $time->setTestDateTime(Chronos::create(2016, 2, 3, 11, 30));
-
-        $client = static::createClient();
+        ApplicationTimeProvider::setTestDateTime(Chronos::create(2016, 2, 3, 11, 30));
 
         $posts = [];
 
         $isiteResult = new IsiteResult(1, 30, count($posts), $posts);
-
-        $tagService = $this->createMock(TagService::class);
-        $tagService->method('getTagsByBlog')->willReturn($isiteResult);
-
-        $client->getContainer()->set(TagService::class, $tagService);
 
         $postService = $this->createMock(PostService::class);
         $postService
@@ -252,16 +210,11 @@ class PostByDateControllerTest extends BaseWebTestCase
             ->expects($this->never())
             ->method('getPostCountForMonthsInYear');
 
-        $client->getContainer()->set(PostService::class, $postService);
+        $this->client->getContainer()->set(PostService::class, $postService);
 
-        $blogService = $this->createMock(BlogService::class);
-        $blogService
-            ->method('getBlogById')
-            ->willReturn($this->createMock(Blog::class));
+        $this->setBlog(BlogBuilder::default()->build());
 
-        $client->getContainer()->set(BlogService::class, $blogService);
-
-        $crawler = $client->request('GET', '/blogs/aboutthebbc/entries/2017/05');
+        $crawler = $this->client->request('GET', '/blogs/aboutthebbc/entries/2017/05');
 
         $datePickerMonths = $crawler->filterXPath('//li[contains(@class, "bbc-datepicker__box-month-name")]');
 
@@ -270,36 +223,15 @@ class PostByDateControllerTest extends BaseWebTestCase
 
         $blogPosts = $crawler->filterXPath('//div[@itemprop="blogPost"]');
         $this->assertEquals(0, $blogPosts->count());
-
-        $time->clearTestDateTime();
     }
 
-    private function createTestBlog(): Blog
+    private function setBlog(Blog $blog)
     {
-        return new Blog(
-            'testblog',
-            'Test Blog',
-            'This is the short synopsis of the test blog. It\'s short.',
-            'This is the description of the test blog. It\'s not as short as the short synopsis',
-            false,
-            'en-GB',
-            'test.testblog',
-            '',
-            'br-08799',
-            [new FreeText('Free Text Title', 'Here is some free text, for free!')],
-            new Social('@testblogtwitter', 'testblogfacebook', 'testbloggoogle'),
-            false,
-            null,
-            new Image('p017j1r1'),
-            false
-        );
-    }
+        $blogService = $this->createMock(BlogService::class);
+        $blogService
+            ->method('getBlogById')
+            ->willReturn($blog);
 
-    private function createTestTags(): array
-    {
-        return [
-            new Tag(new FileID('tagfileid'), 'sometag'),
-            new Tag(new FileID('tagfileid2'), 'someothertag'),
-        ];
+        $this->client->getContainer()->set(BlogService::class, $blogService);
     }
 }

@@ -8,19 +8,19 @@
     </div>
 
     <div class="component">
-        {% if tagResult.getTotal() == 0 %}
+        {%- if tagResult.getTotal() == 0 -%}
             <p>{{ tr('no_results') }}</p>
-        {% else %}
+        {%- else -%}
             <ul class="list-unstyled list-lined">
-                {% for tag in tagResult.getDomainModels() %}
+                {%- for tag in tagResult.getDomainModels() -%}
                     <li class="br-keyline delta">
                         <a data-istats-link-location="blogs_global_tag" href="{{ path('tag', {blogId: blog.getId(), tagId: tag.getId()}) }}">
-                            {{ tag.getName() }}
+                            {{- tag.getName() -}}
                         </a>
                     </li>
-                {% endfor %}
+                {%- endfor -%}
             </ul>
-        {% endif %}
+        {%- endif -%}
     </div>
 
     {% if paginatorPresenter %}
