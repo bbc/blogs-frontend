@@ -11,7 +11,6 @@ use App\Helper\ApplicationTimeProvider;
 use Symfony\Bundle\FrameworkBundle\Client;
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
-use Tests\App\Builders\TagBuilder;
 
 abstract class BaseWebTestCase extends WebTestCase
 {
