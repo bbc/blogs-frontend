@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
 use Cake\Chronos\Chronos;
