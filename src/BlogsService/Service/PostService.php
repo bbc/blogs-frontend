@@ -80,14 +80,14 @@ class PostService
                 ];
 
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $responses = $this->repository->getPostsBetweenParallel($blog->getId(), $ranges, 0, $page, $perpage);
+                $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
                 $result = [];
                 foreach ($responses as $key => $response) {
                     $post = $this->responseHandler->getIsiteResult($response);
                     $result[$key] = $post->getDomainModels()[0] ?? null;
                 }
 
-                return $result;
+                return [$result['previousPost'], $result['nextPost']];
             },
             [],
             $nullTtl
@@ -108,21 +108,22 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $nowDate, $page, $perpage) {
+                $beginningOfTime = Chronos::create(1970, 1, 1);
 
                 $ranges = [
-                    'oldestPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $nowDate, 'sort' => 'asc'],
-                    'latestPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $nowDate, 'sort' => 'desc'],
+                    'oldestPost' => ['afterDate' => $beginningOfTime, 'beforeDate' => $nowDate, 'sort' => 'asc'],
+                    'latestPost' => ['afterDate' => $beginningOfTime, 'beforeDate' => $nowDate, 'sort' => 'desc'],
                 ];
 
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $responses = $this->repository->getPostsBetweenParallel($blog->getId(), $ranges, 0, $page, $perpage);
+                $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
                 $result = [];
                 foreach ($responses as $key => $response) {
                     $post = $this->responseHandler->getIsiteResult($response);
                     $result[$key] = $post->getDomainModels()[0] ?? null;
                 }
 
-                return $result;
+                return [$result['oldestPost'], $result['latestPost']];
             },
             [],
             $nullTtl
@@ -168,8 +169,8 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), Chronos::create(1970, 1, 1), $publishedUntil, 1, $page, $perpage, $sort);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedUntil, 'sort' => $sort]], 1, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
             },
             [],
             $nullTtl
@@ -242,8 +243,8 @@ class PostService
             $ttl,
             function () use ($blog, $dateFrom, $dateUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), $dateFrom, $dateUntil, 1, $page, $perpage, $sort);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => $dateFrom, 'beforeDate' => $dateUntil, 'sort' => $sort]], 1, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
             },
             [],
             $nullTtl

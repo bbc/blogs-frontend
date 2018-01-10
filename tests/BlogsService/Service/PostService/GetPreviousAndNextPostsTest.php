@@ -41,7 +41,7 @@ class GetPreviousAndNextPostsTest extends ServiceTest
 
         $this->mockPostRepository
             ->expects($this->once())
-            ->method('getPostsBetweenParallel')
+            ->method('getPostsBetween')
             ->willReturn($responses);
 
         $mockIsiteResult = $this->createConfiguredMock(IsiteResult::class, [
@@ -62,8 +62,6 @@ class GetPreviousAndNextPostsTest extends ServiceTest
 
         $this->assertCount(2, $result);
         $this->assertContainsOnly($type, $result);
-        $this->assertArrayHasKey('previousPost', $result);
-        $this->assertArrayHasKey('nextPost', $result);
     }
 
     public function responseProvider(): array

@@ -40,10 +40,7 @@ class PostShowController extends BlogsBaseController
 
         $this->otherIstatsLabels = $istatsLabels;
 
-        $prevNextPosts = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
-
-        $previousPost = isset($prevNextPosts['previousPost']) ? $prevNextPosts['previousPost'] : null;
-        $nextPost = isset($prevNextPosts['nextPost']) ? $prevNextPosts['nextPost'] : null;
+        [$previousPost, $nextPost] = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
         $comments = $blog->hasCommentsEnabled() ? $commentsService->getPostComments($blog, $post) : null;
 

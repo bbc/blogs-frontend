@@ -41,7 +41,7 @@ class GetOldestPostAndLatestPostTest extends ServiceTest
 
         $this->mockPostRepository
             ->expects($this->once())
-            ->method('getPostsBetweenParallel')
+            ->method('getPostsBetween')
             ->willReturn($responses);
 
         $mockIsiteResult = $this->createConfiguredMock(IsiteResult::class, [
@@ -62,8 +62,6 @@ class GetOldestPostAndLatestPostTest extends ServiceTest
 
         $this->assertCount(2, $result);
         $this->assertContainsOnly($type, $result);
-        $this->assertArrayHasKey('oldestPost', $result);
-        $this->assertArrayHasKey('latestPost', $result);
     }
 
     public function responseProvider(): array

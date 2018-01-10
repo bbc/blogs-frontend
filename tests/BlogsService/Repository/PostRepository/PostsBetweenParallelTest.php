@@ -11,7 +11,7 @@ use Psr\Http\Message\ResponseInterface;
 
 class PostsBetweenParallelTest extends AbstractPostRepositoryTest
 {
-    public function testPostsBetweenParallelCalls()
+    public function testPostsBetweenCalls()
     {
         $mockResponse = $this->buildMockResponse(200);
 
@@ -26,7 +26,7 @@ class PostsBetweenParallelTest extends AbstractPostRepositoryTest
             'secondRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
         ];
 
-        $result = $repo->getPostsBetweenParallel('blog-id', $ranges, 1, 1, 1);
+        $result = $repo->getPostsBetween('blog-id', $ranges, 1, 1, 1);
 
         $this->assertInternalType('array', $result);
         $this->assertCount(2, $result);
@@ -43,7 +43,7 @@ class PostsBetweenParallelTest extends AbstractPostRepositoryTest
         $repo = $this->createPostRepo([]);
 
         $this->expectException(InvalidArgumentException::class);
-        $repo->getPostsBetweenParallel('blog-id', [$range], 1, 1, 1);
+        $repo->getPostsBetween('blog-id', [$range], 1, 1, 1);
     }
 
     public function rangesProvider(): array
@@ -70,7 +70,7 @@ class PostsBetweenParallelTest extends AbstractPostRepositoryTest
             'secondRequest' => ['afterDate' => $now, 'beforeDate' => $now, 'sort' => 'asc'],
         ];
 
-        $result = $repo->getPostsBetweenParallel('blog-id', $ranges, 1, 1, 1);
+        $result = $repo->getPostsBetween('blog-id', $ranges, 1, 1, 1);
 
         $this->assertEquals([], $result);
     }

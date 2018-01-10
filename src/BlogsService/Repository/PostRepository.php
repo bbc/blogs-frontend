@@ -48,7 +48,7 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
-    public function getPostsBetweenParallel(
+    public function getPostsBetween(
         string $blogId,
         array $ranges,
         int $depth,
@@ -98,50 +98,6 @@ class PostRepository extends AbstractRepository
         }
 
         return $this->getParallelResponses($queries);
-    }
-
-    public function getPostsBetween(
-        string $blogId,
-        Chronos $afterDate,
-        Chronos $beforeDate,
-        int $depth,
-        int $page,
-        int $perpage,
-        string $sort
-    ): ?ResponseInterface {
-        $query = new SearchQuery();
-        $query->setProject($blogId);
-        $query->setNamespace($blogId, 'blogs-post');
-
-        $query->setQuery([
-            'and' => [
-                [
-                    'ns:published-date',
-                    '>',
-                    $afterDate->addSecond()->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
-                ],
-                [
-                    'ns:published-date',
-                    '<=',
-                    $beforeDate->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
-                ],
-            ],
-        ]);
-
-        $query->setSort([
-            [
-                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
-                'direction' => $sort,
-            ],
-        ]);
-        $query->setDepth($depth);
-        $query->setPage($page);
-        $query->setPageSize($perpage);
-        $query->setUnfiltered(true);
-
-        return $this->getResponse($query);
     }
 
     public function getPostsForAuthors(string $blogId, array $authorIds, int $page, int $perpage): array
