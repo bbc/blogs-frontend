@@ -4,6 +4,11 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }}{% endblock %}
 
+{% block social_tags %}
+    <meta property="og:title" content="{{ block('title') }}">
+    <meta property="og:url" content="{{ url('blog', {blogId: blog.getId()}) }}" />
+{% endblock %}
+
 {% block content %}
     <h1 class="visually-hidden">{{ blog.getName() }}</h1>
     {% if blog.getFeaturedPost() %}
