@@ -72,6 +72,7 @@ class PostsBetweenParallelTest extends AbstractPostRepositoryTest
 
         $result = $repo->getPostsBetween('blog-id', $ranges, 1, 1, 1);
 
-        $this->assertEquals([], $result);
+        $this->assertNull($result['firstRequest']);
+        $this->assertNull($result['secondRequest']);
     }
 }
