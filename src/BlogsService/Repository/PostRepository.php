@@ -48,6 +48,17 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
+    /**
+     * @param string $blogId
+     * @param array $ranges Contains params for the actual query, requires the following keys:
+     *                      $ranges['afterDate']    Chronos Beginning of the date range in the query
+     *                      $ranges['beforeDate']   Chronos End of the date range in the query
+     *                      $ranges['sort']         string Result ordering, 'asc' or 'desc'
+     * @param int $depth
+     * @param int $page
+     * @param int $perpage
+     * @return ResponseInterface[]
+     */
     public function getPostsBetween(
         string $blogId,
         array $ranges,
