@@ -28,8 +28,8 @@ class DatePickerTest extends BaseTemplateTestCase
         $this->assertEquals(9, $years->count());
         $this->assertEquals(12, $months->count());
 
-        $this->assertEquals('2009', trim($years->first()->text()));
-        $this->assertEquals('2017', trim($years->last()->text()));
+        $this->assertEquals('2017', trim($years->first()->text()));
+        $this->assertEquals('2009', trim($years->last()->text()));
 
         $this->assertEquals('January (2)', trim($months->first()->text()));
         $this->assertEquals('December (0)', trim($months->last()->text()));

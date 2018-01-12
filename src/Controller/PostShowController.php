@@ -8,7 +8,6 @@ use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
 use App\Service\CommentsService;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
-use Cake\Chronos\Chronos;
 use Exception;
 
 class PostShowController extends BlogsBaseController
@@ -24,7 +23,9 @@ class PostShowController extends BlogsBaseController
             throw $this->createNotFoundException('Post not found');
         }
 
-        $commentsService->queuePostComments($blog, $post);
+        if ($blog->hasCommentsEnabled()) {
+            $commentsService->queuePostComments($blog, $post);
+        }
 
         $this->hasVideo = $post->hasVideo();
         $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
@@ -39,18 +40,9 @@ class PostShowController extends BlogsBaseController
 
         $this->otherIstatsLabels = $istatsLabels;
 
-        $previousPost = $postService->getPostsBefore(
-            $blog,
-            $post->getPublishedDate()
-        );
+        [$previousPost, $nextPost] = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
-        $nextPost = $postService->getPostsAfter(
-            $blog,
-            $post->getPublishedDate(),
-            Chronos::now()
-        );
-
-        $comments = $commentsService->getPostComments($blog, $post);
+        $comments = $blog->hasCommentsEnabled() ? $commentsService->getPostComments($blog, $post) : null;
 
         return $this->renderWithChrome(
             'post/show.html.twig',

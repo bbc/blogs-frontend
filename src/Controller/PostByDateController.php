@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
 use Cake\Chronos\Chronos;
@@ -30,15 +29,12 @@ class PostByDateController extends BlogsBaseController
 
         $nowDateTime = Chronos::now();
 
-        /** @var Post[] $latestPosts */
-        $latestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'desc')->getDomainModels();
-        /** @var Post[] $oldestPosts */
-        $oldestPosts = $postService->getPostsByBlog($blog, $nowDateTime, 1, 1, 'asc')->getDomainModels();
-
         $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $postService, $year, $month, $totalPostsMonth, $nowDateTime);
 
-        $latestPostDate = isset($latestPosts[0]) ? $latestPosts[0]->getPublishedDate() : $nowDateTime;
-        $oldestPostDate = isset($oldestPosts[0]) ? $oldestPosts[0]->getPublishedDate() : $nowDateTime;
+        [$oldestPost, $latestPost] = $postService->getOldestPostAndLatestPost($blog, $nowDateTime);
+
+        $oldestPostDate = $oldestPost ? $oldestPost->getPublishedDate() : $nowDateTime;
+        $latestPostDate = $latestPost ? $latestPost->getPublishedDate() : $nowDateTime;
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 

@@ -13,7 +13,7 @@ use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_MockObject_MockObject;
 use Tests\App\BlogsService\Service\ServiceTest;
 
-class GetPostsAfterTest extends ServiceTest
+class GetPreviousAndNextPostsTest extends ServiceTest
 {
     /** @var PostRepository | PHPUnit_Framework_MockObject_MockObject */
     private $mockPostRepository;
@@ -27,27 +27,30 @@ class GetPostsAfterTest extends ServiceTest
     }
 
     /**
-     * @dataProvider postProvider
-     * @param string $responseBody
+     * @dataProvider responseProvider
      */
-    public function testGetPostsAfterCalls(string $responseBody)
+    public function testGetPreviousAndNextPostsCalls(?Response $previous, ?Response $next, array $domainModels, string $type)
     {
-        $response = new Response(200, [], $responseBody);
+        $responses = [
+            'previousPost' => $previous,
+            'nextPost' => $next,
+        ];
+
+        $blog = $this->createMock(Blog::class);
+        $blog->method('getId')->willReturn('some-id');
 
         $this->mockPostRepository
             ->expects($this->once())
             ->method('getPostsBetween')
-            ->willReturn($response);
+            ->willReturn($responses);
 
-        $isiteResult = $this->createMock(IsiteResult::class);
-        $isiteResult->method('getDomainModels')
-            ->willReturn([$this->createMock(Post::class), $this->createMock(Post::class)]);
+        $mockIsiteResult = $this->createConfiguredMock(IsiteResult::class, [
+            'getDomainModels' => $domainModels,
+        ]);
 
         $this->mockIsiteFeedResponseHandler
-            ->expects($this->once())
             ->method('getIsiteResult')
-            ->with($response)
-            ->willReturn($isiteResult);
+            ->willReturn($mockIsiteResult);
 
         $postService = new PostService(
             $this->mockPostRepository,
@@ -55,24 +58,20 @@ class GetPostsAfterTest extends ServiceTest
             $this->mockCache
         );
 
-        $blog = $this->createMock(Blog::class);
-        $blog->method('getId')->willReturn('some-id');
+        $result = $postService->getPreviousAndNextPosts($blog, Chronos::now());
 
-        $now = Chronos::now();
-        $serviceResult = $postService->getPostsAfter($blog, $now, $now);
-
-        $this->assertInstanceOf(Post::class, $serviceResult);
+        $this->assertCount(2, $result);
+        $this->assertContainsOnly($type, $result);
     }
 
-    public function postProvider(): array
+    public function responseProvider(): array
     {
+        $responseBody = '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>';
+        $response = new Response(200, [], $responseBody);
+
         return [
-            'results' => [
-                '<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"></xs:schema>',
-            ],
-            'no-results' => [
-                '',
-            ],
+            'posts' => [$response, $response, [$this->createMock(Post::class)], Post::class],
+            'noPosts' => [null, null, [], 'null'],
         ];
     }
 }

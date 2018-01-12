@@ -51,7 +51,7 @@ class DatePickerPresenter extends Presenter
         $latestYear = (int) $this->datePicker->getLatestPostDate()->format('Y');
 
         $years = [];
-        for ($year = $oldestYear; $year <= $latestYear; $year++) {
+        for ($year = $latestYear; $year >= $oldestYear; $year--) {
             $years[] = $year;
         }
 

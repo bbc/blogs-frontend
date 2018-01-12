@@ -48,48 +48,67 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
+    /**
+     * @param string $blogId
+     * @param array $ranges Contains params for the actual query, requires the following keys:
+     *                      $ranges['afterDate']    Chronos Beginning of the date range in the query
+     *                      $ranges['beforeDate']   Chronos End of the date range in the query
+     *                      $ranges['sort']         string Result ordering, 'asc' or 'desc'
+     * @param int $depth
+     * @param int $page
+     * @param int $perpage
+     * @return ResponseInterface[]
+     */
     public function getPostsBetween(
         string $blogId,
-        Chronos $afterDate,
-        Chronos $beforeDate,
+        array $ranges,
         int $depth,
         int $page,
-        int $perpage,
-        string $sort
-    ): ?ResponseInterface {
-        $query = new SearchQuery();
-        $query->setProject($blogId);
-        $query->setNamespace($blogId, 'blogs-post');
+        int $perpage
+    ): array {
+        $queries = [];
 
-        $query->setQuery([
-            'and' => [
-                [
-                    'ns:published-date',
-                    '>',
-                    $afterDate->addSecond()->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
+        foreach ($ranges as $key => $range) {
+            if (!isset($range['afterDate']) || !isset($range['beforeDate']) || !isset($range['sort'])) {
+                throw new InvalidArgumentException('getPostsBetweenParallel range elements must have afterDate, beforeDate and sort indexes set');
+            }
+
+            $query = new SearchQuery();
+            $query->setProject($blogId);
+            $query->setNamespace($blogId, 'blogs-post');
+
+            $query->setQuery([
+                'and' => [
+                    [
+                        'ns:published-date',
+                        '>',
+                        $range['afterDate']->addSecond()->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
+                    [
+                        'ns:published-date',
+                        '<=',
+                        $range['beforeDate']->format('Y-m-d\TH:i:s.BP'),
+                        'dateTime',
+                    ],
                 ],
+            ]);
+
+            $query->setSort([
                 [
-                    'ns:published-date',
-                    '<=',
-                    $beforeDate->format('Y-m-d\TH:i:s.BP'),
-                    'dateTime',
+                    'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                    'direction' => $range['sort'],
                 ],
-            ],
-        ]);
+            ]);
+            $query->setDepth($depth);
+            $query->setPage($page);
+            $query->setPageSize($perpage);
+            $query->setUnfiltered(true);
 
-        $query->setSort([
-            [
-                'elementPath' => '/ns:form/ns:metadata/ns:published-date',
-                'direction' => $sort,
-            ],
-        ]);
-        $query->setDepth($depth);
-        $query->setPage($page);
-        $query->setPageSize($perpage);
-        $query->setUnfiltered(true);
+            $queries[$key] = $query;
+        }
 
-        return $this->getResponse($query);
+        return $this->getParallelResponses($queries);
     }
 
     public function getPostsForAuthors(string $blogId, array $authorIds, int $page, int $perpage): array

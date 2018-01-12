@@ -50,7 +50,7 @@
         {%- endif -%}
     {%- endif -%}
 
-    {%- if blog.hasCommentsEnabled() -%}
+    {%- if comments -%}
         {%- for script in comments.getHead() -%}
             {{ script|raw }}
         {%- endfor -%}
@@ -103,7 +103,7 @@
                     {{ ds('postTags', post.getTags(), blog.getId()) }}
                 {% endif %}
 
-                {% if blog.hasCommentsEnabled() %}
+                {% if comments %}
                     {{ ds('postSocialBar', post, blog.getId())}}
                 {% endif %}
             </div>
@@ -117,11 +117,11 @@
             {{ ds('postTags', post.getTags(), blog.getId()) }}
         {% endif %}
 
-        {% if blog.hasCommentsEnabled() %}
+        {% if comments %}
             {{ ds('postSocialBar', post, blog.getId())}}
         {% endif %}
 
-        {%- if blog.hasCommentsEnabled() -%}
+        {%- if comments -%}
             <div class="component comments-section" id="comments">
                 {{ comments.getBody()|raw }}
             </div>
@@ -140,7 +140,7 @@
         </div>
     {%- endif -%}
 
-    {%- if blog.hasCommentsEnabled() -%}
+    {%- if comments -%}
         {%- for script in comments.getBodyLast() -%}
             {{ script|raw }}
         {%- endfor -%}

@@ -59,51 +59,71 @@ class PostService
         );
     }
 
-    public function getPostsAfter(
-        Blog $blog,
-        Chronos $publishedDate,
-        Chronos $publishedUntil,
-        int $page = 1,
-        int $perpage = 1,
-        $ttl = CacheInterface::NORMAL,
-        $nullTtl = CacheInterface::NONE
-    ): ?Post {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $publishedUntil->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
-
-        return $this->cache->getOrSet(
-            $cacheKey,
-            $ttl,
-            function () use ($blog, $publishedDate, $publishedUntil, $page, $perpage) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), $publishedDate, $publishedUntil, 0, $page, $perpage, 'asc');
-                $result = $this->responseHandler->getIsiteResult($response);
-
-                return $result->getDomainModels()[0] ?? null;
-            },
-            [],
-            $nullTtl
-        );
-    }
-
-    public function getPostsBefore(
+    public function getPreviousAndNextPosts(
         Blog $blog,
         Chronos $publishedDate,
         int $page = 1,
         int $perpage = 1,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
-    ): ?Post {
+    ): array {
         $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
             $ttl,
             function () use ($blog, $publishedDate, $page, $perpage) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), Chronos::create(1970, 1, 1), $publishedDate->subSecond(), 0, $page, $perpage, 'desc');
-                $result = $this->responseHandler->getIsiteResult($response);
 
-                return $result->getDomainModels()[0] ?? null;
+                $ranges = [
+                    'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond(), 'sort' => 'desc'],
+                    'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => Chronos::now(), 'sort' => 'asc'],
+                ];
+
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
+                $result = [];
+                foreach ($responses as $key => $response) {
+                    $post = $this->responseHandler->getIsiteResult($response);
+                    $result[$key] = $post->getDomainModels()[0] ?? null;
+                }
+
+                return [$result['previousPost'], $result['nextPost']];
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    public function getOldestPostAndLatestPost(
+        Blog $blog,
+        Chronos $nowDate,
+        int $page = 1,
+        int $perpage = 1,
+        $ttl = CacheInterface::NORMAL,
+        $nullTtl = CacheInterface::NONE
+    ): array {
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $nowDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $nowDate, $page, $perpage) {
+                $beginningOfTime = Chronos::create(1970, 1, 1);
+
+                $ranges = [
+                    'oldestPost' => ['afterDate' => $beginningOfTime, 'beforeDate' => $nowDate, 'sort' => 'asc'],
+                    'latestPost' => ['afterDate' => $beginningOfTime, 'beforeDate' => $nowDate, 'sort' => 'desc'],
+                ];
+
+                //@TODO Remember to stop calls if this fails too many times within a given period
+                $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
+                $result = [];
+                foreach ($responses as $key => $response) {
+                    $post = $this->responseHandler->getIsiteResult($response);
+                    $result[$key] = $post->getDomainModels()[0] ?? null;
+                }
+
+                return [$result['oldestPost'], $result['latestPost']];
             },
             [],
             $nullTtl
@@ -149,8 +169,8 @@ class PostService
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), Chronos::create(1970, 1, 1), $publishedUntil, 1, $page, $perpage, $sort);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedUntil, 'sort' => $sort]], 1, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
             },
             [],
             $nullTtl
@@ -223,8 +243,8 @@ class PostService
             $ttl,
             function () use ($blog, $dateFrom, $dateUntil, $page, $perpage, $sort) {
                 //@TODO Remember to stop calls if this fails too many times within a given period
-                $response = $this->repository->getPostsBetween($blog->getId(), $dateFrom, $dateUntil, 1, $page, $perpage, $sort);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => $dateFrom, 'beforeDate' => $dateUntil, 'sort' => $sort]], 1, $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
             },
             [],
             $nullTtl
