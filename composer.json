@@ -18,11 +18,16 @@
         {
             "type": "vcs",
             "url": "git@github.com:bbc/programmes-morph-library.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:bbc/rmp-monitoringhandler.git"
         }
     ],
     "require": {
         "php": "^7.1.0",
         "ext-redis": "*",
+        "bbc-rmp/cloudwatch-monitoringhandler": "^1.0",
         "bbc-rmp/translate": "^1.8.7",
         "bbc/branding-client": "^2.3",
         "bbc/gel-iconography-assets": "^1.2",

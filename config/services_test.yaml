@@ -1,6 +1,8 @@
 parameters:
     app.branding_client.class: BBC\BrandingClient\BrandingStubClient
     app.orbit_client.class: BBC\BrandingClient\OrbitStubClient
+    app.metric_backend.class: App\Metrics\Backend\NullMetricBackend
+    app.metric_cache.class: App\Metrics\Cache\MetricCacheNull
 
 services:
     App\BlogsService\Service\AuthorService:
