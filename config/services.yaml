@@ -11,6 +11,11 @@ parameters:
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
     app.morph.endpoint: 'https://morph.api.bbci.co.uk'
     cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
+    app.metric_cache.class: App\Metrics\Cache\MetricCacheApcu
+    app.metric_backend.class: App\Metrics\Backend\CloudWatchMetricBackend
+    blogs.aws.http_timeout: 15
+    blogs.aws.http_connect_timeout: 5
+    aws_s3_region: eu-west-1
 
 services:
     # default configuration for services in *this* file
@@ -102,6 +107,41 @@ services:
                 - '@logger'
             tags:
                 - { name: 'monolog.logger', channel: 'cache' }
+
+    ### Monitoring
+
+    App\Metrics\MetricsManager: ~
+
+    App\Metrics\MetricsMiddleware:
+        tags:
+            - { name: 'csa_guzzle.middleware', alias: 'metrics_middleware', pritority: 90 }
+
+    App\ExternalApi\CircuitBreaker\CircuitBreakerMiddleware:
+        tags:
+            - { name: 'csa_guzzle.middleware', alias: 'circuit_breaker_middleware', pritority: 100 }
+
+    RMP\CloudwatchMonitoring\MonitoringHandler:
+        arguments:
+            $namespace: 'blogs'
+            $env: '%env(COSMOS_ENV)%'
+
+    Aws\CloudWatch\CloudWatchClient:
+        arguments:
+            - region: '%aws_s3_region%'
+              version: '2010-08-01'
+              http:
+                timeout: '%blogs.aws.http_timeout%'
+                connect_timeout: '%blogs.aws.http_connect_timeout%'
+
+    App\Metrics\Backend\MetricBackendInterface:
+        class: '%app.metric_backend.class%'
+
+    App\Metrics\Cache\MetricCacheInterface:
+        class: "%app.metric_cache.class%"
+
+    App\EventSubscriber\MonitoringSubscriber:
+        tags:
+            - { name: 'kernel.event_subscriber' }
 
     ### Translations
 

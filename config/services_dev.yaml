@@ -1,0 +1,2 @@
+parameters:
+    app.metric_backend.class: App\Metrics\Backend\LogMetricBackend
