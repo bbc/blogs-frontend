@@ -95,9 +95,12 @@ services:
 
     BBC\ProgrammesMorphLibrary\MorphClient:
         arguments:
-            - '@logger'
             - '@csa_guzzle.client.default'
+            - '@BBC\ProgrammesCachingLibrary\Cache'
+            - '@logger'
             - '%app.morph.endpoint%'
+            - cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.morph'
+
 
     cache.default_redis_provider:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
@@ -156,3 +159,12 @@ services:
               default_domain: 'blogs'
               debug: '%kernel.debug%'
               basepath: '%kernel.project_dir%/translations'
+
+
+    ## Caching Library
+
+    BBC\ProgrammesCachingLibrary\CacheInterface:
+        alias: BBC\ProgrammesCachingLibrary\Cache
+
+    BBC\ProgrammesCachingLibrary\Cache:
+        arguments: ['@cache.blogs', 'blogs-frontend.%cosmos_component_release%']

@@ -9,6 +9,7 @@ use App\Translate\TranslateProvider;
 use BBC\ProgrammesMorphLibrary\Entity\MorphView;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use BBC\ProgrammesMorphLibrary\MorphClient;
+use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
 
 class CommentsService
@@ -42,10 +43,11 @@ class CommentsService
         $this->translateProvider = $translateProvider;
     }
 
-    public function queuePostComments(Blog $blog, Post $post): void
+    public function getByBlogAndPostAsync(Blog $blog, Post $post): ?PromiseInterface
     {
-        $this->client->queueView(
+        return $this->client->makeCachedViewPromise(
             'bbc-morph-comments-view',
+            'comments-module',
             [
                 'apiKey' => $this->apiKey,
                 'mode' => 'embedded',
@@ -56,29 +58,19 @@ class CommentsService
         );
     }
 
-    public function getPostComments(Blog $blog, Post $post): ?MorphView
+    public function getByBlogAndPost(Blog $blog, Post $post): ?MorphView
     {
-        try {
-            return $this->client->getView(
-                'bbc-morph-comments-view',
-                'comments-module',
-                [
-                    'apiKey' => $this->apiKey,
-                    'mode' => 'embedded',
-                    'idctaEnv' => $this->env,
-                    'forumId' => $this->getForumId($blog, $post),
-                ],
-                []
-            );
-        } catch (MorphErrorException $e) {
-            $this->logger->error($e->getMessage());
-            return new MorphView(
-                'comments-module',
-                [],
-                $this->translateProvider->getTranslate()->translate('error_comments'),
-                []
-            );
-        }
+        return $this->client->makeCachedViewRequest(
+            'bbc-morph-comments-view',
+            'comments-module',
+            [
+                'apiKey' => $this->apiKey,
+                'mode' => 'embedded',
+                'idctaEnv' => $this->env,
+                'forumId' => $this->getForumId($blog, $post),
+            ],
+            []
+        );
     }
 
     private function getForumId(Blog $blog, Post $post): string
