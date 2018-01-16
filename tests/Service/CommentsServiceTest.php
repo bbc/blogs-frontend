@@ -28,13 +28,13 @@ class CommentsServiceTest extends TestCase
         $this->translateProvider = new TranslateProvider(new TranslateFactory());
     }
 
-    public function testGetPostCommentsCatchesExceptionAndReturnsErrorMessage()
+    public function testGetByBlogAndPostHandlesNullResponse()
     {
         $client = $this->createMock(MorphClient::class);
-        $client->method('getView')->willThrowException(new MorphErrorException());
+        $client->method('makeCachedViewRequest')->willReturn(null);
 
         $service = new CommentsService($this->logger, $this->translateProvider, $client, 'asd', 'test');
-        $response = $service->getPostComments($this->blog, $this->post);
+        $response = $service->getByBlogAndPost($this->blog, $this->post);
         $this->assertEquals([], $response->getHead());
         $this->assertEquals('error_comments', $response->getBody());
         $this->assertEquals([], $response->getBodyLast());

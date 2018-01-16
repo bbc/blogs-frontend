@@ -21,6 +21,10 @@
         },
         {
             "type": "vcs",
+            "url": "git@github.com:bbc/programmes-caching-library.git"
+        },
+        {
+            "type": "vcs",
             "url": "git@github.com:bbc/rmp-monitoringhandler.git"
         }
     ],
@@ -32,6 +36,7 @@
         "bbc/branding-client": "^2.3",
         "bbc/gel-iconography-assets": "^1.2",
         "bbc/programmes-morph-library": "^0.1",
+        "bbc/programmes-caching-library": "^1.0",
         "cakephp/chronos": "^1.1",
         "cakephp/utility": "^3.5",
         "csa/guzzle-bundle": "^3.0",
