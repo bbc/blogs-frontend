@@ -10,10 +10,7 @@ if ! (php --version | grep -q "PHP 7.") ; then
     exit 1
 fi
 
-# This exports all variables in this file as env variables. Because of course it does.
-set -a
-source ./.env.build
-set +a
+export SYMFONY_ENV=prod;
 
 # setup and run composer
 if [ -n "$OAUTH" ]; then

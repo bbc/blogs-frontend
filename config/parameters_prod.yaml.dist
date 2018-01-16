@@ -1,0 +1,9 @@
+parameters:
+    cosmos_environment: $cosmos_environment
+    app_release_number: $cosmos_component_release
+
+    redis_endpoint: $redis_endpoint
+    comments_api_key: $comments_api_key
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: $secret
