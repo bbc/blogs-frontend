@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Translate\TranslateProvider;
 use BBC\ProgrammesMorphLibrary\Entity\MorphView;
-use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
@@ -71,6 +70,11 @@ class CommentsService
             ],
             []
         );
+    }
+
+    public function getPromiseResult(PromiseInterface $promise): ?MorphView
+    {
+        return $promise->wait();
     }
 
     private function getForumId(Blog $blog, Post $post): string
