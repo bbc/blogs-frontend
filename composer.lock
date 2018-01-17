@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "caa538e35f60be666b3445563d327058",
+    "content-hash": "b1b183f5f5b3e454384b54504f12b208",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -175,7 +175,7 @@
             ],
             "description": "Small PHP library and translation files for translations in programmes/amen",
             "support": {
-                "source": "https://github.com/bbc/rmp-translate/tree/master",
+                "source": "https://github.com/bbc/rmp-translate/tree/v1.8.7",
                 "issues": "https://github.com/bbc/rmp-translate/issues"
             },
             "time": "2017-11-01T10:58:17+00:00"
@@ -292,20 +292,23 @@
         },
         {
             "name": "bbc/programmes-morph-library",
-            "version": "v0.1",
+            "version": "v1.0",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bbc/programmes-morph-library.git",
-                "reference": "69613f03b285768ba5826268aae0a57bb68703d8"
+                "url": "https://github.com/bbc/programmes-morph-library.git",
+                "reference": "20a39aadb2adca4210123846cccd61bd259da27c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/69613f03b285768ba5826268aae0a57bb68703d8",
-                "reference": "69613f03b285768ba5826268aae0a57bb68703d8",
+                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/20a39aadb2adca4210123846cccd61bd259da27c",
+                "reference": "20a39aadb2adca4210123846cccd61bd259da27c",
                 "shasum": ""
             },
             "require": {
+                "bbc/programmes-caching-library": "^1.0",
+                "csa/guzzle-bundle": "^3.0",
                 "guzzlehttp/guzzle": "^6.0",
+                "psr/cache": "^1.0.0",
                 "psr/log": "^1.0.0"
             },
             "require-dev": {
@@ -327,10 +330,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/bbc/programmes-morph-library/tree/v0.1",
+                "source": "https://github.com/bbc/programmes-morph-library/tree/v1.0",
                 "issues": "https://github.com/bbc/programmes-morph-library/issues"
             },
-            "time": "2017-12-19T16:21:32+00:00"
+            "time": "2018-01-17T14:52:00+00:00"
         },
         {
             "name": "cakephp/chronos",

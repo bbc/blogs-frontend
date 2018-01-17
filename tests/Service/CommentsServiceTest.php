@@ -35,8 +35,6 @@ class CommentsServiceTest extends TestCase
 
         $service = new CommentsService($this->logger, $this->translateProvider, $client, 'asd', 'test');
         $response = $service->getByBlogAndPost($this->blog, $this->post);
-        $this->assertEquals([], $response->getHead());
-        $this->assertEquals('error_comments', $response->getBody());
-        $this->assertEquals([], $response->getBodyLast());
+        $this->assertNull($response);
     }
 }
