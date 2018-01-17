@@ -72,11 +72,6 @@ class CommentsService
         );
     }
 
-    public function getPromiseResult(PromiseInterface $promise): ?MorphView
-    {
-        return $promise->wait();
-    }
-
     private function getForumId(Blog $blog, Post $post): string
     {
         return 'blogs_' . $blog->getId() . $post->getForumId();

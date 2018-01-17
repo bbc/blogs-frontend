@@ -39,7 +39,7 @@ class PostShowController extends BlogsBaseController
 
         [$previousPost, $nextPost] = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
-        $comments = $commentsPromise ? $commentsService->getPromiseResult($commentsPromise) : null;
+        $comments = $commentsPromise ? $commentsPromise->wait() : null;
 
         return $this->renderWithChrome(
             'post/show.html.twig',
