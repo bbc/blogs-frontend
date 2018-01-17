@@ -2,7 +2,7 @@
 declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
-use App\BlogsService\Infrastructure\Cache\Cache;
+use BBC\ProgrammesCachingLibrary\Cache;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;

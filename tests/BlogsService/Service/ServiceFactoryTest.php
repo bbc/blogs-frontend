@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Tests\App\BlogsService\Service;
 
-use App\BlogsService\Infrastructure\Cache\Cache;
+use BBC\ProgrammesCachingLibrary\Cache;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;
 use App\BlogsService\Service\ServiceFactory;

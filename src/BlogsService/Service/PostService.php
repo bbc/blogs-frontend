@@ -8,7 +8,7 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Tag;
 use App\BlogsService\Domain\ValueObject\GUID;
-use App\BlogsService\Infrastructure\Cache\CacheInterface;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
