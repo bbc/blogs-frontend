@@ -10,7 +10,7 @@ require __DIR__.'/../vendor/autoload.php';
 // stick with using a parameters.yaml file instead of environment variables
 
 $env = $_SERVER['APP_ENV'] ?? 'dev';
-$debug = $_SERVER['APP_DEBUG'] ?? !in_array($env, ['prod', 'prod_int', 'prod_test', 'prod_int_fixture', 'prod_test_fixture']);
+$debug = $_SERVER['APP_DEBUG'] ?? !in_array($env, ['prod', 'prod_int', 'prod_test']);
 
 if ($debug) {
     umask(0000);
