@@ -4,6 +4,7 @@
 /web/assets
 npm-debug.log
 yarn-error.log
+/config/parameters.yaml
 
 ###> symfony/framework-bundle ###
 .env

@@ -39,6 +39,11 @@ class Kernel extends BaseKernel
         $container->setParameter('container.autowiring.strict_mode', true);
         $container->setParameter('container.dumper.inline_class_loader', true);
         $confDir = $this->getProjectDir() . '/config';
+
+        // Load generated parameters.yaml, as we prefer generating config files
+        // rather than environment variables for configuration
+        $loader->load($confDir . '/parameters.yaml', 'glob');
+
         $loader->load($confDir . '/packages/*' . self::CONFIG_EXTS, 'glob');
         if (is_dir($confDir . '/packages/' . $this->environment)) {
             $loader->load($confDir . '/packages/' . $this->environment . '/**/*' . self::CONFIG_EXTS, 'glob');

@@ -1,0 +1,9 @@
+parameters:
+    cosmos_environment: sandbox
+    app_release_number: 0
+
+    redis_endpoint: sandbox.bbc.co.uk:6379
+    comments_api_key: key
+
+    # A secret key that's used to generate certain security-related tokens
+    secret: SssshhThisIsATopSecretKey

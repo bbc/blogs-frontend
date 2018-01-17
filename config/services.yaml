@@ -10,7 +10,7 @@ parameters:
     app.feed_env.comments: 'live'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
     app.morph.endpoint: 'https://morph.api.bbci.co.uk'
-    cosmos_component_release: '%env(APP_RELEASE_NUMBER)%'
+    cosmos_component_release: '%app_release_number%'
     app.metric_cache.class: App\Metrics\Cache\MetricCacheApcu
     app.metric_backend.class: App\Metrics\Backend\CloudWatchMetricBackend
     blogs.aws.http_timeout: 15
@@ -70,11 +70,11 @@ services:
             - '@logger'
             - '@App\Translate\TranslateProvider'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
-            - '%env(COMMENTS_API_KEY)%'
+            - '%comments_api_key%'
             - '%app.feed_env.comments%'
 
     App\ValueObject\CosmosInfo:
-        arguments: ['%cosmos_component_release%', '%env(COSMOS_ENV)%', '%app.endpoint_host%']
+        arguments: ['%cosmos_component_release%', '%cosmos_environment%', '%app.endpoint_host%']
 
     BBC\BrandingClient\BrandingClient:
         class: "%app.branding_client.class%"
@@ -103,7 +103,7 @@ services:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
             class: App\Redis\RedisClusterFactory
             arguments:
-                - ['%env(APP_REDIS_ENDPOINT)%']
+                - ['%redis_endpoint%']
                 - '@logger'
             tags:
                 - { name: 'monolog.logger', channel: 'cache' }
@@ -123,7 +123,7 @@ services:
     RMP\CloudwatchMonitoring\MonitoringHandler:
         arguments:
             $namespace: 'blogs'
-            $env: '%env(COSMOS_ENV)%'
+            $env: '%cosmos_environment%'
 
     Aws\CloudWatch\CloudWatchClient:
         arguments:

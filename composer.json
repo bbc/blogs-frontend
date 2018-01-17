@@ -35,6 +35,7 @@
         "cakephp/chronos": "^1.1",
         "cakephp/utility": "^3.5",
         "csa/guzzle-bundle": "^3.0",
+        "derrabus/composer-parameter-handler": "^2.1",
         "fzaninotto/faker": "^1.7",
         "sensiolabs/security-checker": "^4.1",
         "symfony/asset": "^4.0",
@@ -54,7 +55,6 @@
         "symfony/browser-kit": "^4.0",
         "symfony/css-selector": "^4.0",
         "symfony/debug-bundle": "^4.0",
-        "symfony/dotenv": "^4.0",
         "symfony/phpunit-bridge": "^4.0",
         "symfony/profiler-pack": "^1.0",
         "symfony/var-dumper": "^4.0",
@@ -83,10 +83,12 @@
             "security-checker security:check": "script"
         },
         "post-install-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "@auto-scripts",
             "bin/update-gelicons.php"
         ],
         "post-update-cmd": [
+            "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
             "@auto-scripts"
         ]
     },
@@ -98,6 +100,9 @@
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
             "allow-contrib": false
+        },
+        "incenteev-parameters": {
+            "file": "config/parameters.yaml"
         }
     }
 }

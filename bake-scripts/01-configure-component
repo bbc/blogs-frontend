@@ -23,21 +23,22 @@ def component_config():
         data = json.load(f)
         return data
 
+def substitute_data(data):
+    return {
+        'secret': data["secure_configuration"]["secret"],
+        'cosmos_environment': data["environment"],
+        'cosmos_component_release': data['release'],
+        'comments_api_key': data["configuration"]["comments_api_key"],
+        'redis_endpoint': data["configuration"]["redis_endpoint"]
+    }
+
 def rewrite_application_parameters(symfony_env, config):
     nginxConfFile = "/etc/nginx/conf.d/webapps/blogs-frontend.conf"
 
     new_params = """
         fastcgi_param APP_ENV {symfony_env};
-        fastcgi_param APP_SECRET {secret};
-        fastcgi_param APP_REDIS_ENDPOINT {redis_endpoint};
-        fastcgi_param COSMOS_ENV {cosmos_environment};
-        fastcgi_param COMMENTS_API_KEY {comments_api_key};
     """.format(
-        symfony_env = symfony_env,
-        secret = config["secure_configuration"]["secret"],
-        redis_endpoint = config["configuration"]["redis_endpoint"],
-        cosmos_environment = config["environment"],
-        comments_api_key = config["configuration"]["comments_api_key"]
+        symfony_env = symfony_env
     )
 
     content = open(nginxConfFile).read()
@@ -46,6 +47,20 @@ def rewrite_application_parameters(symfony_env, config):
     print "Overwriting " + nginxConfFile
     with open(nginxConfFile, 'wt') as nginx_config_file:
         nginx_config_file.write(content)
+
+    appParamWriteFile = appRoot + "/config/parameters.yaml"
+    appParamReadFile = appRoot + "/config/parameters_prod.yaml.dist"
+
+    print "Reading parameter template file..."
+    if not os.path.isfile(appParamReadFile):
+        raise IOError("MISSING FILE: " + appParamReadFile)
+
+    src = Template(open(appParamReadFile).read())
+    parameters = src.substitute(substitute_data(config))
+
+    print "Overwriting " + appParamWriteFile
+    with open(appParamWriteFile, 'wt') as config_file:
+        config_file.write(parameters)
 
 def system_tweaks():
     with open("/etc/sysctl.d/80-frontend.conf", "w") as f:
@@ -67,7 +82,6 @@ def system_tweaks():
 def regenerate_cache(symfony_env):
     appTmpDir = appRoot + "/var"
     appConsoleFile = appRoot + "/bin/console"
-    buildEnvFile = appRoot + "/.env.build"
 
     print "Regenerating cache..."
     # Steal the ownership of the var directory for a moment, so we can write
@@ -77,9 +91,8 @@ def regenerate_cache(symfony_env):
     # The warmup in cache:clear doesn't quite do what you expect so we should
     # call cache:warmup explicitly
     # http://symfony.com/blog/new-in-symfony-3-3-deprecated-cache-clear-with-warmup
-
-    subprocess.call('source ' + buildEnvFile + ' ; php ' + appConsoleFile + ' cache:clear --no-warmup --no-debug', shell=True)
-    subprocess.call('source ' + buildEnvFile + ' ; php ' + appConsoleFile + ' cache:warmup --no-debug', shell=True)
+    subprocess.call(['php', appConsoleFile, '--env=' + symfony_env, 'cache:clear', '--no-warmup', '--no-debug'])
+    subprocess.call(['php', appConsoleFile, '--env=' + symfony_env, 'cache:warmup', '--no-debug'])
 
     # Give the temp directory back to nginx
     subprocess.call(['chown', '-R', 'nginx:nginx', appTmpDir])
