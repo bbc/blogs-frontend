@@ -38,7 +38,6 @@ class BlogService
             $cacheKey,
             $ttl,
             function () {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getAllBlogs();
                 return $this->responseHandler->getIsiteResult($response);
             },
@@ -55,7 +54,6 @@ class BlogService
             $cacheKey,
             $ttl,
             function () use ($blogId) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getBlogById($blogId);
                 $result = $this->responseHandler->getIsiteResult($response);
                 return $result->getDomainModels()[0] ?? null;

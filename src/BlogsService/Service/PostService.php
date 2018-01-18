@@ -79,7 +79,6 @@ class PostService
                     'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => Chronos::now(), 'sort' => 'asc'],
                 ];
 
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
                 $result = [];
                 foreach ($responses as $key => $response) {
@@ -115,7 +114,6 @@ class PostService
                     'latestPost' => ['afterDate' => $beginningOfTime, 'beforeDate' => $nowDate, 'sort' => 'desc'],
                 ];
 
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
                 $result = [];
                 foreach ($responses as $key => $response) {
@@ -144,7 +142,6 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $author, $page, $perPage) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsByAuthorFileId($blog->getId(), (string) $author->getFileId(), $page, $perPage);
                 return $this->responseHandler->getIsiteResult($response);
             },
@@ -168,7 +165,6 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $publishedUntil, $page, $perpage, $sort) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedUntil, 'sort' => $sort]], 1, $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response[0]);
             },
@@ -206,7 +202,6 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $authorIds, $page, $perPage) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $responses = $this->repository->getPostsForAuthors($blog->getId(), $authorIds, $page, $perPage);
 
                 $result = [];
@@ -242,7 +237,6 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $dateFrom, $dateUntil, $page, $perpage, $sort) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsBetween($blog->getId(), [['afterDate' => $dateFrom, 'beforeDate' => $dateUntil, 'sort' => $sort]], 1, $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response[0]);
             },
@@ -265,7 +259,6 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $tag, $page, $perpage) {
-                //@TODO Remember to stop calls if this fails too many times within a given period
                 $response = $this->repository->getPostsByTagFileId($blog->getId(), (string) $tag->getFileId(), $page, $perpage);
                 return $this->responseHandler->getIsiteResult($response);
             },

@@ -5,8 +5,8 @@ namespace App\ExternalApi\CircuitBreaker;
 
 use App\ExternalApi\ApiType\ApiTypeEnum;
 use App\Metrics\MetricsManager;
-use Psr\Log\LoggerInterface;
 use InvalidArgumentException;
+use Psr\Log\LoggerInterface;
 
 class CircuitBreakerFactory
 {

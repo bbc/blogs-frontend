@@ -64,7 +64,7 @@ class PostSummaryPresenter extends Presenter
         parent::validateOptions($options);
 
         if (!is_array($options['author_options'])) {
-            throw new InvalidOptionException("Option 'author_options' must be an aray");
+            throw new InvalidOptionException("Option 'author_options' must be an array");
         }
 
         if (!is_string($options['h_class'])) {

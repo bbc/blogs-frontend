@@ -6,10 +6,10 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Domain\ValueObject\Social;
 use PHPUnit\Framework\TestCase;
+use Tests\App\Builders\PostBuilder;
 
 class BlogTest extends TestCase
 {
-    private $fileId;
     private $id;
     private $name;
     private $shortSynopsis;
@@ -41,7 +41,7 @@ class BlogTest extends TestCase
         $this->isCommentsAvailabe = false;
         $this->bbcSite        = 'kl-bitesize';
         $this->brandingId     = 'internetblog';
-        $this->featuredPost   = null; /** TODO ADD A FEATURED POST WHEN POSTS IMPLEMENTED */
+        $this->featuredPost   = PostBuilder::default()->build();
         $this->language       = "en-GB";
         $this->isArchived     = false;
     }
