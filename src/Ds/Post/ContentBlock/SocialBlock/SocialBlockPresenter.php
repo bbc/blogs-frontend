@@ -25,7 +25,7 @@ class SocialBlockPresenter extends Presenter
 
     public function getAlt(): string
     {
-        return $this->content->getAlt() ?? $this->content->getLink();
+        return $this->content->getAlt() ? $this->content->getAlt() : $this->content->getLink();
     }
 
     public function getLink(): string

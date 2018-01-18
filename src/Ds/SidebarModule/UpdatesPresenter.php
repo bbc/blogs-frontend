@@ -30,7 +30,7 @@ class UpdatesPresenter extends Presenter
 
     public function getTagId(): string
     {
-        return $this->tag ? (string) $this->tag->getFileId() : '';
+        return $this->tag ? $this->tag->getId() : '';
     }
 
     public function shouldShowTagFeeds(): bool

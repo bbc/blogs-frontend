@@ -49,7 +49,8 @@
         "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.1",
         "symfony/twig-bundle": "^4.0",
-        "symfony/yaml": "^4.0"
+        "symfony/yaml": "^4.0",
+        "zendframework/zend-feed": "^2.9"
     },
     "require-dev": {
         "escapestudios/symfony2-coding-standard": "^3.0",

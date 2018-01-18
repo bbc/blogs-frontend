@@ -403,5 +403,14 @@
     },
     "webmozart/assert": {
         "version": "1.2.0"
+    },
+    "zendframework/zend-escaper": {
+        "version": "2.5.2"
+    },
+    "zendframework/zend-feed": {
+        "version": "2.9.0"
+    },
+    "zendframework/zend-stdlib": {
+        "version": "3.1.0"
     }
 }
