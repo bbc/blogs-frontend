@@ -5,12 +5,12 @@ namespace App\Metrics;
 
 use App\ExternalApi\ApiType\ApiTypeEnum;
 use App\Metrics\Backend\MetricBackendInterface;
-use App\Metrics\BlogsMetrics\BlogsMetricInterface;
-use App\Metrics\Cache\MetricCacheInterface;
 use App\Metrics\BlogsMetrics\ApiBreakerMetric;
 use App\Metrics\BlogsMetrics\ApiResponseMetric;
 use App\Metrics\BlogsMetrics\ApiTimeMetric;
+use App\Metrics\BlogsMetrics\BlogsMetricInterface;
 use App\Metrics\BlogsMetrics\RouteMetric;
+use App\Metrics\Cache\MetricCacheInterface;
 use InvalidArgumentException;
 use Symfony\Component\Routing\RouterInterface;
 
