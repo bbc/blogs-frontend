@@ -93,7 +93,6 @@ services:
             - '@BBC\ProgrammesCachingLibrary\Cache'
             - '@logger'
             - '%app.morph.endpoint%'
-            - cacheKeyPrefix: 'blogs-frontend.%cosmos_component_release%.morph'
 
     cache.default_redis_provider:
             factory: 'App\Redis\RedisClusterFactory:createRedisCluster'
