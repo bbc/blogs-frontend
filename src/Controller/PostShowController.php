@@ -18,7 +18,7 @@ class PostShowController extends BlogsBaseController
         $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
-        $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPostAsync($blog, $post) : null;
+        $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

@@ -42,24 +42,9 @@ class CommentsService
         $this->translateProvider = $translateProvider;
     }
 
-    public function getByBlogAndPostAsync(Blog $blog, Post $post): ?PromiseInterface
+    public function getByBlogAndPost(Blog $blog, Post $post): ?PromiseInterface
     {
         return $this->client->makeCachedViewPromise(
-            'bbc-morph-comments-view',
-            'comments-module',
-            [
-                'apiKey' => $this->apiKey,
-                'mode' => 'embedded',
-                'idctaEnv' => $this->env,
-                'forumId' => $this->getForumId($blog, $post),
-            ],
-            []
-        );
-    }
-
-    public function getByBlogAndPost(Blog $blog, Post $post): ?MorphView
-    {
-        return $this->client->makeCachedViewRequest(
             'bbc-morph-comments-view',
             'comments-module',
             [
