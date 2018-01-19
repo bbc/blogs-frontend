@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "329160143d8956ed51628740fc3800ce",
+    "content-hash": "ffaa9074dedb0cbe192bfb529c8cdd58",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -175,7 +175,7 @@
             ],
             "description": "Small PHP library and translation files for translations in programmes/amen",
             "support": {
-                "source": "https://github.com/bbc/rmp-translate/tree/master",
+                "source": "https://github.com/bbc/rmp-translate/tree/v1.8.7",
                 "issues": "https://github.com/bbc/rmp-translate/issues"
             },
             "time": "2017-11-01T10:58:17+00:00"
@@ -255,21 +255,60 @@
             "time": "2017-09-04T13:45:14+00:00"
         },
         {
-            "name": "bbc/programmes-morph-library",
-            "version": "v0.1",
+            "name": "bbc/programmes-caching-library",
+            "version": "v1.0.2",
             "source": {
                 "type": "git",
-                "url": "git@github.com:bbc/programmes-morph-library.git",
-                "reference": "69613f03b285768ba5826268aae0a57bb68703d8"
+                "url": "https://github.com/bbc/programmes-caching-library.git",
+                "reference": "2dfe8e24a9525c6f69a4e00510234442c2a0d58d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/69613f03b285768ba5826268aae0a57bb68703d8",
-                "reference": "69613f03b285768ba5826268aae0a57bb68703d8",
+                "url": "https://api.github.com/repos/bbc/programmes-caching-library/zipball/2dfe8e24a9525c6f69a4e00510234442c2a0d58d",
+                "reference": "2dfe8e24a9525c6f69a4e00510234442c2a0d58d",
                 "shasum": ""
             },
             "require": {
+                "php": ">=7.1.0",
+                "psr/cache": "^1.0"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "BBC\\ProgrammesCachingLibrary\\": "src/"
+                }
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\BBC\\ProgrammesCachingLibrary\\": "tests/"
+                }
+            },
+            "description": "Caching for /programmes projects",
+            "support": {
+                "source": "https://github.com/bbc/programmes-caching-library/tree/v1.0.2",
+                "issues": "https://github.com/bbc/programmes-caching-library/issues"
+            },
+            "time": "2018-01-18T12:15:46+00:00"
+        },
+        {
+            "name": "bbc/programmes-morph-library",
+            "version": "v1.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/bbc/programmes-morph-library.git",
+                "reference": "20a39aadb2adca4210123846cccd61bd259da27c"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/20a39aadb2adca4210123846cccd61bd259da27c",
+                "reference": "20a39aadb2adca4210123846cccd61bd259da27c",
+                "shasum": ""
+            },
+            "require": {
+                "bbc/programmes-caching-library": "^1.0",
+                "csa/guzzle-bundle": "^3.0",
                 "guzzlehttp/guzzle": "^6.0",
+                "psr/cache": "^1.0.0",
                 "psr/log": "^1.0.0"
             },
             "require-dev": {
@@ -291,10 +330,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/bbc/programmes-morph-library/tree/v0.1",
+                "source": "https://github.com/bbc/programmes-morph-library/tree/v1.0",
                 "issues": "https://github.com/bbc/programmes-morph-library/issues"
             },
-            "time": "2017-12-19T16:21:32+00:00"
+            "time": "2018-01-17T14:52:00+00:00"
         },
         {
             "name": "cakephp/chronos",

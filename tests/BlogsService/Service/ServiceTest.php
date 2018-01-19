@@ -3,7 +3,7 @@ declare(strict_types = 1);
 
 namespace Tests\App\BlogsService\Service;
 
-use App\BlogsService\Infrastructure\Cache\CacheInterface;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;

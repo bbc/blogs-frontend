@@ -18,13 +18,10 @@ class PostShowController extends BlogsBaseController
         $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
+        $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
-        }
-
-        if ($blog->hasCommentsEnabled()) {
-            $commentsService->queuePostComments($blog, $post);
         }
 
         $this->hasVideo = $post->hasVideo();
@@ -42,7 +39,7 @@ class PostShowController extends BlogsBaseController
 
         [$previousPost, $nextPost] = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
-        $comments = $blog->hasCommentsEnabled() ? $commentsService->getPostComments($blog, $post) : null;
+        $comments = $commentsPromise ? $commentsPromise->wait() : null;
 
         return $this->renderWithChrome(
             'post/show.html.twig',

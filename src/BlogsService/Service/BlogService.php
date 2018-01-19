@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
-use App\BlogsService\Infrastructure\Cache\CacheInterface;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\BlogRepository;
