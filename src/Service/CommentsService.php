@@ -42,7 +42,7 @@ class CommentsService
         $this->translateProvider = $translateProvider;
     }
 
-    public function getByBlogAndPost(Blog $blog, Post $post): ?PromiseInterface
+    public function getByBlogAndPost(Blog $blog, Post $post): PromiseInterface
     {
         return $this->client->makeCachedViewPromise(
             'bbc-morph-comments-view',

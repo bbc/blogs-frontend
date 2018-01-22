@@ -292,16 +292,16 @@
         },
         {
             "name": "bbc/programmes-morph-library",
-            "version": "v1.0",
+            "version": "v1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bbc/programmes-morph-library.git",
-                "reference": "20a39aadb2adca4210123846cccd61bd259da27c"
+                "reference": "48ee418ad89e424a723bff518b0e45182087d1b9"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/20a39aadb2adca4210123846cccd61bd259da27c",
-                "reference": "20a39aadb2adca4210123846cccd61bd259da27c",
+                "url": "https://api.github.com/repos/bbc/programmes-morph-library/zipball/48ee418ad89e424a723bff518b0e45182087d1b9",
+                "reference": "48ee418ad89e424a723bff518b0e45182087d1b9",
                 "shasum": ""
             },
             "require": {
@@ -330,10 +330,10 @@
                 }
             },
             "support": {
-                "source": "https://github.com/bbc/programmes-morph-library/tree/v1.0",
+                "source": "https://github.com/bbc/programmes-morph-library/tree/v1.0.1",
                 "issues": "https://github.com/bbc/programmes-morph-library/issues"
             },
-            "time": "2018-01-17T14:52:00+00:00"
+            "time": "2018-01-22T12:15:56+00:00"
         },
         {
             "name": "cakephp/chronos",
