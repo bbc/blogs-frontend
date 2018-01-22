@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "73c9c90826e01c36bd41ace3a54caac9",
+    "content-hash": "38bf38fd40fd598655f8e6a582ebabbb",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -175,7 +175,7 @@
             ],
             "description": "Small PHP library and translation files for translations in programmes/amen",
             "support": {
-                "source": "https://github.com/bbc/rmp-translate/tree/v1.8.7",
+                "source": "https://github.com/bbc/rmp-translate/tree/master",
                 "issues": "https://github.com/bbc/rmp-translate/issues"
             },
             "time": "2017-11-01T10:58:17+00:00"
