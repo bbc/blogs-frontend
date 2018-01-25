@@ -11,6 +11,7 @@ use App\Translate\TranslateProvider;
 use Cake\Chronos\Chronos;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Environment;
+use Zend\Feed\Writer\Entry;
 use Zend\Feed\Writer\Feed;
 
 class FeedGenerator
@@ -66,35 +67,7 @@ class FeedGenerator
         $feed->setEncoding('UTF-8');
 
         foreach ($posts as $post) {
-            $feedItem = $feed->createEntry();
-
-            $postUrl = $this->router->generate(
-                'post',
-                ['blogId' => $blog->getId(), 'guid' => $post->getGuid()],
-                UrlGeneratorInterface::ABSOLUTE_URL
-            );
-
-            $feedItem->setTitle($post->getTitle());
-            $feedItem->setLink($postUrl);
-            $feedItem->setDescription($post->getShortSynopsis());
-            $feedItem->setDateModified($post->getPublishedDate()->getTimestamp());
-            $feedItem->setDateCreated($post->getPublishedDate()->getTimestamp());
-
-            if ($post->getAuthor()) {
-                $feedItem->addAuthor(['name' => $post->getAuthor()->getName()]);
-            }
-
-            $postContent = $this->generatePostFeedContent($post);
-
-            if ($type == 'atom') {
-                $postContent = html_entity_decode($postContent, ENT_QUOTES, 'UTF-8');
-                $postContent = htmlspecialchars($postContent, ENT_QUOTES, 'UTF-8');
-            }
-
-            if ($postContent) {
-                $feedItem->setContent($postContent);
-            }
-
+            $feedItem = $this->addFeedEntry($feed->createEntry(), $blog, $post, $type);
             $feed->addEntry($feedItem);
         }
 
@@ -106,6 +79,38 @@ class FeedGenerator
         }
 
         return $output;
+    }
+
+    private function addFeedEntry(Entry $feedItem, Blog $blog, Post $post, string $type)
+    {
+        $postUrl = $this->router->generate(
+            'post',
+            ['blogId' => $blog->getId(), 'guid' => $post->getGuid()],
+            UrlGeneratorInterface::ABSOLUTE_URL
+        );
+
+        $feedItem->setTitle($post->getTitle());
+        $feedItem->setLink($postUrl);
+        $feedItem->setDescription($post->getShortSynopsis());
+        $feedItem->setDateModified($post->getPublishedDate()->getTimestamp());
+        $feedItem->setDateCreated($post->getPublishedDate()->getTimestamp());
+
+        if ($post->getAuthor()) {
+            $feedItem->addAuthor(['name' => $post->getAuthor()->getName()]);
+        }
+
+        $postContent = $this->generatePostFeedContent($post);
+
+        if ($type == 'atom') {
+            $postContent = html_entity_decode($postContent, ENT_QUOTES, 'UTF-8');
+            $postContent = htmlspecialchars($postContent, ENT_QUOTES, 'UTF-8');
+        }
+
+        if ($postContent) {
+            $feedItem->setContent($postContent);
+        }
+
+        return $feedItem;
     }
 
     private function generatePostFeedContent(Post $post): string
