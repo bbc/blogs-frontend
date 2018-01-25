@@ -65,6 +65,7 @@ abstract class BlogsBaseController extends BaseController
     {
         $this->blog = $blog;
         $this->setBrandingId($blog->getBrandingId());
+        $this->setLocale($blog->getLanguage());
     }
 
     protected function getPageNumber(Request $request): int

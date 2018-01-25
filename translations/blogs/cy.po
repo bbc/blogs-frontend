@@ -70,6 +70,14 @@ msgstr "Dydi eich porwr ddim yn cefnogi cynnwys HTML5"
 msgid "feed"
 msgstr "porthwr"
 
+#. English: "Find us on %1".
+msgid "find_us_on_facebook"
+msgstr "Dewch o hyd i ni ar %1"
+
+#. English: "Follow %1 on Twitter".
+msgid "follow_us_on_twitter"
+msgstr "Dilynwch %1 ar Twitter"
+
 #. English: "Blog posts by year and month".
 msgid "header_archive_month"
 msgstr "Negeseuon blog yn ôl blwyddyn a mis"
@@ -261,6 +269,10 @@ msgstr "Mae'n ddrwg gennym, rydyn ni wedi methu dod o hyd i’r dudalen"
 #. English: "All posts for".
 msgid "page_title_archive_month"
 msgstr "Pob cofnod ar gyfer"
+
+#. English: "There are no results".
+msgid "no_results"
+msgstr "Dim canlyniadau"
 
 #. English: "All Authors".
 msgid "page_title_author_all"

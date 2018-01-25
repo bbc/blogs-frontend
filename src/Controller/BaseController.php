@@ -28,6 +28,9 @@ abstract class BaseController extends AbstractController
     protected $otherIstatsLabels = [];
 
     /** @var string */
+    protected $locale;
+
+    /** @var string */
     private $brandingId = 'br-07918';
 
     /** @var string */
@@ -77,9 +80,10 @@ abstract class BaseController extends AbstractController
     protected function renderWithChrome(string $view, array $parameters = [])
     {
         $branding = $this->requestBranding();
-        // We only need to change the translation language if it is different
-        // to the language the translation extension was initially created with
-        $locale = $branding->getLocale();
+
+        // We should change the language if it has been set by the blog
+        // Otherwise, we should default to the language set by branding
+        $locale = $this->locale ?? $branding->getLocale();
 
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
@@ -113,6 +117,11 @@ abstract class BaseController extends AbstractController
     protected function setBrandingId(string $brandingId)
     {
         $this->brandingId = $brandingId;
+    }
+
+    protected function setLocale(string $locale)
+    {
+        $this->locale = $locale;
     }
 
     private function requestBranding(): Branding
