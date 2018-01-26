@@ -27,7 +27,7 @@ abstract class BaseController extends AbstractController
     /** @var mixed[] */
     protected $otherIstatsLabels = [];
 
-    /** @var string */
+    /** @var string|null */
     protected $locale;
 
     /** @var string */
