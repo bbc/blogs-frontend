@@ -67,16 +67,20 @@ tag:
 
 feed_atom:
     path: /blogs/{blogId}/atom
-    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+    defaults: { _controller: App\Controller\BlogAtomFeedController }
+    requirements: { blogId: '[a-z0-9]+' }
 
 feed_rss:
     path: /blogs/{blogId}/rss
-    requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+    defaults: { _controller: App\Controller\BlogRssFeedController }
+    requirements: { blogId: '[a-z0-9]+' }
 
 feed_atom_tags:
     path: /blogs/{blogId}/tags/{tagId}/atom
+    defaults: { _controller: App\Controller\TagAtomFeedController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
 
 feed_rss_tags:
     path: /blogs/{blogId}/tags/{tagId}/rss
+    defaults: { _controller: App\Controller\TagRssFeedController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
