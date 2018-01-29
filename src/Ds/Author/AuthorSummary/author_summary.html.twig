@@ -10,9 +10,7 @@
             {% if author_summary.getAuthor().getRole() %}
                 <p class="no-margin br-page-text-ontext">{{ author_summary.getAuthor().getRole() }}</p>
             {% endif %}
-            {% if author_summary.getPostCount() is not null %}
-                <p class="no-margin">{{ tr('post', author_summary.getPostCount()) }}</p>
-            {% endif %}
+            <p class="no-margin">{{ tr('post', author_summary.getPostCount()) }}</p>
         </div>
     </div>
 </a>

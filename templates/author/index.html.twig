@@ -11,8 +11,9 @@
     {% endif %}
     {% if authors is defined %}
         {% if authors is empty %}
-            <br/>
-            <h1>{{ tr('no_results') }}</h1>
+            <div class="component">
+                <p>{{ tr('no_results') }}</p>
+            </div>
         {% else %}
             <div class="hidden visible@bpw component" aria-hidden="true">
                 <div class="grid-wrapper">
