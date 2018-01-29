@@ -2,7 +2,7 @@
     <p class="inline">{{ tr('header_tag_ind') }}:</p>
     <ul class="list-unstyled inline list--comma">
         {% for tag in tags.getTags() %}
-            <li><a data-istats-link-location="blogs_global_tag" href="{{ path('tag', {blogId: tags.getBlogId(), tagId: tag.getId()}) }}">
+            <li><a data-istats-link-location="blogs_global_tag" href="{{ path('tag_show', {blogId: tags.getBlogId(), tagId: tag.getId()}) }}">
             {{- tag.getName() -}}
             </a></li>
         {% endfor %}

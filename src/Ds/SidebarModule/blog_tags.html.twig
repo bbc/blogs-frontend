@@ -6,13 +6,13 @@
                 {%- for tag in blog_tags.getBlogTags() -%}
                     <li>
                         <a data-istats-link-location="blogs_global_aside_tag"
-                           href="{{ path('tag', {blogId: blog_tags.getBlogId(), tagId: tag.getId() }) }}"> {{ tag.getName() }}</a></li>
+                           href="{{ path('tag_show', {blogId: blog_tags.getBlogId(), tagId: tag.getId() }) }}"> {{ tag.getName() }}</a></li>
                 {%- endfor -%}
             </ul>
         </div>
         <p>
             <a data-istats-link-location="blogs_global_aside_see_all_tags"
-               href="{{ path('tag_list', { blogId: blog_tags.getBlogId() }) }}">{{ tr('link_see_all_tags') }}</a>
+               href="{{ path('tag_index', { blogId: blog_tags.getBlogId() }) }}">{{ tr('link_see_all_tags') }}</a>
         </p>
     </div>
 </div>

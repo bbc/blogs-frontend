@@ -55,12 +55,12 @@ posts_year_month:
     defaults: { _controller: App\Controller\PostByDateController }
     requirements: { blogId: '[a-z0-9]+', year: '\d{4}', month: '\d{2}' }
 
-tag_list:
+tag_index:
     path: /blogs/{blogId}/tags
     defaults: { _controller: App\Controller\TagIndexController }
     requirements: { blogId: '[a-z0-9]+' }
 
-tag:
+tag_show:
     path: /blogs/{blogId}/tags/{tagId}
     defaults: { _controller: App\Controller\TagShowController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
