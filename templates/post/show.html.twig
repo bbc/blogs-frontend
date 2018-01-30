@@ -5,7 +5,6 @@
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ post.getTitle() }}{% endblock %}
 
 {% block inline_head %}
-
     <script type="application/ld+json">
         {{- post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()}))|raw -}}
     </script>
@@ -163,7 +162,7 @@
             </h4>
             {%- if post.getPublishedDate() -%}
                 <p class="text--subtle milli">
-                    <time datetime="{{ post.getPublishedDate() | date('Y-m-d\TH:i:s') }}">{{ post.getPublishedDate() | date('l d F Y, H:i') }}</time>
+                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|date('l d F Y, H:i') }}</time>
                 </p>
             {%- endif -%}
         </div>
