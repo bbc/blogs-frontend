@@ -6,9 +6,9 @@
         </div>
         {% endif %}
 
-        <div class="media__body">
-            <p class="no-margin {{- author.getOption('is_slimline') ? '' : ' delta' -}}" itemprop="author">
-                {{- author.getName() -}}
+        <div class="media__body" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            <p class="no-margin {{- author.getOption('is_slimline') ? '' : ' delta' -}}" >
+                <span itemprop="name">{{- author.getName() -}}</span>
 
                 {%- if author.getRole() -%}
                     {%- if author.getOption('is_slimline') %}, {% else %}</p><p class="no-margin">{% endif -%}

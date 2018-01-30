@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <div class="grid-wrapper">
+    <div class="grid-wrapper"{% block schema %}{% endblock %}>
         <div class="grid 2/3@bpw2 2/3@bpe">
             <div class="island br-box-page">
                 {% block content %}{% endblock %}
