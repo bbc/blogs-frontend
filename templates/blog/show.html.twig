@@ -23,6 +23,9 @@
         {% set charLimit = 1200 %}
         <ul class="list-unstyled list-lined">
             {% for post in posts %}
+                {# SCHEMA.ORG JSON #}
+                {{ post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()})) }}
+
                 {#$keysForComments[] = $post->getForumId($this->blog);#}
                 {# for first three post character limit is 1200 #}
                 {# for the rest it is 600 #}

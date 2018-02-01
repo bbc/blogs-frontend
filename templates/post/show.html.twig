@@ -5,10 +5,6 @@
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ post.getTitle() }}{% endblock %}
 
 {% block inline_head %}
-    <script type="application/ld+json">
-        {{- post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()}))|raw -}}
-    </script>
-
     <meta property="og:type" content="article" />
     <meta name="twitter:card" content="summary">
 
@@ -146,6 +142,9 @@
             {{ script|raw }}
         {%- endfor -%}
     {%- endif -%}
+
+    {# SCHEMA JSON #}
+    {{- post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()})) -}}
 {%- endblock -%}
 
 {% macro morePosts(blogId, post, header, istatsLocation) %}

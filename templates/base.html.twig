@@ -72,6 +72,15 @@
 {% endif %}
 
 {{ build_script_snippets()|raw }}
+
+{# SCHEMA JSON #}
+{% set schema = generate_schema_json() %}
+{% if schema %}
+    <script type="application/ld+json">
+        {{- schema|raw -}}
+    </script>
+{% endif %}
+
 {{ branding.getBodyLast()|raw }}
 {{ orb.getBodylast()|raw }}
 </body>
