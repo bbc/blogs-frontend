@@ -63,7 +63,7 @@ class SchemaJsonExtension extends Twig_Extension
         $schemaData['@context'] = 'http://schema.org';
 
         if (\count($this->schemaSnippets) == 1) {
-            return json_encode(array_merge($schemaData, $this->schemaSnippets));
+            return json_encode(array_merge($schemaData, $this->schemaSnippets[0]));
         }
 
         $schemaData['@graph'] = $this->schemaSnippets;
