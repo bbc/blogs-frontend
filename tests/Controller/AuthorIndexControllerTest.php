@@ -80,7 +80,7 @@ class AuthorIndexControllerTest extends BaseWebTestCase
     public function testBlogWithNoAuthors()
     {
         $crawler = $this->getCrawlerForPage([], []);
-        $this->assertEquals('There are no results', $crawler->filterXPath('//h1')->last()->text());
+        $this->assertEquals('There are no results', $crawler->filterXPath('//p')->first()->text());
     }
 
     /**

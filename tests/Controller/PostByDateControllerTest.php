@@ -96,7 +96,7 @@ class PostByDateControllerTest extends BaseWebTestCase
         $september = $datePickerMonths->last()->previousAll()->previousAll()->previousAll();
         $this->assertEquals('September (1)', trim($september->text()));
 
-        $blogPosts = $crawler->filterXPath('//div[@itemprop="blogPost"]');
+        $blogPosts = $crawler->filterXPath('//li[@class="br-keyline"]');
         $this->assertEquals(1, $blogPosts->count());
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();
@@ -180,7 +180,7 @@ class PostByDateControllerTest extends BaseWebTestCase
         $december = $datePickerMonths->last();
         $this->assertEquals('December (4)', trim($december->text()));
 
-        $blogPosts = $crawler->filterXPath('//div[@itemprop="blogPost"]');
+        $blogPosts = $crawler->filterXPath('//li[@class="br-keyline"]');
         $this->assertEquals(3, $blogPosts->count());
 
         $firstPostDate = $blogPosts->first()->filterXPath('//time')->text();

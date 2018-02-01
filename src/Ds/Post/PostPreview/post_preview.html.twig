@@ -1,10 +1,10 @@
-<div itemprop="blogPost">
+<div>
     <h3 class="beta">
-        <a itemprop="url" href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid()}) }}">
-            <span itemprop="name">{{ post_preview.getPost().getTitle() }}</span>
+        <a href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid()}) }}">
+            {{ post_preview.getPost().getTitle() }}
         </a>
     </h3>
-    <p class="text--subtle milli no-margin" itemprop="datePublished">
+    <p class="text--subtle milli no-margin">
         <time datetime="{{ post_preview.getPost().getPublishedDate()|date(constant('DATE_ATOM')) }}">
             {{ post_preview.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
         </time>

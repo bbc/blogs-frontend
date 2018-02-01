@@ -19,20 +19,17 @@
     <meta property="og:site_name" content="{{ blog.getName() }}" />
 
     {# POST #}
-    <meta itemprop="name" content="{{ post.getTitle() }}">
     <meta name="twitter:title" content="{{ post.getTitle() }}">
     <meta property="og:title" content="{{ post.getTitle() }}" />
     <meta property="article:published_time" content="{{ post.getPublishedDate() | date(constant('DATE_W3C')) }}" />
     <meta property="og:url" content="{{ url('post', {blogId: blog.getId(), guid: post.getGuid()}) }}" />
 
     {%- if post.getShortSynopsis() -%}
-        <meta itemprop="description" content="{{ post.getShortSynopsis() }}">
         <meta name="twitter:description" content="{{ post.getShortSynopsis() }}">
         <meta property="og:description" content="{{ post.getShortSynopsis() }}" />
     {%- endif -%}
 
     {%- if post.getImage() -%}
-        <meta itemprop="image" content="{{ post.getImage().getUrl(1200,675) }}">
         <meta property="og:image" content="{{ post.getImage().getUrl(1200,675) }}" />
     {%- endif -%}
 
@@ -87,11 +84,11 @@
     </div>
 
     <div class="component component--lined br-keyline">
-        <article itemprop="blogPost">
+        <article>
             <div class="component component--lined br-keyline">
-                <h1 itemprop="name">{{ post.getTitle() }}</h1>
+                <h1>{{ post.getTitle() }}</h1>
 
-                <p class="text--subtle milli" itemprop="datePublished"><time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">
+                <p class="text--subtle milli"><time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">
                     {{ post.getPublishedDate()|date('l d F Y, H:i') }}
                 </time></p>
 
@@ -145,6 +142,9 @@
             {{ script|raw }}
         {%- endfor -%}
     {%- endif -%}
+
+    {# SCHEMA JSON #}
+    {{- post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()})) -}}
 {%- endblock -%}
 
 {% macro morePosts(blogId, post, header, istatsLocation) %}
@@ -154,14 +154,14 @@
         </div>
         <div class="grid 2/3@bpw2 2/3@bpe">
             <h4 class="delta no-margin">
-                <a data-istats-link-location="{{ istatsLocation }}" itemprop="url"
+                <a data-istats-link-location="{{ istatsLocation }}"
                    href="{{ path('post', {blogId: blogId, guid: post.getGuid() }) }}">
-                    <span itemprop="name">{{ post.getTitle() }}</span>
+                    {{ post.getTitle() }}
                 </a>
             </h4>
             {%- if post.getPublishedDate() -%}
-                <p class="text--subtle milli" itemprop="datePublished">
-                    <time datetime="{{ post.getPublishedDate() | date('Y-m-d\TH:i:s') }}">{{ post.getPublishedDate() | date('l d F Y, H:i') }}</time>
+                <p class="text--subtle milli">
+                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|date('l d F Y, H:i') }}</time>
                 </p>
             {%- endif -%}
         </div>

@@ -1,14 +1,14 @@
-<div itemprop="blogPost">
+<div>
     <h{{ post_summary.getOption('h_tag') }} class="{{ post_summary.getOption('h_class') }} no-margin">
-        <a itemprop="url"
+        <a
             {% if post_summary.isFeaturedPost() %}
                 data-istats-link-location="blogs_featured_post"
             {% endif %}
            href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
-            <span itemprop="name">{{ post_summary.getPost.getTitle() }}</span>
+            {{ post_summary.getPost.getTitle() }}
         </a>
     </h{{ post_summary.getOption('h_tag') }}>
-    <p class="milli no-margin text--subtle" itemprop="datePublished">
+    <p class="milli no-margin text--subtle">
         <time datetime="{{ post_summary.getPost().getPublishedDate()|date(constant('DATE_ATOM')) }}">
             {{ post_summary.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
         </time>
@@ -29,7 +29,7 @@
         {% endif %}
         <div class="media__body">
             {% if post_summary.getPost().getShortSynopsis() is not empty %}
-                <p itemprop="description">{{ post_summary.getPost().getShortSynopsis() }}</p>
+                <p>{{ post_summary.getPost().getShortSynopsis() }}</p>
             {% endif %}
             <p>
                 <a
