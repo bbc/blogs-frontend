@@ -133,7 +133,7 @@ class PostBuilder implements BuilderInterface
         return $builder;
     }
 
-    public static function defaultMinimal()
+    public static function minimal()
     {
         return new self();
     }

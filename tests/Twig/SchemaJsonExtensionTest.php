@@ -47,7 +47,7 @@ class SchemaJsonExtensionTest extends TestCase
 
     public function testNoAuthorNoImage()
     {
-        $post = PostBuilder::defaultMinimal()->build();
+        $post = PostBuilder::minimal()->build();
         $this->extension->generatePostSchemaData($post, 'someurl');
 
         $result = $this->extension->generateSchemaData();
