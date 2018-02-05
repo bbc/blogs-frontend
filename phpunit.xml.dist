@@ -43,6 +43,10 @@
         </whitelist>
     </filter>
 
+    <listeners>
+        <listener class="JohnKary\PHPUnit\Listener\SpeedTrapListener" />
+    </listeners>
+
     <logging>
         <log type="junit" target="./build/reports/test-results.xml" logIncompleteSkipped="true"/>
         <log type="coverage-html" target="./build/reports/coverage" charset="UTF-8"
