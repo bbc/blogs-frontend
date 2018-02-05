@@ -36,7 +36,7 @@ class SchemaJsonExtension extends Twig_Extension
         $schemaData['dateModified'] = $post->getPublishedDate()->format('Y-m-d\TH:i:s');
         $schemaData['author'] = [
             '@type' => 'Person',
-            'name' => $post->getAuthor()->getName(),
+            'name' => $post->getAuthor() ? $post->getAuthor()->getName() : '',
         ];
         $schemaData['publisher'] = [
             '@type' => 'Organization',

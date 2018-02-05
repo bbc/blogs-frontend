@@ -31,10 +31,10 @@ class PostBuilder implements BuilderInterface
     /** @var string */
     private $shortSynopsis;
 
-    /** @var Author */
+    /** @var Author|null */
     private $author;
 
-    /** @var Image */
+    /** @var Image|null */
     private $image;
 
     /** @var array */
@@ -53,16 +53,8 @@ class PostBuilder implements BuilderInterface
             $this->publishedDate ?? Chronos::create($faker->year, $faker->month, $faker->dayOfMonth, $faker->numberBetween(0, 23), $faker->numberBetween(0, 59)),
             $this->title ?? (string) $faker->words(3, true),
             $this->shortSynopsis ?? $faker->sentence(),
-            $this->author ?? new Author(
-                new GUID($faker->uuid),
-                new FileID($faker->slug(2)),
-                $faker->name(),
-                (string) $faker->words(3, true),
-                $faker->sentence(),
-                new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
-                new Social('', '', '')
-            ),
-            $this->image ?? new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
+            $this->author,
+            $this->image,
             $this->content ?? [new Prose((string) $faker->sentences(2, true))],
             $this->tags ?? [new Tag(new FileID($faker->slug(2)), $faker->word)]
         );
@@ -123,6 +115,25 @@ class PostBuilder implements BuilderInterface
     }
 
     public static function default()
+    {
+        $faker = Factory::create();
+
+        $builder = new self();
+        $builder->withAuthor(new Author(
+            new GUID($faker->uuid),
+            new FileID($faker->slug(2)),
+            $faker->name(),
+            (string) $faker->words(3, true),
+            $faker->sentence(),
+            new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
+            new Social('', '', '')
+        ));
+        $builder->withImage(new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')));
+
+        return $builder;
+    }
+
+    public static function defaultMinimal()
     {
         return new self();
     }

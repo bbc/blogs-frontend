@@ -45,6 +45,15 @@ class SchemaJsonExtensionTest extends TestCase
         $this->assertJsonKeyExists($result, '@graph');
     }
 
+    public function testNoAuthorNoImage()
+    {
+        $post = PostBuilder::defaultMinimal()->build();
+        $this->extension->generatePostSchemaData($post, 'someurl');
+
+        $result = $this->extension->generateSchemaData();
+
+        $this->assertJson($result);
+    }
 
     private function assertJsonKeyExists(string $json, string $key)
     {
