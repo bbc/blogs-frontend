@@ -19,10 +19,10 @@ class Post
     /** @var string */
     private $shortSynopsis;
 
-    /** @var Author */
+    /** @var Author|null */
     private $author;
 
-    /** @var Image */
+    /** @var Image|null */
     private $image;
 
     /** @var array */
@@ -46,10 +46,10 @@ class Post
         Chronos $publishedDate,
         string $title,
         string $shortSynopsis,
-        Author $author = null,
-        Image $image = null,
-        array $content = null,
-        array $tags = null
+        ?Author $author = null,
+        ?Image $image = null,
+        array $content = [],
+        array $tags = []
     ) {
         $this->guid = $guid;
         $this->forumId = $forumId;
@@ -103,6 +103,7 @@ class Post
         return $this->content;
     }
 
+    /** @return Tag[] */
     public function getTags(): array
     {
         return $this->tags;
