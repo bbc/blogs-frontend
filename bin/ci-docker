@@ -33,7 +33,13 @@ php --version
 yarn gulp-ci
 
 # Run PHPUnit
-bin/phpunit || RESULT=1
+if $WITH_TEST_COVERAGE ; then
+    echo "Code coverage: on"
+    bin/phpunit || RESULT=1
+else
+    echo "Code coverage: off"
+    bin/phpunit --no-coverage || RESULT=1
+fi
 
 # Run PHPCS
 vendor/bin/phpcs -n --report=checkstyle --report-file=build/reports/checkstyle.xml || RESULT=1
