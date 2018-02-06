@@ -71,6 +71,9 @@
     "jean85/pretty-package-versions": {
         "version": "1.0.3"
     },
+    "johnkary/phpunit-speedtrap": {
+        "version": "v2.0.0"
+    },
     "monolog/monolog": {
         "version": "1.23.0"
     },

@@ -4,6 +4,7 @@ function docker_run {
     docker run --rm \
     -u `id -u`:`id -g` \
     -e OAUTH="$OAUTH_TOKEN" \
+    -e WITH_TEST_COVERAGE="$WITH_TEST_COVERAGE" \
     -v "$WORKSPACE":/mnt/ \
     -v /etc/pki/tls/private/client.key:/etc/pki/tls/private/client.key \
     -v /etc/pki/tls/certs/client.crt:/etc/pki/tls/certs/client.crt \
