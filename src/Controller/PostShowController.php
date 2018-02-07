@@ -18,11 +18,12 @@ class PostShowController extends BlogsBaseController
         $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
-        $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
         }
+
+        $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
 
         $this->hasVideo = $post->hasVideo();
         $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
