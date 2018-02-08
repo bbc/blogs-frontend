@@ -34,9 +34,11 @@ class PostMapperTest extends TestCase
         );
     }
 
-    public function testIgnoresInvalidContentBlocks()
+    /**
+     * @dataProvider invalidContentBlockProvider
+     */
+    public function testIgnoresInvalidContentBlocks(string $type)
     {
-        $type = 'post_invalidcontentblocks.xml';
         $basePath = __DIR__ . '/../../../mock_data/';
 
         $xml = file_get_contents($basePath . $type);
@@ -58,5 +60,14 @@ class PostMapperTest extends TestCase
         $this->assertInstanceOf(Post::class, $domainModel);
 
         $this->assertNotContains(null, $domainModel->getContent());
+    }
+
+    public function invalidContentBlockProvider(): array
+    {
+        return [
+            'generallyInvalid' => ['type' => 'post_invalidcontentblocks.xml'],
+            'invalidSmps' => ['type' => 'post_invalidsmp.xml'],
+
+        ];
     }
 }
