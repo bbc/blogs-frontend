@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+    <metadata>
+        <modifiedDateTime>2111-11-24T11:11:01.111111Z</modifiedDateTime>
+        <creationDateTime>2111-11-24T11:11:01.111111Z</creationDateTime>
+        <type>blogs-post</type>
+        <fileId>blogs-post-2222222</fileId>
+        <guid>a3aa3aa3-33aa-3a3a-33a3-aaa3333a3333</guid>
+    </metadata>
+    <document>
+        <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-post">
+            <metadata>
+                <published-date>2111-11-24T11:11:01.111111Z</published-date>
+                <title>Blog title</title>
+                <short-synopsis>Some synopsis</short-synopsis>
+                <author></author>
+                <post-image>p11aa111</post-image>
+                <file_id>1111111111</file_id>
+            </metadata>
+            <content>
+                <repeater>
+                    <blog-post-content>
+                        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+                            <metadata>
+                                <modifiedDateTime>2111-11-24T11:11:01.111111Z</modifiedDateTime>
+                                <creationDateTime>2111-11-24T11:11:01.111111Z</creationDateTime>
+                                <type>blogs-content-clips</type>
+                                <fileId>blogs-content-name</fileId>
+                                <guid>a3aa3aa3-33aa-3a3a-33a3-aaa3333a3333</guid>
+                            </metadata>
+                            <document>
+                                <form
+                                    xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-content-clips">
+                                    <metadata>
+                                        <name>some_name</name>
+                                        <file_id>1111111111</file_id>
+                                    </metadata>
+                                    <content>
+                                        <id/>
+                                        <url/>
+                                        <hintbox-readonly/>
+                                        <caption/>
+                                    </content>
+                                </form>
+                            </document>
+                        </result>
+                    </blog-post-content>
+                </repeater>
+                <repeater>
+                    <blog-post-content>
+                        <result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+                            <metadata>
+                                <modifiedDateTime>2111-11-24T11:11:01.111111Z</modifiedDateTime>
+                                <creationDateTime>2111-11-24T11:11:01.111111Z</creationDateTime>
+                                <type>blogs-content-prose</type>
+                                <fileId>blogs-content-1111111111</fileId>
+                                <guid>a3aa3aa3-33aa-3a3a-33a3-aaa3333a3333</guid>
+                            </metadata>
+                            <document>
+                                <form
+                                    xmlns="https://production.bbc.co.uk/isite2/project/blogs-aboutthebbc/blogs-content-prose">
+                                    <metadata>
+                                        <name>somename</name>
+                                        <file_id>1111111111</file_id>
+                                    </metadata>
+                                    <content>
+                                        <prose>here is some prose</prose>
+                                    </content>
+                                </form>
+                            </document>
+                        </result>
+                    </blog-post-content>
+                </repeater>
+            </content>
+            <Tags/>
+        </form>
+    </document>
+</result>

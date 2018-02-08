@@ -32,18 +32,23 @@ class ContentBlockMapper extends Mapper
                 );
                 break;
             case 'code':
-                $contentBlockData   = $form->content;
+                $contentBlockData = $form->content;
                 $contentBlock = new Code(
                     $this->getString($contentBlockData->code)
                 );
                 break;
             case 'clips':
-                $contentBlockData   = $form->content;
+                $contentBlockData = $form->content;
 
-                $url            = $this->getString($contentBlockData->url);
-                $id             = $this->getString($contentBlockData->id);
-                $playlistType   = $this->getPlaylistType($id, $url);
-                $caption        = $this->getString($contentBlockData->caption);
+                $url = $this->getString($contentBlockData->url);
+                $id = $this->getString($contentBlockData->id);
+                $playlistType = $this->getPlaylistType($id, $url);
+                $caption = $this->getString($contentBlockData->caption);
+
+                // if this doesn't exist, then the clip hasn't been defined in iSite properly
+                if (\is_null($playlistType)) {
+                    return null;
+                }
 
                 $contentBlock = new Clips(
                     $id,
@@ -53,14 +58,14 @@ class ContentBlockMapper extends Mapper
                 );
                 break;
             case 'image':
-                $contentBlockData   = $form->content;
+                $contentBlockData = $form->content;
                 $contentBlock = new Image(
                     $this->getImageIfExists($contentBlockData->image),
                     $this->getString($contentBlockData->caption)
                 );
                 break;
             case 'social':
-                $contentBlockData   = $form->content;
+                $contentBlockData = $form->content;
                 $contentBlock = new Social(
                     $this->getString($contentBlockData->link),
                     $this->getString($contentBlockData->alt)
