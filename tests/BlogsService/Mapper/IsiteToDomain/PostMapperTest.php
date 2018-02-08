@@ -67,7 +67,6 @@ class PostMapperTest extends TestCase
         return [
             'generallyInvalid' => ['type' => 'post_invalidcontentblocks.xml'],
             'invalidSmps' => ['type' => 'post_invalidsmp.xml'],
-
         ];
     }
 }
