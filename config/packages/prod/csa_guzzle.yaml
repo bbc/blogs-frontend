@@ -5,5 +5,5 @@ csa_guzzle:
                 cert: '/etc/pki/tls/certs/client.crt'
                 ssl_key: '/etc/pki/tls/private/client.key'
                 verify: false
-                timeout: 60
-                connect_timeout: 5
+                timeout: 20
+                connect_timeout: 8
