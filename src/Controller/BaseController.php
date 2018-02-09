@@ -116,7 +116,9 @@ abstract class BaseController extends AbstractController
 
     protected function setBrandingId(string $brandingId)
     {
-        $this->brandingId = $brandingId;
+        if ($brandingId) {
+            $this->brandingId = $brandingId;
+        }
     }
 
     protected function setLocale(string $locale)

@@ -63,7 +63,7 @@ class Blog
         bool $showImageInDescription,
         string $language,
         string $istatsCountername,
-        ?string $bbcSite,
+        string $bbcSite,
         string $brandingId,
         array $modules,
         Social $social,

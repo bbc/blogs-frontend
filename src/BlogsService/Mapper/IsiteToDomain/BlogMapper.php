@@ -38,7 +38,7 @@ class BlogMapper extends Mapper
 
         $hasCommentsEnabled = ($this->getString($formMetaData->{'site-id-comments'}) ?? '') !== '';
 
-        $bbcSite = $this->getString($formMetaData->{'bbc-site'});
+        $bbcSite = $this->getString($formMetaData->{'bbc-site'}) ?? '';
         $brandingId = $this->getString($formMetaData->{'blogs-branding-id'});
 
         $featuredPost = null;
