@@ -7,6 +7,7 @@ use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Mapper\IsiteToDomain\BlogMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class BlogMapperTest extends TestCase
@@ -20,7 +21,7 @@ class BlogMapperTest extends TestCase
         $isiteObject = new SimpleXMLElement($xml);
 
         $mapperFactory = $this->createMock(MapperFactory::class);
-        $blogMapper = new BlogMapper($mapperFactory);
+        $blogMapper = new BlogMapper($mapperFactory, $this->createMock(LoggerInterface::class));
 
         /** @var Blog $domainModel */
         $domainModel = $blogMapper->getDomainModel($isiteObject);
@@ -48,9 +49,9 @@ class BlogMapperTest extends TestCase
         $isiteObject = new SimpleXMLElement($xml);
 
         $mapperFactory = $this->createMock(MapperFactory::class);
-        $postMapper = new PostMapper($mapperFactory);
+        $postMapper = new PostMapper($mapperFactory, $this->createMock(LoggerInterface::class));
         $mapperFactory->method('createPostMapper')->willReturn($postMapper);
-        $blogMapper = new BlogMapper($mapperFactory);
+        $blogMapper = new BlogMapper($mapperFactory, $this->createMock(LoggerInterface::class));
 
         /** @var Blog $domainModel */
         $blog = $blogMapper->getDomainModel($isiteObject);

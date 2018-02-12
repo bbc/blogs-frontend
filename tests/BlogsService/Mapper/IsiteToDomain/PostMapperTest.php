@@ -8,6 +8,7 @@ use App\BlogsService\Mapper\IsiteToDomain\AuthorMapper;
 use App\BlogsService\Mapper\IsiteToDomain\ContentBlockMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class PostMapperTest extends TestCase
@@ -21,7 +22,7 @@ class PostMapperTest extends TestCase
         $isiteObject = new SimpleXMLElement($xml);
 
         $mapperFactory = $this->createMock(MapperFactory::class);
-        $postMapper = new PostMapper($mapperFactory);
+        $postMapper = new PostMapper($mapperFactory, $this->createMock(LoggerInterface::class));
 
         /** @var Post $domainModel */
         $domainModel = $postMapper->getDomainModel($isiteObject);
@@ -46,13 +47,13 @@ class PostMapperTest extends TestCase
 
         $mapperFactory = $this->createMock(MapperFactory::class);
 
-        $contentBlockMapper = new ContentBlockMapper($mapperFactory);
-        $authorMapper = new AuthorMapper($mapperFactory);
+        $contentBlockMapper = new ContentBlockMapper($mapperFactory, $this->createMock(LoggerInterface::class));
+        $authorMapper = new AuthorMapper($mapperFactory, $this->createMock(LoggerInterface::class));
 
         $mapperFactory->method('createContentBlockMapper')->willReturn($contentBlockMapper);
         $mapperFactory->method('createAuthorsMapper')->willReturn($authorMapper);
 
-        $postMapper = new PostMapper($mapperFactory);
+        $postMapper = new PostMapper($mapperFactory, $this->createMock(LoggerInterface::class));
 
         /** @var Post $domainModel */
         $domainModel = $postMapper->getDomainModel($isiteObject);

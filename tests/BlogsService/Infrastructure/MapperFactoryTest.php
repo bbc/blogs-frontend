@@ -10,6 +10,7 @@ use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use App\BlogsService\Mapper\IsiteToDomain\TagMapper;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 
 class MapperFactoryTest extends TestCase
 {
@@ -18,7 +19,7 @@ class MapperFactoryTest extends TestCase
 
     public function setUp()
     {
-        $this->mapperFactory = new MapperFactory();
+        $this->mapperFactory = new MapperFactory($this->createMock(LoggerInterface::class));
     }
 
     /** @dataProvider isiteDataProvider */

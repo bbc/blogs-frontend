@@ -6,6 +6,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 use App\BlogsService\Domain\Image;
 use App\BlogsService\Infrastructure\MapperFactory;
 use Cake\Chronos\Chronos;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 /**
@@ -18,9 +19,12 @@ abstract class Mapper
 {
     protected $mapperFactory;
 
-    public function __construct(MapperFactory $mapperFactory)
+    protected $logger;
+
+    public function __construct(MapperFactory $mapperFactory, LoggerInterface $logger)
     {
         $this->mapperFactory = $mapperFactory;
+        $this->logger = $logger;
     }
 
     abstract public function getDomainModel(SimpleXMLElement $isiteObject);

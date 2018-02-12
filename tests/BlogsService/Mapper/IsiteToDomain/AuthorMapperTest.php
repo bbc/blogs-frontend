@@ -5,6 +5,7 @@ namespace Tests\App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Infrastructure\MapperFactory;
 use PHPUnit\Framework\TestCase;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class AuthorMapperTest extends TestCase
@@ -22,7 +23,7 @@ class AuthorMapperTest extends TestCase
 
     public function testGetsDomainModel()
     {
-        $mapperFactory = new MapperFactory();
+        $mapperFactory = new MapperFactory($this->createMock(LoggerInterface::class));
 
         $authorMapper = $mapperFactory->createAuthorsMapper();
         $domainModel = $authorMapper->getDomainModel($this->isiteObject);
