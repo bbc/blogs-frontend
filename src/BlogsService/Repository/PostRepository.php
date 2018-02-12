@@ -160,7 +160,7 @@ class PostRepository extends AbstractRepository
     ): array {
         $queries = [];
         foreach ($months as $month) {
-            if (!is_int($month)) {
+            if (!\is_int($month)) {
                 throw new InvalidArgumentException('Argument months must be an array of integers');
             }
 

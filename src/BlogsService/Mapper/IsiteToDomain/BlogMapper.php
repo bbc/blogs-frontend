@@ -50,7 +50,7 @@ class BlogMapper extends Mapper
                 ->{'featured'}
                 ->result
                 ->metadata;
-            if (!is_null($postMetadata)) {
+            if (!\is_null($postMetadata)) {
                 $featuredPost = $this->mapperFactory->createPostMapper()->getDomainModel(
                     $form->{'section-9'}->featured->result
                 );
@@ -64,7 +64,7 @@ class BlogMapper extends Mapper
 
             foreach ($moduleContent as $module) {
                 $moduleMetadata = $module->{'module'}->result->metadata;
-                if (!is_null($moduleMetadata)) {
+                if (!\is_null($moduleMetadata)) {
                     $modules[] = $this->mapperFactory->createModuleMapper()->getDomainModel(
                         $module->{'module'}->result
                     );
@@ -102,7 +102,7 @@ class BlogMapper extends Mapper
         $namespaces = $form->getNamespaces();
         $projectNameSpace = reset($namespaces);
         $projectNameSpaceParts = explode('/', $projectNameSpace);
-        $id = $projectNameSpaceParts[count($projectNameSpaceParts) - 2];
+        $id = $projectNameSpaceParts[\count($projectNameSpaceParts) - 2];
 
         return $id;
     }

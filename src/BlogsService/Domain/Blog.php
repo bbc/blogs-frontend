@@ -72,11 +72,11 @@ class Blog
         Image $image,
         bool $isArchived = false
     ) {
-        if (!is_bool($showImageInDescription)) {
+        if (!\is_bool($showImageInDescription)) {
             throw new InvalidArgumentException('showImageInDescription must be of type boolean');
         }
 
-        if (!is_bool($isArchived)) {
+        if (!\is_bool($isArchived)) {
             throw new InvalidArgumentException('isArchived must be of type boolean');
         }
 
