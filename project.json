@@ -37,7 +37,8 @@
             "nginx.gzip_experimental_config": true,
             "nginx.force_http_to_https_redirect": true,
             "nginx.remove_trailing_slashes": true,
-            "nginx.redirect_cache_max_age": 3600
+            "nginx.redirect_cache_max_age": 3600,
+            "nginx.fastcgi_buffers": "500 4k"
         }
     }
 }
