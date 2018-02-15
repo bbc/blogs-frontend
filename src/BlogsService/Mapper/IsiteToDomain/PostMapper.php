@@ -5,7 +5,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\ValueObject\GUID;
-use App\Exception\CouldNotMapPostException;
+use App\Exception\PostMappingException;
 use SimpleXMLElement;
 
 class PostMapper extends Mapper
@@ -27,7 +27,7 @@ class PostMapper extends Mapper
             $title = $this->getString($formMetaData->{'title'});
             $shortSynopsis = $this->getString($formMetaData->{'short-synopsis'});
         } else {
-            throw new CouldNotMapPostException();
+            throw new PostMappingException('Could not map post');
         }
 
         $author = null;

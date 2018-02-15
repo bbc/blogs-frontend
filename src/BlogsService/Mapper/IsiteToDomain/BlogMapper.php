@@ -6,7 +6,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\Social;
-use App\Exception\CouldNotMapPostException;
+use App\Exception\PostMappingException;
 use SimpleXMLElement;
 
 class BlogMapper extends Mapper
@@ -57,7 +57,7 @@ class BlogMapper extends Mapper
                         $form->{'section-9'}->featured->result
                     );
                 }
-            } catch (CouldNotMapPostException $e) {
+            } catch (PostMappingException $e) {
             }
         }
 

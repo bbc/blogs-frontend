@@ -5,6 +5,6 @@ namespace App\Exception;
 
 use Exception;
 
-class CouldNotMapPostException extends Exception
+class PostMappingException extends Exception
 {
 }
