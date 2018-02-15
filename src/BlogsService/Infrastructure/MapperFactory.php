@@ -10,10 +10,18 @@ use App\BlogsService\Mapper\IsiteToDomain\Mapper;
 use App\BlogsService\Mapper\IsiteToDomain\ModuleMapper;
 use App\BlogsService\Mapper\IsiteToDomain\PostMapper;
 use App\BlogsService\Mapper\IsiteToDomain\TagMapper;
+use Psr\Log\LoggerInterface;
 
 class MapperFactory
 {
     protected $instances = [];
+
+    protected $logger;
+
+    public function __construct(LoggerInterface $logger)
+    {
+        $this->logger = $logger;
+    }
 
     public function createPostMapper(): PostMapper
     {
@@ -48,7 +56,7 @@ class MapperFactory
     private function findMapper(string $mapperType): Mapper
     {
         if (!isset($this->instances[$mapperType])) {
-            $this->instances[$mapperType] = new $mapperType($this);
+            $this->instances[$mapperType] = new $mapperType($this, $this->logger);
         }
         return $this->instances[$mapperType];
     }

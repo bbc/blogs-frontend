@@ -43,8 +43,8 @@ class ImagePresenter extends Presenter
     ) {
         parent::__construct($options);
 
-        if ((!is_string($sizes) && !is_array($sizes)) ||
-            (is_array($sizes) && (!empty($sizes) && array_values($sizes) === $sizes))
+        if ((!\is_string($sizes) && !\is_array($sizes)) ||
+            (\is_array($sizes) && (!empty($sizes) && array_values($sizes) === $sizes))
         ) {
             throw new InvalidArgumentException("Argument 'sizes' must be either an empty or associative array, or a string");
         }
@@ -79,11 +79,11 @@ class ImagePresenter extends Presenter
     {
         parent::validateOptions($options);
 
-        if (!is_bool($options['is_lazy_loaded'])) {
+        if (!\is_bool($options['is_lazy_loaded'])) {
             throw new InvalidOptionException("Option 'is_lazy_loaded' must be a boolean");
         }
 
-        if (!is_array($options['srcsets'])) {
+        if (!\is_array($options['srcsets'])) {
             throw new InvalidOptionException("Option 'srcsets' must be an array");
         }
 
@@ -97,7 +97,7 @@ class ImagePresenter extends Presenter
             throw new InvalidOptionException("Option 'ratio' must be numeric or null");
         }
 
-        if (!is_string($options['alt'])) {
+        if (!\is_string($options['alt'])) {
             throw new InvalidOptionException("Option 'alt' must be a string");
         }
     }
@@ -108,7 +108,7 @@ class ImagePresenter extends Presenter
      */
     private function buildSizes($sizes): string
     {
-        if (is_string($sizes)) {
+        if (\is_string($sizes)) {
             return $sizes;
         }
 
@@ -120,7 +120,7 @@ class ImagePresenter extends Presenter
         foreach ($sizes as $width => $fraction) {
             $width = ($width / 16);
 
-            if (!is_string($fraction)) {
+            if (!\is_string($fraction)) {
                 // Convert to percentage and append the 'vw'
                 $fraction = ($fraction * 100);
                 $fraction .= 'vw';

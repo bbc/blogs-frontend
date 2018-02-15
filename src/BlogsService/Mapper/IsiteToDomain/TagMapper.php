@@ -14,7 +14,7 @@ class TagMapper extends Mapper
     {
         $formMetaData = $this->getFormMetaData($isiteObject);
 
-        if (!is_object($formMetaData)) {
+        if (!\is_object($formMetaData)) {
             return null;
         }
 

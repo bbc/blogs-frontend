@@ -63,23 +63,23 @@ class PostSummaryPresenter extends Presenter
     {
         parent::validateOptions($options);
 
-        if (!is_array($options['author_options'])) {
+        if (!\is_array($options['author_options'])) {
             throw new InvalidOptionException("Option 'author_options' must be an array");
         }
 
-        if (!is_string($options['h_class'])) {
+        if (!\is_string($options['h_class'])) {
             throw new InvalidOptionException("Option 'h_class' must be a string");
         }
 
-        if (!is_int($options['h_tag'])) {
+        if (!\is_int($options['h_tag'])) {
             throw new InvalidOptionException("Option 'h_tag' must be an int");
         }
 
-        if (!is_bool($options['show_author'])) {
+        if (!\is_bool($options['show_author'])) {
             throw new InvalidOptionException("Option 'show_author' must be a boolean");
         }
 
-        if (!is_bool($options['show_image'])) {
+        if (!\is_bool($options['show_image'])) {
             throw new InvalidOptionException("Option 'show_image' must be a boolean");
         }
     }

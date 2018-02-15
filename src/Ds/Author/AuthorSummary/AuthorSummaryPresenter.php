@@ -49,7 +49,7 @@ class AuthorSummaryPresenter extends Presenter
     {
         parent::validateOptions($options);
 
-        if (!is_int($options['h_tag'])) {
+        if (!\is_int($options['h_tag'])) {
             throw new InvalidOptionException("Option 'h_tag' must be an int");
         }
     }

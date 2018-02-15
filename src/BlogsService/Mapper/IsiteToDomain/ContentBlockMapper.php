@@ -8,7 +8,8 @@ use App\BlogsService\Domain\ContentBlock\Code;
 use App\BlogsService\Domain\ContentBlock\Image;
 use App\BlogsService\Domain\ContentBlock\Prose;
 use App\BlogsService\Domain\ContentBlock\Social;
-use App\Exception\InvalidContentBlockException;
+use App\BlogsService\Infrastructure\MapperFactory;
+use Psr\Log\LoggerInterface;
 use SimpleXMLElement;
 
 class ContentBlockMapper extends Mapper
@@ -72,7 +73,8 @@ class ContentBlockMapper extends Mapper
                 );
                 break;
             default:
-                throw new InvalidContentBlockException('Could not map invalid Content Block type.');
+                $this->logger->error('Invalid post content block type. Found ' . $type);
+                break;
         }
 
         return $contentBlock;

@@ -6,6 +6,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\Social;
+use App\Exception\PostMappingException;
 use SimpleXMLElement;
 
 class BlogMapper extends Mapper
@@ -45,15 +46,20 @@ class BlogMapper extends Mapper
 
         // Check is there is a featured post
         if (!empty($form->{'section-9'}->featured)) {
-            $postMetadata = $form
-                ->{'section-9'}
-                ->{'featured'}
-                ->result
-                ->metadata;
-            if (!is_null($postMetadata)) {
-                $featuredPost = $this->mapperFactory->createPostMapper()->getDomainModel(
-                    $form->{'section-9'}->featured->result
-                );
+            try {
+                $postMetadata = $form
+                    ->{'section-9'}
+                    ->{'featured'}
+                    ->result
+                    ->metadata;
+                if (!\is_null($postMetadata)) {
+                    $featuredPost = $this->mapperFactory->createPostMapper()->getDomainModel(
+                        $form->{'section-9'}->featured->result
+                    );
+                }
+            } catch (PostMappingException $e) {
+                // We're not doing anything here because in reality, this will only occur if a featured post
+                // is subsequently unpublished, in which case we shouldn't display it or break the page
             }
         }
 
@@ -64,7 +70,7 @@ class BlogMapper extends Mapper
 
             foreach ($moduleContent as $module) {
                 $moduleMetadata = $module->{'module'}->result->metadata;
-                if (!is_null($moduleMetadata)) {
+                if (!\is_null($moduleMetadata)) {
                     $modules[] = $this->mapperFactory->createModuleMapper()->getDomainModel(
                         $module->{'module'}->result
                     );
@@ -102,7 +108,7 @@ class BlogMapper extends Mapper
         $namespaces = $form->getNamespaces();
         $projectNameSpace = reset($namespaces);
         $projectNameSpaceParts = explode('/', $projectNameSpace);
-        $id = $projectNameSpaceParts[count($projectNameSpaceParts) - 2];
+        $id = $projectNameSpaceParts[\count($projectNameSpaceParts) - 2];
 
         return $id;
     }

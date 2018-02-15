@@ -61,7 +61,7 @@ class AuthorPresenter extends Presenter
     {
         parent::validateOptions($options);
 
-        if (!is_bool($options['is_slimline'])) {
+        if (!\is_bool($options['is_slimline'])) {
             throw new InvalidOptionException("Option 'is_lazy_loaded' must be a boolean");
         }
     }
