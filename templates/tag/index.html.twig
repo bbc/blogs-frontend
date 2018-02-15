@@ -2,6 +2,11 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('page_title_tag_list') }}{% endblock %}
 
+{% block social_tags %}
+    {{ parent() }}
+    <meta property="og:url" content="{{ url('tag_index', {blogId: blog.getId()}) }}" />
+{% endblock %}
+
 {%- block content -%}
     <div class="component">
         <h1>{{ tr('header_tag_list') }} ({{ tagResult.getTotal() }})</h1>

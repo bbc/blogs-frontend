@@ -9,14 +9,25 @@
 
     {#- Facebook pages that are allowed to edit FB preview titles and descriptions -#}
     <meta property="fb:pages" content="{{ meta_context.getBBCFacebookPageIds() }}">
-
-    {#- OpenGraph tags for Facebook/Twitter -#}
     <meta property="og:site_name" content="BBC">
-    <meta property="og:title" content="{{ block('title') }}">
-    <meta property="og:type" content="website">
 
     {#- Twitter-specific tags -#}
     <meta name="twitter:card" content="summary_large_image">
+
+    {#- OpenGraph tags for Facebook/Twitter -#}
+    {% block social_tags %}
+        <meta property="og:title" content="{{ block('title') }}">
+    {% endblock %}
+
+    {% block social_type %}
+        <meta property="og:type" content="website">
+    {% endblock %}
+
+    {% block social_image_tags %}
+        <meta property="og:image" content="{{ fallback_social_image.getUrl(1200,675) }}" />
+    {% endblock %}
+
+    {% block social_description %}{% endblock %}
 
     {{ orb.getHead()|raw }}
     {{ branding.getHead()|raw }}

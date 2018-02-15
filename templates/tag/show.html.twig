@@ -2,6 +2,11 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_tag_ind') }}: {{ tag.getName() }}{% endblock %}
 
+{% block social_tags %}
+    {{ parent() }}
+    <meta property="og:url" content="{{ url('tag_show', {blogId: blog.getId(), tagId: tag.getId()}) }}" />
+{% endblock %}
+
 {% block content %}
     <div class="islet br-box-subtle component text--right">
         <a data-istats-link-location="blogs_tag_page_see_all_tags"

@@ -4,8 +4,11 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ post.getTitle() }}{% endblock %}
 
-{% block inline_head %}
-    <meta property="og:type" content="article" />
+{% block social_type %}
+    <meta property="og:type" content="article">
+{% endblock %}
+
+{% block social_tags %}
     <meta name="twitter:card" content="summary">
 
     {# BLOG #}
@@ -16,8 +19,6 @@
         <link rel="publisher" href="{{ blog.getSocial().getGooglePlusUrl() }}"/>
     {%- endif -%}
 
-    <meta property="og:site_name" content="{{ blog.getName() }}" />
-
     {# POST #}
     <meta name="twitter:title" content="{{ post.getTitle() }}">
     <meta property="og:title" content="{{ post.getTitle() }}" />
@@ -27,10 +28,6 @@
     {%- if post.getShortSynopsis() -%}
         <meta name="twitter:description" content="{{ post.getShortSynopsis() }}">
         <meta property="og:description" content="{{ post.getShortSynopsis() }}" />
-    {%- endif -%}
-
-    {%- if post.getImage() -%}
-        <meta property="og:image" content="{{ post.getImage().getUrl(1200,675) }}" />
     {%- endif -%}
 
     {# AUTHOR SOCIAL #}
@@ -46,7 +43,17 @@
             <meta name="twitter:creator" content="{{ author.getSocial().getTwitterUsername() }}">
         {%- endif -%}
     {%- endif -%}
+{% endblock %}
 
+{% block social_image_tags %}
+    {%- if post.getImage() -%}
+        <meta property="og:image" content="{{ post.getImage().getUrl(1200,675) }}" />
+    {%- else -%}
+        {{ parent() }}
+    {%- endif -%}
+{% endblock %}
+
+{% block inline_head %}
     {%- if comments -%}
         {%- for script in comments.getHead() -%}
             {{ script|raw }}

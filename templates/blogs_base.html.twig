@@ -25,3 +25,15 @@
         </div>
     </div>
 {% endblock %}
+
+{% block social_image_tags %}
+    {%- if blog.getImage() -%}
+        <meta property="og:image" content="{{ blog.getImage().getUrl(1200,675) }}" />
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{% endblock %}
+
+{% block social_description %}
+    <meta property="og:description" content="{{ blog.getDescription() }}" />
+{% endblock %}

@@ -2,6 +2,11 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('page_title_author_all') }}{% endblock %}
 
+{% block social_tags %}
+    {{ parent() }}
+    <meta property="og:url" content="{{ url('author_index', {blogId: blog.getId()}) }}" />
+{% endblock %}
+
 {%- block content -%}
     <div class="component">
         <h1>{{ tr('header_author_all') }}</h1>

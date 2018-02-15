@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
+use App\BlogsService\Domain\Image;
 use App\Translate\TranslateProvider;
 use App\ValueObject\AnalyticsCounterName;
 use App\ValueObject\CosmosInfo;
@@ -105,6 +106,7 @@ abstract class BaseController extends AbstractController
             'branding' => $branding,
             'meta_context' => new MetaContext(),
             'istats_counter_name' => $istatsCounterName,
+            'fallback_social_image' => new Image('p01tqv8z.png'),
         ], $parameters);
         return $this->render($view, $parameters, $this->response);
     }
