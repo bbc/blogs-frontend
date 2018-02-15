@@ -58,6 +58,8 @@ class BlogMapper extends Mapper
                     );
                 }
             } catch (PostMappingException $e) {
+                // We're not doing anything here because in reality, this will only occur if a featured post
+                // is subsequently unpublished, in which case we shouldn't display it or break the page
             }
         }
 
