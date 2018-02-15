@@ -3,7 +3,7 @@
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ author.getName() }}{% endblock %}
 
 {% block social_tags %}
-    <meta property="og:title" content="{{ block('title') }}">
+    {{ parent() }}
     <meta property="og:url" content="{{ url('author_show', {blogId: blog.getId(), guid: author.getGuid()}) }}" />
 {% endblock %}
 

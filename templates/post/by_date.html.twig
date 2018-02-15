@@ -5,7 +5,7 @@
 {%- endblock %}
 
 {% block social_tags %}
-    <meta property="og:title" content="{{ block('title') }}">
+    {{ parent() }}
     <meta property="og:url" content="{{ url('posts_year_month', {blogId: blog.getId(), year: datePicker.getChosenMonthYear()|date('Y'), month: datePicker.getChosenMonthYear()|date('m') }) }}" />
 {% endblock %}
 
