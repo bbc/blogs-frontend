@@ -2,7 +2,6 @@
 declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
-use BBC\ProgrammesCachingLibrary\Cache;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\MapperFactory;
 use App\BlogsService\Infrastructure\XmlParser;
@@ -10,6 +9,7 @@ use App\BlogsService\Repository\AuthorRepository;
 use App\BlogsService\Repository\BlogRepository;
 use App\BlogsService\Repository\PostRepository;
 use App\BlogsService\Repository\TagRepository;
+use BBC\ProgrammesCachingLibrary\Cache;
 use GuzzleHttp\ClientInterface;
 
 class ServiceFactory

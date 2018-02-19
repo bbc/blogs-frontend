@@ -5,10 +5,10 @@ namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Tag;
-use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\TagRepository;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 
 class TagService
 {
