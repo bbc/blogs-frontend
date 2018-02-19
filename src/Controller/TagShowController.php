@@ -33,10 +33,6 @@ class TagShowController extends BlogsBaseController
             10
         );
 
-        if ($postResults->getTotal() === 0) {
-            throw $this->createNotFoundException('No posts were found for the tag ' . $tag->getName());
-        }
-
         $paginator = $this->createPaginator($postResults);
 
         return $this->renderWithChrome(
