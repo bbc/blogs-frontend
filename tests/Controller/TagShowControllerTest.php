@@ -46,12 +46,16 @@ class TagShowControllerTest extends BaseWebTestCase
 
     public function testTagShowNoPosts()
     {
-        $this->getCrawlerForPage(
+        $crawler = $this->getCrawlerForPage(
             TagBuilder::default()->withName('Test Tag')->build(),
             []
         );
 
-        $this->assertResponseStatusCode($this->client, 404);
+        $title = $crawler->filterXPath('//div//h1')->first()->text();
+        $this->assertEquals('Tagged with: Test Tag', $title);
+
+        $title = $crawler->filterXPath('//div//p')->first()->text();
+        $this->assertEquals('There are no results', $title);
     }
 
     public function testNoTag()
