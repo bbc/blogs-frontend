@@ -230,7 +230,7 @@ class PostRepository extends AbstractRepository
     public function getPostsByTagFileIds(string $blogId, array $tagIds, int $page, int $perpage): array
     {
         $queries = [];
-        foreach($tagIds as $key => $tagId) {
+        foreach ($tagIds as $key => $tagId) {
             $query = new SearchQuery();
             $query->setProject($blogId);
             $query->setNamespace($blogId, 'blogs-post');

@@ -5,6 +5,7 @@ namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Tag;
 use App\BlogsService\Infrastructure\IsiteResult;
+use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
 use Symfony\Component\DomCrawler\Crawler;
 use Tests\App\BaseWebTestCase;
@@ -23,11 +24,14 @@ class TagIndexControllerTest extends BaseWebTestCase
 
     public function testBlogWithTags()
     {
-        $crawler = $this->getCrawlerForPage([
-            TagBuilder::default()->withName('First Tag')->build(),
-            TagBuilder::default()->build(),
-            TagBuilder::default()->build(),
-        ]);
+        $crawler = $this->getCrawlerForPage(
+            [
+                TagBuilder::default()->withName('First Tag')->build(),
+                TagBuilder::default()->build(),
+                TagBuilder::default()->build(),
+            ],
+            [1, 2, 3]
+        );
 
         $this->assertTagsTitle($crawler, 'Tags (3)');
 
@@ -36,14 +40,16 @@ class TagIndexControllerTest extends BaseWebTestCase
 
         $this->assertEquals(3, $tagsDisplayed->count());
 
-        $firstTag = $tagsDisplayed->first()->filterXPath('//a');
-
+        $firstTag = $tagsDisplayed->first()->filterXPath('//h2');
         $this->assertEquals('First Tag', $firstTag->text());
+
+        $firstTagCount = $tagsDisplayed->first()->filterXPath('//p');
+        $this->assertEquals('1 post', $firstTagCount->text());
     }
 
     public function testBlogNoTags()
     {
-        $crawler = $this->getCrawlerForPage([]);
+        $crawler = $this->getCrawlerForPage([], []);
 
         $this->assertTagsTitle($crawler, 'Tags (0)');
 
@@ -61,7 +67,7 @@ class TagIndexControllerTest extends BaseWebTestCase
      * @param Tag[] $tags
      * @return Crawler
      */
-    private function getCrawlerForPage(array $tags): Crawler
+    private function getCrawlerForPage(array $tags, array $tagPostCounts): Crawler
     {
         $iSiteResult = new IsiteResult(1, 10, count($tags), $tags);
 
@@ -72,6 +78,11 @@ class TagIndexControllerTest extends BaseWebTestCase
             ->willReturn($iSiteResult);
 
         $this->client->getContainer()->set(TagService::class, $tagService);
+
+        $postService = $this->createMock(PostService::class);
+        $postService->method('getPostCountsForTags')->willReturn($tagPostCounts);
+
+        $this->client->getContainer()->set(PostService::class, $postService);
 
         return $this->client->request('GET', '/blogs/testblog/tags');
     }

@@ -18,13 +18,14 @@
         {%- else -%}
             <ul class="list-unstyled list-lined">
                 {%- for tag in tagResult.getDomainModels() -%}
-                    <li class="br-keyline delta">
+                    <li class="br-keyline cf">
                         <a data-istats-link-location="blogs_global_tag" href="{{ path('tag_show', {blogId: blog.getId(), tagId: tag.getId()}) }}">
-                            {{- tag.getName() -}}
-
+                            <h2 class="delta pull--left no-margin">
+                                {{- tag.getName() -}}
+                            </h2>
                             {% if not tagPostCounts[loop.index0] is empty %}
                                 <p class="pull--right no-margin text--shout deemphasize br-page-text-ontext">
-                                    {{ tr('post', tagPostCounts[loop.index0]) }}
+                                    {{- tr('post', tagPostCounts[loop.index0]) -}}
                                 </p>
                             {% endif %}
                         </a>
