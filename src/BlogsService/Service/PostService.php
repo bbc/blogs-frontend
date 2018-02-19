@@ -274,20 +274,18 @@ class PostService
         $ttl = CacheInterface::X_LONG,
         $nullTtl = CacheInterface::NONE
     ): array {
-        $tagIds = array_map(
-            function (Tag $tag) {
-                return (string) $tag->getFileId();
-            },
-            $tags
-        );
+        $tagFileIds = [];
+        foreach ($tags as $tag) {
+            $tagFileIds[$tag->getId()] = (string) $tag->getFileId();
+        }
 
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), join('_', $tagIds));
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), join('_', $tagFileIds));
 
         return $this->cache->getOrSet(
             $cacheKey,
             $ttl,
-            function () use ($blog, $tagIds) {
-                $responses = $this->repository->getPostsByTagFileIds($blog->getId(), $tagIds, 1, 1);
+            function () use ($blog, $tagFileIds) {
+                $responses = $this->repository->getPostsByTagFileIds($blog->getId(), $tagFileIds, 1, 1);
 
                 $result = [];
 

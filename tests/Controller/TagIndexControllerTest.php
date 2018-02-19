@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace Tests\App\Controller;
 
 use App\BlogsService\Domain\Tag;
+use App\BlogsService\Domain\ValueObject\FileID;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
@@ -26,11 +27,11 @@ class TagIndexControllerTest extends BaseWebTestCase
     {
         $crawler = $this->getCrawlerForPage(
             [
-                TagBuilder::default()->withName('First Tag')->build(),
-                TagBuilder::default()->build(),
-                TagBuilder::default()->build(),
+                TagBuilder::default()->withName('First Tag')->withFileId(new FileID('tag-t1'))->build(),
+                TagBuilder::default()->withFileId(new FileID('tag-t2'))->build(),
+                TagBuilder::default()->withFileId(new FileID('tag-t3'))->build(),
             ],
-            [1, 2, 3]
+            ['t1' => 1, 't2' => 2, 't3' => 3]
         );
 
         $this->assertTagsTitle($crawler, 'Tags (3)');
