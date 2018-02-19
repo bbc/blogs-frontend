@@ -259,8 +259,8 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $tag, $page, $perpage) {
-                $response = $this->repository->getPostsByTagFileId($blog->getId(), (string) $tag->getFileId(), $page, $perpage);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsByTagFileIds($blog->getId(), [(string) $tag->getFileId()], $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
             },
             [],
             $nullTtl
