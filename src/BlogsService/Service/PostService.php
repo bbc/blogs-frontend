@@ -268,6 +268,41 @@ class PostService
     }
 
     /** @return int[] */
+    public function getPostCountsForTags(
+        Blog $blog,
+        array $tags,
+        $ttl = CacheInterface::X_LONG,
+        $nullTtl = CacheInterface::NONE
+    ): array {
+        $tagIds = array_map(
+            function (Tag $tag) {
+                return (string) $tag->getFileId();
+            },
+            $tags
+        );
+
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), join('_', $tagIds));
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $tagIds) {
+                $responses = $this->repository->getPostsByTagFileIds($blog->getId(), $tagIds, 1,1);
+
+                $result = [];
+
+                foreach ($responses as $key => $response) {
+                    $result[$key] = $this->responseHandler->getIsiteResult($response)->getTotal();
+                }
+
+                return $result;
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    /** @return int[] */
     public function getPostCountForMonthsInYear(
         Blog $blog,
         int $year,

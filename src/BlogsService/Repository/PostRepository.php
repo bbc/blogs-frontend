@@ -225,4 +225,30 @@ class PostRepository extends AbstractRepository
 
         return $this->getResponse($query);
     }
+
+    /** @return ResponseInterface[] */
+    public function getPostsByTagFileIds(string $blogId, array $tagIds, int $page, int $perpage): array
+    {
+        $queries = [];
+        foreach($tagIds as $key => $tagId) {
+            $query = new SearchQuery();
+            $query->setProject($blogId);
+            $query->setNamespace($blogId, 'blogs-post');
+            $query->setQuery(['ns:tag', 'contains', $tagId]);
+            $query->setSort([
+                [
+                    'elementPath' => '/ns:form/ns:metadata/ns:published-date',
+                    'direction' => 'desc',
+                ],
+            ]);
+            $query->setDepth(1);
+            $query->setPage($page);
+            $query->setPageSize($perpage);
+            $query->setUnfiltered(true);
+
+            $queries[$key] = $query;
+        }
+
+        return $this->getParallelResponses($queries);
+    }
 }

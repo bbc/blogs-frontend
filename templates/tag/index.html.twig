@@ -21,6 +21,12 @@
                     <li class="br-keyline delta">
                         <a data-istats-link-location="blogs_global_tag" href="{{ path('tag_show', {blogId: blog.getId(), tagId: tag.getId()}) }}">
                             {{- tag.getName() -}}
+
+                            {% if not tagPostCounts[loop.index0] is empty %}
+                                <p class="pull--right no-margin text--shout deemphasize br-page-text-ontext">
+                                    {{ tr('post', tagPostCounts[loop.index0]) }}
+                                </p>
+                            {% endif %}
                         </a>
                     </li>
                 {%- endfor -%}
