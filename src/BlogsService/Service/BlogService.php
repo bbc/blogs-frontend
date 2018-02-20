@@ -4,10 +4,10 @@ declare(strict_types = 1);
 namespace App\BlogsService\Service;
 
 use App\BlogsService\Domain\Blog;
-use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\BlogRepository;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 
 class BlogService
 {

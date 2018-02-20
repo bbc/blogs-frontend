@@ -6,7 +6,6 @@ namespace App\Service;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Translate\TranslateProvider;
-use BBC\ProgrammesMorphLibrary\Entity\MorphView;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;

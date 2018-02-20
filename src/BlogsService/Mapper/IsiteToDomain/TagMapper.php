@@ -22,7 +22,7 @@ class TagMapper extends Mapper
 
         try {
             $fileId = $this->getString($this->getMetaData($isiteObject)->fileId);
-            $fileId = str_replace('blogs-', '', $fileId);
+            $fileId = preg_replace('/^blogs-/', '', $fileId);
 
             return new Tag(new FileID($fileId), $name);
         } catch (Exception $e) {

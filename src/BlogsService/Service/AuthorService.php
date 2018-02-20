@@ -6,10 +6,10 @@ namespace App\BlogsService\Service;
 use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
-use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\AuthorRepository;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 
 class AuthorService
 {

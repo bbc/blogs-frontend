@@ -8,10 +8,10 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\Tag;
 use App\BlogsService\Domain\ValueObject\GUID;
-use BBC\ProgrammesCachingLibrary\CacheInterface;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 use Cake\Chronos\Chronos;
 
 class PostService
@@ -259,8 +259,41 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $tag, $page, $perpage) {
-                $response = $this->repository->getPostsByTagFileId($blog->getId(), (string) $tag->getFileId(), $page, $perpage);
-                return $this->responseHandler->getIsiteResult($response);
+                $response = $this->repository->getPostsByTagFileIds($blog->getId(), [(string) $tag->getFileId()], $page, $perpage);
+                return $this->responseHandler->getIsiteResult($response[0]);
+            },
+            [],
+            $nullTtl
+        );
+    }
+
+    /** @return int[] */
+    public function getPostCountsForTags(
+        Blog $blog,
+        array $tags,
+        $ttl = CacheInterface::X_LONG,
+        $nullTtl = CacheInterface::NONE
+    ): array {
+        $tagFileIds = [];
+        foreach ($tags as $tag) {
+            $tagFileIds[$tag->getId()] = (string) $tag->getFileId();
+        }
+
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), join('_', $tagFileIds));
+
+        return $this->cache->getOrSet(
+            $cacheKey,
+            $ttl,
+            function () use ($blog, $tagFileIds) {
+                $responses = $this->repository->getPostsByTagFileIds($blog->getId(), $tagFileIds, 1, 1);
+
+                $result = [];
+
+                foreach ($responses as $key => $response) {
+                    $result[$key] = $this->responseHandler->getIsiteResult($response)->getTotal();
+                }
+
+                return $result;
             },
             [],
             $nullTtl
