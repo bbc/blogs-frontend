@@ -11,10 +11,6 @@
             <aside>
                 {{ ds('aboutModule', blog) }}
                 {{ ds('updatesModule', blog, tag ?? null) }}
-                <div class="sidebox component br-box-subtle">
-                    <h2 class="island--squashed br-box-highlight no-margin">Recently Commented Module</h2>
-                    <div class="grid-wrapper"></div>
-                </div>
                 {% for modulePresenter in modulePresenters %}
                     {{ ds_presenter(modulePresenter) }}
                 {% endfor %}
