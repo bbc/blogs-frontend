@@ -52,7 +52,8 @@ class CommentsService
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
             ],
-            []
+            [],
+            20
         );
     }
 

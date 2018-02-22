@@ -35,6 +35,16 @@ blog:
     defaults: { _controller: App\Controller\BlogShowController }
     requirements: { blogId: '[a-z0-9]+' }
 
+comments_partial:
+    path: /blogs/{blogId}/entries/{guid}/comments/standalone
+    defaults: { _controller: App\Controller\CommentsPartialController }
+    requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
+
+comments_index:
+    path: /blogs/{blogId}/entries/{guid}/comments
+    defaults: { _controller: App\Controller\CommentsIndexController }
+    requirements: { blogId: '[a-z0-9]+', guid: '^[a-f\d]{8}(-[a-f\d]{4}){4}[a-f\d]{8}$' }
+
 post:
     path: /blogs/{blogId}/entries/{guid}
     defaults: { _controller: App\Controller\PostShowController }
