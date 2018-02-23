@@ -125,6 +125,12 @@ abstract class BaseController extends AbstractController
 
     protected function setLocale(string $locale)
     {
+        // The translations library doesn't support multiple variations of the same language
+        // so this allows us to have two different versions of English
+        if ($locale === 'en-GB_articles') {
+            $locale = 'articles';
+        }
+
         $this->locale = $locale;
     }
 

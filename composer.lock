@@ -136,16 +136,16 @@
         },
         {
             "name": "bbc-rmp/translate",
-            "version": "v1.8.7",
+            "version": "v1.8.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bbc/rmp-translate.git",
-                "reference": "a73646db5264288f286e442f72a9360e9e0e00a5"
+                "reference": "04751a04a556b4c960e96ad01a69135568cb82b7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/rmp-translate/zipball/a73646db5264288f286e442f72a9360e9e0e00a5",
-                "reference": "a73646db5264288f286e442f72a9360e9e0e00a5",
+                "url": "https://api.github.com/repos/bbc/rmp-translate/zipball/04751a04a556b4c960e96ad01a69135568cb82b7",
+                "reference": "04751a04a556b4c960e96ad01a69135568cb82b7",
                 "shasum": ""
             },
             "require": {
@@ -175,10 +175,10 @@
             ],
             "description": "Small PHP library and translation files for translations in programmes/amen",
             "support": {
-                "source": "https://github.com/bbc/rmp-translate/tree/master",
+                "source": "https://github.com/bbc/rmp-translate/tree/v1.8.8",
                 "issues": "https://github.com/bbc/rmp-translate/issues"
             },
-            "time": "2017-11-01T10:58:17+00:00"
+            "time": "2018-02-26T15:49:52+00:00"
         },
         {
             "name": "bbc/branding-client",
