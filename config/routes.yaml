@@ -4,7 +4,7 @@ status:
 
 root:
     path: /
-    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: home, permanent: true }
+    defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, route: home, permanent: true }
 
 home:
     path: /blogs
@@ -48,7 +48,7 @@ posts_date_redirect:
 posts_year:
     path: /blogs/{blogId}/entries/{year}
     requirements: { blogId: '[a-z0-9]+', year: '\d{4}' }
-    defaults: { _controller: FrameworkBundle:Redirect:redirect, route: posts_year_month, permanent: true, month: '01' }
+    defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, route: posts_year_month, permanent: true, month: '01' }
 
 posts_year_month:
     path: /blogs/{blogId}/entries/{year}/{month}
