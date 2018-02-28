@@ -10,6 +10,8 @@ class HomeController extends BaseController
 {
     public function __invoke(BlogService $blogService)
     {
+        $this->setIstatsPageType('index_index');
+
         $blogResult = $blogService->getAllBlogs();
         $blogs = $blogResult->getDomainModels();
 
@@ -19,11 +21,6 @@ class HomeController extends BaseController
             'hasBlogs' => !empty($blogsByLetter),
             'blogsByLetter' => $blogsByLetter,
         ]);
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'index_index';
     }
 
     private function removePrefix($prefix, $str): string

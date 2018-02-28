@@ -14,6 +14,7 @@ use BBC\BrandingClient\BrandingClient;
 use BBC\BrandingClient\BrandingException;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,6 +25,9 @@ abstract class BaseController extends AbstractController
 
     /** @var bool */
     protected $hasVideo = false;
+
+    /** @var string */
+    protected $istatsPageType = '';
 
     /** @var mixed[] */
     protected $otherIstatsLabels = [];
@@ -66,7 +70,15 @@ abstract class BaseController extends AbstractController
         $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
     }
 
-    abstract protected function getIstatsPageType(): string;
+    protected function setIstatsPageType(string $pageType)
+    {
+        $this->istatsPageType = $pageType;
+    }
+
+    protected function getIstatsPageType(): string
+    {
+        return $this->istatsPageType;
+    }
 
     protected function response(): Response
     {
@@ -132,6 +144,17 @@ abstract class BaseController extends AbstractController
         }
 
         $this->locale = $locale;
+    }
+
+    protected function cachedRedirect($url, $status = 302): RedirectResponse
+    {
+        $headers = $this->response->headers->all();
+        return new RedirectResponse($url, $status, $headers);
+    }
+
+    protected function cachedRedirectToRoute($route, array $parameters = array(), $status = 302): RedirectResponse
+    {
+        return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
     }
 
     private function requestBranding(): Branding

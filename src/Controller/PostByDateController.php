@@ -13,6 +13,7 @@ class PostByDateController extends BlogsBaseController
 {
     public function __invoke(Request $request, Blog $blog, int $year, int $month, PostService $postService)
     {
+        $this->setIstatsPageType('post_date');
         $this->setBlog($blog);
 
         if (!$this->validMonth($month)) {
@@ -48,11 +49,6 @@ class PostByDateController extends BlogsBaseController
                 'paginatorPresenter' => $paginator,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'post_date';
     }
 
     private function validMonth(int $month): bool

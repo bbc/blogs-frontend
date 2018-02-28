@@ -13,6 +13,7 @@ class AuthorShowController extends BlogsBaseController
 {
     public function __invoke(Request $request, Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
+        $this->setIstatsPageType('author_show');
         $this->setBlog($blog);
 
         $preview = filter_var($request->get('preview', 'false'), FILTER_VALIDATE_BOOLEAN);
@@ -42,10 +43,5 @@ class AuthorShowController extends BlogsBaseController
             'author/show.html.twig',
             ['author' => $author, 'paginatorPresenter' => $paginator, 'postResult' => $postResult]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'author_show';
     }
 }

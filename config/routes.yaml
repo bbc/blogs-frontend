@@ -84,3 +84,7 @@ feed_rss_tags:
     path: /blogs/{blogId}/tags/{tagId}/rss
     defaults: { _controller: App\Controller\TagRssFeedController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+# Include legacy routes, this should be the last thing in the file
+_legacy_routes:
+    resource: legacy_routes.yaml

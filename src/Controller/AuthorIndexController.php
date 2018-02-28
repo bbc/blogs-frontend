@@ -13,6 +13,7 @@ class AuthorIndexController extends BlogsBaseController
 {
     public function __invoke(Request $request, Blog $blog, AuthorService $authorService, PostService $postService)
     {
+        $this->setIstatsPageType('author_index');
         $this->setBlog($blog);
 
         $page = $this->getPageNumber($request);
@@ -35,10 +36,5 @@ class AuthorIndexController extends BlogsBaseController
                 'showAZ' => $paginator !== null,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'author_index';
     }
 }

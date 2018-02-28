@@ -12,6 +12,7 @@ class TagShowController extends BlogsBaseController
 {
     public function __invoke(Request $request, Blog $blog, string $tagId, TagService $tagService, PostService $postService)
     {
+        $this->setIstatsPageType('tag_show');
         $this->setBlog($blog);
 
         $tag = $tagService->getTagById($tagId, $blog);
@@ -43,10 +44,5 @@ class TagShowController extends BlogsBaseController
                 'paginatorPresenter' => $paginator,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'tag_show';
     }
 }
