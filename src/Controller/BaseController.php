@@ -75,11 +75,6 @@ abstract class BaseController extends AbstractController
         $this->istatsPageType = $pageType;
     }
 
-    protected function getIstatsPageType(): string
-    {
-        return $this->istatsPageType;
-    }
-
     protected function response(): Response
     {
         return $this->response;
@@ -100,7 +95,7 @@ abstract class BaseController extends AbstractController
 
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
-        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->getIstatsPageType(), $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
+        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
         $translateProvider->setLocale($locale);
