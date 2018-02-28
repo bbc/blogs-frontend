@@ -138,6 +138,12 @@ services:
         tags:
             - { name: 'kernel.event_subscriber' }
 
+    App\EventSubscriber\WibbleSubscriber:
+        arguments:
+            - '@csa_guzzle.client.default'
+        tags:
+            - { name: 'kernel.event_subscriber' }
+
     ### Translations
 
     App\Translate\TranslateProvider:
