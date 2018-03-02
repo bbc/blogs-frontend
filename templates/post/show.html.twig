@@ -126,8 +126,10 @@
         {% endif %}
 
         {%- if comments -%}
-            <div class="component comments-section" id="comments">
-                {{ comments.getBody()|raw }}
+            <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', {blogId: blog.getId(), guid: post.getGuid()}) }}" data-lazyload-delay="true">
+                <div class="blogs-loading-fallback" id="comments">
+                    <a href="{{- url('comments_index', {blogId: blog.getId(), guid: post.getGuid()}) -}}"> {{- tr('link_comments_standalone') -}}</a>
+                </div>
             </div>
         {%- endif -%}
     </div>
@@ -142,12 +144,6 @@
                 {{ postShow.morePosts(blog.getId(), nextPost, 'link_next', 'blogs_post_bottom_next') }}
             {%- endif -%}
         </div>
-    {%- endif -%}
-
-    {%- if comments -%}
-        {%- for script in comments.getBodyLast() -%}
-            {{ script|raw }}
-        {%- endfor -%}
     {%- endif -%}
 
     {# SCHEMA JSON #}

@@ -33,6 +33,7 @@ gulp.task('js', ['js:clean'], function () {
         staticPathSrc + '/js/**/third-party.js',
         staticPathSrc + '/js/**/smp.js',
         staticPathSrc + '/js/**/bbc-datepicker.js',
+        staticPathSrc + '/js/**/lazyload.js',
     ];
 
     const config = {

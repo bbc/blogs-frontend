@@ -1,0 +1,12 @@
+<div>
+    {%- if comments -%}
+        <div class="component comments-section" id="comments">
+            {{ comments.getBody()|raw }}
+        </div>
+        {%- for script in comments.getBodyLast() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- else -%}
+        <a href="{{- url('comments_index', {blogId: blog.getId(), guid: post.getGuid()}) -}}"> {{- tr('link_comments_standalone') -}}</a>
+    {%- endif -%}
+</div>

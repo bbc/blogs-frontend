@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ post.getTitle() }} - {{ tr('link_comments') }}{% endblock %}
+
+{% block inline_head %}
+    {%- if comments -%}
+        {%- for script in comments.getHead() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- endif -%}
+
+    {{ parent() }}
+{% endblock %}
+
+{% block body %}
+    <div class="grid-wrapper">
+        <div class="grid">
+            <div class="island br-box-page">
+                <h1>
+                    <a href="{{ url('post', {blogId: blog.getId(), guid: post.getGuid()}) }}">{{ post.getTitle() }}</a>
+                </h1>
+                {%- if comments -%}
+                    <div class="component comments-section" id="comments">
+                        {{ comments.getBody()|raw }}
+                    </div>
+                {%- else -%}
+                    <div class="component">
+                        <p>{{ tr('error_comments') }}</p>
+                    </div>
+                {%- endif -%}
+            </div>
+        </div>
+    </div>
+
+    {%- if comments -%}
+        {%- for script in comments.getBodyLast() -%}
+            {{ script|raw }}
+        {%- endfor -%}
+    {%- endif -%}
+{% endblock %}
+
+{% block social_image_tags %}
+    {%- if post.getImage() -%}
+        <meta property="og:image" content="{{ post.getImage().getUrl(1200,675) }}" />
+    {%- elseif blog.getImage() -%}
+        <meta property="og:image" content="{{ blog.getImage().getUrl(1200,675) }}" />
+    {%- else -%}
+        {{- parent() -}}
+    {%- endif -%}
+{% endblock %}
+
+{% block social_description %}
+    {%- if post.getShortSynopsis() -%}
+        <meta property="og:description" content="{{ post.getShortSynopsis() }}" />
+    {%- elseif blog.getDescription() -%}
+        <meta property="og:description" content="{{ blog.getDescription() }}" />
+    {%- endif -%}
+{% endblock %}
