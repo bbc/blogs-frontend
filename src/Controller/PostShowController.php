@@ -15,6 +15,7 @@ class PostShowController extends BlogsBaseController
     /** @throws MorphErrorException|Exception */
     public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
+        $this->setIstatsPageType('post_show');
         $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
@@ -51,10 +52,5 @@ class PostShowController extends BlogsBaseController
                 'comments' => $comments,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'post_show';
     }
 }

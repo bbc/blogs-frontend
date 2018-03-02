@@ -12,6 +12,7 @@ class BlogShowController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, PostService $postService)
     {
+        $this->setIstatsPageType('index_single');
         $this->setBlog($blog);
 
         $result = $postService->getPostsByBlog($blog, Chronos::now());
@@ -22,11 +23,6 @@ class BlogShowController extends BlogsBaseController
         $this->hasVideo = $this->postsContainVideo($posts);
 
         return $this->renderWithChrome('blog/show.html.twig', ['posts' => $posts]);
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'index_single';
     }
 
     /**

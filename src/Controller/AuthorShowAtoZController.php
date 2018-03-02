@@ -13,6 +13,7 @@ class AuthorShowAtoZController extends BlogsBaseController
 {
     public function __invoke(Request $request, Blog $blog, string $letter, AuthorService $authorService, PostService $postService)
     {
+        $this->setIstatsPageType('author_letter');
         $this->setBlog($blog);
         $this->counterName = 'authors';
 
@@ -37,10 +38,5 @@ class AuthorShowAtoZController extends BlogsBaseController
                 'showAZ' => true,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'author_letter';
     }
 }

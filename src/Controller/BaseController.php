@@ -14,6 +14,7 @@ use BBC\BrandingClient\BrandingClient;
 use BBC\BrandingClient\BrandingException;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
@@ -24,6 +25,9 @@ abstract class BaseController extends AbstractController
 
     /** @var bool */
     protected $hasVideo = false;
+
+    /** @var string */
+    protected $istatsPageType = '';
 
     /** @var mixed[] */
     protected $otherIstatsLabels = [];
@@ -66,7 +70,10 @@ abstract class BaseController extends AbstractController
         $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
     }
 
-    abstract protected function getIstatsPageType(): string;
+    protected function setIstatsPageType(string $pageType)
+    {
+        $this->istatsPageType = $pageType;
+    }
 
     protected function response(): Response
     {
@@ -88,7 +95,7 @@ abstract class BaseController extends AbstractController
 
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
-        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->getIstatsPageType(), $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
+        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
         $translateProvider->setLocale($locale);
@@ -132,6 +139,17 @@ abstract class BaseController extends AbstractController
         }
 
         $this->locale = $locale;
+    }
+
+    protected function cachedRedirect($url, $status = 302): RedirectResponse
+    {
+        $headers = $this->response->headers->all();
+        return new RedirectResponse($url, $status, $headers);
+    }
+
+    protected function cachedRedirectToRoute($route, array $parameters = [], $status = 302): RedirectResponse
+    {
+        return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
     }
 
     private function requestBranding(): Branding

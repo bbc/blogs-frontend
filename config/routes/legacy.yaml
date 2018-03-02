@@ -1,0 +1,57 @@
+# LEGACY ROUTE REDIRECTS
+#
+# This group of legacy urls are redirected into the 'new' format that was introduced after
+# existing blogs were migrated to iSite. Most can be redirected solely in routing but others
+# require some more complex GUID generation/ string manipulation and are therefore handled by a dedicated controller.
+
+# eg /blogs/5live/by/2012/01/
+legacy_posts_by_date:
+    path: /blogs/{blogId}/by/{year}/{month}
+    defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, permanent: true, route: posts_year_month }
+    requirements: { blogId: '[a-z0-9]+', year: '\d{4}', month: '\d{2}'}
+
+# eg /blogs/5live/by/2012/01/page/1
+#
+# Appends the page number as a query string param
+legacy_posts_by_date_paged:
+    path: /blogs/{blogId}/by/{year}/{month}/page/{page}
+    defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, permanent: true, route: posts_year_month }
+    requirements: { blogId: '[a-z0-9]+', year: '\d{4}', month: '\d{2}', page: '[0-9]+'}
+
+# eg /blogs/5live/by/
+# eg /blogs/5live/articles/
+# eg /blogs/5live/posts/
+legacy_blog_entries:
+    path: /blogs/{blogId}/{entries}
+    defaults: { _controller: App\Controller\PostByDateRedirectController }
+    requirements: { blogId: '[a-z0-9]+', entries: 'articles|posts|by' }
+
+# eg /blogs/5live/articles/Caught-in-the-bus-lane
+# eg /blogs/5live/posts/Caught-in-the-bus-lane
+legacy_post_show:
+    path: /blogs/{blogId}/{entries}/{postName}
+    defaults: { _controller: App\Controller\LegacyRoutesRedirectController::redirectPostShow }
+    requirements: { blogId: '[a-z0-9]+', entries: 'articles|posts', postName: '[0-9a-zA-Z\-\_]+' }
+
+# eg /blogs/5live/authors/page/2
+legacy_author_index_paged:
+    path: /blogs/{blogId}/authors/page/{page}
+    defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, permanent: true, route: author_index }
+    requirements: { blogId: '[a-z0-9]+', page: '[0-9]+' }
+
+# eg /blogs/aboutthebbc/authors/Hannah_Khalil
+legacy_author_show:
+    path: /blogs/{blogId}/authors/{authorName}
+    defaults: { _controller: App\Controller\LegacyRoutesRedirectController::redirectAuthorShow }
+    requirements: { blogId: '[a-z0-9]+', authorName: '[a-zA-Z\_'']+' }
+
+# eg /blogs/5live/tags/Bbc_One
+#
+# The 'new' route will catch and tagIds that are in the correct format, this will catch ones
+# that contain underscores etc for transformation
+#
+# This regex explicitly forbids the new tagId format, to avoid new routes falling into here
+legacy_tag_show:
+    path: /blogs/{blogId}/tags/{tagName}
+    defaults: { _controller: App\Controller\LegacyRoutesRedirectController::redirectTagShow }
+    requirements: { blogId: '[a-z0-9]+', tagName: '!([A-Za-z0-9-]+) & (.+)' }
