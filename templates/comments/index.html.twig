@@ -23,6 +23,10 @@
                     <div class="component comments-section" id="comments">
                         {{ comments.getBody()|raw }}
                     </div>
+                {%- else -%}
+                    <div class="component">
+                        <p>{{ tr('error_comments') }}</p>
+                    </div>
                 {%- endif -%}
             </div>
         </div>
