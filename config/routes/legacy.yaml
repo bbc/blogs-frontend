@@ -49,7 +49,9 @@ legacy_author_show:
 #
 # The 'new' route will catch and tagIds that are in the correct format, this will catch ones
 # that contain underscores etc for transformation
+#
+# This regex explicitly forbids the new tagId format, to avoid new routes falling into here
 legacy_tag_show:
     path: /blogs/{blogId}/tags/{tagName}
     defaults: { _controller: App\Controller\LegacyRoutesRedirectController::redirectTagShow }
-    requirements: { blogId: '[a-z0-9]+', tagName: '.+' }
+    requirements: { blogId: '[a-z0-9]+', tagName: '!([A-Za-z0-9-]+) & (.+)' }

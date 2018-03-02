@@ -4,6 +4,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\ValueObject\GUID;
+use Symfony\Component\HttpFoundation\Response;
 
 class LegacyRoutesRedirectController extends BaseController
 {
@@ -18,13 +19,13 @@ class LegacyRoutesRedirectController extends BaseController
     public function redirectPostShow(string $blogId, string $postName)
     {
         $guid = $this->generatePostGuid($blogId, $postName);
-        return $this->cachedRedirectToRoute('post', ['blogId' => $blogId, 'guid' => $guid], 301);
+        return $this->cachedRedirectToRoute('post', ['blogId' => $blogId, 'guid' => $guid], Response::HTTP_MOVED_PERMANENTLY);
     }
 
     public function redirectAuthorShow(string $blogId, string $authorName)
     {
         $guid = $this->generateAuthorGuid($blogId, $authorName);
-        return $this->cachedRedirectToRoute('author_show', ['blogId' => $blogId, 'guid' => $guid], 301);
+        return $this->cachedRedirectToRoute('author_show', ['blogId' => $blogId, 'guid' => $guid], Response::HTTP_MOVED_PERMANENTLY);
     }
 
     public function redirectTagShow(string $blogId, string $tagName)
@@ -32,7 +33,7 @@ class LegacyRoutesRedirectController extends BaseController
         $tagName = rtrim($tagName, '-');
         $tagName = str_replace('_', '-', strtolower($tagName));
 
-        return $this->cachedRedirectToRoute('tag_show', ['blogId' => $blogId, 'tagId' => $tagName], 301);
+        return $this->cachedRedirectToRoute('tag_show', ['blogId' => $blogId, 'tagId' => $tagName], Response::HTTP_MOVED_PERMANENTLY);
     }
 
     private function generatePostGuid(string $blogId, string $postName): GUID

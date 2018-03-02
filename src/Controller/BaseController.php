@@ -147,7 +147,7 @@ abstract class BaseController extends AbstractController
         return new RedirectResponse($url, $status, $headers);
     }
 
-    protected function cachedRedirectToRoute($route, array $parameters = array(), $status = 302): RedirectResponse
+    protected function cachedRedirectToRoute($route, array $parameters = [], $status = 302): RedirectResponse
     {
         return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
     }
