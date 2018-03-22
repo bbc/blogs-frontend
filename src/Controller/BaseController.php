@@ -104,7 +104,7 @@ abstract class BaseController extends AbstractController
             'language' => $branding->getLanguage(),
         ], [
             'searchScope' => $branding->getOrbitSearchScope(),
-            'skipLinkTarget' => 'programmes-content',
+            'skipLinkTarget' => 'blogs-content',
             'analyticsCounterName' => $istatsCounterName,
             'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
         ]);

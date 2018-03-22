@@ -1,0 +1,6 @@
+{% extends '@Twig/Exception/error.html.twig' %}
+
+{% block title %}{{ tr('page_not_found_title') }}{% endblock %}
+
+{% block image %}{{ asset('images/error/404.gif') }}{% endblock %}
+{% block pagenote %}{{ tr('page_not_found_note') }}{% endblock %}

@@ -17,6 +17,7 @@ const staticPathSrc = 'resources';
 const staticPathDist = 'web/assets';
 const sassMatch = '/sass/**/*.scss';
 const jsMatch = '/js/**/*.js';
+const imageMatch = '/images/*';
 
 var throwError = true;
 var isSandbox = false;
@@ -82,7 +83,18 @@ gulp.task('sass', ['sass:clean'], function() {
 
 // ------
 
-gulp.task('rev', ['sass', 'js'], function() {
+gulp.task('images:clean', function() {
+    return del([staticPathDist + '/images']);
+});
+
+gulp.task('images', ['images:clean'], function() {
+    return gulp.src(staticPathSrc + '/images/**/*')
+        .pipe(gulp.dest(staticPathDist + '/images/'));
+});
+
+// ------
+
+gulp.task('rev', ['sass', 'images', 'js'], function() {
     return gulp.src([staticPathDist + '/**/*'])
         .pipe(rev())
         .pipe(override())
@@ -106,12 +118,13 @@ gulp.task('watch',function() {
         ['sass']
     );
 
+    gulp.watch([staticPathSrc + imageMatch], ['images']);
     gulp.watch([staticPathSrc + jsMatch], ['js']);
 });
 
 gulp.task('default', function(cb){
     isSandbox = true;
-    runSequence(['sass', 'js']);
+    runSequence(['sass', 'images', 'js']);
 });
 
 gulp.task('distribution', ['rev']);

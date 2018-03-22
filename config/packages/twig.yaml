@@ -3,4 +3,5 @@ twig:
         '%kernel.project_dir%/templates': ''
         '%kernel.project_dir%/src/Ds': 'Ds'
     debug: '%kernel.debug%'
+    exception_controller: App\Controller\ExceptionController
     strict_variables: '%kernel.debug%'

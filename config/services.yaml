@@ -42,6 +42,11 @@ services:
         resource: '../src/Controller'
         tags: ['controller.service_arguments']
 
+    App\Controller\ExceptionController:
+        public: true
+        arguments:
+            $debug: '%kernel.debug%'
+
     App\BlogsService\Service\AuthorService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getAuthorService']
 
