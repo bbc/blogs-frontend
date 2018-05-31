@@ -1,0 +1,12 @@
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result"><metadata><modifiedDateTime>2014-11-13T17:46:50.052462Z</modifiedDateTime><creationDateTime>2014-11-13T17:46:50.052462Z</creationDateTime>
+    <type>blogs-content-image</type>
+    <fileId>blogs-content-141588368550754</fileId><guid>c7392469-2bcf-3a3a-8da5-b2610c55ad35</guid></metadata><document><form xmlns="https://production.bbc.co.uk/isite2/project/blogs-outreach/blogs-content-image">
+  <metadata>
+    <name>TV Brainstorming</name>
+    <description>TV Brainstorming</description>
+    <file_id>141588368550754</file_id>
+  </metadata>
+  <content>
+    <image>p029b06t</image>
+  </content>
+</form></document></result>
