@@ -4,6 +4,7 @@ namespace App\BlogsService\Infrastructure;
 
 use App\BlogsService\Infrastructure\Exception\ParseException;
 use App\BlogsService\Mapper\IsiteToDomain\Mapper;
+use App\Exception\WrongEntityTypeException;
 use Psr\Http\Message\ResponseInterface;
 use SimpleXMLElement;
 
@@ -37,13 +38,17 @@ class IsiteFeedResponseHandler
 
         $envelopeName = $decodedResponseBody->getName();
 
-        if ($envelopeName === 'search') {
-            return $this->parseSearchEnvelope($decodedResponseBody);
+        try {
+            if ($envelopeName === 'search') {
+                return $this->parseSearchEnvelope($decodedResponseBody);
+            }
+            if ($envelopeName === 'result') {
+                return new IsiteResult(1, 1, 1, $this->mapDomainModels([$decodedResponseBody]));
+            }
+        } catch (WrongEntityTypeException $e) {
+            return new IsiteResult(0, 0, 0, []);
         }
 
-        if ($envelopeName === 'result') {
-            return new IsiteResult(1, 1, 1, $this->mapDomainModels([$decodedResponseBody]));
-        }
 
         throw new IsiteResultException(sprintf(
             'Invalid Isite response: (Status: "%s" Body: "%s")',
