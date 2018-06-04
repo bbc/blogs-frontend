@@ -35,13 +35,14 @@ gulp.task('js', ['js:clean'], function () {
         staticPathSrc + '/js/**/smp.js',
         staticPathSrc + '/js/**/bbc-datepicker.js',
         staticPathSrc + '/js/**/lazyload.js',
+        'node_modules/picturefill/dist/picturefill.js'
     ];
 
     const config = {
         "baseUrl": "resources/js",
         "paths": {
             "jquery-1.9": "empty:",
-            "respimg": "../../node_modules/lazysizes/plugins/respimg/ls.respimg",
+            "picturefill": "../../node_modules/picturefill/dist/picturefill",
             "lazysizes": "../../node_modules/lazysizes/lazysizes-umd",
             'istats-1': 'empty:',
         },
