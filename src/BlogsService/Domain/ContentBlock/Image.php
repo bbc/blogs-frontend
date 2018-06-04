@@ -10,10 +10,10 @@ class Image extends AbstractContentBlock
     /** @var DomainImage */
     private $image;
 
-    /** @var string */
+    /** @var string|null */
     private $caption;
 
-    public function __construct(DomainImage $image, string $caption)
+    public function __construct(DomainImage $image, ?string $caption)
     {
         $this->image = $image;
         $this->caption = $caption;
@@ -30,7 +30,7 @@ class Image extends AbstractContentBlock
         return $this->image;
     }
 
-    public function getCaption(): string
+    public function getCaption(): ?string
     {
         return $this->caption;
     }

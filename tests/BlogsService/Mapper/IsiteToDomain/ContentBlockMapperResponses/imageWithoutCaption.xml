@@ -1,0 +1,25 @@
+<!--
+XML SOURCE :
+https://api.test.bbc.co.uk/isite2-content-reader/search?q={"project":"blogs-outreach","namespaces":{"ns":"https:\/\/production.bbc.co.uk\/isite2\/project\/blogs-outreach\/blogs-post"},"query":{"and":[["ns:published-date",">","1970-01-01T13:16:48.595+00:00","dateTime"],["ns:published-date","<=","2018-05-31T13:16:47.594+00:00","dateTime"]]},"sort":[{"elementPath":"\/ns:form\/ns:metadata\/ns:published-date","direction":"desc"}],"depth":1,"page":"1","pageSize":"10","unfiltered":true}
+-->
+<result xmlns="https://production.bbc.co.uk/isite2/contentreader/xml/result">
+    <metadata>
+        <modifiedDateTime>2014-11-13T17:46:50.052462Z</modifiedDateTime>
+        <creationDateTime>2014-11-13T17:46:50.052462Z</creationDateTime>
+        <type>blogs-content-image</type>
+        <fileId>blogs-content-141588368550754</fileId>
+        <guid>c7392469-2bcf-3a3a-8da5-b2610c55ad35</guid>
+    </metadata>
+    <document>
+        <form xmlns="https://production.bbc.co.uk/isite2/project/blogs-outreach/blogs-content-image">
+          <metadata>
+            <name>TV Brainstorming</name>
+            <description>TV Brainstorming</description>
+            <file_id>141588368550754</file_id>
+          </metadata>
+          <content>
+            <image>p029b06t</image>
+          </content>
+        </form>
+    </document>
+</result>

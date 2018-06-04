@@ -23,7 +23,7 @@ class ImageBlockPresenter extends Presenter
         return $this->image->getImage();
     }
 
-    public function getCaption(): string
+    public function getCaption(): ?string
     {
         return $this->image->getCaption();
     }
