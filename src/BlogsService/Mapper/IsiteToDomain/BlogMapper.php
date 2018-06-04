@@ -7,6 +7,7 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\Comments;
 use App\BlogsService\Domain\ValueObject\Social;
 use App\Exception\PostMappingException;
+use App\Exception\WrongEntityTypeException;
 use SimpleXMLElement;
 
 class BlogMapper extends Mapper
@@ -57,7 +58,7 @@ class BlogMapper extends Mapper
                         $form->{'section-9'}->featured->result
                     );
                 }
-            } catch (PostMappingException $e) {
+            } catch (PostMappingException | WrongEntityTypeException $e) {
                 // We're not doing anything here because in reality, this will only occur if a featured post
                 // is subsequently unpublished, in which case we shouldn't display it or break the page
             }

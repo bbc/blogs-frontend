@@ -45,7 +45,7 @@ class ContentBlockMapperTest extends TestCase
 
     private function givenXmlResponseFromIsite(string $file): SimpleXMLElement
     {
-        $xml = file_get_contents(__DIR__ .'/ContentBlockMapperResponses/' . $file);
+        $xml = file_get_contents(__DIR__ . '/ContentBlockMapperResponses/' . $file);
         return new SimpleXMLElement($xml);
     }
 }
