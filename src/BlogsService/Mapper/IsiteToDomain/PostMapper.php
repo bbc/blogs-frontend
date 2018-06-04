@@ -6,6 +6,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\Exception\PostMappingException;
+use App\Exception\WrongEntityTypeException;
 use SimpleXMLElement;
 
 class PostMapper extends Mapper
@@ -14,6 +15,10 @@ class PostMapper extends Mapper
     {
         if (!isset($isiteObject->document)) {
             return null;
+        }
+
+        if (!isset($isiteObject->metadata->type) || (string) $isiteObject->metadata->type !== 'blogs-post') {
+            throw new WrongEntityTypeException("Invalid type passed into PostMapper");
         }
 
         $formMetaData = $this->getFormMetaData($isiteObject);
