@@ -23,6 +23,9 @@
     "cakephp/chronos": {
         "version": "1.1.2"
     },
+    "cakephp/core": {
+        "version": "3.6.4"
+    },
     "cakephp/utility": {
         "version": "3.5.7"
     },
@@ -328,6 +331,9 @@
             "version": "3.3",
             "ref": "179470cb6492db92dffee208cfdb436f175c93b4"
         }
+    },
+    "symfony/polyfill-ctype": {
+        "version": "v1.8.0"
     },
     "symfony/polyfill-mbstring": {
         "version": "v1.6.0"
