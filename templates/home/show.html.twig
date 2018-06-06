@@ -4,12 +4,12 @@
 
 {% block body %}
     <h1 class="visually-hidden">Blogs</h1>
-    <div class="br-box-subtle island">
+    <div class="br-box-subtle island" id="blogs-home">
         {% if hasBlogs %}
             {% for letter, blogs in blogsByLetter %}
                 {% if blogs %}
                     <h2>{{ letter }}</h2>
-                    <ul class="list-unstyled list-spaced component">
+                    <ul class="list-unstyled list-spaced component" data-alphanumeric={{ letter }}>
                         {% for blog in blogs %}
                             <li>{{ home.blog(blog) }}</li>
                         {% endfor %}
