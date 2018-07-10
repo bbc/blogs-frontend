@@ -1,4 +1,4 @@
-<a class="block {{- author.getOption('is_slimline') ? '' : ' islet--vertical' -}}" href="{{ path('author_show', {blogId: author.getBlogId(), guid: author.getGuid()}) }}">
+<a data-section-type="blogs-author" class="block {{- author.getOption('is_slimline') ? '' : ' islet--vertical' -}}" href="{{ path('author_show', {blogId: author.getBlogId(), guid: author.getGuid()}) }}">
     <div class="media">
         {% if author.getImage() %}
         <div class="1/6 hidden visible@bpw media__img">
