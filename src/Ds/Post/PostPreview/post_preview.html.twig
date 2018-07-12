@@ -20,7 +20,7 @@
     {% endfor %}
     {% if post_preview.shouldShowShowMoreLink() %}
         <p>
-            <a href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
+            <a data-link="read-more" href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
         </p>
     {% endif %}
 
