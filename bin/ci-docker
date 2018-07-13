@@ -10,7 +10,7 @@ if ! (php --version | grep -q "PHP 7.") ; then
     exit 1
 fi
 
-export APP_ENV=prod;
+export SYMFONY_ENV=prod;
 
 # setup and run composer
 if [ -n "$OAUTH" ]; then
@@ -51,7 +51,7 @@ yarn run lint || RESULT=1
 vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
 
 if [ "$RESULT" = "0" ]; then
-    composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
+   SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
 fi
 
 exit $RESULT
