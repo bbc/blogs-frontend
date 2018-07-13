@@ -30,8 +30,7 @@ echo "Fixing permissions"
 docker_run sudo chown -R jenkins:jenkins /mnt
 
 # Clearing cache
-rm -rf var
-mkdir var
+rm -rf var/cache || true
 
 if [ "$BUILD_TYPE" = "pull-request" ]
 then
