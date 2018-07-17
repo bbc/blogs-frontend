@@ -29,6 +29,9 @@ docker_run bin/ci-docker
 echo "Fixing permissions"
 docker_run sudo chown -R jenkins:jenkins /mnt
 
+# Clearing cache
+rm -rf var/cache || true
+
 if [ "$BUILD_TYPE" = "pull-request" ]
 then
     echo "Building RPM..."
