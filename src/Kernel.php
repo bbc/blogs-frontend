@@ -42,7 +42,7 @@ class Kernel extends BaseKernel
 
         // Load generated parameters.yaml, as we prefer generating config files
         // rather than environment variables for configuration
-        $loader->load($confDir . '/parameters.yaml', 'glob');
+        $loader->load($confDir . '/parameters.yaml', 'yaml');
 
         $loader->load($confDir . '/packages/*' . self::CONFIG_EXTS, 'glob');
         if (is_dir($confDir . '/packages/' . $this->environment)) {
