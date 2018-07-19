@@ -72,7 +72,7 @@ class ClipsBlockPresenter extends Presenter
                 'externalEmbedUrl' => null,
             ];
         }
-        return json_encode($player);
+        return json_encode($player)?:'';
     }
 
     private static function getClipsBlockCount(): int

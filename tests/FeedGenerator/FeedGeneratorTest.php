@@ -118,16 +118,20 @@ class FeedGeneratorTest extends TestCase
     {
         $feedGenerator = $this->createFeedGenerator();
         $feedData = $feedGenerator->generateAtomFeed($blog, $posts);
+        /** @var SimpleXMLElement $result */
+        $result = simplexml_load_string($feedData);
 
-        return simplexml_load_string($feedData);
+        return $result;
     }
 
     private function getRssFeed(Blog $blog, array $posts): SimpleXMLElement
     {
         $feedGenerator = $this->createFeedGenerator();
         $feedData = $feedGenerator->generateRssFeed($blog, $posts);
+        /** @var SimpleXMLElement $result */
+        $result = simplexml_load_string($feedData);
 
-        return simplexml_load_string($feedData);
+        return $result;
     }
 
     private function createFeedGenerator(): FeedGenerator

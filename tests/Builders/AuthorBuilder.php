@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\App\Builders;
 
@@ -36,12 +36,14 @@ class AuthorBuilder implements BuilderInterface
     public function build()
     {
         $faker = Factory::create();
+        /** @var string $role */
+        $role = $this->role ?? $faker->words(2, true);
 
         return new Author(
             $this->guid ?? new GUID($faker->uuid),
             $this->fileId ?? new FileID($faker->slug(3)),
             $this->name ?? $faker->name(),
-            $this->role ?? (string) $faker->words(2, true),
+            $role,
             $this->description ?? $faker->sentence(),
             $this->image ?? new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
             $this->social ?? new Social('', '', '')

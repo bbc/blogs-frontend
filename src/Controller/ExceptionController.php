@@ -37,7 +37,9 @@ class ExceptionController extends BaseExceptionController
 
     public function __invoke(Request $request, FlattenException $exception, DebugLoggerInterface $logger = null)
     {
-        $currentContent = $this->getAndCleanOutputBuffering((int) $request->headers->get('X-Php-Ob-Level', -1));
+        /** @var int $phpObLevel */
+        $phpObLevel = $request->headers->get('X-Php-Ob-Level', -1);
+        $currentContent = $this->getAndCleanOutputBuffering($phpObLevel);
         $showException = $request->attributes->get('showException', $this->debug); // As opposed to an additional parameter, this maintains BC
         // base.html.twig requires the ORB and Branding. If either of those fail
         // we still need to be able to render an exception rather than just blow

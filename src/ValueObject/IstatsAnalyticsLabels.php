@@ -51,7 +51,7 @@ class IstatsAnalyticsLabels
         // The ORB Mustache template wants the labels in a slightly clunky format. We should oblige it.
         if (empty($this->orbLabels)) {
             foreach ($this->labels as $key => $value) {
-                $this->orbLabels[] = ['key' => $key, 'value' => urlencode($value)];
+                $this->orbLabels[] = ['key' => (string) $key, 'value' => urlencode($value)];
             }
         }
 

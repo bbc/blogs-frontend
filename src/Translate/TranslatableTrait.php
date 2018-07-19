@@ -23,7 +23,7 @@ trait TranslatableTrait
      *
      * @see http://userguide.icu-project.org/formatparse/datetime
      *
-     * @return bool|string
+     * @return string
      */
     protected function localDateIntl(DateTimeInterface $dateTime, string $format)
     {
@@ -49,7 +49,7 @@ trait TranslatableTrait
         $this->dateFormatterCache[$cacheKey]->setPattern($format);
         $output = $this->dateFormatterCache[$cacheKey]->format($dateTime->getTimestamp());
 
-        return $output;
+        return $output?:'';
     }
 
     protected function tr(

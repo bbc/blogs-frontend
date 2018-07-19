@@ -1,5 +1,5 @@
 <?php
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace Tests\App\Builders;
 
@@ -46,16 +46,22 @@ class PostBuilder implements BuilderInterface
     public function build()
     {
         $faker = Factory::create();
+        /** @var string $title */
+        $title = $this->title ?? $faker->words(3, true);
+        /** @var string $sentences */
+        $sentences = $faker->sentences(2, true);
+        /** @var array $content */
+        $content = $this->content ?? [new Prose($sentences)];
 
         return new Post(
             $this->guid ?? new GUID($faker->uuid),
             $this->forumId ?? $faker->word,
             $this->publishedDate ?? Chronos::create($faker->year, $faker->month, $faker->dayOfMonth, $faker->numberBetween(0, 23), $faker->numberBetween(0, 59)),
-            $this->title ?? (string) $faker->words(3, true),
+            $title,
             $this->shortSynopsis ?? $faker->sentence(),
             $this->author,
             $this->image,
-            $this->content ?? [new Prose((string) $faker->sentences(2, true))],
+            $content,
             $this->tags ?? [new Tag(new FileID($faker->slug(2)), $faker->word)]
         );
     }
@@ -117,13 +123,15 @@ class PostBuilder implements BuilderInterface
     public static function default()
     {
         $faker = Factory::create();
+        /** @var string $words */
+        $words = $faker->words(3, true);
 
         $builder = new self();
         $builder->withAuthor(new Author(
             new GUID($faker->uuid),
             new FileID($faker->slug(2)),
             $faker->name(),
-            (string) $faker->words(3, true),
+            $words,
             $faker->sentence(),
             new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
             new Social('', '', '')

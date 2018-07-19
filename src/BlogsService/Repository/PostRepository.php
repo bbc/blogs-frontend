@@ -57,7 +57,7 @@ class PostRepository extends AbstractRepository
      * @param int $depth
      * @param int $page
      * @param int $perpage
-     * @return ResponseInterface[]
+     * @return ResponseInterface[]|null[]
      */
     public function getPostsBetween(
         string $blogId,

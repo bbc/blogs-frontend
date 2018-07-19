@@ -19,7 +19,8 @@ class Code extends AbstractContentBlock
     public function getCharacterCount(): int
     {
         if ($this->charCount === null) {
-            $this->charCount = mb_strlen($this->code);
+            $this->charCount = mb_strlen($this->code) ?: 0;
+//            $this->charCount = $this->charCount ? $this->charCount : 0;
         }
 
         return $this->charCount;

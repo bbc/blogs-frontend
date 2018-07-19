@@ -61,18 +61,24 @@ class BlogBuilder implements BuilderInterface
     public function build()
     {
         $faker = Factory::create();
+        /** @var string $name */
+        $name = $this->name ?? $faker->words(3, true);
+        /** @var string $description */
+        $description = $this->description ?? $faker->sentences(2, true);
+        /** @var string $words */
+        $words = $faker->words(3, true);
 
         return new Blog(
             $this->id ?? $faker->word,
-            $this->name ?? (string) $faker->words(3, true),
+            $name,
             $this->shortSynopsis ?? $faker->sentence(),
-            $this->description ?? (string) $faker->sentences(2, true),
+            $description,
             $this->showImageInDescription ?? $faker->boolean,
             $this->language ?? 'en-GB',
             $this->istatsCountername ?? $faker->word,
             $this->bbcSite ?? $faker->word,
             $this->brandingId ?? $faker->numerify('br-#####'),
-            $this->modules ?? [new FreeText((string) $faker->words(3, true), $faker->sentence())],
+            $this->modules ?? [new FreeText($words, $faker->sentence())],
             $this->social ?? new Social($faker->lexify('@????????'), $faker->word, $faker->word),
             $this->hasCommentsEnabled ?? $faker->boolean,
             $this->featuredPost,
