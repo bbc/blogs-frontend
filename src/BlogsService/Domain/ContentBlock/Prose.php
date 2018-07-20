@@ -20,7 +20,6 @@ class Prose extends AbstractContentBlock
     {
         if ($this->charCount === null) {
             $this->charCount = mb_strlen(strip_tags($this->prose)) ?: 0;
-//            $this->charCount = $this->charCount ? $this->charCount : 0;
         }
 
         return $this->charCount;

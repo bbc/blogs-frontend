@@ -20,7 +20,6 @@ class Code extends AbstractContentBlock
     {
         if ($this->charCount === null) {
             $this->charCount = mb_strlen($this->code) ?: 0;
-//            $this->charCount = $this->charCount ? $this->charCount : 0;
         }
 
         return $this->charCount;
