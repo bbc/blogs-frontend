@@ -19,18 +19,9 @@
         <!-- define your env variables for the test env here -->
     </php>
 
-    <!-- This looks kinda odd, but it means that the speedy unit tests run
-        before the slower functional tests so you get feedback faster -->
     <testsuites>
-        <testsuite name="Project Test Suite">
+        <testsuite name="Application Test Suite">
             <directory>tests/</directory>
-            <exclude>tests/Command</exclude>
-            <exclude>tests/Controller</exclude>
-        </testsuite>
-
-        <testsuite name="Functional Test Suite">
-            <directory>tests/Command</directory>
-            <directory>tests/Controller</directory>
         </testsuite>
     </testsuites>
 
