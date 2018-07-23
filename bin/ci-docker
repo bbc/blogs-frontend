@@ -35,10 +35,10 @@ yarn gulp-ci
 # Run PHPUnit
 if $WITH_TEST_COVERAGE ; then
     echo "Code coverage: on"
-    bin/phpunit || RESULT=1
+    SYMFONY_PHPUNIT_VERSION=7.2 bin/phpunit || RESULT=1
 else
     echo "Code coverage: off"
-    bin/phpunit --no-coverage || RESULT=1
+    SYMFONY_PHPUNIT_VERSION=7.2 bin/phpunit --no-coverage || RESULT=1
 fi
 
 # Run PHPCS
