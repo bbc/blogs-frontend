@@ -5,6 +5,8 @@ parameters:
         - '#RedisCluster#' #PHPStan does not play well with RedisCluster it seems
         - '#Method App\\BlogsService\\Infrastructure\\MapperFactory::\w*Mapper\(\) should return App\\BlogsService\\Mapper\\IsiteToDomain\\\w*Mapper but returns App\\BlogsService\\Mapper\\IsiteToDomain\\Mapper.#'
         - '#Call to an undefined method Tests\\App\\Twig\\TranslateAndTimeExtensionTest::localDateIntl\(\).#'
+        - '#Binary operation "." between .Invalid Module Type…. and array|string results in an error.#'
+        - '#Parameter \#1 $data of class SimpleXMLElement constructor expects string, string|false given.#'
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon

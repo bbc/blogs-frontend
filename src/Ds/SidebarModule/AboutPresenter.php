@@ -68,7 +68,7 @@ class AboutPresenter extends Presenter
 
     public function shouldShowImage(): bool
     {
-        return $this->blog->getShowImageInDescription() && $this->blog->getImage();
+        return $this->blog->getShowImageInDescription();
     }
 
     public function shouldShowSocial(): bool

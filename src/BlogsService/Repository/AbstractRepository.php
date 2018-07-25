@@ -39,7 +39,7 @@ abstract class AbstractRepository
 
     /**
      * @param QueryInterface[] $queries
-     * @return ResponseInterface[] array
+     * @return ResponseInterface[]|null[]
      */
     protected function getParallelResponses(array $queries): array
     {

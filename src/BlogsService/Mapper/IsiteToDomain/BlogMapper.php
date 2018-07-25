@@ -107,7 +107,7 @@ class BlogMapper extends Mapper
         }
 
         $namespaces = $form->getNamespaces();
-        $projectNameSpace = reset($namespaces);
+        $projectNameSpace = reset($namespaces) ?: '';
         $projectNameSpaceParts = explode('/', $projectNameSpace);
         $id = $projectNameSpaceParts[\count($projectNameSpaceParts) - 2];
 

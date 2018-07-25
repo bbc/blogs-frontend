@@ -42,7 +42,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $this->otherIstatsLabels = $istatsLabels;
 
-        $comments = $commentsPromise ? $commentsPromise->wait() : null;
+        $comments = $commentsPromise->wait();
 
         $this->response()->setPublic()->setMaxAge(20);
 

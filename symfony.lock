@@ -32,6 +32,9 @@
     "composer/ca-bundle": {
         "version": "1.1.0"
     },
+    "composer/xdebug-handler": {
+        "version": "1.1.0"
+    },
     "csa/guzzle-bundle": {
         "version": "3.0",
         "recipe": {
@@ -166,9 +169,6 @@
             "version": "4.7",
             "ref": "fc35828893288f0bb786291377433ee8d7e14738"
         }
-    },
-    "phpunit/phpunit-mock-objects": {
-        "version": "5.0.5"
     },
     "psr/cache": {
         "version": "1.0.1"

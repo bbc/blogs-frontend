@@ -19,7 +19,7 @@ class Prose extends AbstractContentBlock
     public function getCharacterCount(): int
     {
         if ($this->charCount === null) {
-            $this->charCount = mb_strlen(strip_tags($this->prose));
+            $this->charCount = mb_strlen(strip_tags($this->prose)) ?: 0;
         }
 
         return $this->charCount;

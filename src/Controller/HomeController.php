@@ -30,7 +30,7 @@ class HomeController extends BaseController
 
     /**
      * @param Blog[] $blogs
-     * @return Blog[]
+     * @return Blog[][]
      */
     private function getBlogsByLetter(array $blogs): array
     {

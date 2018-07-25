@@ -41,6 +41,6 @@ class SearchQueryTest extends TestCase
 
         $this->assertAttributeEquals($expected, 'q', $searchQuery);
 
-        $this->assertEquals('/search?q=' . urlencode(json_encode($expected)), $searchQuery->getPath());
+        $this->assertEquals('/search?q=' . urlencode(json_encode($expected)?:''), $searchQuery->getPath());
     }
 }

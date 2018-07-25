@@ -101,7 +101,7 @@ abstract class Presenter
             $shortClassName = substr(static::class, $namespaceEnd + ($namespaceEnd ? 1: 0));
 
             // Trim the class name from the word 'Presenter'
-            $presenterName = substr($shortClassName, 0, strpos($shortClassName, 'Presenter'));
+            $presenterName = substr($shortClassName, 0, strpos($shortClassName, 'Presenter') ?:0);
 
             self::$presenterNameCache[static::class] = strtolower(preg_replace(
                 ["/([A-Z]+)/", "/_([A-Z]+)([A-Z][a-z])/"],

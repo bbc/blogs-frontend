@@ -7,6 +7,9 @@ use App\Ds\Presenter;
 use PHPUnit\Framework\TestCase;
 use Symfony\Component\DomCrawler\Crawler;
 use Twig_Environment;
+use Twig_Error_Loader;
+use Twig_Error_Runtime;
+use Twig_Error_Syntax;
 
 abstract class BaseTemplateTestCase extends TestCase
 {

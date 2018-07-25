@@ -33,6 +33,7 @@ class XmlParser
                 $config['ns_is_prefix']
             );
         } catch (\Exception $e) {
+            /** @var LibXMLError|false $libXmlError */
             $libXmlError = libxml_get_last_error();
             $libXmlErrorString = $libXmlError ? $this->libXmlErrorToString($libXmlError) : '';
             throw new ParseException('Unable to parse XML: ' . $e->getMessage() . '. LIBXMLError: ' . $libXmlErrorString);
