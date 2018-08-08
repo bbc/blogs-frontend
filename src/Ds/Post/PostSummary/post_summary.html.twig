@@ -36,6 +36,7 @@
                     {% if post_summary.isFeaturedPost() %}
                         data-istats-link-location="blogs_featured_post"
                     {% endif %}
+                    data-link="read-more"
                     href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
             </p>
         </div>
