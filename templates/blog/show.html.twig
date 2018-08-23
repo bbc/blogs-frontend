@@ -37,7 +37,7 @@
                 {% if loop.index0 == 3 %}
                     {% set charLimit = 600 %}
                 {% endif %}
-                <li data-section="blogs-post" class="post br-keyline">
+                <li data-section="post" class="post br-keyline">
                     {{ ds('postPreview', blog, post, charLimit) }}
                 </li>
             {% endfor %}
