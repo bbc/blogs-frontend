@@ -25,7 +25,7 @@
         {%- if posts -%}
             <ol class="list-unstyled list-lined">
                 {%- for post in posts -%}
-                <li data-section-type="blogs-post" class="br-keyline">
+                <li data-section="blogs-post" class="br-keyline">
                     {{- ds('postSummary', blog, post, {'show_image': true, 'show_author': false, 'h_tag': 3}) -}}
                 </li>
                 {%- endfor -%}
