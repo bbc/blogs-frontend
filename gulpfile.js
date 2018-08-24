@@ -35,6 +35,7 @@ gulp.task('js', ['js:clean'], function () {
         staticPathSrc + '/js/**/smp.js',
         staticPathSrc + '/js/**/bbc-datepicker.js',
         staticPathSrc + '/js/**/lazyload.js',
+        staticPathSrc + '/js/**/sw.js',
         'node_modules/picturefill/dist/picturefill.js'
     ];
 
@@ -109,8 +110,7 @@ gulp.task('rebuild-sw', () => {
     return gulp.src(staticPathSrc + '/js/sw.js')
         .pipe(rev())
         .pipe(override())
-        .pipe(gulp.dest(staticPathDist))
-        .pipe(revdelOriginal()) // Delete original non-revised file
+        .pipe(gulp.dest(staticPathDist + '/js'))
         .pipe(rev.manifest())
         .pipe(gulp.dest('var'));
 });
