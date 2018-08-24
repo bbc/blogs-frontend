@@ -105,6 +105,16 @@ gulp.task('rev', ['sass', 'images', 'js'], function() {
         .pipe(gulp.dest('var'));
 });
 
+gulp.task('rebuild-sw', () => {
+    return gulp.src(staticPathSrc + '/js/sw.js')
+        .pipe(rev())
+        .pipe(override())
+        .pipe(gulp.dest(staticPathDist))
+        .pipe(revdelOriginal()) // Delete original non-revised file
+        .pipe(rev.manifest())
+        .pipe(gulp.dest('var'));
+});
+
 /*
  * Entry tasks
  */

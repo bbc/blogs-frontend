@@ -23,6 +23,7 @@
   "scripts": {
     "gulp": "gulp default",
     "gulp-ci": "gulp distribution",
+    "gulp-sw": "gulp rebuild-sw",
     "lint": "node_modules/.bin/sass-lint --no-exit -v",
     "watch": "gulp watch",
     "postinstall": "gulp"
