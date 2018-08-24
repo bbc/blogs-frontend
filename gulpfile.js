@@ -35,7 +35,6 @@ gulp.task('js', ['js:clean'], function () {
         staticPathSrc + '/js/**/smp.js',
         staticPathSrc + '/js/**/bbc-datepicker.js',
         staticPathSrc + '/js/**/lazyload.js',
-        staticPathSrc + '/js/**/sw.js',
         'node_modules/picturefill/dist/picturefill.js'
     ];
 
@@ -108,11 +107,9 @@ gulp.task('rev', ['sass', 'images', 'js'], function() {
 
 gulp.task('rebuild-sw', () => {
     return gulp.src(staticPathSrc + '/js/sw.js')
-        .pipe(rev())
-        .pipe(override())
-        .pipe(gulp.dest(staticPathDist + '/js'))
-        .pipe(rev.manifest())
-        .pipe(gulp.dest('var'));
+        .pipe(gulpif(isSandbox, sourcemaps.init()))
+        .pipe(gulpif(isSandbox, sourcemaps.write('.')))
+        .pipe(gulp.dest(staticPathDist + '/js'));
 });
 
 /*
@@ -135,7 +132,7 @@ gulp.task('watch',function() {
 
 gulp.task('default', function(cb){
     isSandbox = true;
-    runSequence(['sass', 'images', 'js']);
+    runSequence(['sass', 'images', 'js', 'rebuild-sw']);
 });
 
 gulp.task('distribution', ['rev']);
