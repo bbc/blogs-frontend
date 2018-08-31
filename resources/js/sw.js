@@ -10,18 +10,19 @@ self.addEventListener('install', (event) => {
 
     if (workbox) {
         console.log('Workbox is loaded 🎉');
-        setupWorkbox(true);
     } else {
         console.log('Workbox didn\'t load :c');
-        setupWorkbox(false);
     }
+
+    setupWorkbox();
 });
 
 // Fetch event is fired on every page navigation or refresh, here is where you would get the
 // cached files and return them to the browser
-self.addEventListener('fetch', (event) => {
-    console.log('You navigated to a page! Well done on being a good internet user!');
-});
+// self.addEventListener('fetch', (event) => {
+//     console.log('You navigated to a page! Well done on being a good internet user!');
+// });
+// This is commented out for now as workbox attaches an event listener to it too, and you can only attach it once...
 
 // Activate event is when the service worker is activated after being installed (Which is once all pages using
 // old version of the SW are closed (if updating, otherwise it's instantly after install for first time)
@@ -30,16 +31,40 @@ self.addEventListener('activate', (event) => {
     console.log('Service worker.... activated! o7');
 });
 
-function setupWorkbox(wb_exists) {
-    if (wb_exists) {
-        console.log('Ran it because WB Exists...');
-    } else {
-        console.log('Nope! No workbox.');
-    }
-    // Register a route in workbox for all Javascript files
+function setupWorkbox() {
     workbox.routing.registerRoute(
+        // Cache all JS
         new RegExp('.*\.js'),
-        workbox.strategies.networkFirst()
+        // Use cache but update in the background ASAP
+        workbox.strategies.staleWhileRevalidate({
+            // Use a custom cache name
+            cacheName: 'js-cache',
+        })
+    );
+    workbox.routing.registerRoute(
+        // Cache all CSS
+        /.*\.css/,
+        // Use cache but update in the background ASAP
+        workbox.strategies.staleWhileRevalidate({
+            // Use a custom cache name
+            cacheName: 'css-cache',
+        })
+    );
+    workbox.routing.registerRoute(
+        // Cache all Images
+        /.*\.(?:png|jpg|jpeg|svg|gif)/,
+        // Use cache but update in the background ASAP
+        workbox.strategies.staleWhileRevalidate({
+            // Use a custom cache name
+            cacheName: 'image-cache',
+            plugins: [
+                new workbox.expiration.Plugin({
+                    // Cache only 20 images
+                    maxEntries: 20,
+                    // Cache for a maximum of a week
+                    maxAgeSeconds: 7 * 24 * 60 * 60,
+                })
+            ],
+        })
     );
 }
-
