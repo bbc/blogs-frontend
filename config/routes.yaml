@@ -2,6 +2,10 @@ status:
     path: /status
     defaults: { _controller: App\Controller\StatusController }
 
+offline_page:
+    path: /blogs/offline
+    defaults: { _controller: App\Controller\OfflineController }
+
 root:
     path: /
     defaults: { _controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::redirectAction, route: home, permanent: true }

@@ -1,4 +1,4 @@
-console.log('Service worker loaded correctly');
+// Service worker for /blogs V5.
 
 // Self === window.self === window because lovely javascript.
 // See: https://stackoverflow.com/questions/16875767/difference-between-this-and-self-in-javascript
@@ -14,57 +14,29 @@ self.addEventListener('install', (event) => {
         console.log('Workbox didn\'t load :c');
     }
 
-    setupWorkbox();
+    event.waitUntil(
+        caches.open('bbc-blogs-v5-' + makeCacheKey()).then( (cache) => {
+            return cache.addAll([
+                'blogs/',
+                'blogs/offline'
+            ]);
+        })
+    );
 });
-
-// Fetch event is fired on every page navigation or refresh, here is where you would get the
-// cached files and return them to the browser
-// self.addEventListener('fetch', (event) => {
-//     console.log('You navigated to a page! Well done on being a good internet user!');
-// });
-// This is commented out for now as workbox attaches an event listener to it too, and you can only attach it once...
 
 // Activate event is when the service worker is activated after being installed (Which is once all pages using
 // old version of the SW are closed (if updating, otherwise it's instantly after install for first time)
 // Here is where you would look for and delete any old caches to avoid messing up the currently-running workers cache.
 self.addEventListener('activate', (event) => {
-    console.log('Service worker.... activated! o7');
+    // Workbox handles the expiring of old caches for us!
 });
 
-function setupWorkbox() {
-    workbox.routing.registerRoute(
-        // Cache all JS
-        new RegExp('.*\.js'),
-        // Use cache but update in the background ASAP
-        workbox.strategies.staleWhileRevalidate({
-            // Use a custom cache name
-            cacheName: 'js-cache',
-        })
-    );
-    workbox.routing.registerRoute(
-        // Cache all CSS
-        /.*\.css/,
-        // Use cache but update in the background ASAP
-        workbox.strategies.staleWhileRevalidate({
-            // Use a custom cache name
-            cacheName: 'css-cache',
-        })
-    );
-    workbox.routing.registerRoute(
-        // Cache all Images
-        /.*\.(?:png|jpg|jpeg|svg|gif)/,
-        // Use cache but update in the background ASAP
-        workbox.strategies.staleWhileRevalidate({
-            // Use a custom cache name
-            cacheName: 'image-cache',
-            plugins: [
-                new workbox.expiration.Plugin({
-                    // Cache only 20 images
-                    maxEntries: 20,
-                    // Cache for a maximum of a week
-                    maxAgeSeconds: 7 * 24 * 60 * 60,
-                })
-            ],
-        })
-    );
+function makeCacheKey() {
+    let text = "";
+    let possible = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789";
+
+    for (var i = 0; i < 5; i++)
+        text += possible.charAt(Math.floor(Math.random() * possible.length));
+
+    return text;
 }
