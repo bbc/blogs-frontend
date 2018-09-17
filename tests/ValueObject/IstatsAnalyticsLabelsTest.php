@@ -53,7 +53,7 @@ class IstatsAnalyticsLabelsTest extends TestCase
         $this->assertEquals($labels['blog_language'], 'language');
         $this->assertEquals($labels['blog_project_id'], 'blogs-project_id');
         $this->assertEquals($labels['blog_title'], 'name');
-        $this->assertEquals($labels['has_comments'], 'true');
+        $this->assertEquals($labels['has_comments'], '1');
     }
 
     public function testHasVideo()
