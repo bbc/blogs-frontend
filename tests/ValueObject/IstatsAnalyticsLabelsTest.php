@@ -51,7 +51,7 @@ class IstatsAnalyticsLabelsTest extends TestCase
 
         $this->assertEquals($labels['bbc_site'], 'bbc_site');
         $this->assertEquals($labels['blog_language'], 'language');
-        $this->assertEquals($labels['blog_project_id'], 'project_id');
+        $this->assertEquals($labels['blog_project_id'], 'blogs-project_id');
         $this->assertEquals($labels['blog_title'], 'name');
         $this->assertEquals($labels['has_comments'], 'true');
     }
