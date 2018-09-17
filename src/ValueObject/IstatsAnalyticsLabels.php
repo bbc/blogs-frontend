@@ -29,9 +29,9 @@ class IstatsAnalyticsLabels
     {
         if ($blog !== null) {
             $this->labels['bbc_site'] = $blog->getBbcSite();
-            $this->labels['has_comments'] = $blog->hasCommentsEnabled() ? 'true' : 'false';
+            $this->labels['has_comments'] = $blog->hasCommentsEnabled() ? '1' : '0';
             $this->labels['blog_title'] = $blog->getName();
-            $this->labels['blog_project_id'] = $blog->getId();
+            $this->labels['blog_project_id'] = 'blogs-' . $blog->getId();
             $this->labels['blog_language'] = $blog->getLanguage();
         }
 
