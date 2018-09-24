@@ -135,7 +135,7 @@
     </div>
 
     {%- if prevPost or nextPost -%}
-        <div data-content="more-posts">
+        <div data-section="more-posts">
             <h2>{{ tr('header_more_posts') }}</h2>
             {%- if prevPost -%}
                 {{ postShow.morePosts(blog.getId(), prevPost, 'link_previous', 'blogs_post_bottom_previous') }}
