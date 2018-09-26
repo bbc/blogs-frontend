@@ -111,6 +111,7 @@ class SearchQuery implements QueryInterface
 
     public function getPath(): string
     {
+        dump($this->q, json_encode($this->q));
         return '/search?' . http_build_query(['q' => json_encode($this->q)]);
     }
 }

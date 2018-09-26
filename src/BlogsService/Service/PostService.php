@@ -43,7 +43,7 @@ class PostService
     ): ?Post {
         $blogId = $blog ? $blog->getId() : '';
         $guidString =  (string) $guid;
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $guidString, $blogId, $ttl, $nullTtl);
+        $cacheKey = uniqid().$this->cache->keyHelper(__CLASS__, __FUNCTION__, $guidString, $blogId, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
@@ -67,25 +67,26 @@ class PostService
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
     ): array {
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
+        $cacheKey = uniqid().$this->cache->keyHelper(__CLASS__, __FUNCTION__, $blog->getId(), $publishedDate->getTimestamp(), $page, $perpage, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
             $ttl,
             function () use ($blog, $publishedDate, $page, $perpage) {
-
+                $publishedDate = $publishedDate->setTimezone("UTC");
                 $ranges = [
                     'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond(), 'sort' => 'desc'],
                     'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => Chronos::now(), 'sort' => 'asc'],
                 ];
 
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
+
                 $result = [];
                 foreach ($responses as $key => $response) {
                     $post = $this->responseHandler->getIsiteResult($response);
                     $result[$key] = $post->getDomainModels()[0] ?? null;
                 }
-
+dump($publishedDate, $publishedDate->format('Y-m-d\TH:i:s.BP'),$blog, $ranges, $result);die();
                 return [$result['previousPost'], $result['nextPost']];
             },
             [],
@@ -329,3 +330,6 @@ class PostService
         );
     }
 }
+//
+//https://api.test.bbc.co.uk/isite2-content-reader/search?q=
+////%7B%22project%22%3A%22blogs-demo%22%2C%22namespaces%22%3A%7B%22ns%22%3A%22https%3A%5C%2F%5C%2Fproduction.bbc.co.uk%5C%2Fisite2%5C%2Fproject%5C%2Fblogs-demo%5C%2Fblogs-post%22%7D%2C%22query%22%3A%7B%22and%22%3A%5B%5B%22ns%3Apublished-date%22%2C%22%3E%22%2C%221970-01-01T11%3A47%3A42.533%2B00%3A00%22%2C%22dateTime%22%5D%2C%5B%22ns%3Apublished-date%22%2C%22%3C%3D%22%2C%222018-09-12T13%3A48%3A59.000%2B00%3A00%22%2C%22dateTime%22%5D%5D%7D%2C%22sort%22%3A%5B%7B%22elementPath%22%3A%22%5C%2Fns%3Aform%5C%2Fns%3Ametadata%5C%2Fns%3Apublished-date%22%2C%22direction%22%3A%22desc%22%7D%5D%2C%22depth%22%3A0%2C%22page%22%3A%221%22%2C%22pageSize%22%3A%221%22%2C%22unfiltered%22%3Atrue%7D
