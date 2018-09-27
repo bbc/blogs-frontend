@@ -56,8 +56,8 @@ abstract class Mapper
 
     protected function getDateTime(SimpleXMLElement $date): Chronos
     {
-        $date= new Chronos($this->getString($date), 'Europe/London');
-        return $date;
+        // Assuming timezone is Europe/London
+        return new Chronos($this->getString($date), 'Europe/London');
     }
 
     protected function getImage($pid): Image

@@ -2,16 +2,16 @@
     <h2 class="island--squashed br-box-highlight no-margin">{{ links.getTitle() }}</h2>
     <div class="island">
         <ul class="list-spaced list-unstyled">
-            {#{% for link in links.getLinks() %}#}
-                {#<li>#}
-                    {#<h3 class="delta no-margin">#}
-                        {#<a href="{{ link.link }}">{{ link.title }}</a> ({{ link.caption }})#}
-                    {#</h3>#}
-                    {#{% if link.description %}#}
-                        {#<p class="no-margin">{{ link.description }}</p>#}
-                    {#{% endif %}#}
-                {#</li>#}
-            {#{% endfor %}#}
+            {% for link in links.getLinks() %}
+                <li>
+                    <h3 class="delta no-margin">
+                        <a href="{{ link.link }}">{{ link.title }}</a> ({{ link.caption }})
+                    </h3>
+                    {% if link.description %}
+                        <p class="no-margin">{{ link.description }}</p>
+                    {% endif %}
+                </li>
+            {% endfor %}
         </ul>
     </div>
 </div>
