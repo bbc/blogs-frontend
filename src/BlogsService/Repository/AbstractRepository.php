@@ -48,7 +48,6 @@ abstract class AbstractRepository
             if (!$query instanceof QueryInterface) {
                 throw new RuntimeException('Encountered element in `$queries` array that was not a QueryInterface');
             }
-//            dump($this->apiEndpoint . $query->getPath());
             $promises[$key] = $this->client->requestAsync('GET', $this->apiEndpoint . $query->getPath());
         }
 

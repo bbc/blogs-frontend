@@ -73,13 +73,13 @@ class PostService
             $cacheKey,
             $ttl,
             function () use ($blog, $publishedDate, $page, $perpage) {
+
                 $ranges = [
                     'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond(), 'sort' => 'desc'],
                     'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => Chronos::now(), 'sort' => 'asc'],
                 ];
 
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
-
                 $result = [];
                 foreach ($responses as $key => $response) {
                     $post = $this->responseHandler->getIsiteResult($response);
