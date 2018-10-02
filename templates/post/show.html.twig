@@ -90,7 +90,7 @@
         </ul>
     </div>
 
-    <div class="component component--lined br-keyline">
+    <div data-section="post" class="component component--lined br-keyline">
         <article>
             <div class="component component--lined br-keyline">
                 <h1>{{ post.getTitle() }}</h1>
@@ -135,7 +135,7 @@
     </div>
 
     {%- if prevPost or nextPost -%}
-        <div>
+        <div data-section="more-posts">
             <h2>{{ tr('header_more_posts') }}</h2>
             {%- if prevPost -%}
                 {{ postShow.morePosts(blog.getId(), prevPost, 'link_previous', 'blogs_post_bottom_previous') }}
