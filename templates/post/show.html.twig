@@ -96,7 +96,7 @@
                 <h1>{{ post.getTitle() }}</h1>
 
                 <p class="text--subtle milli"><time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">
-                    {{ post.getPublishedDate()|date('l d F Y, H:i') }}
+                    {{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}
                 </time></p>
 
                 {% if post.getAuthor() %}
@@ -164,7 +164,7 @@
             </h4>
             {%- if post.getPublishedDate() -%}
                 <p class="text--subtle milli">
-                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|date('l d F Y, H:i') }}</time>
+                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}</time>
                 </p>
             {%- endif -%}
         </div>
