@@ -46,7 +46,6 @@
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.1",
-        "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.3",
         "symfony/twig-bundle": "^4.1",
         "symfony/yaml": "^4.1",
@@ -105,7 +104,8 @@
         "public-dir": "web",
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
-            "allow-contrib": false
+            "allow-contrib": false,
+            "require": "^4.1.0"
         },
         "incenteev-parameters": {
             "file": "config/parameters.yaml"
