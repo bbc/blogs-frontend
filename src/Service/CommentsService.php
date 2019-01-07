@@ -27,18 +27,23 @@ class CommentsService
     /** @var TranslateProvider */
     private $translateProvider;
 
+    /** @var string */
+    private $version;
+
     public function __construct(
         LoggerInterface $logger,
         TranslateProvider $translateProvider,
         MorphClient $client,
         string $apiKey,
-        string $env
+        string $env,
+        string $version
     ) {
         $this->apiKey = $apiKey;
         $this->env = $env;
         $this->client = $client;
         $this->logger = $logger;
         $this->translateProvider = $translateProvider;
+        $this->version = $version;
     }
 
     public function getByBlogAndPost(Blog $blog, Post $post): PromiseInterface
@@ -51,6 +56,7 @@ class CommentsService
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
+                'version' => $this->version,
             ],
             [],
             20
