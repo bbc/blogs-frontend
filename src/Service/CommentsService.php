@@ -57,7 +57,7 @@ class CommentsService
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
-                'version' => $this->version,
+                //'version' => $this->version,
             ],
             [],
             CacheInterface::NONE,
