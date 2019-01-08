@@ -18,7 +18,7 @@ class CommentsPartialController extends AbstractController
     public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $response = new Response();
-        $response->setPublic()->setMaxAge(20);
+        $response->setPrivate();
 
         $post = $postService->getPostByGuid(new GUID($guid), $blog);
 

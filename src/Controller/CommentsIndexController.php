@@ -44,7 +44,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $comments = $commentsPromise->wait();
 
-        $this->response()->setPublic()->setMaxAge(20);
+        $this->response()->setPrivate();
 
         return $this->renderWithChrome(
             'comments/index.html.twig',
