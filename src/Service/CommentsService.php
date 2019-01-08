@@ -6,6 +6,7 @@ namespace App\Service;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Translate\TranslateProvider;
+use BBC\ProgrammesCachingLibrary\CacheInterface;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
@@ -59,7 +60,8 @@ class CommentsService
                 'version' => $this->version,
             ],
             [],
-            20
+            CacheInterface::NONE,
+            CacheInterface::NONE
         );
     }
 
