@@ -52,8 +52,8 @@ class Blog
     /** @var bool */
     private $isArchived;
 
-    /** @var bool */
-    private $hasCommentsEnabled;
+    /** @var string */
+    private $commentsApiKey;
 
     public function __construct(
         string $id,
@@ -67,7 +67,7 @@ class Blog
         string $brandingId,
         array $modules,
         Social $social,
-        bool $hasCommentsEnabled,
+        ?string $commentsApiKey,
         Post $featuredPost = null,
         Image $image,
         bool $isArchived = false
@@ -94,7 +94,7 @@ class Blog
         $this->featuredPost = $featuredPost;
         $this->modules = $modules;
         $this->isArchived = $isArchived;
-        $this->hasCommentsEnabled = $hasCommentsEnabled;
+        $this->commentsApiKey = $commentsApiKey;
     }
 
     public function getId(): string
@@ -147,7 +147,12 @@ class Blog
 
     public function hasCommentsEnabled(): bool
     {
-        return $this->hasCommentsEnabled;
+        return !empty($this->commentsApiKey);
+    }
+
+    public function getCommentsApiKey(): string
+    {
+        return $this->commentsApiKey ? $this->commentsApiKey : '';
     }
 
     public function getBbcSite(): string
