@@ -109,7 +109,7 @@ gulp.task('rebuild-sw', () => {
     return gulp.src(staticPathSrc + '/js/sw.js')
         .pipe(gulpif(isSandbox, sourcemaps.init()))
         .pipe(gulpif(isSandbox, sourcemaps.write('.')))
-        .pipe(gulp.dest(staticPathDist + '/js'));
+        .pipe(gulp.dest('web/blogs'));
 });
 
 /*

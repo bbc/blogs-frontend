@@ -1,5 +1,8 @@
-{#{% extends 'blogs_base.html.twig' %}#}
+{% extends 'base.html.twig' %}
 
-{% block title -%}
+{% block title %}
     BBC {{ tr('page_title_blogs') }} - No internet connection
-{%- endblock %}
+{% endblock %}
+{% block body %}
+    <h1>BBC Blogs - No internet connection.</h1>
+{% endblock %}
