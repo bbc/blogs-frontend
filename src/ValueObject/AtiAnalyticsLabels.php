@@ -5,9 +5,7 @@ namespace App\ValueObject;
 
 class AtiAnalyticsLabels
 {
-    /**
-     * @param string
-     */
+    /** @var string */
     private $appEnvironment;
 
     public function __construct(CosmosInfo $cosmosInfo)
