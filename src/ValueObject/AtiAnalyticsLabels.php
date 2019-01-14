@@ -5,8 +5,10 @@ namespace App\ValueObject;
 
 class AtiAnalyticsLabels
 {
-    /** @param string */
-    private $appEvironment;
+    /**
+     * @param string
+     */
+    private $appEnvironment;
 
     public function setAppEnvironment(string $appEnvironment): void
     {
