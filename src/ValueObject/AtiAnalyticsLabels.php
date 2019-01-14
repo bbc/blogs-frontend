@@ -10,14 +10,14 @@ class AtiAnalyticsLabels
      */
     private $appEnvironment;
 
-    public function setAppEnvironment(string $appEnvironment): void
-    {
-        $this->appEnvironment = $appEnvironment;
-    }
-
     public function __construct(CosmosInfo $cosmosInfo)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
+    }
+
+    public function setAppEnvironment(string $appEnvironment): void
+    {
+        $this->appEnvironment = $appEnvironment;
     }
 
     public function orbLabels()
