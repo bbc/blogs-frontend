@@ -70,7 +70,6 @@ services:
             - '@logger'
             - '@App\Translate\TranslateProvider'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
-            - '%comments_api_key%'
             - '%app.feed_env.comments%'
             - '%app.comments.version%'
 

@@ -13,9 +13,6 @@ use Psr\Log\LoggerInterface;
 class CommentsService
 {
     /** @var string */
-    private $apiKey;
-
-    /** @var string */
     private $env;
 
     /** @var MorphClient */
@@ -34,11 +31,9 @@ class CommentsService
         LoggerInterface $logger,
         TranslateProvider $translateProvider,
         MorphClient $client,
-        string $apiKey,
         string $env,
         string $version
     ) {
-        $this->apiKey = $apiKey;
         $this->env = $env;
         $this->client = $client;
         $this->logger = $logger;
@@ -52,14 +47,14 @@ class CommentsService
             'bbc-morph-comments-view',
             'comments-module',
             [
-                'apiKey' => $this->apiKey,
+                'apiKey' => $blog->getCommentsApiKey(),
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
                 'version' => $this->version,
             ],
             [],
-            20
+            10
         );
     }
 

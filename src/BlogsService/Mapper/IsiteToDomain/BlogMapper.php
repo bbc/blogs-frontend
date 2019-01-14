@@ -38,7 +38,7 @@ class BlogMapper extends Mapper
 
         $social = new Social($twitterUsername, $facebookUrl, $googlePlusUrl);
 
-        $hasCommentsEnabled = ($this->getString($formMetaData->{'site-id-comments'}) ?? '') !== '';
+        $commentsApiKey = $this->getString($formMetaData->{'api-key-comments'});
 
         $bbcSite = $this->getString($formMetaData->{'bbc-site'}) ?? '';
         $brandingId = $this->getString($formMetaData->{'blogs-branding-id'});
@@ -93,7 +93,7 @@ class BlogMapper extends Mapper
             $brandingId,
             $modules,
             $social,
-            $hasCommentsEnabled,
+            $commentsApiKey,
             $featuredPost,
             $image,
             $isArchived
