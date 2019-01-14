@@ -3,8 +3,6 @@ declare(strict_types = 1);
 
 namespace App\ValueObject;
 
-
-
 class AtiAnalyticsLabels
 {
     /** @param string */
@@ -15,7 +13,7 @@ class AtiAnalyticsLabels
         $this->appEnvironment = $appEnvironment;
     }
 
-    public function __construct( CosmosInfo $cosmosInfo)
+    public function __construct(CosmosInfo $cosmosInfo)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
     }
@@ -34,7 +32,7 @@ class AtiAnalyticsLabels
         $destination =  'programmes_ps';
 
         if (in_array($this->appEnvironment, ['int', 'stage', 'sandbox', 'test'])) {
-        $destination .= '_test';
+            $destination .= '_test';
         }
 
         return $destination;

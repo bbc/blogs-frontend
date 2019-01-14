@@ -42,7 +42,6 @@ abstract class BaseController extends AbstractController
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
 
-    /**  */
 
     /**
      * Private so that it cannot be overwritten by a child class, only modified via response()
