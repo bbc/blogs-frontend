@@ -8,6 +8,7 @@ use App\Translate\TranslateProvider;
 use App\ValueObject\AnalyticsCounterName;
 use App\ValueObject\CosmosInfo;
 use App\ValueObject\IstatsAnalyticsLabels;
+use App\ValueObject\AtiAnalyticsLabels;
 use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\BrandingClient;
@@ -40,6 +41,7 @@ abstract class BaseController extends AbstractController
 
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
+
 
     /**
      * Private so that it cannot be overwritten by a child class, only modified via response()
@@ -98,11 +100,15 @@ abstract class BaseController extends AbstractController
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
+        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo);
+        $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
+
         $translateProvider->setLocale($locale);
         $orb = $this->container->get(OrbitClient::class)->getContent([
             'variant' => $branding->getOrbitVariant(),
             'language' => $branding->getLanguage(),
         ], [
+            'page' => $atiAnalyticsLabelsValues,
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
             'analyticsCounterName' => $istatsCounterName,
