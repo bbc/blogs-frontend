@@ -20,6 +20,8 @@ class AtiAnalyticsLabels
 
     public function orbLabels()
     {
+        //this is commented out because we want it to fallback to the default bbc bucket, until a blogs specific bucket
+        //is created in the near future.
         $labels = [
             //'destination' => $this->getDestination(),
         ];
