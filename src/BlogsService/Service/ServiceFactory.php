@@ -67,6 +67,15 @@ class ServiceFactory
         return $this->instances[BlogService::class];
     }
 
+    public function getLegacyBlogService() : LegacyBlogService
+    {
+        if (!isset($this->instances[LegacyBlogService::class])) {
+            $this->instances[LegacyBlogService::class] = new LegacyBlogService($this->client);
+        }
+
+        return $this->instances[LegacyBlogService::class];
+    }
+
     public function getPostService(): PostService
     {
         if (!isset($this->instances[PostService::class])) {
