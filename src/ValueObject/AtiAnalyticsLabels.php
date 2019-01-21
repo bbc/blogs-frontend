@@ -24,6 +24,9 @@ class AtiAnalyticsLabels
         //is created in the near future.
         $labels = [
             //'destination' => $this->getDestination(),
+            'additionalProperties' => [
+                ['name' => 'app_name', 'value' => 'blogs'],
+            ],
         ];
 
         return $labels;
