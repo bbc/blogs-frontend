@@ -55,11 +55,11 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
     {
         $path = preg_replace('/^\//', '', $path);
         // Strip out query strings
-        $path = preg_replace('/(\?[a-zA-z0-9]+)/', '', $path);
+        $path = preg_replace('/(\?[a-zA-z0-9]{0,1000})/', '', $path);
         // Strip out anything that shouldn't be in a URL
-        $path = preg_replace('/[^A-Za-z0-9_\.\-\/]/', '', $path);
+        $path = preg_replace('/[^A-Za-z0-9_\.\-\/]{0,1000}/', '', $path);
         // if it doesn't end with a file extenstion then add a trailing /
-        if (!preg_match('/(\/|\.[a-zA-Z0-9]+)$/', $path)) {
+        if (!preg_match('/(\/|\.[a-zA-Z0-9]{0,1000})$/', $path)) {
             $path .= '/';
         }
         // Take out any ../'s that could allow for directory traversal
