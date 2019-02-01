@@ -53,7 +53,7 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
 
     private function cleanUpPath(string $path)
     {
-        $path = preg_replace('/^\//', '', $path);
+        $path = preg_replace('/^\/{0,1000}/', '', $path);
         // Strip out query strings
         $path = preg_replace('/(\?[a-zA-z0-9]{0,1000})/', '', $path);
         // Strip out anything that shouldn't be in a URL
@@ -63,7 +63,7 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
             $path .= '/';
         }
         // Take out any ../'s that could allow for directory traversal
-        $path = preg_replace('/(\.\.\/|\%2e)/', '', $path);
+        $path = preg_replace('/(\.\.\/|\%2e){0,1000}/', '', $path);
         return $path;
     }
 }
