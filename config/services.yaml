@@ -48,14 +48,14 @@ services:
         arguments:
             $debug: '%kernel.debug%'
 
+    GuzzleHttp\ClientInterface:
+        class: '@csa_guzzle.client.default'
+
     App\BlogsService\Service\AuthorService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getAuthorService']
 
     App\BlogsService\Service\BlogService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getBlogService']
-
-    App\BlogsService\Service\LegacyBlogService:
-        factory: ['@App\BlogsService\Service\ServiceFactory', 'getLegacyBlogService']
 
     App\BlogsService\Service\PostService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getPostService']

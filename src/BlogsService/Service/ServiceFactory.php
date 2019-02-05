@@ -32,8 +32,13 @@ class ServiceFactory
     /** @var XmlParser */
     protected $xmlParser;
 
-    public function __construct(string $apiEndpoint, ClientInterface $client, MapperFactory $mapperFactory, Cache $cache, XmlParser $xmlParser)
-    {
+    public function __construct(
+        string $apiEndpoint,
+        ClientInterface $client,
+        MapperFactory $mapperFactory,
+        Cache $cache,
+        XmlParser $xmlParser
+    ) {
         $this->cache = $cache;
         $this->mapperFactory = $mapperFactory;
         $this->apiEndpoint = $apiEndpoint;
@@ -65,15 +70,6 @@ class ServiceFactory
         }
 
         return $this->instances[BlogService::class];
-    }
-
-    public function getLegacyBlogService() : LegacyBlogService
-    {
-        if (!isset($this->instances[LegacyBlogService::class])) {
-            $this->instances[LegacyBlogService::class] = new LegacyBlogService($this->client);
-        }
-
-        return $this->instances[LegacyBlogService::class];
     }
 
     public function getPostService(): PostService
