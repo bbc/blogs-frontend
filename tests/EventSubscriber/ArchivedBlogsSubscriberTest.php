@@ -12,7 +12,6 @@ use App\EventSubscriber\ArchivedBlogsSubscriber;
 
 class ArchivedBlogsSubscriberTest extends ServiceTest
 {
-
     /**
      * @var LegacyBlogService
      */

@@ -25,7 +25,7 @@ class LegacyBlogService
             $httpResponse = $this->guzzleClient->request('GET', $url, [
                 'allow_redirects' => false,
             ]);
-            if ($httpResponse->getStatusCode() !== 200) {
+            if ($httpResponse->getStatusCode() !== Response::HTTP_OK) {
                 return null;
             }
         } catch (ClientException $e) {
@@ -36,7 +36,7 @@ class LegacyBlogService
             throw $e;
         }
 
-        $response = new Response($httpResponse->getBody()->getContents(), 200, [
+        $response = new Response($httpResponse->getBody()->getContents(), Response::HTTP_OK, [
             'content-type' => $httpResponse->getHeader('content-type'),
         ]);
         $response->setPublic()->setMaxAge(300);
