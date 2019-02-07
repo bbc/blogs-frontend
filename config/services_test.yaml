@@ -17,5 +17,8 @@ services:
     App\BlogsService\Service\TagService:
         public: true
 
+    App\BlogsService\Service\LegacyBlogService:
+        class: App\BlogsService\StubService\LegacyBlogStubService
+
     cache.null_provider:
         class: Symfony\Component\Cache\Adapter\NullAdapter

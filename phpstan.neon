@@ -7,6 +7,7 @@ parameters:
         - '#Call to an undefined method Tests\\App\\Twig\\TranslateAndTimeExtensionTest::localDateIntl\(\).#'
         - '#Binary operation "." between .Invalid Module Type…. and array|string results in an error.#'
         - '#Parameter \#1 $data of class SimpleXMLElement constructor expects string, string|false given.#'
+        - '#App\\BlogsService\\StubService\\LegacyBlogStubService::__construct\(\) does not call parent constructor from App\\BlogsService\\Service\\LegacyBlogService.#'
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
