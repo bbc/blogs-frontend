@@ -20,6 +20,7 @@ class LegacyBlogService
 
     public function getLegacyBlog(string $path): ?Response
     {
+        $path = substr($path, 0, 1000);
         $url = 'https://archivewww.live.bbc.co.uk/' . $path;
         try {
             $httpResponse = $this->guzzleClient->request('GET', $url, [
