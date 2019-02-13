@@ -37,7 +37,21 @@ class LegacyBlogService
             throw $e;
         }
 
-        $response = new Response($httpResponse->getBody()->getContents(), Response::HTTP_OK, [
+        $body = $httpResponse->getBody()->getContents();
+        $contentType = '';
+        if ($contentTypesArray = $httpResponse->getHeader('content-type')) {
+            $contentType = reset($contentTypesArray);
+        }
+
+        if (stristr($contentType, 'text/html')) {
+            // Basically legacy blogs are http pages with lots of hardcoded http:// links.
+            // We rewrite these to https with an almost complete disregard for html semantics and indeed common sense
+            // here because making this site selectively accessible over http for this edge case is more trouble
+            // than it is worth.
+            $body = str_ireplace('http://', 'https://', $body);
+        }
+
+        $response = new Response($body, Response::HTTP_OK, [
             'content-type' => $httpResponse->getHeader('content-type'),
         ]);
         $response->setPublic()->setMaxAge(300);
