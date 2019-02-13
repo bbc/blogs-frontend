@@ -10,6 +10,7 @@ class ApiTypeEnum
     public const API_MORPH = 'MORPH';
     public const API_BRANDING = 'BRANDING';
     public const API_ORBIT = 'ORB';
+    public const API_LEGACY = 'LEGACY';
 
 
     private const API_TYPES = [
@@ -18,6 +19,7 @@ class ApiTypeEnum
         self::API_MORPH => true,
         self::API_BRANDING => true,
         self::API_ORBIT => true,
+        self::API_LEGACY => true,
     ];
 
     public static function isValid(string $key)

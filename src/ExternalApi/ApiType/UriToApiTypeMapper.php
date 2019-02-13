@@ -15,6 +15,7 @@ class UriToApiTypeMapper
         ApiTypeEnum::API_ISITE => '%^api\.(int\.|test\.|stage\.|live\.)bbc\.co\.uk/isite2-content-reader%i',
         ApiTypeEnum::API_MORPH => '%^morph\.(int\.|test\.|stage\.|live\.)?api\.bbci\.co\.uk%i',
         ApiTypeEnum::API_ORBIT => '%^navigation\.(int\.|test\.|stage\.)?api\.bbci\.co\.uk%i',
+        ApiTypeEnum::API_LEGACY => '%^archivewww\.(int|test|live)\.bbc\.co\.uk%i',
     ];
 
     public function getApiNameFromUriInterface(UriInterface $uri) : ?string
