@@ -1,18 +1,18 @@
 <div class="bbc-datepicker">
     <input class="bbc-datepicker__checkbox bbc-datepicker__checkbox-year" type="radio" tabindex="-1" name="datepicker_checkbox" id="bbc-datepicker-year" >
-    <h3 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-year">
+    <h2 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-year">
         <label tabindex="-1" class="br-pseudolink" for="bbc-datepicker-year">
             {{- gelicon('core', 'next', 'gelicon--text-base bbc-datepicker__title') -}}
             {{- date_picker.getChosenMonthYear()|date('Y') -}}
         </label>
-    </h3>
+    </h2>
     <input class="bbc-datepicker__checkbox bbc-datepicker__checkbox-month" type="radio" tabindex="-1" name="datepicker_checkbox" id="bbc-datepicker-month" checked >
-    <h3 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-month">
+    <h2 class="no-margin br-box-highlight bbc-datepicker__title bbc-datepicker__title-month">
         <label tabindex="-1" class="br-pseudolink" for="bbc-datepicker-month">
             {{- gelicon('core', 'next', 'gelicon--text-base bbc-datepicker__title') -}}
             {{- date_picker.getChosenMonthYear()|local_date_intl('MMMM') -}}
         </label>
-    </h3>
+    </h2>
     <div class="bbc-datepicker__box bbc-datepicker__box-year">
         <div class="br-box-highlight island gamma">
             <ol class="list-unstyled grid-wrapper list-spaced">
