@@ -14,7 +14,7 @@ use Twig_Error_Syntax;
 abstract class BaseTemplateTestCase extends TestCase
 {
     /** @var Twig_Environment */
-    static private $twig;
+    private static $twig;
 
     public static function setUpBeforeClass()
     {
