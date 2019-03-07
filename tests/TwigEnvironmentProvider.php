@@ -27,10 +27,10 @@ use Twig_Loader_Filesystem;
 class TwigEnvironmentProvider
 {
     /** @var Twig_Environment */
-    static private $twig;
+    private static $twig;
 
     /** @var PresenterFactory */
-    static private $dsPresenterFactory;
+    private static $dsPresenterFactory;
 
     public static function twig(): Twig_Environment
     {

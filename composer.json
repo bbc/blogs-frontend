@@ -53,7 +53,7 @@
     "require-dev": {
         "escapestudios/symfony2-coding-standard": "^3.0",
         "johnkary/phpunit-speedtrap": "^3.0",
-        "phpstan/phpstan": "^0.10",
+        "phpstan/phpstan": "0.10.1",
         "phpstan/phpstan-phpunit": "^0.10",
         "squizlabs/php_codesniffer": "^3.1",
         "symfony/browser-kit": "^4.1",
@@ -103,7 +103,7 @@
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
             "allow-contrib": false,
-            "require": "^4.1.0"
+            "require": "~4.1.0"
         },
         "incenteev-parameters": {
             "file": "config/parameters.yaml"
