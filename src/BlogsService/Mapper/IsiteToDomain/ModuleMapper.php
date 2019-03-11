@@ -18,6 +18,7 @@ class ModuleMapper extends Mapper
      */
     public function getDomainModel(SimpleXMLElement $isiteObject)
     {
+        /** @var string $type */
         $type = str_replace('blogs-sidebar-', '', $this->getMetaData($isiteObject)->type);
         $form = $this->getForm($isiteObject);
 

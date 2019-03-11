@@ -31,6 +31,7 @@
     "require": {
         "php": "^7.1.0",
         "ext-redis": "*",
+        "ext-apcu": "*",
         "bbc-rmp/cloudwatch-monitoringhandler": "^1.0",
         "bbc-rmp/translate": "^1.8.9",
         "bbc/branding-client": "^2.5",
@@ -53,8 +54,8 @@
     "require-dev": {
         "escapestudios/symfony2-coding-standard": "^3.0",
         "johnkary/phpunit-speedtrap": "^3.0",
-        "phpstan/phpstan": "0.10.1",
-        "phpstan/phpstan-phpunit": "^0.10",
+        "phpstan/phpstan": "^0.11.2",
+        "phpstan/phpstan-phpunit": "^0.11.0",
         "squizlabs/php_codesniffer": "^3.1",
         "symfony/browser-kit": "^4.1",
         "symfony/css-selector": "^4.1",

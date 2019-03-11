@@ -51,8 +51,10 @@ class DatePickerTest extends BaseTemplateTestCase
     /**
      * Make the array of monthly post counts 1-indexed, as per array returned from PostService
      *
-     * @return int[] */
-    private function setupMonthlyCountsArray(array $counts): array
+     * @param int[] $counts
+     * @return array|false
+     */
+    private function setupMonthlyCountsArray(array $counts)
     {
         return array_combine(range(1, count($counts)), $counts);
     }
