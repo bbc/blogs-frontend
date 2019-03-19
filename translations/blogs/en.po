@@ -6,10 +6,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n==1 ? 1 : 2)\n"
 
-#. English: "en".
-msgid "language_code"
-msgstr "en-GB"
-
 #. English: "This video content is not available, due to a temporary problem.".
 msgid "asset_error_without_java"
 msgstr "This video content is not available, due to a temporary problem."
@@ -60,7 +56,9 @@ msgstr[2] "%count% posts about %tag% on this blog"
 
 #. English: "Comments are temporarily unavailable due to a technical fault. Please try later.".
 msgid "error_comments"
-msgstr "Comments are temporarily unavailable due to a technical fault. Please try later."
+msgstr ""
+"Comments are temporarily unavailable due to a technical fault. Please try "
+"later."
 
 #. English: "Your browser doesn't support HTML5 media.".
 msgid "error_no_media"
@@ -318,6 +316,10 @@ msgstr "Tag"
 #. English: "All tags".
 msgid "page_title_tag_list"
 msgstr "All tags"
+
+#. English: "Page %1 of %2".
+msgid "pagination_page"
+msgstr "Page %1 of %2"
 
 #. English (no items): "0 posts".
 #. English (one item): "1 post".

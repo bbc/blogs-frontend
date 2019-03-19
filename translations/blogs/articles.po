@@ -6,22 +6,17 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n==1 ? 1 : 2)\n"
 
-#. English: "en".
-#. Note: This file is a second (slightly different) english translation. Yep. You heard me.
-msgid "language_code"
-msgstr "en-GB"
-
 #. English: "This video content is not available, due to a temporary problem.".
 msgid "asset_error_without_java"
 msgstr "This video content is not available, due to a temporary problem."
 
-#. English: "There are no articles by this author".
+#. English: "There are no posts by this author".
 msgid "author_no_posts"
 msgstr "There are no articles by this author"
 
-#. English (no items): "0 articles".
-#. English (one item): "1 article".
-#. English (2+ items): "%count% articles".
+#. English (no items): "0 blogs".
+#. English (one item): "1 blog".
+#. English (2+ items): "%count% blogs".
 msgid "blog"
 msgid_plural "blog %count%"
 msgstr[0] "0 articles"
@@ -37,22 +32,22 @@ msgstr[0] "0 articles"
 msgstr[1] "1 article"
 msgstr[2] "%count% articles"
 
-#. English: "There are no articles in this site".
+#. English: "There are no posts in this blog".
 msgid "blog_no_posts"
 msgstr "There are no articles in this site"
 
-#. English (no items): "Article in total 0".
-#. English (one item): "Article in total 1".
-#. English (2+ items): "Articles in total  %count%".
+#. English (no items): "Blog post in total 0".
+#. English (one item): "Blog post in total 1".
+#. English (2+ items): "Blog posts in total  %count%".
 msgid "blog_post_count_author"
 msgid_plural "blog_post_count_author %count%"
 msgstr[0] "Article in total 0"
 msgstr[1] "Article in total 1"
 msgstr[2] "Articles in total %count%"
 
-#. English (no items): "0 articles about %tag% on this site".
-#. English (one item): "1 article about %tag% on this site".
-#. English (2+ items): "%count% articles about %tag% on this site".
+#. English (no items): "0 posts about %tag% on this blog".
+#. English (one item): "1 post about %tag% on this blog".
+#. English (2+ items): "%count% posts about %tag% on this blog".
 msgid "blog_post_count_tag"
 msgid_plural "blog_post_count_tag %count% %tag%"
 msgstr[0] "0 articles about %tag% on this site"
@@ -61,7 +56,9 @@ msgstr[2] "%count% articles about %tag% on this site"
 
 #. English: "Comments are temporarily unavailable due to a technical fault. Please try later.".
 msgid "error_comments"
-msgstr "Comments are temporarily unavailable due to a technical fault. Please try later."
+msgstr ""
+"Comments are temporarily unavailable due to a technical fault. Please try "
+"later."
 
 #. English: "Your browser doesn't support HTML5 media.".
 msgid "error_no_media"
@@ -79,7 +76,7 @@ msgstr "Find us on %1"
 msgid "follow_us_on_twitter"
 msgstr "Follow %1 on Twitter"
 
-#. English: "Articles by year and month".
+#. English: "Blog posts by year and month".
 msgid "header_archive_month"
 msgstr "Articles by year and month"
 
@@ -87,7 +84,7 @@ msgstr "Articles by year and month"
 msgid "header_author_all"
 msgstr "Authors"
 
-#. English: "Latest article".
+#. English: "Latest post".
 msgid "header_author_latest_post"
 msgstr "Latest article"
 
@@ -95,11 +92,11 @@ msgstr "Latest article"
 msgid "header_author_name"
 msgstr "Name"
 
-#. English: "Articles A-Z".
+#. English: "Blogs A-Z".
 msgid "header_az"
 msgstr "Articles A-Z"
 
-#. English: "More Articles".
+#. English: "More Posts".
 msgid "header_more_posts"
 msgstr "More Articles"
 
@@ -107,7 +104,7 @@ msgstr "More Articles"
 msgid "header_next"
 msgstr "Next"
 
-#. English: "Articles".
+#. English: "Posts".
 msgid "header_posts"
 msgstr "Articles"
 
@@ -191,7 +188,7 @@ msgstr "Read more"
 msgid "link_see_all_authors"
 msgstr "See all authors"
 
-#. English: "See all articles".
+#. English: "See all posts".
 msgid "link_see_all_posts"
 msgstr "See all articles"
 
@@ -203,19 +200,19 @@ msgstr "See all tags"
 msgid "link_top_20"
 msgstr "Top 20"
 
-#. English: "Latest News".
+#. English: "About this Blog".
 msgid "module_about_header"
 msgstr "Latest News"
 
-#. English: "See more from the BBC".
+#. English: "Explore all BBC blogs".
 msgid "module_about_link_all_blogs"
 msgstr "See more from the BBC"
 
-#. English: "Latest news home".
+#. English: "Blog home".
 msgid "module_about_link_home"
 msgstr "Latest news home"
 
-#. English: "Featured Article".
+#. English: "Featured Post".
 msgid "module_featured_post_header"
 msgstr "Featured Article"
 
@@ -227,21 +224,29 @@ msgstr "Recently Commented"
 msgid "module_mostpopular_tab_commented"
 msgstr "Commented"
 
-#. English: "Stay updated with the latest articles from the site".
+#. English: "Stay updated with the latest posts from the blog".
 msgid "module_updates_content"
 msgstr "Stay updated with the latest articles from the site"
 
-#. English: "Articles Updates".
+#. English: "Blog Updates".
 msgid "module_updates_header"
 msgstr "Articles Updates"
 
-#. English: "Subscribe using".
+#. English: "Subscribe to the blog using".
 msgid "module_updates_header_feed"
 msgstr "Subscribe using"
+
+#. English: "Subscribe to this tag using".
+msgid "module_updates_header_feed_tags"
+msgstr ""
 
 #. English: "ATOM feed".
 msgid "module_updates_link_atom"
 msgstr "ATOM feed"
+
+#. English: "Subscribe to this Tag (ATOM)".
+msgid "module_updates_link_atom_tag"
+msgstr ""
 
 #. English: "What are feeds?".
 msgid "module_updates_link_feeds"
@@ -251,11 +256,15 @@ msgstr "What are feeds?"
 msgid "module_updates_link_rss"
 msgstr "RSS feed"
 
-#. English: "There are no articles in this month".
+#. English: "Subscribe to this Tag (RSS)".
+msgid "module_updates_link_rss_tag"
+msgstr ""
+
+#. English: "There are no posts in this month".
 msgid "month_no_posts"
 msgstr "There are no articles in this month"
 
-#. English: "There are no articles".
+#. English: "There are no posts".
 msgid "no_posts"
 msgstr "There are no articles"
 
@@ -275,7 +284,7 @@ msgstr "Please check the address and try again"
 msgid "page_not_found_title"
 msgstr "Sorry, that page was not found"
 
-#. English: "All articles for".
+#. English: "All posts for".
 msgid "page_title_archive_month"
 msgstr "All articles for"
 
@@ -292,7 +301,7 @@ msgstr "Authors beginning with the letter %1"
 msgid "page_title_author_ind"
 msgstr "Author"
 
-#. English: "Latest News".
+#. English: "Blogs".
 msgid "page_title_blogs"
 msgstr "Latest News"
 
@@ -308,16 +317,20 @@ msgstr "Tag"
 msgid "page_title_tag_list"
 msgstr "All tags"
 
-#. English (no items): "0 articles".
-#. English (one item): "1 article".
-#. English (2+ items): "%count% articles".
+#. English: "Page %1 of %2".
+msgid "pagination_page"
+msgstr "Page %1 of %2"
+
+#. English (no items): "0 posts".
+#. English (one item): "1 post".
+#. English (2+ items): "%count% posts".
 msgid "post"
 msgid_plural "post %count%"
 msgstr[0] "0 articles"
 msgstr[1] "1 article"
 msgstr[2] "%count% articles"
 
-#. English: "See all articles about".
+#. English: "See all posts about".
 msgid "see_all_posts_about"
 msgstr "See all articles about"
 
