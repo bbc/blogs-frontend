@@ -10,6 +10,9 @@ parameters:
         - '#Parameter \#1 $data of class SimpleXMLElement constructor expects string, string|false given.#'
         - '#App\\BlogsService\\StubService\\LegacyBlogStubService::__construct\(\) does not call parent constructor from App\\BlogsService\\Service\\LegacyBlogService.#'
         - '#$subject of function str_replace expects array|string, SimpleXMLElement given.#'
+        -
+            message: '#Result of && is always false.#'
+            path: %currentWorkingDirectory%/src/Ds/Molecule/Image/ImagePresenter.php
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
