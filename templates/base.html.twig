@@ -70,7 +70,8 @@
 {{ orb.getBodyfirst()|raw }}
 {{ branding.getBodyFirst()|raw }}
 
-<div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" id="blogs-content" role="main">
+<div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" role="main">
+    <div id="blogs-content" tabindex="-1" class="skip-to-content-destination">Main content</div>
     {% block body %}{% endblock %}
 </div>
 {{ gelicons_source() }}
