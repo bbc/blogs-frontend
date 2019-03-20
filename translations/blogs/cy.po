@@ -6,10 +6,6 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=3; plural=(n==0 ? 0 : n==1 ? 1 : 2)\n"
 
-#. English: "en".
-msgid "language_code"
-msgstr "cy"
-
 #. English: "This video content is not available, due to a temporary problem.".
 msgid "asset_error_without_java"
 msgstr "Nid yw’r fideo yma ar gael oherwydd fod yna broblem dros dro"
@@ -60,7 +56,9 @@ msgstr[2] "%count% neges am %tag% yn y blog yma"
 
 #. English: "Comments are temporarily unavailable due to a technical fault. Please try later.".
 msgid "error_comments"
-msgstr "Dyw’r sylwadau ddim ar gael ar hyn o bryd oherwydd problem dechnegol. Triwch eto nes ymlaen"
+msgstr ""
+"Dyw’r sylwadau ddim ar gael ar hyn o bryd oherwydd problem dechnegol. Triwch "
+"eto nes ymlaen"
 
 #. English: "Your browser doesn't support HTML5 media.".
 msgid "error_no_media"
@@ -166,6 +164,10 @@ msgstr "A - Z"
 msgid "link_comments"
 msgstr "Sylwadau"
 
+#. English: "View the comments for this blog".
+msgid "link_comments_standalone"
+msgstr ""
+
 #. English: "Home".
 msgid "link_home"
 msgstr "Hafan"
@@ -234,9 +236,17 @@ msgstr "Diweddariadau i’r Blog"
 msgid "module_updates_header_feed"
 msgstr "Tanysgrifiwch trwy ddefnyddio"
 
+#. English: "Subscribe to this tag using".
+msgid "module_updates_header_feed_tags"
+msgstr ""
+
 #. English: "ATOM feed".
 msgid "module_updates_link_atom"
 msgstr "Llif ATOM"
+
+#. English: "Subscribe to this Tag (ATOM)".
+msgid "module_updates_link_atom_tag"
+msgstr ""
 
 #. English: "What are feeds?".
 msgid "module_updates_link_feeds"
@@ -246,6 +256,10 @@ msgstr "Beth yw llif?"
 msgid "module_updates_link_rss"
 msgstr "Llif RSS"
 
+#. English: "Subscribe to this Tag (RSS)".
+msgid "module_updates_link_rss_tag"
+msgstr ""
+
 #. English: "There are no posts in this month".
 msgid "month_no_posts"
 msgstr "Does yna ddim negeseuon yn y mis yma"
@@ -253,6 +267,10 @@ msgstr "Does yna ddim negeseuon yn y mis yma"
 #. English: "There are no posts".
 msgid "no_posts"
 msgstr "Does yna ddim negeseuon"
+
+#. English: "There are no results".
+msgid "no_results"
+msgstr "Dim canlyniadau"
 
 #. English: "Page not found".
 msgid "page_not_found"
@@ -269,10 +287,6 @@ msgstr "Mae'n ddrwg gennym, rydyn ni wedi methu dod o hyd i’r dudalen"
 #. English: "All posts for".
 msgid "page_title_archive_month"
 msgstr "Pob cofnod ar gyfer"
-
-#. English: "There are no results".
-msgid "no_results"
-msgstr "Dim canlyniadau"
 
 #. English: "All Authors".
 msgid "page_title_author_all"
@@ -302,6 +316,10 @@ msgstr "Tag"
 #. English: "All tags".
 msgid "page_title_tag_list"
 msgstr "Pob tag"
+
+#. English: "Page %1 of %2".
+msgid "pagination_page"
+msgstr ""
 
 #. English (no items): "0 posts".
 #. English (one item): "1 post".

@@ -12,7 +12,8 @@
 
     // Nested in a .pagination class to trump the "nav > li" styles
     .pagination__page,
-    .pagination__spacer {
+    .pagination__spacer,
+    .pagination__spacer--hidden {
         display: none;
         margin: 0 1px;
         text-align: center;
@@ -37,9 +38,10 @@
 
 .pagination__page a,
 .pagination__page span,
-.pagination__spacer span {
+.pagination__spacer span,
+.pagination__spacer--hidden span {
     display: block;
-    width: mq-px2em(38px, 14px);
+    width: mq-px2em(35px, 14px);
     padding: mq-px2em(10px, 14px) 0;
 }
 
@@ -49,15 +51,34 @@
 
 svg.pagination__next-previous {
     width: 14px;
-    height: 16px;
+    height: 22px;
     vertical-align: text-top;
 }
 
-// TODO use bespoke breakpoint for this
-@include mq-range('bpb1') {
-    // Show the first, last and current pages
-    // Nested in a .pagination class to trump the "nav > li" styles
+// The previous and next text is only shown on devices which do not
+// display numbered buttons and desktops wide enough to display both.
+@include mq($from: 'gel1b', $until: 'gel4') {
+    .pagination__next span,
+    .pagination__previous span {
+        @include visually-hidden();
+    }
+}
+
+// Hidden spacers are only shown on devices wide enough to display
+// numbered buttons, but not wide enough to fit all of them in.
+@include mq($from: 'gel1b', $until: 'gel4') {
     .pagination {
+        .pagination__spacer--hidden {
+            display: inline-block;
+        }
+    }
+}
+
+// First, current, last and nohide buttons, as well as spacers, are
+// displayed on all devices that are wide enough for numbered buttons.
+@include mq($from: 'gel1b') {
+    .pagination {
+        .pagination__page--nohide,
         .pagination__page--first,
         .pagination__page--last,
         .pagination__page--current,
@@ -65,56 +86,53 @@ svg.pagination__next-previous {
             display: inline-block;
         }
     }
-
-    // Hide the next/previous text, so only the arrow is displayed
-    .pagination__next span,
-    .pagination__previous span {
-        @include visually-hidden();
-    }
 }
 
-// TODO use bespoke breakpoint for this
-@include mq-range('bpb2') {
-    // Show two pages either side of the current page
+// Numbered buttons are shrunk a bit on tablets to save space.
+@include mq($from: 30.875em, $until: 'gel3') {
     .pagination {
-        .pagination__page--offset1,
-        .pagination__page--offset2 {
-            display: inline-block;
-        }
-    }
-}
-
-@include mq-range('bpw') {
-    .pagination {
-        margin-bottom: $wide-spacing;
-
-        // Show the first, last and current pages
-        // Show two pages either side of the current page
         .pagination__page--first,
         .pagination__page--last,
         .pagination__page--current,
         .pagination__spacer,
+        .pagination__spacer--hidden,
+        .pagination__page--nohide,
         .pagination__page--offset1,
-        .pagination__page--offset2 {
-            display: inline-block;
+        .pagination__page--offset2,
+        .pagination__page--mobile {
+            @include gel-font-size(15px, 15px);
         }
     }
 }
 
-@include mq($from: 'gel3', $until: 'gel3b') {
-    // Hide the next/previous text, so only the arrow is displayed
-    .pagination__next span,
-    .pagination__previous span {
-        @include visually-hidden();
+// Display up to two buttons between the current and first/last
+// buttons on devices wide enough to fit them. Hide hidden
+// spacers only required on mobile devices. Also display
+// numbered buttons instead of spacers if only one gap.
+@include mq($from: 30.875em) {
+    .pagination {
+        .pagination__page--offset1,
+        .pagination__page--offset2,
+        .pagination__page--mobile {
+            display: inline-block;
+        }
+
+        .pagination__spacer--mobile {
+            display: none;
+        }
     }
 }
 
-@include mq-range('bpe') {
-    // Show all pages by default
-    // Nested in a .pagination class to trump the "nav > li" styles
+@include mq($from: 'gel3') {
     .pagination {
-        .pagination__page,
-        .pagination__spacer {
+        margin-bottom: $wide-spacing;
+    }
+}
+
+// Display all pagination buttons on larger devices.
+@include mq($from: 'gel4') {
+    .pagination {
+        .pagination__page {
             display: inline-block;
         }
     }
