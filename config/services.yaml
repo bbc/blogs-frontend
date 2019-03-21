@@ -143,10 +143,11 @@ services:
     App\Metrics\Cache\MetricCacheInterface:
         class: "%app.metric_cache.class%"
 
+    # Event Subscribers
+    App\EventSubscriber\CacheFlushSubscriber: ~
     App\EventSubscriber\MonitoringSubscriber:
         tags:
             - { name: 'kernel.event_subscriber' }
-
     App\EventSubscriber\ArchivedBlogsSubscriber:
         tags:
             - { name: 'kernel.event_subscriber' }
