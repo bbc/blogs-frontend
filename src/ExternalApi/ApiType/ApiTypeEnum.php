@@ -14,7 +14,6 @@ class ApiTypeEnum
 
 
     private const API_TYPES = [
-        self::API_COMMENTS => true,
         self::API_ISITE => true,
         self::API_MORPH => true,
         self::API_BRANDING => true,
