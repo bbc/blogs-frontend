@@ -11,7 +11,6 @@ class UriToApiTypeMapper
 
     public const MAPPING = [
         ApiTypeEnum::API_BRANDING => '%^branding\.(int\.|test\.|stage\.)?files\.bbci\.co\.uk%i',
-        ApiTypeEnum::API_COMMENTS => '%^comments\.(int\.|test\.|stage\.|live\.)?api\.bbc\.co\.uk%i',
         ApiTypeEnum::API_ISITE => '%^api\.(int\.|test\.|stage\.|live\.)bbc\.co\.uk/isite2-content-reader%i',
         ApiTypeEnum::API_MORPH => '%^morph\.(int\.|test\.|stage\.|live\.)?api\.bbci\.co\.uk%i',
         ApiTypeEnum::API_ORBIT => '%^navigation\.(int\.|test\.|stage\.)?api\.bbci\.co\.uk%i',

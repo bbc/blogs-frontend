@@ -27,7 +27,6 @@ class CircuitBreakerFactory
      */
     private const BREAKER_PARAMETERS = [
         ApiTypeEnum::API_ORBIT              => ['maxFailsPerMinute' => 40, 'secondsToOpenWhenFailed' => 20],
-        ApiTypeEnum::API_COMMENTS           => ['maxFailsPerMinute' => 40, 'secondsToOpenWhenFailed' => 20],
         ApiTypeEnum::API_ISITE              => ['maxFailsPerMinute' => 40, 'secondsToOpenWhenFailed' => 20],
         ApiTypeEnum::API_MORPH              => ['maxFailsPerMinute' => 40, 'secondsToOpenWhenFailed' => 20],
         ApiTypeEnum::API_LEGACY             => ['maxFailsPerMinute' => 40, 'secondsToOpenWhenFailed' => 20],
