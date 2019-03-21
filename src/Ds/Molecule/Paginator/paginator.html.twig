@@ -38,7 +38,7 @@
             }) -%}
             {%- if item != paginator.getCurrentPage() -%}
                 <li class="{{ classes }}">
-                    <a aria-label="{{ tr('pagination_link', {'%1': item, '%2': paginator.getPageCount()}) }}" href="?page={{ item }}" class="br-page-link-onbg015 br-page-linkhover-onbg--hover br-page-bg-ontext--hover">{{ item }}</a>
+                    <a aria-label="{{ tr('pagination_page', {'%1': item, '%2': paginator.getPageCount()}) }}" href="?page={{ item }}" class="br-page-link-onbg015 br-page-linkhover-onbg--hover br-page-bg-ontext--hover">{{ item }}</a>
                 </li>
             {%- else -%}
                 <li class="{{ classes }}">
