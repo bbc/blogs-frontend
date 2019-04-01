@@ -41,5 +41,7 @@
             </p>
         </div>
     </div>
-    {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId()) }}
+    {% if post_summary.getBlog().hasCommentsEnabled() %}
+        {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId()) }}
+    {% endif %}
 </div>
