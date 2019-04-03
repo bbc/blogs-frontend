@@ -21,7 +21,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $this->setBlog($blog);
 
-        $post = $postService->getPostByGuid(new GUID($guid), $blog);
+        $post = $postService->getPostByGuid(new GUID($guid), $blog, false);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

@@ -38,18 +38,19 @@ class PostService
     public function getPostByGuid(
         GUID $guid,
         ?Blog $blog = null,
+        bool $preview,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
     ): ?Post {
         $blogId = $blog ? $blog->getId() : '';
         $guidString =  (string) $guid;
-        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $guidString, $blogId, $ttl, $nullTtl);
+        $cacheKey = $this->cache->keyHelper(__CLASS__, __FUNCTION__, $guidString, $blogId, $preview, $ttl, $nullTtl);
 
         return $this->cache->getOrSet(
             $cacheKey,
             $ttl,
-            function () use ($guidString, $blogId) {
-                $response = $this->repository->getPostByGuid($guidString, $blogId);
+            function () use ($guidString, $blogId, $preview) {
+                $response = $this->repository->getPostByGuid($guidString, $preview, $blogId);
                 $result = $this->responseHandler->getIsiteResult($response);
 
                 return $result->getDomainModels()[0] ?? null;

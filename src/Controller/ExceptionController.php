@@ -98,7 +98,7 @@ class ExceptionController extends BaseExceptionController
                 'currentContent' => $currentContent,
                 'orb' => $orb,
                 'branding' => $branding,
-                'meta_context' => new MetaContext(),
+                'meta_context' => new MetaContext(false),
                 'fallback_social_image' => new Image('p01tqv8z.png'),
                 'istats_counter_name' => '',
 

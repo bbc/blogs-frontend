@@ -12,6 +12,19 @@ use BBC\ProgrammesPagesService\Domain\ValueObject\Pid;
 
 class MetaContext
 {
+    /** @var bool */
+    private $metaNoIndex;
+
+    public function __construct(bool $metaNoIndex)
+    {
+        $this->metaNoIndex = $metaNoIndex;
+    }
+
+    public function isNoIndex(): bool
+    {
+        return $this->metaNoIndex;
+    }
+
     public function getBBCFacebookPageIds(): string
     {
         return implode(',', $this->bbcFacebookPageIds());

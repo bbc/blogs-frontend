@@ -14,6 +14,10 @@
     {#- Twitter-specific tags -#}
     <meta name="twitter:card" content="summary_large_image">
 
+    {% if meta_context.isNoIndex() %}
+        <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+
     {#- OpenGraph tags for Facebook/Twitter -#}
     {% block social_tags %}
         <meta property="og:title" content="{{ block('title') }}">
