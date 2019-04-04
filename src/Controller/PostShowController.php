@@ -21,7 +21,7 @@ class PostShowController extends BlogsBaseController
 
         $isPreview = $this->isPreview($request);
         if ($isPreview) {
-            $this->setMetaNoIndex(true);
+            $this->setPreview(true);
         }
         $post = $postService->getPostByGuid(new GUID($guid), $isPreview, $blog);
 

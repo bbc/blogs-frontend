@@ -43,7 +43,7 @@ abstract class BaseController extends AbstractController
     private $fallbackBrandingId = 'br-07918';
 
     /** @var bool */
-    private $metaNoIndex = false;
+    private $preview = false;
 
     /**
      * Private so that it cannot be overwritten by a child class, only modified via response()
@@ -119,7 +119,7 @@ abstract class BaseController extends AbstractController
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
-            'meta_context' => new MetaContext($this->metaNoIndex),
+            'meta_context' => new MetaContext($this->preview),
             'istats_counter_name' => $istatsCounterName,
             'fallback_social_image' => new Image('p01tqv8z.png'),
         ], $parameters);
@@ -144,9 +144,12 @@ abstract class BaseController extends AbstractController
         return (bool) $preview;
     }
 
-    protected function setMetaNoIndex(bool $metaNoIndex): void
+    protected function setPreview(bool $preview): void
     {
-        $this->metaNoIndex = $metaNoIndex;
+        if ($preview) {
+            $this->response()->headers->remove('X-Frame-Options');
+        }
+        $this->preview = $preview;
     }
 
     protected function setLocale(string $locale)

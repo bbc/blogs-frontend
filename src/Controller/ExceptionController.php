@@ -52,11 +52,14 @@ class ExceptionController extends BaseExceptionController
 
         $headers = [
             'Content-Type' => $request->getMimeType($request->getRequestFormat()) ?: 'text/html',
-            // The page can only be displayed in a frame on the same origin as the page itself.
-            'X-Frame-Options' => 'SAMEORIGIN',
             // Blocks a request if the requested type is different from the MIME type
             'X-Content-Type-Options' => 'nosniff',
         ];
+
+        if (!$request->query->get('preview')) {
+            // The page can only be displayed in a frame on the same origin as the page itself.
+            $headers['X-Frame-Options'] = 'SAMEORIGIN';
+        }
 
         if (!$showException) {
             try {

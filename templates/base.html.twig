@@ -14,7 +14,7 @@
     {#- Twitter-specific tags -#}
     <meta name="twitter:card" content="summary_large_image">
 
-    {% if meta_context.isNoIndex() %}
+    {% if meta_context.isPreview() %}
         <meta name="robots" content="noindex,nofollow">
     {% endif %}
 

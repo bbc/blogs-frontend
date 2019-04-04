@@ -18,7 +18,7 @@ class AuthorShowController extends BlogsBaseController
 
         $isPreview = $this->isPreview($request);
         if ($isPreview) {
-            $this->setMetaNoIndex(true);
+            $this->setPreview(true);
         }
         $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $isPreview);
 

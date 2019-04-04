@@ -127,7 +127,7 @@
 
         {%- if comments -%}
             {%- set commentsRoutingParameters = {blogId: blog.getId(), guid: post.getGuid()} -%}
-            {%- if meta_context.isNoIndex() -%}
+            {%- if meta_context.isPreview() -%}
                 {%- set commentsRoutingParameters = commentsRoutingParameters|merge({'preview': 'true'}) -%}
             {%- endif -%}
             <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', commentsRoutingParameters) }}" data-lazyload-delay="true">

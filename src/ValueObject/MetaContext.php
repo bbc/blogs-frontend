@@ -6,16 +6,16 @@ namespace App\ValueObject;
 class MetaContext
 {
     /** @var bool */
-    private $metaNoIndex;
+    private $isPreview;
 
-    public function __construct(bool $metaNoIndex)
+    public function __construct(bool $isPreview)
     {
-        $this->metaNoIndex = $metaNoIndex;
+        $this->isPreview = $isPreview;
     }
 
-    public function isNoIndex(): bool
+    public function isPreview(): bool
     {
-        return $this->metaNoIndex;
+        return $this->isPreview;
     }
 
     public function getBBCFacebookPageIds(): string
