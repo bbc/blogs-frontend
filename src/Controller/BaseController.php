@@ -42,6 +42,8 @@ abstract class BaseController extends AbstractController
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
 
+    /** @var bool */
+    private $preview = false;
 
     /**
      * Private so that it cannot be overwritten by a child class, only modified via response()
@@ -117,7 +119,7 @@ abstract class BaseController extends AbstractController
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
-            'meta_context' => new MetaContext(),
+            'meta_context' => new MetaContext($this->preview),
             'istats_counter_name' => $istatsCounterName,
             'fallback_social_image' => new Image('p01tqv8z.png'),
         ], $parameters);
@@ -134,6 +136,20 @@ abstract class BaseController extends AbstractController
         if ($brandingId) {
             $this->brandingId = $brandingId;
         }
+    }
+
+    protected function isPreview(Request $request): bool
+    {
+        $preview = filter_var($request->get('preview', 'false'), FILTER_VALIDATE_BOOLEAN);
+        return (bool) $preview;
+    }
+
+    protected function setPreview(bool $preview): void
+    {
+        if ($preview) {
+            $this->response()->headers->remove('X-Frame-Options');
+        }
+        $this->preview = $preview;
     }
 
     protected function setLocale(string $locale)

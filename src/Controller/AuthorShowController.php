@@ -16,9 +16,11 @@ class AuthorShowController extends BlogsBaseController
         $this->setIstatsPageType('author_show');
         $this->setBlog($blog);
 
-        $preview = filter_var($request->get('preview', 'false'), FILTER_VALIDATE_BOOLEAN);
-
-        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $preview);
+        $isPreview = $this->isPreview($request);
+        if ($isPreview) {
+            $this->setPreview(true);
+        }
+        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $isPreview);
 
         if (!$author) {
             throw $this->createNotFoundException('Author not found');

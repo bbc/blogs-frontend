@@ -8,17 +8,22 @@ use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
 use App\Service\CommentsService;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
+use Symfony\Component\HttpFoundation\Request;
 use Exception;
 
 class PostShowController extends BlogsBaseController
 {
     /** @throws MorphErrorException|Exception */
-    public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
+    public function __invoke(Request $request, Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $this->setIstatsPageType('post_show');
         $this->setBlog($blog);
 
-        $post = $postService->getPostByGuid(new GUID($guid), $blog);
+        $isPreview = $this->isPreview($request);
+        if ($isPreview) {
+            $this->setPreview(true);
+        }
+        $post = $postService->getPostByGuid(new GUID($guid), $isPreview, $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

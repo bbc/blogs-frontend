@@ -126,7 +126,11 @@
         {% endif %}
 
         {%- if comments -%}
-            <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', {blogId: blog.getId(), guid: post.getGuid()}) }}" data-lazyload-delay="true">
+            {%- set commentsRoutingParameters = {blogId: blog.getId(), guid: post.getGuid()} -%}
+            {%- if meta_context.isPreview() -%}
+                {%- set commentsRoutingParameters = commentsRoutingParameters|merge({'preview': 'true'}) -%}
+            {%- endif -%}
+            <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', commentsRoutingParameters) }}" data-lazyload-delay="true">
                 <div class="blogs-loading-fallback" id="comments">
                     <a href="{{- url('comments_index', {blogId: blog.getId(), guid: post.getGuid()}) -}}"> {{- tr('link_comments_standalone') -}}</a>
                 </div>

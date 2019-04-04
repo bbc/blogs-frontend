@@ -9,18 +9,18 @@ use App\BlogsService\Service\PostService;
 use App\Service\CommentsService;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
 use Exception;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class CommentsPartialController extends AbstractController
+class CommentsPartialController extends BaseController
 {
     /** @throws MorphErrorException|Exception */
-    public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
+    public function __invoke(Request $request, Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $response = new Response();
         $response->setPublic()->setMaxAge(10);
 
-        $post = $postService->getPostByGuid(new GUID($guid), $blog);
+        $post = $postService->getPostByGuid(new GUID($guid), $this->isPreview($request), $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
