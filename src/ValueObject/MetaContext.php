@@ -3,13 +3,6 @@ declare(strict_types = 1);
 
 namespace App\ValueObject;
 
-use BBC\ProgrammesPagesService\Domain\Entity\CoreEntity;
-use BBC\ProgrammesPagesService\Domain\Entity\Image;
-use BBC\ProgrammesPagesService\Domain\Entity\Network;
-use BBC\ProgrammesPagesService\Domain\Entity\Programme;
-use BBC\ProgrammesPagesService\Domain\Entity\Service;
-use BBC\ProgrammesPagesService\Domain\ValueObject\Pid;
-
 class MetaContext
 {
     /** @var bool */

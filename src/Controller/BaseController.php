@@ -144,7 +144,7 @@ abstract class BaseController extends AbstractController
         return (bool) $preview;
     }
 
-    protected function setMetaNoIndex(bool $metaNoIndex)
+    protected function setMetaNoIndex(bool $metaNoIndex): void
     {
         $this->metaNoIndex = $metaNoIndex;
     }

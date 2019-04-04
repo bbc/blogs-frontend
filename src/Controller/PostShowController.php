@@ -23,7 +23,7 @@ class PostShowController extends BlogsBaseController
         if ($isPreview) {
             $this->setMetaNoIndex(true);
         }
-        $post = $postService->getPostByGuid(new GUID($guid), $blog, $isPreview);
+        $post = $postService->getPostByGuid(new GUID($guid), $isPreview, $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

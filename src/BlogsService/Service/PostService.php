@@ -37,8 +37,8 @@ class PostService
 
     public function getPostByGuid(
         GUID $guid,
-        ?Blog $blog = null,
         bool $preview,
+        ?Blog $blog = null,
         $ttl = CacheInterface::NORMAL,
         $nullTtl = CacheInterface::NONE
     ): ?Post {
