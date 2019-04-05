@@ -32,6 +32,7 @@
         "php": "^7.1.0",
         "ext-redis": "*",
         "ext-apcu": "*",
+        "ext-json": "*",
         "bbc-rmp/cloudwatch-monitoringhandler": "^1.0",
         "bbc-rmp/translate": "^1.8.9",
         "bbc/branding-client": "^2.5",

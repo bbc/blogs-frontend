@@ -2,6 +2,7 @@
 declare(strict_types = 1);
 namespace App\Twig;
 
+use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Post;
 use Twig_Extension;
 use Twig_Function;
@@ -34,10 +35,7 @@ class SchemaJsonExtension extends Twig_Extension
         $schemaData['image'] = $post->getImage() ? $post->getImage()->getUrl(1200, 675) : '';
         $schemaData['datePublished'] = $post->getPublishedDate()->format('Y-m-d\TH:i:s');
         $schemaData['dateModified'] = $post->getPublishedDate()->format('Y-m-d\TH:i:s');
-        $schemaData['author'] = [
-            '@type' => 'Person',
-            'name' => $post->getAuthor() ? $post->getAuthor()->getName() : '',
-        ];
+        $schemaData['author'] = $this->getSchemaForAuthor($post);
         $schemaData['publisher'] = [
             '@type' => 'Organization',
             'name' => 'BBC',
@@ -69,5 +67,24 @@ class SchemaJsonExtension extends Twig_Extension
         $schemaData['@graph'] = $this->schemaSnippets;
 
         return json_encode($schemaData) ?: '';
+    }
+
+    private function getSchemaForAuthor(Post $post): array
+    {
+        $author = $post->getAuthor();
+        if ($author instanceof Author) {
+            return [
+                '@type' => 'Person',
+                'name' => $author->getName(),
+            ];
+        }
+
+        return [
+            '@type' => 'Organization',
+            'legalName' => 'British Broadcasting Corporation',
+            'logo' => 'http://ichef.bbci.co.uk/images/ic/1200x675/p01tqv8z.png',
+            'name' => 'BBC',
+            'url' => 'https://www.bbc.co.uk/',
+        ];
     }
 }
