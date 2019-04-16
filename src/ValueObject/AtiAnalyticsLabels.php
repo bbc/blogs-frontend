@@ -20,10 +20,8 @@ class AtiAnalyticsLabels
 
     public function orbLabels()
     {
-        //this is commented out because we want it to fallback to the default bbc bucket, until a blogs specific bucket
-        //is created in the near future.
         $labels = [
-            //'destination' => $this->getDestination(),
+            'destination' => $this->getDestination(),
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
             ],
@@ -34,7 +32,7 @@ class AtiAnalyticsLabels
 
     private function getDestination(): string
     {
-        $destination =  'programmes_ps';
+        $destination =  'blogs_ps';
 
         if (in_array($this->appEnvironment, ['int', 'stage', 'sandbox', 'test'])) {
             $destination .= '_test';
