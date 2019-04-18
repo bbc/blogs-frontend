@@ -13,6 +13,7 @@ class BlogShowController extends BlogsBaseController
     public function __invoke(Blog $blog, PostService $postService)
     {
         $this->setIstatsPageType('index_single');
+        $this->setAtiChapterOneVariable('blog-homepage');
         $this->setBlog($blog);
 
         $result = $postService->getPostsByBlog($blog, Chronos::now());

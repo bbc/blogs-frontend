@@ -14,6 +14,7 @@ class AuthorIndexController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, AuthorService $authorService, PostService $postService)
     {
         $this->setIstatsPageType('author_index');
+        $this->setAtiChapterOneVariable('list-authors');
         $this->setBlog($blog);
 
         $page = $this->getPageNumber($request);

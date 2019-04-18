@@ -37,6 +37,9 @@ abstract class BaseController extends AbstractController
     protected $locale;
 
     /** @var string */
+    private $atiChapterOne;
+
+    /** @var string */
     private $brandingId = 'br-07918';
 
     /** @var string */
@@ -99,10 +102,8 @@ abstract class BaseController extends AbstractController
 
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
-        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
-        $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
-        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo);
+        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne);
         $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
 
         $translateProvider->setLocale($locale);
@@ -113,14 +114,11 @@ abstract class BaseController extends AbstractController
             'page' => $atiAnalyticsLabelsValues,
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
-            'analyticsCounterName' => $istatsCounterName,
-            'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
         ]);
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
             'meta_context' => new MetaContext($this->preview),
-            'istats_counter_name' => $istatsCounterName,
             'fallback_social_image' => new Image('p01tqv8z.png'),
         ], $parameters);
         return $this->render($view, $parameters, $this->response);
@@ -161,6 +159,11 @@ abstract class BaseController extends AbstractController
         }
 
         $this->locale = $locale;
+    }
+
+    protected function setAtiChapterOneVariable(string $chapterOne): void
+    {
+        $this->atiChapterOne = $chapterOne;
     }
 
     protected function cachedRedirect($url, $status = 302): RedirectResponse

@@ -13,6 +13,7 @@ class TagIndexController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, TagService $tagService, PostService $postService)
     {
         $this->setIstatsPageType('tag_index');
+        $this->setAtiChapterOneVariable('list-tags');
         $this->setBlog($blog);
         $this->counterName = 'tags';
 

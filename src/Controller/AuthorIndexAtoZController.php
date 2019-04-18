@@ -11,6 +11,7 @@ class AuthorIndexAtoZController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog)
     {
         $this->setIstatsPageType('author_indexatoz');
+        $this->setAtiChapterOneVariable('list-authors');
         $this->setBlog($blog);
         $this->counterName = 'authors';
 

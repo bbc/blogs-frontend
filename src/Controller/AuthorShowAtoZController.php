@@ -14,6 +14,7 @@ class AuthorShowAtoZController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $letter, AuthorService $authorService, PostService $postService)
     {
         $this->setIstatsPageType('author_letter');
+        $this->setAtiChapterOneVariable('list-authors');
         $this->setBlog($blog);
         $this->counterName = 'authors';
 
