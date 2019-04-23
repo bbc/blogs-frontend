@@ -119,9 +119,9 @@ abstract class BaseController extends AbstractController
             'analyticsCounterName' => $istatsCounterName,
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
-            'istats_counter_name' => $istatsCounterName,
         ]);
         $parameters = array_merge([
+            'istats_counter_name' => $istatsCounterName,
             'orb' => $orb,
             'branding' => $branding,
             'meta_context' => new MetaContext($this->preview),
