@@ -14,6 +14,7 @@ class AuthorShowController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
         $this->setIstatsPageType('author_show');
+        $this->setAtiChapterOneVariable('author');
         $this->setBlog($blog);
 
         $isPreview = $this->isPreview($request);

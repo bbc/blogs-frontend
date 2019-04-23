@@ -8,9 +8,13 @@ class AtiAnalyticsLabels
     /** @var string */
     private $appEnvironment;
 
-    public function __construct(CosmosInfo $cosmosInfo)
+    /** @var string */
+    private $chapterOne;
+
+    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
+        $this->chapterOne = $chapterOne;
     }
 
     public function setAppEnvironment(string $appEnvironment): void
@@ -22,6 +26,7 @@ class AtiAnalyticsLabels
     {
         $labels = [
             'destination' => $this->getDestination(),
+            'section' => $this->chapterOne,
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
             ],

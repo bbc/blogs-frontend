@@ -18,7 +18,7 @@ class CommentsIndexController extends BlogsBaseController
         if ($blog->hasCommentsEnabled() == false) {
             throw $this->createNotFoundException('Comments are not enabled for this blog');
         }
-
+        $this->setAtiChapterOneVariable('comments');
         $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), false, $blog);
