@@ -103,6 +103,8 @@ abstract class BaseController extends AbstractController
         $translateProvider = $this->container->get(TranslateProvider::class);
         $cosmosInfo = $this->container->get(CosmosInfo::class);
 
+        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
+
         $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne);
         $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
 
@@ -112,6 +114,7 @@ abstract class BaseController extends AbstractController
             'language' => $branding->getLanguage(),
         ], [
             'page' => $atiAnalyticsLabelsValues,
+            'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
         ]);
