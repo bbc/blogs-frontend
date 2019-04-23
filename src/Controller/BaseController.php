@@ -104,6 +104,7 @@ abstract class BaseController extends AbstractController
         $cosmosInfo = $this->container->get(CosmosInfo::class);
 
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
+        $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
         $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne);
         $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
@@ -115,8 +116,10 @@ abstract class BaseController extends AbstractController
         ], [
             'page' => $atiAnalyticsLabelsValues,
             'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
+            'analyticsCounterName' => $istatsCounterName,
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
+            'istats_counter_name' => $istatsCounterName,
         ]);
         $parameters = array_merge([
             'orb' => $orb,
