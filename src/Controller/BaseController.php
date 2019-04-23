@@ -8,6 +8,7 @@ use App\Translate\TranslateProvider;
 use App\ValueObject\AnalyticsCounterName;
 use App\ValueObject\CosmosInfo;
 use App\ValueObject\IstatsAnalyticsLabels;
+use App\ValueObject\AtiAnalyticsLabels;
 use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\BrandingClient;
@@ -40,6 +41,9 @@ abstract class BaseController extends AbstractController
 
     /** @var string */
     private $fallbackBrandingId = 'br-07918';
+
+    /** @var bool */
+    private $preview = false;
 
     /**
      * Private so that it cannot be overwritten by a child class, only modified via response()
@@ -98,11 +102,15 @@ abstract class BaseController extends AbstractController
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
+        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo);
+        $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
+
         $translateProvider->setLocale($locale);
         $orb = $this->container->get(OrbitClient::class)->getContent([
             'variant' => $branding->getOrbitVariant(),
             'language' => $branding->getLanguage(),
         ], [
+            'page' => $atiAnalyticsLabelsValues,
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
             'analyticsCounterName' => $istatsCounterName,
@@ -111,7 +119,7 @@ abstract class BaseController extends AbstractController
         $parameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
-            'meta_context' => new MetaContext(),
+            'meta_context' => new MetaContext($this->preview),
             'istats_counter_name' => $istatsCounterName,
             'fallback_social_image' => new Image('p01tqv8z.png'),
         ], $parameters);
@@ -128,6 +136,20 @@ abstract class BaseController extends AbstractController
         if ($brandingId) {
             $this->brandingId = $brandingId;
         }
+    }
+
+    protected function isPreview(Request $request): bool
+    {
+        $preview = filter_var($request->get('preview', 'false'), FILTER_VALIDATE_BOOLEAN);
+        return (bool) $preview;
+    }
+
+    protected function setPreview(bool $preview): void
+    {
+        if ($preview) {
+            $this->response()->headers->remove('X-Frame-Options');
+        }
+        $this->preview = $preview;
     }
 
     protected function setLocale(string $locale)

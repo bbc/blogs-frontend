@@ -16,7 +16,7 @@
     {% if post_summary.shouldShowAuthor() %}
         {{ ds('postAuthor', post_summary.getPost().getAuthor(), post_summary.getBlogId(), post_summary.getOption('author_options')) }}
     {% endif %}
-    <div data-section="post-content" class="media islet--vertical">
+    <div class="media islet--vertical">
         {% if post_summary.shouldShowImage() %}
             <a
                 {% if post_summary.isFeaturedPost() %}
@@ -41,5 +41,7 @@
             </p>
         </div>
     </div>
-    {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId()) }}
+    {% if post_summary.getBlog().hasCommentsEnabled() %}
+        {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId()) }}
+    {% endif %}
 </div>

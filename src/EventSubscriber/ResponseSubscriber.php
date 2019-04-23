@@ -51,6 +51,12 @@ class ResponseSubscriber implements EventSubscriberInterface
         // X-Cache-Control is a BBC Header, it sets a grace period during which stale content may be served by Varnish
         $response->headers->set('X-Cache-Control', 'stale-while-revalidate=30');
 
+        // "Fix" vary headers for Varnish. Despite multiple vary headers being RFC compliant
+        // varnish does not like it. Join them into a single header here.
+        $varyHeaders = $response->getVary();
+        $varyHeadersString = join(',', $varyHeaders);
+        $response->setVary([$varyHeadersString], true);
+
         $event->setResponse($response);
     }
 }

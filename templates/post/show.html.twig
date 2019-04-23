@@ -90,13 +90,13 @@
         </ul>
     </div>
 
-    <div class="component component--lined br-keyline">
+    <div data-section="post" class="component component--lined br-keyline">
         <article>
             <div class="component component--lined br-keyline">
                 <h1>{{ post.getTitle() }}</h1>
 
                 <p class="text--subtle milli"><time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">
-                    {{ post.getPublishedDate()|date('l d F Y, H:i') }}
+                    {{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}
                 </time></p>
 
                 {% if post.getAuthor() %}
@@ -126,7 +126,11 @@
         {% endif %}
 
         {%- if comments -%}
-            <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', {blogId: blog.getId(), guid: post.getGuid()}) }}" data-lazyload-delay="true">
+            {%- set commentsRoutingParameters = {blogId: blog.getId(), guid: post.getGuid()} -%}
+            {%- if meta_context.isPreview() -%}
+                {%- set commentsRoutingParameters = commentsRoutingParameters|merge({'preview': 'true'}) -%}
+            {%- endif -%}
+            <div class="lazy-module" data-lazyload-inc="{{ url('comments_partial', commentsRoutingParameters) }}" data-lazyload-delay="true">
                 <div class="blogs-loading-fallback" id="comments">
                     <a href="{{- url('comments_index', {blogId: blog.getId(), guid: post.getGuid()}) -}}"> {{- tr('link_comments_standalone') -}}</a>
                 </div>
@@ -135,7 +139,7 @@
     </div>
 
     {%- if prevPost or nextPost -%}
-        <div>
+        <div data-section="more-posts">
             <h2>{{ tr('header_more_posts') }}</h2>
             {%- if prevPost -%}
                 {{ postShow.morePosts(blog.getId(), prevPost, 'link_previous', 'blogs_post_bottom_previous') }}
@@ -164,7 +168,7 @@
             </h4>
             {%- if post.getPublishedDate() -%}
                 <p class="text--subtle milli">
-                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|date('l d F Y, H:i') }}</time>
+                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}</time>
                 </p>
             {%- endif -%}
         </div>

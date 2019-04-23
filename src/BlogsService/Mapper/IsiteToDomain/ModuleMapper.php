@@ -18,6 +18,7 @@ class ModuleMapper extends Mapper
      */
     public function getDomainModel(SimpleXMLElement $isiteObject)
     {
+        /** @var string $type */
         $type = str_replace('blogs-sidebar-', '', $this->getMetaData($isiteObject)->type);
         $form = $this->getForm($isiteObject);
 
@@ -32,20 +33,16 @@ class ModuleMapper extends Mapper
         }
 
         if ($type === 'links') {
-            // @codingStandardsIgnoreStart
-            $links = $form->Links->xpath('./*');
-            // @codingStandardsIgnoreEnd
-
-            $heading = array_shift($links);
             $linksArray = [];
-            foreach ($links as $link) {
+            //@codingStandardsIgnoreStart
+            foreach ($form->Links->links as $link) {
                 $linksArray[] = array_map('trim', (array) $link);
             }
-
             return new Links(
-                $this->getString($heading),
+                $this->getString($form->Links->{'moduletitle'}),
                 $linksArray
             );
+            //@codingStandardsIgnoreEnd
         }
 
         throw new Exception('Invalid Module Type : ' . $type);

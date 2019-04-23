@@ -54,9 +54,10 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getDateTime(SimpleXMLElement $date): Chronos
+    protected function getLocalDateTime(SimpleXMLElement $date): Chronos
     {
-        return new Chronos($this->getString($date));
+        // Assuming timezone is Europe/London
+        return new Chronos($this->getString($date), 'Europe/London');
     }
 
     protected function getImage($pid): Image

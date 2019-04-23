@@ -28,7 +28,7 @@ class PostMapper extends Mapper
         $forumId = str_replace('-', '_', '_' . $guid);
 
         if (isset($formMetaData->{'published-date'}) && isset($formMetaData->{'title'}) && isset($formMetaData->{'short-synopsis'})) {
-            $publishedDate = $this->getDateTime($formMetaData->{'published-date'});
+            $publishedDate = $this->getLocalDateTime($formMetaData->{'published-date'});
             $title = $this->getString($formMetaData->{'title'});
             $shortSynopsis = $this->getString($formMetaData->{'short-synopsis'});
         } else {

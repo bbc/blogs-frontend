@@ -35,12 +35,13 @@ class PostRepository extends AbstractRepository
         return $this->getResponse($query);
     }
 
-    public function getPostByGuid(string $guid, string $blogId = ''): ?ResponseInterface
+    public function getPostByGuid(string $guid, bool $preview, string $blogId = ''): ?ResponseInterface
     {
         $query = new GuidQuery();
 
         $query->setContentId($guid);
         $query->setDepth(1);
+        $query->setPreview($preview);
         if ($blogId) {
             $query->setProject($blogId);
         }

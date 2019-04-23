@@ -40,8 +40,8 @@ class BlogBuilder implements BuilderInterface
     /** @var Social */
     private $social;
 
-    /** @var bool */
-    private $hasCommentsEnabled;
+    /** @var string */
+    private $commentsApiKey;
 
     /** @var string */
     private $bbcSite;
@@ -80,7 +80,7 @@ class BlogBuilder implements BuilderInterface
             $this->brandingId ?? $faker->numerify('br-#####'),
             $this->modules ?? [new FreeText($words, $faker->sentence())],
             $this->social ?? new Social($faker->lexify('@????????'), $faker->word, $faker->word),
-            $this->hasCommentsEnabled ?? $faker->boolean,
+            !is_null($this->commentsApiKey) ? $this->commentsApiKey : $faker->word,
             $this->featuredPost,
             $this->image ?? new Image($faker->regexify('[0-9b-df-hj-np-tv-z]{8,15}')),
             $this->isArchived ?? false
@@ -141,9 +141,9 @@ class BlogBuilder implements BuilderInterface
         return $this;
     }
 
-    public function withComments(bool $comments)
+    public function withCommentsApiKey(string $commentsApiKey)
     {
-        $this->hasCommentsEnabled = $comments;
+        $this->commentsApiKey = $commentsApiKey;
         return $this;
     }
 

@@ -14,6 +14,10 @@
     {#- Twitter-specific tags -#}
     <meta name="twitter:card" content="summary_large_image">
 
+    {% if meta_context.isPreview() %}
+        <meta name="robots" content="noindex,nofollow">
+    {% endif %}
+
     {#- OpenGraph tags for Facebook/Twitter -#}
     {% block social_tags %}
         <meta property="og:title" content="{{ block('title') }}">
@@ -79,7 +83,8 @@
 {{ orb.getBodyfirst()|raw }}
 {{ branding.getBodyFirst()|raw }}
 
-<div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" id="blogs-content" role="main">
+<div class="{% block page_classes %}text-base b-g-p blogs-page{% endblock %}" role="main">
+    <div id="blogs-content" tabindex="-1" class="skip-to-content-destination">Main content</div>
     {% block body %}{% endblock %}
 </div>
 {{ gelicons_source() }}

@@ -154,11 +154,9 @@ define(['jquery-1.9'], function($) {
                 format: 'jsonp',
             }),
             new Provider("flickr", "photo", ["flickr\\.com/photos/.+","flic\\.kr/p/.+"], "https://flickr.com/services/oembed",{callbackparameter:'jsoncallback'}),
-            new Provider("instagram", "rich", ["instagr\\.?am(\\.com)?/.+"], "//instagram.com/p/$1/embed/", {
-                templateRegex: /.*(?:\/p\/)([\w\-]+)&?.*/,
-                embedtag: {
-                    tag: 'iframe'
-                }
+            new Provider("instagram", "rich", ["instagr\\.?am(\\.com)?/.+"], "https://api.instagram.com/oembed/", {
+                format: 'json',
+                dataType: 'json'
             }),
             new Provider("soundcloud", "rich", ["soundcloud.com/.+","snd.sc/.+"], "https://soundcloud.com/oembed?maxheight=166",{format:'js'}),
             new Provider("twitter", "rich", ["twitter.com/.+"], "https://api.twitter.com/1/statuses/oembed.json"),

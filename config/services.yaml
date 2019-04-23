@@ -8,6 +8,7 @@ parameters:
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
     app.feed_env.comments: 'live'
+    app.comments.version: '1.69.0'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
     app.morph.endpoint: 'https://morph.api.bbci.co.uk'
     cosmos_component_release: '%app_release_number%'
@@ -53,6 +54,9 @@ services:
     App\BlogsService\Service\BlogService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getBlogService']
 
+    App\BlogsService\Service\LegacyBlogService:
+        factory: ['@App\BlogsService\Service\ServiceFactory', 'getLegacyBlogService']
+
     App\BlogsService\Service\PostService:
         factory: ['@App\BlogsService\Service\ServiceFactory', 'getPostService']
 
@@ -69,8 +73,8 @@ services:
             - '@logger'
             - '@App\Translate\TranslateProvider'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
-            - '%comments_api_key%'
             - '%app.feed_env.comments%'
+            - '%app.comments.version%'
 
     App\ValueObject\CosmosInfo:
         arguments: ['%cosmos_component_release%', '%cosmos_environment%', '%app.endpoint_host%']
@@ -139,7 +143,12 @@ services:
     App\Metrics\Cache\MetricCacheInterface:
         class: "%app.metric_cache.class%"
 
+    # Event Subscribers
+    App\EventSubscriber\CacheFlushSubscriber: ~
     App\EventSubscriber\MonitoringSubscriber:
+        tags:
+            - { name: 'kernel.event_subscriber' }
+    App\EventSubscriber\ArchivedBlogsSubscriber:
         tags:
             - { name: 'kernel.event_subscriber' }
 

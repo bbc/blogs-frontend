@@ -13,31 +13,40 @@
         </li>
     {%- endif -%}
 
-    {% for item in paginator.getItems() %}
+    {%- for item in paginator.getItems() -%}
         {%- if item == 'spacer' -%}
             <li class="pagination__spacer">
+                <span>&#8230;</span>
+            </li>
+        {%- elseif item == 'spacer-hidden' -%}
+            <li class="pagination__spacer--hidden">
+                <span>&#8230;</span>
+            </li>
+        {%- elseif item == 'spacer-mobile' -%}
+            <li class="pagination__spacer--hidden pagination__spacer--mobile">
                 <span>&#8230;</span>
             </li>
         {%- else -%}
             {%- set classes = build_css_classes({
                 'pagination__page': true,
                 ('pagination__page--offset' ~ paginator.getOffset(item)): true,
+                'pagination__page--nohide': (paginator.shouldApplyNoHideClass(item)),
                 'pagination__page--first': (item == 1),
                 'pagination__page--last': (item == paginator.getPageCount()),
-                'pagination__page--current': (item == paginator.getCurrentPage())
+                'pagination__page--current': (item == paginator.getCurrentPage()),
+                'pagination__page--mobile': (paginator.shouldApplyMobileClass(item))
             }) -%}
             {%- if item != paginator.getCurrentPage() -%}
                 <li class="{{ classes }}">
-                    <a title="{{ tr('pagination_link', {'%1': item, '%2': paginator.getPageCount()}) }}" href="?page={{ item }}" class="br-page-link-onbg015 br-page-linkhover-onbg--hover br-page-bg-ontext--hover">{{ item }}
-                    </a>
+                    <a aria-label="{{ tr('pagination_page', {'%1': item, '%2': paginator.getPageCount()}) }}" href="?page={{ item }}" class="br-page-link-onbg015 br-page-linkhover-onbg--hover br-page-bg-ontext--hover">{{ item }}</a>
                 </li>
             {%- else -%}
                 <li class="{{ classes }}">
                     <span class="br-box-highlight">{{ item }}</span>
                 </li>
             {%- endif -%}
-         {%- endif -%}
-    {% endfor %}
+        {%- endif -%}
+    {%- endfor -%}
     {%- if paginator.getCurrentPage() >= paginator.getPageCount() -%}
         <li class="pagination__next pagination--disabled">
             <span>{{ tr('link_next') }}</span>

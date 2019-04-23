@@ -31,6 +31,8 @@
     "require": {
         "php": "^7.1.0",
         "ext-redis": "*",
+        "ext-apcu": "*",
+        "ext-json": "*",
         "bbc-rmp/cloudwatch-monitoringhandler": "^1.0",
         "bbc-rmp/translate": "^1.8.9",
         "bbc/branding-client": "^2.5",
@@ -41,12 +43,10 @@
         "csa/guzzle-bundle": "^3.1",
         "fzaninotto/faker": "^1.8",
         "incenteev/composer-parameter-handler": "^2.1",
-        "sensiolabs/security-checker": "^4.1",
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
         "symfony/framework-bundle": "^4.1",
-        "symfony/lts": "^4@dev",
         "symfony/monolog-bundle": "^3.3",
         "symfony/twig-bundle": "^4.1",
         "symfony/yaml": "^4.1",
@@ -55,8 +55,8 @@
     "require-dev": {
         "escapestudios/symfony2-coding-standard": "^3.0",
         "johnkary/phpunit-speedtrap": "^3.0",
-        "phpstan/phpstan": "^0.10",
-        "phpstan/phpstan-phpunit": "^0.10",
+        "phpstan/phpstan": "^0.11.2",
+        "phpstan/phpstan-phpunit": "^0.11.0",
         "squizlabs/php_codesniffer": "^3.1",
         "symfony/browser-kit": "^4.1",
         "symfony/css-selector": "^4.1",
@@ -85,8 +85,7 @@
     "scripts": {
         "auto-scripts": {
             "cache:clear": "symfony-cmd",
-            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd",
-            "security-checker security:check": "script"
+            "assets:install --symlink --relative %PUBLIC_DIR%": "symfony-cmd"
         },
         "post-install-cmd": [
             "Incenteev\\ParameterHandler\\ScriptHandler::buildParameters",
@@ -105,7 +104,8 @@
         "public-dir": "web",
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
-            "allow-contrib": false
+            "allow-contrib": false,
+            "require": "~4.1.0"
         },
         "incenteev-parameters": {
             "file": "config/parameters.yaml"

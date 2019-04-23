@@ -313,6 +313,10 @@ msgstr ""
 msgid "page_title_tag_list"
 msgstr ""
 
+#. English: "Page %1 of %2".
+msgid "pagination_page"
+msgstr ""
+
 #. English (no items): "0 posts".
 #. English (one item): "1 post".
 #. English (2+ items): "%count% posts".

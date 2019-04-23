@@ -34,6 +34,7 @@ class GuidQuery implements QueryInterface
     public function setPreview(bool $preview)
     {
         $this->parameters['preview'] = $preview ? 'true' : 'false';
+        $this->parameters['allowNonLive'] = $preview ? 'true' : 'false';
         return $this;
     }
 }

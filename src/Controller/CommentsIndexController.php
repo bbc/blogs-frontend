@@ -21,7 +21,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $this->setBlog($blog);
 
-        $post = $postService->getPostByGuid(new GUID($guid), $blog);
+        $post = $postService->getPostByGuid(new GUID($guid), false, $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
@@ -44,7 +44,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $comments = $commentsPromise->wait();
 
-        $this->response()->setPublic()->setMaxAge(20);
+        $this->response()->setPublic()->setMaxAge(10);
 
         return $this->renderWithChrome(
             'comments/index.html.twig',

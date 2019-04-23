@@ -32,6 +32,11 @@ class PostSummaryPresenter extends Presenter
         $this->post = $post;
     }
 
+    public function getBlog(): Blog
+    {
+        return $this->blog;
+    }
+
     public function getBlogId(): string
     {
         return $this->blog->getId();

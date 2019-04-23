@@ -32,7 +32,7 @@ class MetricCacheApcu implements MetricCacheInterface
                 if (!isset($apcKeyValues[$apcKey])) {
                     $apcKeyValues[$apcKey] = 0;
                 }
-                $apcKeyValues[$apcKey] += $metricValue;
+                $apcKeyValues[$apcKey] += (int) $metricValue;
             }
         }
 

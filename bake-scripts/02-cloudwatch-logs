@@ -34,15 +34,6 @@ file = /var/www/blogs-frontend/var/log/prod.log
 log_group_name = $environment-blogs-frontend/app-error
 log_stream_name = $component_name-{instance_id}
 datetime_format = %Y-%m-%d %H:%M:%S
-
-[blogs-frontend/app-access]
-file = /var/www/blogs-frontend/var/log/prod-access.log
-log_group_name = $environment-blogs-frontend/app-access
-log_stream_name = $component_name-{instance_id}
-datetime_format = %Y-%m-%d %H:%M:%S
-batch_count = 10000
-batch_size = 1048576
-buffer_duration = 30000
 """
 
 logrotate_config = """
