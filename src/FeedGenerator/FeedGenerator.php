@@ -6,9 +6,9 @@ namespace App\FeedGenerator;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Ds\PresenterFactory;
+use App\Helper\ApplicationTimeProvider;
 use App\Translate\TranslatableTrait;
 use App\Translate\TranslateProvider;
-use Cake\Chronos\Chronos;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Twig_Environment;
 use Zend\Feed\Writer\Entry;
@@ -55,7 +55,7 @@ class FeedGenerator
 
         $blogUrl = $this->router->generate('blog', ['blogId' => $blog->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
         $feedUrl = $this->router->generate('feed_' . $type, ['blogId' => $blog->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-        $lastModified = count($posts) > 0 ? $posts[0]->getPublishedDate() : Chronos::now();
+        $lastModified = count($posts) > 0 ? $posts[0]->getPublishedDate() : ApplicationTimeProvider::getTime();
         [$lang, $country] = explode('-', $blog->getLanguage());
 
         $feed->setTitle($blog->getName() . ' ' . $this->tr('feed'));

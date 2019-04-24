@@ -54,7 +54,7 @@ abstract class BaseWebTestCase extends WebTestCase
 
     public function tearDown()
     {
-        ApplicationTimeProvider::clearTestDateTime();
+        ApplicationTimeProvider::clearDateTime();
         parent::tearDown();
     }
 

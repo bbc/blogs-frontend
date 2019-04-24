@@ -5,6 +5,7 @@ namespace App\BlogsService\Repository;
 
 use App\BlogsService\Query\IsiteQuery\GuidQuery;
 use App\BlogsService\Query\IsiteQuery\SearchQuery;
+use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
 use InvalidArgumentException;
 use Psr\Http\Message\ResponseInterface;
@@ -89,7 +90,11 @@ class PostRepository extends AbstractRepository
                     [
                         'ns:published-date',
                         '<=',
-                        $range['beforeDate']->format('Y-m-d\TH:i:s.BP'),
+                        // This basically makes sure that when we are in BST and are fed DateTime object set in BST
+                        // we make queries against iSite with an offset of one hour here. This is needed because
+                        // user entered dates can be stored without a timezone in iSite, and are then treated as UTC
+                        // for the purpose of querying
+                        $range['beforeDate']->format('Y-m-d\TH:i:s.B+00:00'),
                         'dateTime',
                     ],
                 ],

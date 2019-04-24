@@ -6,6 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
+use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -28,7 +29,7 @@ class PostByDateController extends BlogsBaseController
 
         $paginator = $this->createPaginator($postResult);
 
-        $nowDateTime = Chronos::now();
+        $nowDateTime = ApplicationTimeProvider::getLocalTime();
 
         $monthlyTotals = $this->getCountsForAllMonthsInChosenYear($blog, $postService, $year, $month, $totalPostsMonth, $nowDateTime);
 

@@ -6,7 +6,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
-use Cake\Chronos\Chronos;
+use App\Helper\ApplicationTimeProvider;
 
 class BlogShowController extends BlogsBaseController
 {
@@ -15,7 +15,7 @@ class BlogShowController extends BlogsBaseController
         $this->setIstatsPageType('index_single');
         $this->setBlog($blog);
 
-        $result = $postService->getPostsByBlog($blog, Chronos::now());
+        $result = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getLocalTime());
 
         /** @var Post[] $posts */
         $posts = $result->getDomainModels();

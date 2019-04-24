@@ -45,7 +45,7 @@ class TranslateAndTimeExtensionTest extends TestCase
             ->willReturn('cy_GB');
 
         $boundFunction = $this->boundLocalDateIntl($mockTranslate);
-        $dateTime = new DateTime('2017-08-11 06:00:00');
+        $dateTime = new DateTime('2017-08-11 06:00:00', new \DateTimeZone('Europe/London'));
         $result = $boundFunction($dateTime, 'EEE dd MMMM yyyy, HH:mm');
         $this->assertEquals('Gwen 11 Awst 2017, 06:00', $result);
     }
