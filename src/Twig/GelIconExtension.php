@@ -4,10 +4,10 @@ declare(strict_types = 1);
 namespace App\Twig;
 
 use InvalidArgumentException;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 
-class GelIconExtension extends Twig_Extension
+class GelIconExtension extends AbstractExtension
 {
     /** @var string[][] */
     private $usedIcons = [];

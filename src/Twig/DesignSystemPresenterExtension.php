@@ -5,10 +5,10 @@ namespace App\Twig;
 use App\Ds\Presenter;
 use App\Ds\PresenterFactory;
 use Twig_Environment;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 
-class DesignSystemPresenterExtension extends Twig_Extension
+class DesignSystemPresenterExtension extends AbstractExtension
 {
     /** @var PresenterFactory */
     private $presenterFactory;
