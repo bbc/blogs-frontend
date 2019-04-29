@@ -6,7 +6,7 @@ namespace App\Twig;
 use App\Translate\TranslatableTrait;
 use App\Translate\TranslateProvider;
 use DateTimeInterface;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 use Twig_SimpleFilter;
 
@@ -14,7 +14,7 @@ use Twig_SimpleFilter;
  * The local time functions make use of Translate fairly heavily.
  * Hence grouping local time and translation together.
  */
-class TranslateAndTimeExtension extends Twig_Extension
+class TranslateAndTimeExtension extends AbstractExtension
 {
     use TranslatableTrait;
 

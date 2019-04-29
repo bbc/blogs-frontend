@@ -4,10 +4,10 @@ namespace App\Twig;
 
 use InvalidArgumentException;
 use Symfony\Component\Asset\Packages;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 
-class HtmlUtilitiesExtension extends Twig_Extension
+class HtmlUtilitiesExtension extends AbstractExtension
 {
     private $packages;
 

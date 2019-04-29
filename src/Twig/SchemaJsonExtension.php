@@ -4,10 +4,10 @@ namespace App\Twig;
 
 use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Post;
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 
-class SchemaJsonExtension extends Twig_Extension
+class SchemaJsonExtension extends AbstractExtension
 {
     private $schemaSnippets;
 

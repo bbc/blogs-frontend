@@ -2,10 +2,10 @@
 declare(strict_types = 1);
 namespace App\Twig;
 
-use Twig_Extension;
+use Twig\Extension\AbstractExtension;
 use Twig_Function;
 
-class SmpExtension extends Twig_Extension
+class SmpExtension extends AbstractExtension
 {
     private $smps;
 
