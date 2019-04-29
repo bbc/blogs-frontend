@@ -3,6 +3,8 @@ declare(strict_types = 1);
 
 namespace App\ValueObject;
 
+use App\BlogsService\Domain\Blog;
+
 class AtiAnalyticsLabels
 {
     /** @var string */
@@ -11,10 +13,14 @@ class AtiAnalyticsLabels
     /** @var string */
     private $chapterOne;
 
-    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne)
+    /** @var Blog|null */
+    private $blog;
+
+    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne, Blog $blog = null)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
         $this->chapterOne = $chapterOne;
+        $this->blog = $blog;
     }
 
     public function setAppEnvironment(string $appEnvironment): void
@@ -24,11 +30,14 @@ class AtiAnalyticsLabels
 
     public function orbLabels()
     {
+        $this->blog ? $blogTitle = $this->getBlogTitle() : $blogTitle = null;
+
         $labels = [
             'destination' => $this->getDestination(),
             'section' => $this->chapterOne,
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
+                ['name' => 'custom_var_1', 'value' => $blogTitle],
             ],
         ];
 
@@ -44,5 +53,10 @@ class AtiAnalyticsLabels
         }
 
         return $destination;
+    }
+
+    private function getBlogTitle(): string
+    {
+        return $this->blog->getName();
     }
 }
