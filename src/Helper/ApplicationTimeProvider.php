@@ -10,13 +10,13 @@ use DateTimeZone;
 class ApplicationTimeProvider
 {
     /** @var Chronos|null  */
-    private static $appTime = null;
+    private static $appTime;
 
     /** @var Chronos|null */
-    private static $localTime = null;
+    private static $localTime;
 
     /** @var DateTimeZone|null */
-    private static $localTimeZone = null;
+    private static $localTimeZone;
 
     public static function getTime(): Chronos
     {
@@ -49,7 +49,7 @@ class ApplicationTimeProvider
     {
         static::$localTime = null;
         if ($time === null) {
-            static::$appTime = $time = Chronos::now();
+            static::$appTime = Chronos::now();
             return;
         }
         static::$appTime = $time->setTimezone(new DateTimeZone('UTC'));
