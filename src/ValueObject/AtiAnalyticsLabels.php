@@ -16,15 +16,15 @@ class AtiAnalyticsLabels
     /** @var Blog|null */
     private $blog;
 
-    /** @var array */
-    private $extraLabels;
+    /** @var bool */
+    private $hasVideo;
 
-    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne, array $extraLabels, ?Blog $blog = null)
+    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne, bool $hasVideo, ?Blog $blog = null)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
         $this->chapterOne = $chapterOne;
         $this->blog = $blog;
-        $this->extraLabels = $extraLabels;
+        $this->hasVideo = $hasVideo;
     }
 
     public function setAppEnvironment(string $appEnvironment): void
@@ -32,7 +32,7 @@ class AtiAnalyticsLabels
         $this->appEnvironment = $appEnvironment;
     }
 
-    public function orbLabels(): array 
+    public function orbLabels(): array
     {
         $this->blog ? $blogTitle = $this->getBlogTitle() : $blogTitle = null;
         $this->blog ? $hasComments = $this->hasComments() : $hasComments = false;
@@ -43,7 +43,8 @@ class AtiAnalyticsLabels
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
                 ['name' => 'custom_var_1', 'value' => $blogTitle],
-                ['name' => 'custom_var_2', 'value' => $hasComments],
+                ['name' => 'custom_var_2', 'value' => $hasComments ? 'true' : 'false'],
+                ['name' => 'custom_var_3', 'value' => $this->hasVideo ? 'true' : 'false'],
             ],
         ];
 
