@@ -54,10 +54,19 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getLocalDateTime(SimpleXMLElement $date): Chronos
+    protected function getUserInputDateTime(SimpleXMLElement $date): Chronos
     {
-        // Assuming timezone is Europe/London
-        return new Chronos($this->getString($date), 'Europe/London');
+        $date = $this->getString($date);
+        // the published-date field we use is auto-generated in iSite but can be modified by the user.
+        // That means that depending on
+        //  a) whether the user edits the field
+        //  b) the user's browser
+        //  c) the mood of cthulu
+        // this field may or may not contain a timezone, which may or may not be correct
+        // So we strip timezone from the ISO responses that iSite gives us and assume the user meant europe/london
+        // which they nearly always do.
+        $date = preg_replace('/[Z\+].*$/', '', $date);
+        return new Chronos($date, 'Europe/London');
     }
 
     protected function getImage($pid): Image

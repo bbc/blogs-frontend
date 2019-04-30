@@ -21,12 +21,12 @@ class FeedGeneratorTest extends TestCase
 {
     public function setUp()
     {
-        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 12, 15, 0, 0, 0));
+        ApplicationTimeProvider::setDateTime(Chronos::create(2017, 12, 15, 0, 0, 0));
     }
 
     public function tearDown()
     {
-        ApplicationTimeProvider::clearTestDateTime();
+        ApplicationTimeProvider::clearDateTime();
     }
 
     public function testRssNoPosts()

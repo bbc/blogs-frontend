@@ -30,11 +30,11 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewCurrentMonthYear()
     {
-        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 9, 8, 13, 55));
+        ApplicationTimeProvider::setDateTime(Chronos::create(2017, 9, 8, 13, 55));
 
         $posts = [
             PostBuilder::default()
-                ->withPublishedDate(Chronos::create(2017, 9, 2, 9, 00))
+                ->withPublishedDate(new Chronos("2017-09-02T09:00:00.000", "Europe/London"))
                 ->build(),
         ];
 
@@ -51,7 +51,7 @@ class PostByDateControllerTest extends BaseWebTestCase
             ->willReturn(
                 [
                     PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2013, 4, 29, 9, 45))
+                        ->withPublishedDate(new Chronos("2013-04-29T09:45:00.000", "Europe/London"))
                         ->build(),
                     $posts[0],
                 ]
@@ -109,17 +109,17 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInPast()
     {
-        ApplicationTimeProvider::setTestDateTime(Chronos::create(2017, 12, 5, 12, 51));
+        ApplicationTimeProvider::setDateTime(Chronos::create(2017, 12, 5, 12, 51));
 
         $posts = [
             PostBuilder::default()
-                ->withPublishedDate(Chronos::create(2016, 4, 4, 9, 00))
+                ->withPublishedDate(new Chronos("2016-04-04T09:00:00.000", "Europe/London"))
                 ->build(),
             PostBuilder::default()
-                ->withPublishedDate(Chronos::create(2016, 4, 25, 19, 00))
+                ->withPublishedDate(new Chronos("2016-04-25T19:00:00.000", "Europe/London"))
                 ->build(),
             PostBuilder::default()
-                ->withPublishedDate(Chronos::create(2016, 4, 29, 9, 45))
+                ->withPublishedDate(new Chronos("2016-04-29T09:45:00.000", "Europe/London"))
                 ->build(),
         ];
 
@@ -138,10 +138,10 @@ class PostByDateControllerTest extends BaseWebTestCase
             ->willReturn(
                 [
                     PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2013, 4, 29, 9, 45))
+                        ->withPublishedDate(new Chronos("2013-04-29T09:45:00.000", "Europe/London"))
                         ->build(),
                     PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2017, 4, 29, 9, 45))
+                        ->withPublishedDate(new Chronos("2017-04-29T09:45:00.000", "Europe/London"))
                         ->build(),
                 ]
             );
@@ -193,7 +193,7 @@ class PostByDateControllerTest extends BaseWebTestCase
      */
     public function testViewMonthYearInFuture()
     {
-        ApplicationTimeProvider::setTestDateTime(Chronos::create(2016, 2, 3, 11, 30));
+        ApplicationTimeProvider::setDateTime(Chronos::create(2016, 2, 3, 11, 30));
 
         $posts = [];
 
@@ -209,10 +209,10 @@ class PostByDateControllerTest extends BaseWebTestCase
             ->willReturn(
                 [
                     PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2013, 4, 29, 9, 45))
+                        ->withPublishedDate(new Chronos("2013-04-29T09:45:00.000", "Europe/London"))
                         ->build(),
                     PostBuilder::default()
-                        ->withPublishedDate(Chronos::create(2016, 1, 29, 9, 45))
+                        ->withPublishedDate(new Chronos("2016-01-29T09:45:00.000", "Europe/London"))
                         ->build(),
                 ]
             );

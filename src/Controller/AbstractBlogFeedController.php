@@ -5,7 +5,7 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\BlogsService\Service\PostService;
-use Cake\Chronos\Chronos;
+use App\Helper\ApplicationTimeProvider;
 
 abstract class AbstractBlogFeedController extends AbstractFeedController
 {
@@ -16,7 +16,7 @@ abstract class AbstractBlogFeedController extends AbstractFeedController
      */
     protected function getPostsForFeed(Blog $blog, PostService $postService): array
     {
-        $postResult = $postService->getPostsByBlog($blog, Chronos::now(), 1, 15);
+        $postResult = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getLocalTime(), 1, 15);
         return $postResult->getDomainModels();
     }
 }

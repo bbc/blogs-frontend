@@ -11,6 +11,7 @@ use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Infrastructure\IsiteFeedResponseHandler;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Repository\PostRepository;
+use App\Helper\ApplicationTimeProvider;
 use BBC\ProgrammesCachingLibrary\CacheInterface;
 use Cake\Chronos\Chronos;
 
@@ -77,7 +78,7 @@ class PostService
 
                 $ranges = [
                     'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond(), 'sort' => 'desc'],
-                    'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => Chronos::now(), 'sort' => 'asc'],
+                    'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => ApplicationTimeProvider::getTime(), 'sort' => 'asc'],
                 ];
 
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);

@@ -3,6 +3,7 @@ declare(strict_types = 1);
 
 namespace App\Translate;
 
+use App\Helper\ApplicationTimeProvider;
 use DateTimeInterface;
 use IntlDateFormatter;
 
@@ -42,7 +43,8 @@ trait TranslatableTrait
             $this->dateFormatterCache[$cacheKey] = IntlDateFormatter::create(
                 $locale,
                 IntlDateFormatter::LONG,
-                IntlDateFormatter::NONE
+                IntlDateFormatter::NONE,
+                ApplicationTimeProvider::getLocalTimeZone()
             );
         }
 
