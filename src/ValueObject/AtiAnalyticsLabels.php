@@ -16,11 +16,15 @@ class AtiAnalyticsLabels
     /** @var Blog|null */
     private $blog;
 
-    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne, Blog $blog = null)
+    /** @var array */
+    private $extraLabels;
+
+    public function __construct(CosmosInfo $cosmosInfo, string $chapterOne, array $extraLabels, ?Blog $blog = null)
     {
         $this->appEnvironment = $cosmosInfo->getAppEnvironment();
         $this->chapterOne = $chapterOne;
         $this->blog = $blog;
+        $this->extraLabels = $extraLabels;
     }
 
     public function setAppEnvironment(string $appEnvironment): void
@@ -28,9 +32,10 @@ class AtiAnalyticsLabels
         $this->appEnvironment = $appEnvironment;
     }
 
-    public function orbLabels()
+    public function orbLabels(): array 
     {
         $this->blog ? $blogTitle = $this->getBlogTitle() : $blogTitle = null;
+        $this->blog ? $hasComments = $this->hasComments() : $hasComments = false;
 
         $labels = [
             'destination' => $this->getDestination(),
@@ -38,6 +43,7 @@ class AtiAnalyticsLabels
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
                 ['name' => 'custom_var_1', 'value' => $blogTitle],
+                ['name' => 'custom_var_2', 'value' => $hasComments],
             ],
         ];
 
@@ -58,5 +64,10 @@ class AtiAnalyticsLabels
     private function getBlogTitle(): string
     {
         return $this->blog->getName();
+    }
+
+    private function hasComments(): bool
+    {
+        return $this->blog->hasCommentsEnabled();
     }
 }

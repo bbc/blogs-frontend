@@ -39,6 +39,9 @@ abstract class BaseController extends AbstractController
     /** @var string */
     private $atiChapterOne;
 
+    /** @var array */
+    private $atiExtraLabels = [];
+
     /** @var string */
     private $brandingId = 'br-07918';
 
@@ -82,6 +85,11 @@ abstract class BaseController extends AbstractController
         $this->istatsPageType = $pageType;
     }
 
+    protected function setAtiExtraLabels(array $extraLabels): void
+    {
+        $this->atiExtraLabels = $extraLabels;
+    }
+
     protected function response(): Response
     {
         return $this->response;
@@ -106,7 +114,7 @@ abstract class BaseController extends AbstractController
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
-        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne, $parameters['blog'] ?? null);
+        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne, $this->atiExtraLabels, $parameters['blog'] ?? null);
         $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
 
         $translateProvider->setLocale($locale);
