@@ -54,7 +54,12 @@ abstract class Mapper
         return $this->getForm($isiteObject)->metadata;
     }
 
-    protected function getUserInputDateTime(SimpleXMLElement $date): Chronos
+    protected function getDateTime(SimpleXMLElement $date): Chronos
+    {
+        return new Chronos($this->getString($date));
+    }
+
+    protected function getDisplayPublishedDateTime(SimpleXMLElement $date): Chronos
     {
         $date = $this->getString($date);
         // the published-date field we use is auto-generated in iSite but can be modified by the user.

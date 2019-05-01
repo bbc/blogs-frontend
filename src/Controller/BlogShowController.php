@@ -16,7 +16,7 @@ class BlogShowController extends BlogsBaseController
         $this->setAtiChapterOneVariable('blog-homepage');
         $this->setBlog($blog);
 
-        $result = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getLocalTime());
+        $result = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getTimeOffsetByCurrentDSTOffset());
 
         /** @var Post[] $posts */
         $posts = $result->getDomainModels();

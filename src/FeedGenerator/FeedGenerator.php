@@ -55,7 +55,7 @@ class FeedGenerator
 
         $blogUrl = $this->router->generate('blog', ['blogId' => $blog->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
         $feedUrl = $this->router->generate('feed_' . $type, ['blogId' => $blog->getId()], UrlGeneratorInterface::ABSOLUTE_URL);
-        $lastModified = count($posts) > 0 ? $posts[0]->getPublishedDate() : ApplicationTimeProvider::getTime();
+        $lastModified = count($posts) > 0 ? $posts[0]->getDisplayDate() : ApplicationTimeProvider::getTime();
         [$lang, $country] = explode('-', $blog->getLanguage());
 
         $feed->setTitle($blog->getName() . ' ' . $this->tr('feed'));
@@ -92,8 +92,8 @@ class FeedGenerator
         $feedItem->setTitle($post->getTitle());
         $feedItem->setLink($postUrl);
         $feedItem->setDescription($post->getShortSynopsis());
-        $feedItem->setDateModified($post->getPublishedDate()->getTimestamp());
-        $feedItem->setDateCreated($post->getPublishedDate()->getTimestamp());
+        $feedItem->setDateModified($post->getDisplayDate()->getTimestamp());
+        $feedItem->setDateCreated($post->getDisplayDate()->getTimestamp());
 
         if ($post->getAuthor()) {
             $feedItem->addAuthor(['name' => $post->getAuthor()->getName()]);

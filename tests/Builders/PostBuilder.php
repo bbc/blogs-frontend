@@ -57,6 +57,7 @@ class PostBuilder implements BuilderInterface
             $this->guid ?? new GUID($faker->uuid),
             $this->forumId ?? $faker->word,
             $this->publishedDate ?? Chronos::create($faker->year, $faker->month, $faker->dayOfMonth, $faker->numberBetween(0, 23), $faker->numberBetween(0, 59)),
+            $this->publishedDate ?? Chronos::create($faker->year, $faker->month, $faker->dayOfMonth, $faker->numberBetween(0, 23), $faker->numberBetween(0, 59)),
             $title,
             $this->shortSynopsis ?? $faker->sentence(),
             $this->author,

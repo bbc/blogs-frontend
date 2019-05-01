@@ -9,8 +9,8 @@
         </a>
     </h{{ post_summary.getOption('h_tag') }}>
     <p class="milli no-margin text--subtle">
-        <time datetime="{{ post_summary.getPost().getPublishedDate()|date(constant('DATE_ATOM')) }}">
-            {{ post_summary.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
+        <time datetime="{{ post_summary.getPost().getDisplayDate()|date(constant('DATE_ATOM')) }}">
+            {{ post_summary.getPost().getDisplayDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
         </time>
     </p>
     {% if post_summary.shouldShowAuthor() %}

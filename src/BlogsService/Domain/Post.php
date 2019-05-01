@@ -40,10 +40,14 @@ class Post
     /** @var GUID */
     private $guid;
 
+    /** @var Chronos */
+    private $displayDate;
+
     public function __construct(
         GUID $guid,
         string $forumId,
         Chronos $publishedDate,
+        Chronos $displayDate,
         string $title,
         string $shortSynopsis,
         ?Author $author = null,
@@ -60,6 +64,7 @@ class Post
         $this->image = $image;
         $this->content = $content;
         $this->tags = $tags;
+        $this->displayDate = $displayDate;
     }
 
     public function getForumId(): string
@@ -72,9 +77,25 @@ class Post
         return $this->guid;
     }
 
+    /**
+     * The user-input published date as returned by iSite without any messing around
+     *
+     * @return Chronos
+     */
     public function getPublishedDate(): Chronos
     {
         return $this->publishedDate;
+    }
+
+    /**
+     * The user-input published date re-jigged to assume that the timezone the user *meant* was
+     * Europe/London. This results in a correct date output when fed to localtime functions
+     *
+     * @return Chronos
+     */
+    public function getDisplayDate(): Chronos
+    {
+        return $this->displayDate;
     }
 
     public function getTitle(): string

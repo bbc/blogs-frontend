@@ -33,8 +33,8 @@ class SchemaJsonExtension extends AbstractExtension
         $schemaData['headline'] = $post->getTitle();
         $schemaData['description'] = $post->getShortSynopsis();
         $schemaData['image'] = $post->getImage() ? $post->getImage()->getUrl(1200, 675) : '';
-        $schemaData['datePublished'] = $post->getPublishedDate()->format('Y-m-d\TH:i:s');
-        $schemaData['dateModified'] = $post->getPublishedDate()->format('Y-m-d\TH:i:s');
+        $schemaData['datePublished'] = $post->getDisplayDate()->format('Y-m-d\TH:i:s');
+        $schemaData['dateModified'] = $post->getDisplayDate()->format('Y-m-d\TH:i:s');
         $schemaData['author'] = $this->getSchemaForAuthor($post);
         $schemaData['publisher'] = [
             '@type' => 'Organization',
