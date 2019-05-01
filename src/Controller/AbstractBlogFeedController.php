@@ -16,7 +16,7 @@ abstract class AbstractBlogFeedController extends AbstractFeedController
      */
     protected function getPostsForFeed(Blog $blog, PostService $postService): array
     {
-        $postResult = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getLocalTime(), 1, 15);
+        $postResult = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getTimeOffsetByCurrentDSTOffset(), 1, 15);
         return $postResult->getDomainModels();
     }
 }

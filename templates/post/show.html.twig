@@ -22,7 +22,7 @@
     {# POST #}
     <meta name="twitter:title" content="{{ post.getTitle() }}">
     <meta property="og:title" content="{{ post.getTitle() }}" />
-    <meta property="article:published_time" content="{{ post.getPublishedDate() | date(constant('DATE_W3C')) }}" />
+    <meta property="article:published_time" content="{{ post.getDisplayDate() | date(constant('DATE_W3C')) }}" />
     <meta property="og:url" content="{{ url('post', {blogId: blog.getId(), guid: post.getGuid()}) }}" />
 
     {%- if post.getShortSynopsis() -%}
@@ -95,8 +95,8 @@
             <div class="component component--lined br-keyline">
                 <h1>{{ post.getTitle() }}</h1>
 
-                <p class="text--subtle milli"><time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">
-                    {{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}
+                <p class="text--subtle milli"><time datetime="{{ post.getDisplayDate()|date(constant('DATE_ATOM')) }}">
+                    {{ post.getDisplayDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}
                 </time></p>
 
                 {% if post.getAuthor() %}
@@ -166,9 +166,9 @@
                     {{ post.getTitle() }}
                 </a>
             </h4>
-            {%- if post.getPublishedDate() -%}
+            {%- if post.getDisplayDate() -%}
                 <p class="text--subtle milli">
-                    <time datetime="{{ post.getPublishedDate()|date(constant('DATE_ATOM')) }}">{{ post.getPublishedDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}</time>
+                    <time datetime="{{ post.getDisplayDate()|date(constant('DATE_ATOM')) }}">{{ post.getDisplayDate()|local_date_intl('EEEE d MMMM Y, H:mm') }}</time>
                 </p>
             {%- endif -%}
         </div>

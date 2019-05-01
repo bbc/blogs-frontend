@@ -51,6 +51,7 @@ class PostTest extends TestCase
             $guid,
             $forumId,
             $publishedDate,
+            $publishedDate,
             $title,
             $shortSynopsis,
             $author,

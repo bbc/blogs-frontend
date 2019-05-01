@@ -37,7 +37,7 @@ class PostShowController extends BlogsBaseController
 
         $istatsLabels = [
             'post_title' => $post->getTitle(),
-            'published_date' => $post->getPublishedDate()->format('F j, Y, g:i a'),
+            'published_date' => $post->getDisplayDate()->format('F j, Y, g:i a'),
         ];
         if ($post->getAuthor() !== null) {
             $istatsLabels['post_author'] = $post->getAuthor()->getName();

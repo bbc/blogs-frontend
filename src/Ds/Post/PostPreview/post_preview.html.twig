@@ -5,8 +5,8 @@
         </a>
     </h3>
     <p class="text--subtle milli no-margin">
-        <time datetime="{{ post_preview.getPost().getPublishedDate()|date(constant('DATE_ATOM')) }}">
-            {{ post_preview.getPost().getPublishedDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
+        <time datetime="{{ post_preview.getPost().getDisplayDate()|date(constant('DATE_ATOM')) }}">
+            {{ post_preview.getPost().getDisplayDate()|local_date_intl('eeee dd MMMM yyyy, HH:mm') }}
         </time>
     </p>
     {%- if post_preview.getPost().getAuthor() -%}

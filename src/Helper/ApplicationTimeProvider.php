@@ -37,6 +37,20 @@ class ApplicationTimeProvider
         return static::$localTime;
     }
 
+    /**
+     * This is used to return a Chronos object that's an hour offset for
+     * querying iSite publihsed time field where "now" can actually be an hour off
+     * @return Chronos
+     */
+    public static function getTimeOffsetByCurrentDSTOffset(): Chronos
+    {
+        if (self::getLocalTime()->format('I')) {
+            // We are in DST. Add an hour to times for certain queries.
+            return Chronos::createFromTimestamp(self::getTime()->addHour()->getTimestamp(), 'UTC');
+        }
+        return self::getTime();
+    }
+
     public static function getLocalTimeZone(): DateTimeZone
     {
         if (null === self::$localTimeZone) {
