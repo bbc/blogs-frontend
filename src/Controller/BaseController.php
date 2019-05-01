@@ -106,7 +106,7 @@ abstract class BaseController extends AbstractController
         $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
         $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
 
-        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne);
+        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne, $this->hasVideo, $parameters['blog'] ?? null);
         $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
 
         $translateProvider->setLocale($locale);
