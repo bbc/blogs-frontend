@@ -77,8 +77,8 @@ class PostService
             function () use ($blog, $publishedDate, $page, $perpage) {
 
                 $ranges = [
-                    'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond(), 'sort' => 'desc'],
-                    'nextPost' => ['afterDate' => $publishedDate, 'beforeDate' => ApplicationTimeProvider::getTimeOffsetByCurrentDSTOffset(), 'sort' => 'asc'],
+                    'previousPost' => ['afterDate' => Chronos::create(1970, 1, 1), 'beforeDate' => $publishedDate->subSecond()->subHour(), 'sort' => 'desc'],
+                    'nextPost' => ['afterDate' => $publishedDate->addHour(), 'beforeDate' => ApplicationTimeProvider::getTimeOffsetByCurrentDSTOffset(), 'sort' => 'asc'],
                 ];
 
                 $responses = $this->repository->getPostsBetween($blog->getId(), $ranges, 0, $page, $perpage);
