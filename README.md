@@ -20,13 +20,11 @@ The defaults are fine, but you may need to obtain an API key for the comments AP
 
 **Install Static Assets**
 
-[Install Yarn](https://yarnpkg.com/en/docs/install) if you don't already have it.
+Perform `npm install`
 
-Perform `yarn install`
+To compile the static assests, it's `npm run gulp`
 
-To compile the static assests, it's `yarn run gulp`
-
-To watch for file changes, it's `yarn run watch`
+To watch for file changes, it's `npm run watch`
 
 Tests
 -------
