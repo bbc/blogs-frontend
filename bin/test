@@ -10,5 +10,5 @@ fi
 
 bin/phpunit
 vendor/bin/phpcs
-yarn run lint
+npm run lint
 php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7
