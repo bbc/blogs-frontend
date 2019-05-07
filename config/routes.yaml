@@ -94,3 +94,11 @@ feed_rss_tags:
     path: /blogs/{blogId}/tags/{tagId}/rss
     defaults: { _controller: App\Controller\TagRssFeedController }
     requirements: { blogId: '[a-z0-9]+', tagId: '[A-Za-z0-9-]+'}
+
+legacy_comment_profiles:
+    path: /blogs/profile.shtml
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /dna/blog23/vanilla/CommentProfile
+        permanent: true
+        scheme: https
