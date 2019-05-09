@@ -28,7 +28,7 @@ gulp.task('js:clean', function () {
     return del([staticPathDist + '/js']);
 });
 
-gulp.task('js', ['js:clean'], function () {
+gulp.task('js', gulp.series('js:clean'), function () {
     const modulesToOptimize = [
         staticPathSrc + '/js/**/blogs-bootstrap.js',
         staticPathSrc + '/js/**/third-party.js',
@@ -67,7 +67,7 @@ gulp.task('sass:clean', function() {
     return del([staticPathDist + '/css']);
 });
 
-gulp.task('sass', ['sass:clean'], function() {
+gulp.task('sass', gulp.series('sass:clean'), function() {
     return gulp.src(staticPathSrc + sassMatch)
         .pipe(gulpif(isSandbox, sourcemaps.init()))
         .pipe(sass({
@@ -88,14 +88,14 @@ gulp.task('images:clean', function() {
     return del([staticPathDist + '/images']);
 });
 
-gulp.task('images', ['images:clean'], function() {
+gulp.task('images', gulp.series('images:clean'), function() {
     return gulp.src(staticPathSrc + '/images/**/*')
         .pipe(gulp.dest(staticPathDist + '/images/'));
 });
 
 // ------
 
-gulp.task('rev', ['sass', 'images', 'js'], function() {
+gulp.task('rev', gulp.series('sass', 'images', 'js'), function() {
     return gulp.src([staticPathDist + '/**/*'])
         .pipe(rev())
         .pipe(override())
@@ -125,7 +125,10 @@ gulp.task('watch',function() {
 
 gulp.task('default', function(cb){
     isSandbox = true;
-    runSequence(['sass', 'images', 'js']);
+    // runSequence(['sass', 'images', 'js']);
+    let series = gulp.series('sass', 'images', 'js');
+    series();
+    cb();
 });
 
-gulp.task('distribution', ['rev']);
+gulp.task('distribution', gulp.series('rev'));
