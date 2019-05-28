@@ -102,7 +102,7 @@ gulp.task('rev', gulp.series('sass', 'images', 'js'), function() {
         .pipe(gulp.dest(staticPathDist))
         .pipe(revdelOriginal()) // delete no-revised file
         .pipe(rev.manifest())
-        .pipe(gulp.dest(staticPathDist));
+        .pipe(gulp.dest('var'));
 });
 
 /*
