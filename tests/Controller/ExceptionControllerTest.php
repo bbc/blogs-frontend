@@ -25,7 +25,7 @@ class ExceptionControllerTest extends BaseWebTestCase
         );
 
         $this->assertEquals(
-            '/assets/images/error/404.gif',
+            '/assets/images/error/clanger_error.gif',
             $crawler->filter('.blogs-page img')->attr('src')
         );
     }
@@ -46,7 +46,7 @@ class ExceptionControllerTest extends BaseWebTestCase
         );
 
         $this->assertEquals(
-            '/assets/images/error/500.gif',
+            '/assets/images/error/clanger_error.gif',
             $crawler->filter('.blogs-page img')->attr('src')
         );
     }
