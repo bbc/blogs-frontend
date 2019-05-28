@@ -28,7 +28,7 @@ gulp.task('js:clean', function () {
     return del([staticPathDist + '/js']);
 });
 
-gulp.task('js', gulp.series('js:clean'), function () {
+gulp.task('js', gulp.series('js:clean' , function () {
     const modulesToOptimize = [
         staticPathSrc + '/js/**/blogs-bootstrap.js',
         staticPathSrc + '/js/**/third-party.js',
@@ -59,7 +59,7 @@ gulp.task('js', gulp.series('js:clean'), function () {
         .pipe(requirejsOptimize(config))
         .pipe(gulpif(isSandbox, sourcemaps.write('.')))
         .pipe(gulp.dest(staticPathDist + '/js'));
-});
+}));
 
 // ------
 
@@ -67,7 +67,7 @@ gulp.task('sass:clean', function() {
     return del([staticPathDist + '/css']);
 });
 
-gulp.task('sass', gulp.series('sass:clean'), function() {
+gulp.task('sass', gulp.series('sass:clean', function() {
     return gulp.src(staticPathSrc + sassMatch)
         .pipe(gulpif(isSandbox, sourcemaps.init()))
         .pipe(sass({
@@ -80,7 +80,7 @@ gulp.task('sass', gulp.series('sass:clean'), function() {
         }))
         .pipe(gulpif(isSandbox, sourcemaps.write('.')))
         .pipe(gulp.dest(staticPathDist + '/css/'));
-});
+}));
 
 // ------
 
@@ -102,7 +102,7 @@ gulp.task('rev', gulp.series('sass', 'images', 'js'), function() {
         .pipe(gulp.dest(staticPathDist))
         .pipe(revdelOriginal()) // delete no-revised file
         .pipe(rev.manifest())
-        .pipe(gulp.dest('var'));
+        .pipe(gulp.dest(staticPathDist));
 });
 
 /*
