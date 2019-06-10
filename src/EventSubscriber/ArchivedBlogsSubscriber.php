@@ -36,7 +36,7 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
             $request = $event->getRequest();
             $path = $this->cleanUpPath($request->getPathInfo());
 
-            if (strpos($path, 'blogs/', 0) !== 0) {
+            if ($this->isInvalidPath($path)) {
                 return;
             }
 
@@ -51,6 +51,24 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
         }
     }
 
+    private function isInvalidPath(string $path)
+    {
+        if (strpos($path, 'blogs/', 0) !== 0) {
+            return true;
+        }
+        // Directory traversal isn't actually a problem, but it
+        // does generate spurious 5xx errors due to the redirect
+        // that the backend API does. Disable it.
+        if (preg_match('/(\.|%2e){2}\//', $path)) {
+            return true;
+        }
+
+        if (strlen($path) > 995) {
+            return true;
+        }
+        return false;
+    }
+
     private function cleanUpPath(string $path)
     {
         $path = preg_replace('/^\/{0,1000}/', '', $path);
@@ -62,8 +80,6 @@ class ArchivedBlogsSubscriber implements EventSubscriberInterface
         if (!preg_match('/(\/|\.[a-zA-Z0-9]{0,1000})$/', $path)) {
             $path .= '/';
         }
-        // Take out any ../'s that could allow for directory traversal
-        $path = preg_replace('/(\.\.\/|\%2e){0,1000}/', '', $path);
         return $path;
     }
 }
