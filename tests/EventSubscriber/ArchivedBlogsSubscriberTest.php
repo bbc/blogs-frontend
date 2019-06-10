@@ -7,19 +7,17 @@ use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\LegacyBlogService;
 use GuzzleHttp\Psr7\Response;
 use PHPUnit_Framework_MockObject_MockObject;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Event\GetResponseForExceptionEvent;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Tests\App\BlogsService\Service\ServiceTest;
 use App\EventSubscriber\ArchivedBlogsSubscriber;
 
 class ArchivedBlogsSubscriberTest extends ServiceTest
 {
-    /**
-     * @var LegacyBlogService
-     */
     private $mockLegacyBlogService;
 
-    /**
-     * @var ArchivedBlogsSubscriber
-     */
+    /** @var ArchivedBlogsSubscriber */
     private $subscriber;
 
     public function setUp()
@@ -33,13 +31,25 @@ class ArchivedBlogsSubscriberTest extends ServiceTest
     /**
      * @dataProvider archivedBlogsSubscriberRegexDataProvider
      */
-    public function testArchivedBlogsSubscriberRegex(string $path, string $expected)
+    public function testSomeThingsEndToEnd(string $inputPath, $expectedCall)
     {
-        $reflection = new \ReflectionClass($this->subscriber);
-        $method = $reflection->getMethod('cleanUpPath');
-        $method->setAccessible(true);
-
-        $this->assertEquals($expected, $method->invokeArgs($this->subscriber, [$path]));
+        if ($expectedCall) {
+            $this->mockLegacyBlogService->expects($this->once())
+                ->method('getLegacyBlog')
+                ->with($expectedCall);
+        } else {
+            $this->mockLegacyBlogService->expects($this->never())
+                ->method('getLegacyBlog');
+        }
+        $mockRequest = $this->createConfiguredMock(Request::class, [
+            'getPathInfo' => $inputPath,
+        ]);
+        $mockHttpNotFoundException = $this->createMock(NotFoundHttpException::class);
+        $mockExceptionEvent = $this->createConfiguredMock(GetResponseForExceptionEvent::class, [
+            'getException' => $mockHttpNotFoundException,
+            'getRequest' => $mockRequest,
+        ]);
+        $this->subscriber->exceptionEvent($mockExceptionEvent);
     }
 
     public function archivedBlogsSubscriberRegexDataProvider()
@@ -65,11 +75,31 @@ class ArchivedBlogsSubscriberTest extends ServiceTest
                 'blogs/foobar/made/up/stuff/here',
                 'blogs/foobar/made/up/stuff/here/',
             ],
-            'directory-traversal' => [
+            'directory-traversal-1' => [
                 'blogs/../secret/nuclear/codes.txt',
-                'blogs/secret/nuclear/codes.txt',
-
+                null,
+            ],
+            'directory-traversal-2' => [
+                'blogs/bbcinternet/2008/.../...//.../...//.../...//.../...//.../...//.../...//.../...//.../...//etc/passwd',
+                null,
+            ],
+            'hmm' => [
+                'blogs/bbcinternet/2008/%2e%2e/wibble',
+                'blogs/bbcinternet/2008/2e2e/wibble/',
+            ],
+            'over-long-path' => [
+                $this->generateLongString(1000),
+                null,
             ],
         ];
+    }
+
+    private function generateLongString(int $length)
+    {
+        $str = '';
+        for ($i = 0; $i < $length; $i++) {
+            $str .= 'Q';
+        }
+        return $str;
     }
 }
