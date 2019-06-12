@@ -10,19 +10,14 @@ class AuthorIndexAtoZController extends BlogsBaseController
 {
     public function __invoke(Blog $blog)
     {
-        $pageContext = $this->pageContextHelper()->makePageContext(
+        $this->setBlog($blog);
+        $this->pageContextHelper()->setDescription(
             'A-Z listing of authors on the BBC\'s "' . $blog->getName() . '"" blog',
-            $blog
         );
 
-        $analyticsLabels = $this->analyticsHelper()->makeLabels(
-            'list-authors',
-            $blog
-        );
+        $this->analyticsHelper()->setChapterOneVariable('list-authors');
 
         return $this->renderWithChrome(
-            $pageContext,
-            $analyticsLabels,
             'author/index.html.twig',
             ['showAZ' => true]
         );
