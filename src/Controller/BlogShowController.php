@@ -10,10 +10,12 @@ use App\Helper\ApplicationTimeProvider;
 
 class BlogShowController extends BlogsBaseController
 {
+    private $blog;
+
     public function __invoke(Blog $blog, PostService $postService)
     {
         $this->setIstatsPageType('index_single');
-        $this->setAtiChapterOneVariable('blog-homepage');
+        $this->analyticsHelper()->setChapterOneVariable('blog-homepage');
         $this->setBlog($blog);
 
         $result = $postService->getPostsByBlog($blog, ApplicationTimeProvider::getTimeOffsetByCurrentDSTOffset());

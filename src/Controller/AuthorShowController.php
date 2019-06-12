@@ -14,14 +14,11 @@ class AuthorShowController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
         $this->setIstatsPageType('author_show');
-        $this->setAtiChapterOneVariable('author');
+        $this->analyticsHelper()->setChapterOneVariable('author');
         $this->setBlog($blog);
 
-        $isPreview = $this->isPreview($request);
-        if ($isPreview) {
-            $this->setPreview(true);
-        }
-        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $isPreview);
+        $this->pageContextHelper()->setAllowPreview();
+        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $this->pageContextHelper()->isPreview());
 
         if (!$author) {
             throw $this->createNotFoundException('Author not found');

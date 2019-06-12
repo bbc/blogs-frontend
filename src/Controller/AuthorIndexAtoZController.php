@@ -8,13 +8,23 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AuthorIndexAtoZController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog)
+    public function __invoke(Blog $blog)
     {
-        $this->setIstatsPageType('author_indexatoz');
-        $this->setAtiChapterOneVariable('list-authors');
-        $this->setBlog($blog);
-        $this->counterName = 'authors';
+        $pageContext = $this->pageContextHelper()->makePageContext(
+            'A-Z listing of authors on the BBC\'s "' . $blog->getName() . '"" blog',
+            $blog
+        );
 
-        return $this->renderWithChrome('author/index.html.twig', ['showAZ' => true]);
+        $analyticsLabels = $this->analyticsHelper()->makeLabels(
+            'list-authors',
+            $blog
+        );
+
+        return $this->renderWithChrome(
+            $pageContext,
+            $analyticsLabels,
+            'author/index.html.twig',
+            ['showAZ' => true]
+        );
     }
 }

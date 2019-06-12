@@ -11,7 +11,7 @@ class HomeController extends BaseController
     public function __invoke(BlogService $blogService)
     {
         $this->setIstatsPageType('index_index');
-        $this->setAtiChapterOneVariable('blogs-index');
+        $this->analyticsHelper()->setChapterOneVariable('blogs-index');
 
         $blogResult = $blogService->getAllBlogs();
         $blogs = $blogResult->getDomainModels();

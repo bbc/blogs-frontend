@@ -17,14 +17,11 @@ class PostShowController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
         $this->setIstatsPageType('post_show');
-        $this->setAtiChapterOneVariable('post');
+        $this->analyticsHelper()->setChapterOneVariable('post');
         $this->setBlog($blog);
 
-        $isPreview = $this->isPreview($request);
-        if ($isPreview) {
-            $this->setPreview(true);
-        }
-        $post = $postService->getPostByGuid(new GUID($guid), $isPreview, $blog);
+        $this->pageContextHelper()->setAllowPreview();
+        $post = $postService->getPostByGuid(new GUID($guid), $this->pageContextHelper()->isPreview(), $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

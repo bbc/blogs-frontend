@@ -13,7 +13,7 @@ class TagShowController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, string $tagId, TagService $tagService, PostService $postService)
     {
         $this->setIstatsPageType('tag_show');
-        $this->setAtiChapterOneVariable('tag');
+        $this->analyticsHelper()->setChapterOneVariable('tag');
         $this->setBlog($blog);
 
         $tag = $tagService->getTagById($tagId, $blog);

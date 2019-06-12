@@ -15,7 +15,7 @@ class PostByDateController extends BlogsBaseController
     public function __invoke(Request $request, Blog $blog, int $year, int $month, PostService $postService)
     {
         $this->setIstatsPageType('post_date');
-        $this->setAtiChapterOneVariable('list-posts');
+        $this->analyticsHelper()->setChapterOneVariable('list-posts');
         $this->setBlog($blog);
 
         if (!$this->validMonth($month)) {

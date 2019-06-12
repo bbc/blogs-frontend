@@ -27,11 +27,6 @@ class AtiAnalyticsLabels
         $this->hasVideo = $hasVideo;
     }
 
-    public function setAppEnvironment(string $appEnvironment): void
-    {
-        $this->appEnvironment = $appEnvironment;
-    }
-
     public function orbLabels(): array
     {
         $this->blog ? $blogTitle = $this->getBlogTitle() : $blogTitle = null;
