@@ -11,12 +11,12 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AuthorIndexController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, AuthorService $authorService, PostService $postService)
+    public function __invoke(Blog $blog, AuthorService $authorService, PostService $postService)
     {
         $this->analyticsHelper()->setChapterOneVariable('list-authors');
         $this->setBlog($blog);
 
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $authorsResult = $authorService->getAuthorsByBlog($blog, $page);
 

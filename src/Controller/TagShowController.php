@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TagShowController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, string $tagId, TagService $tagService, PostService $postService)
+    public function __invoke(Blog $blog, string $tagId, TagService $tagService, PostService $postService)
     {
         $this->setIstatsPageType('tag_show');
         $this->analyticsHelper()->setChapterOneVariable('tag');
@@ -24,7 +24,7 @@ class TagShowController extends BlogsBaseController
 
         $this->counterName = 'tags.' . $tag->getName();
 
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $this->otherIstatsLabels = ['page' => (string) $page];
 

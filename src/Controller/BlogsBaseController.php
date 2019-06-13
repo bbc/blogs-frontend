@@ -59,8 +59,9 @@ abstract class BlogsBaseController extends BaseController
         return parent::renderWithChrome($view, $parameters);
     }
 
-    protected function getPageNumber(Request $request): int
+    protected function getPageNumber(): int
     {
+        $request = $this->container->get('request_stack')->getMasterRequest();
         $page = (int) $request->query->get('page', 1);
 
         return $page > 1 ? $page : 1;

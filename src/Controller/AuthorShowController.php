@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class AuthorShowController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
+    public function __invoke(Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
         $this->setIstatsPageType('author_show');
         $this->analyticsHelper()->setChapterOneVariable('author');
@@ -26,7 +26,7 @@ class AuthorShowController extends BlogsBaseController
 
         $this->counterName = 'authors.' . $author->getName();
 
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $this->otherIstatsLabels = [
             'author_name' => $author->getName(),

@@ -10,14 +10,14 @@ use Symfony\Component\HttpFoundation\Request;
 
 class TagIndexController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, TagService $tagService, PostService $postService)
+    public function __invoke(Blog $blog, TagService $tagService, PostService $postService)
     {
         $this->setIstatsPageType('tag_index');
         $this->analyticsHelper()->setChapterOneVariable('list-tags');
         $this->setBlog($blog);
         $this->counterName = 'tags';
 
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $this->otherIstatsLabels = ['page' => (string) $page];
 

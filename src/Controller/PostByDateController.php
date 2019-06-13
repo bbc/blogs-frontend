@@ -12,7 +12,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 class PostByDateController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, int $year, int $month, PostService $postService)
+    public function __invoke(Blog $blog, int $year, int $month, PostService $postService)
     {
         $this->setIstatsPageType('post_date');
         $this->analyticsHelper()->setChapterOneVariable('list-posts');
@@ -22,7 +22,7 @@ class PostByDateController extends BlogsBaseController
             throw $this->createNotFoundException('Invalid month supplied');
         }
 
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $postResult = $postService->getPostsByMonth($blog, $year, $month, $page);
         $totalPostsMonth = $postResult->getTotal();
