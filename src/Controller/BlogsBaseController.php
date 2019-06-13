@@ -37,20 +37,8 @@ abstract class BlogsBaseController extends BaseController
         return null;
     }
 
-    protected function setBlog(Blog $blog)
+    protected function renderWithChrome(PageContext $pageContext, Blog $blog, string $view, array $parameters = [])
     {
-        $this->analyticsHelper()->setBlog($blog);
-        $this->pageContextHelper()->setBlog($blog);
-        $this->brandingHelper()->setBrandingId($blog->getBrandingId());
-        $this->setLocale($blog->getLanguage());
-    }
-
-    protected function renderWithChrome(string $view, array $parameters = [])
-    {
-        if (!isset($this->blog)) {
-            throw new Exception('You smell');
-        }
-
         if (isset($parameters['blogTags'])) {
             throw new Exception('Parameter blogTags should not have already been set');
         }
@@ -62,11 +50,11 @@ abstract class BlogsBaseController extends BaseController
         if (isset($parameters['modulePresenters'])) {
             throw new Exception('Parameter modulePresenters should not have already been set');
         }
-
-
-        $parameters['blogTags'] = $this->getTagsByBlog();
-        $parameters['blog'] = $this->blog;
-        $parameters['modulePresenters'] = $this->getModulePresenters();
+        $this->setLocale($blog->getLanguage());
+        $this->brandingHelper()->setBrandingId($blog->getBrandingId());
+        $parameters['blogTags'] = $this->getTagsByBlog($blog);
+        $parameters['blog'] = $blog;
+        $parameters['modulePresenters'] = $this->getModulePresenters($blog);
 
         return parent::renderWithChrome($view, $parameters);
     }
@@ -78,27 +66,28 @@ abstract class BlogsBaseController extends BaseController
         return $page > 1 ? $page : 1;
     }
 
-    private function getTagsByBlog(): array
+    private function getTagsByBlog(Blog $blog): array
     {
-        if ($this->blog === null) {
+        if ($blog === null) {
             throw new Exception('Must set blog using `setBlog()` before calling this method!');
         }
 
         $tagService = $this->container->get(TagService::class);
 
-        $result = $tagService->getTagsByBlog($this->blog, 1, 18, false);
+        $result = $tagService->getTagsByBlog($blog, 1, 18, false);
         $tags = $result->getDomainModels();
 
         return $tags;
     }
 
     /**
+     * @param  Blog $blog
      * @return Presenter[]
      */
-    private function getModulePresenters(): array
+    private function getModulePresenters(Blog $blog): array
     {
         $modulePresenters = [];
-        foreach ($this->blog->getModules() as $module) {
+        foreach ($blog->getModules() as $module) {
             if ($module instanceof FreeText) {
                 $modulePresenters[] = new FreetextPresenter($module);
             } elseif ($module instanceof Links) {

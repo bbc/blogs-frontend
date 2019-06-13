@@ -18,14 +18,8 @@ class PageContextHelper
     /** @var RequestStack */
     private $requestStack;
 
-    /** @var Blog */
-    private $blog;
-
-    /** @var Image */
-    private $socialImage;
-
-    /** @var string */
-    private $description;
+    /** @var mixed */
+    private $contextObject;
 
     /** @var UrlGeneratorInterface */
     private $router;
@@ -41,32 +35,17 @@ class PageContextHelper
         $this->router = $router;
     }
 
-    public function setBlog(Blog $blog)
-    {
-        $this->blog = $blog;
-    }
-
-    public function setSocialImage(?Image $image)
-    {
-        $this->socialImage = $image;
-    }
-
-    public function setDescription(string $description)
-    {
-        $this->description = $description;
-    }
-
     public function setAllowPreview(bool $allowPreview = true)
     {
         $this->allowPreview = $allowPreview;
     }
 
-    public function makePageContext()
+    public function makePageContext(string $description, ?Blog $blog = null, ?Image $socialImage = null)
     {
         return new PageContext(
-            $this->description,
+            $description,
             $this->getCanonicalUrl(),
-            $this->getPageImage(),
+            $this->getPageImage($socialImage, $blog),
             $this->isPreview()
         );
     }
@@ -90,13 +69,13 @@ class PageContextHelper
         return (bool) $preview;
     }
 
-    public function getPageImage(): Image
+    public function getPageImage(?Image $socialImage, ?Blog $blog): Image
     {
-        if ($this->socialImage) {
-            return $this->socialImage;
+        if ($socialImage) {
+            return $socialImage;
         }
-        if ($this->blog && $this->blog->getImage()) {
-            return $this->blog->getImage();
+        if ($blog && $blog->getImage()) {
+            return $blog->getImage();
         }
         return new Image('p01tqv8z.png');
     }
