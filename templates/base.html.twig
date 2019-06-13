@@ -7,21 +7,26 @@
     <link rel="icon" href="https://www.bbc.co.uk/favicon.ico" type="image/x-icon">
     <meta name="theme-color" content="{{ branding.getColours().highlight.bg|default('#2B2B2B') }}">
 
-    {#- Facebook pages that are allowed to edit FB preview titles and descriptions -#}
-    <meta property="fb:pages" content="{{ page_context.getBBCFacebookPageIds() }}">
-    <meta property="og:site_name" content="BBC">
-
-    {#- Twitter-specific tags -#}
-    <meta name="twitter:card" content="summary_large_image">
-
-    {% if page_context.isPreview() %}
+    {% if page_metadata.isPreview() %}
         <meta name="robots" content="noindex,nofollow">
     {% endif %}
 
     {#- OpenGraph tags for Facebook/Twitter -#}
     {% block social_tags %}
+        {#- Facebook pages that are allowed to edit FB preview titles and descriptions -#}
+        <meta property="fb:pages" content="{{ page_metadata.getBBCFacebookPageIds() }}">
+        <meta property="og:site_name" content="BBC">
+        <meta property="og:url" content="{{ page_metadata.getCanonicalUrl() }}" >
+        {% if page_metadata.getDescription() %}
+            <meta property="og:description" content="{{ page_metadata.getDescription() }}" >
+            <meta name="description" content="{{ page_metadata.getDescription() }}" >
+        {% endif %}
+    {% endblock %}
+
+    {% block card_tags %}
+        {#- Twitter-specific tags -#}
+        <meta name="twitter:card" content="summary_large_image">
         <meta property="og:title" content="{{ block('title') }}">
-        <meta property="og:url" content="{{ page_context.getCanonicalUrl() }}" />
     {% endblock %}
 
     {% block social_type %}
@@ -29,7 +34,7 @@
     {% endblock %}
 
     {% block social_image_tags %}
-        <meta property="og:image" content="{{ fallback_social_image.getUrl(1200,675) }}" />
+        <meta property="og:image" content="{{ page_metadata.getSocialImage().getUrl(1200,675) }}" >
     {% endblock %}
 
     {% block social_description %}{% endblock %}
@@ -38,10 +43,10 @@
     {{ branding.getHead()|raw }}
 
     <!--[if (gt IE 8)|!(IE)]><!-->
-    <link rel="stylesheet" href="{{ asset('css/main.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/main.css') }}">
     <!--<![endif]-->
     <!--[if (lt IE 9)&(!IEMobile)]>
-    <link rel="stylesheet" href="{{ asset('css/main-ie.css') }}"/>
+    <link rel="stylesheet" href="{{ asset('css/main-ie.css') }}">
     <![endif]-->
     {% block inline_head %}{% endblock %}
 

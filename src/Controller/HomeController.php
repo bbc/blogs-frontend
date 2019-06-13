@@ -10,18 +10,24 @@ class HomeController extends BaseController
 {
     public function __invoke(BlogService $blogService)
     {
-        $this->setIstatsPageType('index_index');
-        $this->analyticsHelper()->setChapterOneVariable('blogs-index');
-
         $blogResult = $blogService->getAllBlogs();
         $blogs = $blogResult->getDomainModels();
 
         $blogsByLetter = $this->getBlogsByLetter($blogs);
 
-        return $this->renderWithChrome('home/show.html.twig', [
-            'hasBlogs' => !empty($blogsByLetter),
-            'blogsByLetter' => $blogsByLetter,
-        ]);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('blogs-index');
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata('The latest blogs from the BBC');
+
+        return $this->renderWithBrandingAndOrbit(
+            'home/show.html.twig',
+            $pageMetadata,
+            $analyticsLabels,
+            $this->brandingHelper()->requestBranding(''), // Default branding
+            [
+                'hasBlogs' => !empty($blogsByLetter),
+                'blogsByLetter' => $blogsByLetter,
+            ]
+        );
     }
 
     private function removePrefix($prefix, $str): string

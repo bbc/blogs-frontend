@@ -8,19 +8,16 @@ use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\TagService;
-use App\Controller\Helpers\ValueObjects\PageContext;
+use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use Exception;
-use Symfony\Component\HttpFoundation\Request;
 
 abstract class BlogsBaseController extends BaseController
 {
-    /** @var Blog */
-    private $blog;
-
     public static function getSubscribedServices()
     {
         return array_merge(parent::getSubscribedServices(), [
@@ -37,7 +34,13 @@ abstract class BlogsBaseController extends BaseController
         return null;
     }
 
-    protected function renderWithChrome(PageContext $pageContext, Blog $blog, string $view, array $parameters = [])
+    protected function renderBlogPage(
+        string $view,
+        AtiAnalyticsLabels $atiAnalyticsLabels,
+        PageMetadata $pageMetadata,
+        Blog $blog,
+        array $parameters = []
+    )
     {
         if (isset($parameters['blogTags'])) {
             throw new Exception('Parameter blogTags should not have already been set');
@@ -50,13 +53,12 @@ abstract class BlogsBaseController extends BaseController
         if (isset($parameters['modulePresenters'])) {
             throw new Exception('Parameter modulePresenters should not have already been set');
         }
-        $this->setLocale($blog->getLanguage());
-        $this->brandingHelper()->setBrandingId($blog->getBrandingId());
         $parameters['blogTags'] = $this->getTagsByBlog($blog);
         $parameters['blog'] = $blog;
         $parameters['modulePresenters'] = $this->getModulePresenters($blog);
 
-        return parent::renderWithChrome($view, $parameters);
+        $branding = $this->brandingHelper()->requestBranding($blog->getBrandingId());
+        return $this->renderWithBrandingAndOrbit($view, $pageMetadata, $atiAnalyticsLabels, $branding, $parameters);
     }
 
     protected function getPageNumber(): int

@@ -3,52 +3,33 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
-use App\BlogsService\Domain\Image;
 use App\Controller\Helpers\Services\AtiAnalyticsHelper;
 use App\Controller\Helpers\Services\BrandingHelper;
-use App\Controller\Helpers\Services\PageContextHelper;
+use App\Controller\Helpers\Services\PageMetadataHelper;
 use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
-use App\Controller\Helpers\ValueObjects\PageContext;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use App\Translate\TranslateProvider;
 use App\ValueObject\MetaContext;
+use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends AbstractController
 {
-    /** @var string */
-    protected $counterName = '';
-
-    /** @var bool */
-    protected $hasVideo = false;
-
-    /** @var string */
-    protected $istatsPageType = '';
-
-    /** @var mixed[] */
-    protected $otherIstatsLabels = [];
-
-    /** @var string|null */
-    protected $locale;
-
-    /** @var string */
-    private $atiChapterOne;
-
-    /** @var bool */
-    private $preview = false;
+    /**
+     * These are private so that they cannot be overwritten by a child class,
+     * only modified via returning the object from a function
+     */
 
     /**
-     * Private so that it cannot be overwritten by a child class, only modified via response()
-     *
      * @var Response
      */
     private $response;
 
-    /** @var PageContextHelper */
-    private $pageContextHelper;
+    /** @var PageMetadataHelper */
+    private $pageMetadataHelper;
 
     /** @var BrandingHelper */
     private $brandingHelper;
@@ -60,19 +41,19 @@ abstract class BaseController extends AbstractController
     {
         return array_merge(parent::getSubscribedServices(), [
             OrbitClient::class,
-            TranslateProvider::class,
-            PageContextHelper::class,
-            BrandingHelper::class,
-            AtiAnalyticsHelper::class,
+            TranslateProvider::class
         ]);
     }
 
-    public function __construct()
-    {
+    public function __construct(
+        PageMetadataHelper $pageMetadataHelper,
+        BrandingHelper $brandingHelper,
+        AtiAnalyticsHelper $atiAnalyticsHelper
+    ) {
         $this->response = new Response();
-        $this->pageContextHelper = $this->container->get(PageContextHelper::class);
-        $this->brandingHelper = $this->container->get(BradingHelper::class);
-        $this->atiAnalyticsHelper = $this->container->get(AtiAnalyticsHelper::class);
+        $this->pageMetadataHelper = $pageMetadataHelper;
+        $this->brandingHelper = $brandingHelper;
+        $this->atiAnalyticsHelper = $atiAnalyticsHelper;
         // It is required to set the cache-control header when creating the response object otherwise Symfony
         // will create and set its value to "no-cache, private" by default
         $this->response()->setPublic()->setMaxAge(300);
@@ -87,19 +68,14 @@ abstract class BaseController extends AbstractController
         return $this->brandingHelper;
     }
 
-    protected function pageContextHelper(): PageContextHelper
+    protected function pageMetadataHelper(): PageMetadataHelper
     {
-        return $this->pageContextHelper;
+        return $this->pageMetadataHelper;
     }
 
-    protected function analyticsHelper(): AtiAnalyticsHelper
+    protected function atiAnalyticsHelper(): AtiAnalyticsHelper
     {
         return $this->atiAnalyticsHelper;
-    }
-
-    protected function setIstatsPageType(string $pageType)
-    {
-        $this->istatsPageType = $pageType;
     }
 
     protected function response(): Response
@@ -107,20 +83,20 @@ abstract class BaseController extends AbstractController
         return $this->response;
     }
 
-    protected function renderWithChrome(
+    protected function renderWithBrandingAndOrbit(
         string $view,
-        PageContext $pageContext,
+        PageMetadata $pageMetadata,
         AtiAnalyticsLabels $analyticsLabels,
+        Branding $branding,
         array $viewParameters = []
     ) {
-        if ($pageContext->isPreview()) {
+        if ($pageMetadata->isPreview()) {
             $this->response()->headers->remove('X-Frame-Options');
         }
-        $branding = $this->brandingHelper->requestBranding();
 
         // We should change the language if it has been set by the blog
         // Otherwise, we should default to the language set by branding
-        $locale = $this->pageContextHelper->getLocale() ?? $branding->getLocale();
+        $locale = $pageMetadata->getLocale() ?? $branding->getLocale();
         $translateProvider = $this->container->get(TranslateProvider::class);
         $translateProvider->setLocale($locale);
 
@@ -135,25 +111,9 @@ abstract class BaseController extends AbstractController
         $viewParameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
-            'page_context' => $pageContext,
+            'page_metadata' => $pageMetadata,
         ], $viewParameters);
         return $this->render($view, $viewParameters, $this->response);
-    }
-
-    protected function setLocale(string $locale)
-    {
-        // The translations library doesn't support multiple variations of the same language
-        // so this allows us to have two different versions of English
-        if ($locale === 'en-GB_articles') {
-            $locale = 'articles';
-        }
-
-        $this->locale = $locale;
-    }
-
-    protected function setAtiChapterOneVariable(string $chapterOne): void
-    {
-        $this->atiChapterOne = $chapterOne;
     }
 
     protected function cachedRedirect($url, $status = 302): RedirectResponse
@@ -166,6 +126,4 @@ abstract class BaseController extends AbstractController
     {
         return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
     }
-
-
 }

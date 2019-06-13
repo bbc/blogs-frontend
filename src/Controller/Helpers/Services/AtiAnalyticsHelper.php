@@ -25,7 +25,7 @@ class AtiAnalyticsHelper
         $this->chapterOne = $chapterOne;
     }
 
-    public function makeLabels(string $chapterOne, ?Blog $blog, bool $hasVideo = false): AtiAnalyticsLabels
+    public function makeLabels(string $chapterOne, ?Blog $blog = null, bool $hasVideo = false): AtiAnalyticsLabels
     {
         $labels = [
             'destination' => $this->getDestination(),

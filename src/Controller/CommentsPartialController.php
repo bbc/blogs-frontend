@@ -20,9 +20,9 @@ class CommentsPartialController extends BaseController
         $response = new Response();
         $response->setPublic()->setMaxAge(10);
 
-        $this->pageContextHelper()->setAllowPreview();
+        $this->pageMetadataHelper()->setAllowPreview();
 
-        $post = $postService->getPostByGuid(new GUID($guid), $this->pageContextHelper()->isPreview(), $blog);
+        $post = $postService->getPostByGuid(new GUID($guid), $this->pageMetadataHelper()->isPreview(), $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');

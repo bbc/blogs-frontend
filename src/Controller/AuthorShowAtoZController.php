@@ -13,14 +13,7 @@ class AuthorShowAtoZController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, string $letter, AuthorService $authorService, PostService $postService)
     {
-        $this->setIstatsPageType('author_letter');
-        $this->analyticsHelper()->setChapterOneVariable('list-authors');
-        $this->setBlog($blog);
-        $this->counterName = 'authors';
-
         $page = $this->getPageNumber();
-
-        $this->otherIstatsLabels = ['page' => (string) $page];
 
         $authorsResult = $authorService->getAuthorsByLetter($blog, $letter, $page);
 
@@ -30,8 +23,17 @@ class AuthorShowAtoZController extends BlogsBaseController
         $authorPostResults = $postService->getPostsForAuthors($blog, $authors, 1, 1);
         $paginator = $this->createPaginator($authorsResult);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'Alphabetical list of authors beginning with ' . $letter . ' on the BBC\'s "' . $blog->getName() . '"" blog',
+            $blog
+        );
+
+        return $this->renderBlogPage(
             'author/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'authorPostResults' => $authorPostResults,
                 'authors' => $authors,

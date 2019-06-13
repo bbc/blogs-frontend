@@ -14,14 +14,10 @@ use Exception;
 class PostShowController extends BlogsBaseController
 {
     /** @throws MorphErrorException|Exception */
-    public function __invoke(Request $request, Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
+    public function __invoke(Blog $blog, string $guid, PostService $postService, CommentsService $commentsService)
     {
-        $this->setIstatsPageType('post_show');
-        $this->analyticsHelper()->setChapterOneVariable('post');
-        $this->setBlog($blog);
-
-        $this->pageContextHelper()->setAllowPreview();
-        $post = $postService->getPostByGuid(new GUID($guid), $this->pageContextHelper()->isPreview(), $blog);
+        $this->pageMetadataHelper()->setAllowPreview();
+        $post = $postService->getPostByGuid(new GUID($guid), $this->pageMetadataHelper()->isPreview(), $blog);
 
         if (!$post) {
             throw $this->createNotFoundException('Post not found');
@@ -29,25 +25,22 @@ class PostShowController extends BlogsBaseController
 
         $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
 
-        $this->hasVideo = $post->hasVideo();
-        $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
-
-        $istatsLabels = [
-            'post_title' => $post->getTitle(),
-            'published_date' => $post->getDisplayDate()->format('F j, Y, g:i a'),
-        ];
-        if ($post->getAuthor() !== null) {
-            $istatsLabels['post_author'] = $post->getAuthor()->getName();
-        }
-
-        $this->otherIstatsLabels = $istatsLabels;
-
         [$previousPost, $nextPost] = $postService->getPreviousAndNextPosts($blog, $post->getPublishedDate());
 
         $comments = $commentsPromise ? $commentsPromise->wait() : null;
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('post', $blog, $post->hasVideo());
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            $post->getShortSynopsis() ? $post->getShortSynopsis() : $blog->getDescription(),
+            $blog,
+            $post->getImage()
+        );
+
+        return $this->renderBlogPage(
             'post/show.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'post' => $post,
                 'prevPost' => $previousPost,

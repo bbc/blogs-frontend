@@ -14,14 +14,9 @@ class PostByDateController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, int $year, int $month, PostService $postService)
     {
-        $this->setIstatsPageType('post_date');
-        $this->analyticsHelper()->setChapterOneVariable('list-posts');
-        $this->setBlog($blog);
-
         if (!$this->validMonth($month)) {
             throw $this->createNotFoundException('Invalid month supplied');
         }
-
         $page = $this->getPageNumber();
 
         $postResult = $postService->getPostsByMonth($blog, $year, $month, $page);
@@ -41,8 +36,14 @@ class PostByDateController extends BlogsBaseController
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-posts', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(null, $blog);
+
+        return $this->renderBlogPage(
             'post/by_date.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'blogId' => $blog->getId(),
                 'posts' => $posts,

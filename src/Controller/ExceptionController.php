@@ -4,7 +4,7 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Image;
-use App\ValueObject\MetaContext;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use BBC\BrandingClient\BrandingClient;
 use BBC\BrandingClient\BrandingException;
 use BBC\BrandingClient\OrbitClient;
@@ -99,11 +99,9 @@ class ExceptionController extends BaseExceptionController
                 'exception' => $exception,
                 'logger' => $logger,
                 'currentContent' => $currentContent,
+                'page_metadata' => new PageMetadata('', '', new Image('p01tqv8z.png')),
                 'orb' => $orb,
                 'branding' => $branding,
-                'meta_context' => new MetaContext(false),
-                'fallback_social_image' => new Image('p01tqv8z.png'),
-                'istats_counter_name' => '',
 
             ]
         ), 200, $headers);

@@ -12,11 +12,6 @@ class TagIndexController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, TagService $tagService, PostService $postService)
     {
-        $this->setIstatsPageType('tag_index');
-        $this->analyticsHelper()->setChapterOneVariable('list-tags');
-        $this->setBlog($blog);
-        $this->counterName = 'tags';
-
         $page = $this->getPageNumber();
 
         $this->otherIstatsLabels = ['page' => (string) $page];
@@ -27,8 +22,18 @@ class TagIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($tagsResult);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-tags', $blog);
+
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'View all tags on the BBC\'s "' . $blog->getName() . '" blog',
+            $blog
+        );
+
+        return $this->renderBlogPage(
             'tag/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'tagResult' => $tagsResult,
                 'tagPostCounts' => $tagPostCounts,

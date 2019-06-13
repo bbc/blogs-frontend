@@ -12,21 +12,13 @@ class TagShowController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, string $tagId, TagService $tagService, PostService $postService)
     {
-        $this->setIstatsPageType('tag_show');
-        $this->analyticsHelper()->setChapterOneVariable('tag');
-        $this->setBlog($blog);
-
         $tag = $tagService->getTagById($tagId, $blog);
 
         if (!$tag) {
             throw $this->createNotFoundException('Tag not found');
         }
 
-        $this->counterName = 'tags.' . $tag->getName();
-
         $page = $this->getPageNumber();
-
-        $this->otherIstatsLabels = ['page' => (string) $page];
 
         $postResults = $postService->getPostsByTag(
             $blog,
@@ -37,8 +29,17 @@ class TagShowController extends BlogsBaseController
 
         $paginator = $this->createPaginator($postResults);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('tag', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'View all posts tagged with ' . $tag->getName() . ' on the BBC\'s "' . $blog->getName() . '" blog',
+            $blog
+        );
+
+        return $this->renderBlogPage(
             'tag/show.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'tag' => $tag,
                 'postResults' => $postResults,

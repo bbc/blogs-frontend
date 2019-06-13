@@ -13,9 +13,6 @@ class AuthorIndexController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, AuthorService $authorService, PostService $postService)
     {
-        $this->analyticsHelper()->setChapterOneVariable('list-authors');
-        $this->setBlog($blog);
-
         $page = $this->getPageNumber();
 
         $authorsResult = $authorService->getAuthorsByBlog($blog, $page);
@@ -27,9 +24,14 @@ class AuthorIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($authorsResult);
 
-        return $this->renderWithChrome(
-            'author/index.html.twig',
-            [
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'View all authors on the BBC\'s "' . $blog->getName() . '"" blog',
+            $blog
+        );
+
+        return $this->renderBlogPage(
+            'author/index.html.twig', $analyticsLabels, $pageMetadata, $blog, [
                 'authorPostResults' => $authorPostResults,
                 'authors' => $authors,
                 'paginatorPresenter' => $paginator,

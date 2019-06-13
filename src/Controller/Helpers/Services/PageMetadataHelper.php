@@ -3,23 +3,17 @@ declare(strict_types = 1);
 
 namespace App\Controller\Helpers\Services;
 
-use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Image;
-use App\BlogsService\Domain\Post;
-use App\Controller\Helpers\ValueObjects\PageContext;
-use InvalidArgumentException;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
-class PageContextHelper
+class PageMetadataHelper
 {
     /** @var RequestStack */
     private $requestStack;
-
-    /** @var mixed */
-    private $contextObject;
 
     /** @var UrlGeneratorInterface */
     private $router;
@@ -40,14 +34,20 @@ class PageContextHelper
         $this->allowPreview = $allowPreview;
     }
 
-    public function makePageContext(string $description, ?Blog $blog = null, ?Image $socialImage = null)
+    public function makePageMetadata(?string $description = null, ?Blog $blog = null, ?Image $socialImage = null)
     {
-        return new PageContext(
-            $description,
+        return new PageMetadata(
+            $this->getDescription($description, $blog),
             $this->getCanonicalUrl(),
             $this->getPageImage($socialImage, $blog),
+            $this->getLocale($blog),
             $this->isPreview()
         );
+    }
+
+    public function getDescription(?string $description, ?Blog $blog): string
+    {
+        return $description ? $description : $blog->getDescription();
     }
 
     public function getCanonicalUrl()
@@ -83,5 +83,19 @@ class PageContextHelper
     private function request(): Request
     {
         return $this->requestStack->getMasterRequest();
+    }
+
+    private function getLocale(?Blog $blog): ?string
+    {
+        if (!$blog) {
+            return null;
+        }
+        $locale = $blog->getLanguage();
+        // The translations library doesn't support multiple variations of the same language
+        // so this allows us to have two different versions of English
+        if ($locale === 'en-GB_articles') {
+            $locale = 'articles';
+        }
+        return $locale;
     }
 }

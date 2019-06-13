@@ -5,7 +5,7 @@ namespace App\Controller\Helpers\ValueObjects;
 
 use App\BlogsService\Domain\Image;
 
-class PageContext
+class PageMetadata
 {
     private const BBC_FACEBOOK_IDS = [
         6025943146,
@@ -72,6 +72,9 @@ class PageContext
     /** @var Image */
     private $socialImage;
 
+    /** @var string|null */
+    private $locale;
+
     /** @var bool */
     private $isPreview;
 
@@ -79,12 +82,14 @@ class PageContext
         string $description,
         string $canonicalUrl,
         Image $socialImage,
+        ?string $locale = null,
         bool $isPreview = false
     ) {
         $this->description = $description;
         $this->canonicalUrl = $canonicalUrl;
         $this->socialImage = $socialImage;
         $this->isPreview = $isPreview;
+        $this->locale = $locale;
     }
 
     public function getDescription(): string
@@ -100,6 +105,11 @@ class PageContext
     public function getSocialImage(): Image
     {
         return $this->socialImage;
+    }
+
+    public function getLocale(): ?string
+    {
+        return $this->locale;
     }
 
     public function isPreview(): bool

@@ -13,35 +13,36 @@ class AuthorShowController extends BlogsBaseController
 {
     public function __invoke(Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
-        $this->setIstatsPageType('author_show');
-        $this->analyticsHelper()->setChapterOneVariable('author');
-        $this->setBlog($blog);
-
-        $this->pageContextHelper()->setAllowPreview();
-        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $this->pageContextHelper()->isPreview());
+        $this->pageMetadataHelper()->setAllowPreview();
+        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $this->pageMetadataHelper()->isPreview());
 
         if (!$author) {
             throw $this->createNotFoundException('Author not found');
         }
 
-        $this->counterName = 'authors.' . $author->getName();
-
         $page = $this->getPageNumber();
-
-        $this->otherIstatsLabels = [
-            'author_name' => $author->getName(),
-            'author_role' => $author->getRole(),
-            'author_description' => $author->getDescription(),
-            'page' => (string) $page,
-        ];
 
         $postResult = $postService->getPostsByAuthor($blog, $author, $page);
 
         $paginator = $this->createPaginator($postResult);
 
-        return $this->renderWithChrome(
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'View all posts on the "' . $blog->getName() . '" blog by ' . $author->getName(),
+            $blog,
+            $author->getImage()
+        );
+
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('author', $blog);
+
+        return $this->renderBlogPage(
             'author/show.html.twig',
-            ['author' => $author, 'paginatorPresenter' => $paginator, 'postResult' => $postResult]
+            $analyticsLabels,
+            $pageMetadata,
+            [
+                'author' => $author,
+                'paginatorPresenter' => $paginator,
+                'postResult' => $postResult
+            ]
         );
     }
 }

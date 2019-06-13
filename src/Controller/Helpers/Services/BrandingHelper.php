@@ -11,9 +11,6 @@ use Symfony\Component\HttpFoundation\RequestStack;
 class BrandingHelper
 {
     /** @var string */
-    private $brandingId = 'br-07918';
-
-    /** @var string */
     private $fallbackBrandingId = 'br-07918';
 
     /** @var BrandingClient */
@@ -28,29 +25,24 @@ class BrandingHelper
         $this->requestStack = $requestStack;
     }
 
-    public function requestBranding(): Branding
+    public function requestBranding(string $brandingId): Branding
     {
+        if (!$brandingId) {
+            $brandingId = $this->fallbackBrandingId;
+        }
         $previewId = $this->requestStack->getMasterRequest()->query->get(BrandingClient::PREVIEW_PARAM, null);
 
         try {
             $branding = $this->brandingClient->getContent(
-                $this->brandingId,
+                $brandingId,
                 $previewId
             );
         } catch (BrandingException $e) {
             // Could not find that branding id (or preview id), someone probably
             // mistyped it. Use a default branding instead of blowing up.
-            $this->setBrandingId($this->fallbackBrandingId);
-            $branding = $this->brandingClient->getContent($this->brandingId, null);
+            $branding = $this->brandingClient->getContent($this->fallbackBrandingId, null);
         }
 
         return $branding;
-    }
-
-    public function setBrandingId(string $brandingId): void
-    {
-        if ($brandingId) {
-            $this->brandingId = $brandingId;
-        }
     }
 }
