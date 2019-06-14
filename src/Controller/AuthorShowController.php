@@ -27,7 +27,7 @@ class AuthorShowController extends BlogsBaseController
         $paginator = $this->createPaginator($postResult);
 
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'View all posts on the "' . $blog->getName() . '" blog by ' . $author->getName(),
+            'All posts on the ' . $this->pageMetadataHelper()->blogNameForDescription($blog) . ' by ' . $author->getName(),
             $blog,
             $author->getImage()
         );
@@ -38,10 +38,11 @@ class AuthorShowController extends BlogsBaseController
             'author/show.html.twig',
             $analyticsLabels,
             $pageMetadata,
+            $blog,
             [
                 'author' => $author,
                 'paginatorPresenter' => $paginator,
-                'postResult' => $postResult
+                'postResult' => $postResult,
             ]
         );
     }

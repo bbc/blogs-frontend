@@ -41,7 +41,7 @@ abstract class BaseController extends AbstractController
     {
         return array_merge(parent::getSubscribedServices(), [
             OrbitClient::class,
-            TranslateProvider::class
+            TranslateProvider::class,
         ]);
     }
 

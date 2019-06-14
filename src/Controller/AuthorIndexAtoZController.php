@@ -11,7 +11,7 @@ class AuthorIndexAtoZController extends BlogsBaseController
     public function __invoke(Blog $blog)
     {
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'A-Z listing of authors on the BBC\'s "' . $blog->getName() . '"" blog',
+            'Alphabetical listing of authors on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog
         );
 
@@ -21,7 +21,11 @@ class AuthorIndexAtoZController extends BlogsBaseController
         );
 
         return $this->renderBlogPage(
-            'author/index.html.twig', $analyticsLabels, $pageMetadata, $blog, ['showAZ' => true]
+            'author/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
+            ['showAZ' => true]
         );
     }
 }

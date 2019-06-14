@@ -34,6 +34,14 @@ class PageMetadataHelper
         $this->allowPreview = $allowPreview;
     }
 
+    public function blogNameForDescription(Blog $blog)
+    {
+        if (stristr($blog->getName(), 'blog')) {
+            return '"' . $blog->getName() . '"';
+        }
+        return '"' . $blog->getName() . '" blog';
+    }
+
     public function makePageMetadata(?string $description = null, ?Blog $blog = null, ?Image $socialImage = null)
     {
         return new PageMetadata(
@@ -74,7 +82,7 @@ class PageMetadataHelper
         if ($socialImage) {
             return $socialImage;
         }
-        if ($blog && $blog->getImage()) {
+        if ($blog) {
             return $blog->getImage();
         }
         return new Image('p01tqv8z.png');

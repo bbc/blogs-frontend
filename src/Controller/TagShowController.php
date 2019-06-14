@@ -31,7 +31,7 @@ class TagShowController extends BlogsBaseController
 
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('tag', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'View all posts tagged with ' . $tag->getName() . ' on the BBC\'s "' . $blog->getName() . '" blog',
+            'All posts tagged with ' . $tag->getName() . ' on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog
         );
 

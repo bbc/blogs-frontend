@@ -40,8 +40,7 @@ abstract class BlogsBaseController extends BaseController
         PageMetadata $pageMetadata,
         Blog $blog,
         array $parameters = []
-    )
-    {
+    ) {
         if (isset($parameters['blogTags'])) {
             throw new Exception('Parameter blogTags should not have already been set');
         }

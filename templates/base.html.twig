@@ -11,6 +11,11 @@
         <meta name="robots" content="noindex,nofollow">
     {% endif %}
 
+    {% block card_tags %}
+        {#- Twitter-specific tags -#}
+        <meta name="twitter:card" content="summary_large_image">
+        <meta property="og:title" content="{{ block('title') }}">
+    {% endblock %}
     {#- OpenGraph tags for Facebook/Twitter -#}
     {% block social_tags %}
         {#- Facebook pages that are allowed to edit FB preview titles and descriptions -#}
@@ -23,12 +28,6 @@
         {% endif %}
     {% endblock %}
 
-    {% block card_tags %}
-        {#- Twitter-specific tags -#}
-        <meta name="twitter:card" content="summary_large_image">
-        <meta property="og:title" content="{{ block('title') }}">
-    {% endblock %}
-
     {% block social_type %}
         <meta property="og:type" content="website">
     {% endblock %}
@@ -36,8 +35,6 @@
     {% block social_image_tags %}
         <meta property="og:image" content="{{ page_metadata.getSocialImage().getUrl(1200,675) }}" >
     {% endblock %}
-
-    {% block social_description %}{% endblock %}
 
     {{ orb.getHead()|raw }}
     {{ branding.getHead()|raw }}

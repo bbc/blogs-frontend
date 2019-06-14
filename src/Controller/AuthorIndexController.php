@@ -26,12 +26,16 @@ class AuthorIndexController extends BlogsBaseController
 
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'View all authors on the BBC\'s "' . $blog->getName() . '"" blog',
+            'All authors on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog
         );
 
         return $this->renderBlogPage(
-            'author/index.html.twig', $analyticsLabels, $pageMetadata, $blog, [
+            'author/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
+            [
                 'authorPostResults' => $authorPostResults,
                 'authors' => $authors,
                 'paginatorPresenter' => $paginator,

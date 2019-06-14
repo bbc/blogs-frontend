@@ -25,7 +25,7 @@ class AuthorShowAtoZController extends BlogsBaseController
 
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'Alphabetical list of authors beginning with ' . $letter . ' on the BBC\'s "' . $blog->getName() . '"" blog',
+            'Alphabetical list of authors beginning with ' . $letter . ' on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog
         );
 

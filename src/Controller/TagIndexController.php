@@ -14,8 +14,6 @@ class TagIndexController extends BlogsBaseController
     {
         $page = $this->getPageNumber();
 
-        $this->otherIstatsLabels = ['page' => (string) $page];
-
         $tagsResult = $tagService->getTagsByBlog($blog, $page, 10);
 
         $tagPostCounts = $postService->getPostCountsForTags($blog, $tagsResult->getDomainModels());
@@ -25,7 +23,7 @@ class TagIndexController extends BlogsBaseController
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-tags', $blog);
 
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            'View all tags on the BBC\'s "' . $blog->getName() . '" blog',
+            'A list of tags on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog
         );
 

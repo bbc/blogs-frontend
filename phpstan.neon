@@ -13,6 +13,9 @@ parameters:
         -
             message: '#Result of && is always false.#'
             path: %currentWorkingDirectory%/src/Ds/Molecule/Image/ImagePresenter.php
+        -
+            message: '#Offset .app_name. does not exist on string\.#'
+            path: %currentWorkingDirectory%/tests/Controller/HomeControllerTest.php
 
 includes:
     - vendor/phpstan/phpstan-phpunit/extension.neon
