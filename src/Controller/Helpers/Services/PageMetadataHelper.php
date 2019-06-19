@@ -29,12 +29,12 @@ class PageMetadataHelper
         $this->router = $router;
     }
 
-    public function setAllowPreview(bool $allowPreview = true)
+    public function setAllowPreview(bool $allowPreview = true): void
     {
         $this->allowPreview = $allowPreview;
     }
 
-    public function blogNameForDescription(Blog $blog)
+    public function blogNameForDescription(Blog $blog): string
     {
         if (stristr($blog->getName(), 'blog')) {
             return '"' . $blog->getName() . '"';
@@ -42,7 +42,7 @@ class PageMetadataHelper
         return '"' . $blog->getName() . '" blog';
     }
 
-    public function makePageMetadata(?string $description = null, ?Blog $blog = null, ?Image $socialImage = null)
+    public function makePageMetadata(?string $description = null, ?Blog $blog = null, ?Image $socialImage = null): PageMetadata
     {
         return new PageMetadata(
             $this->getDescription($description, $blog),
@@ -58,7 +58,7 @@ class PageMetadataHelper
         return $description ? $description : $blog->getDescription();
     }
 
-    public function getCanonicalUrl()
+    public function getCanonicalUrl(): string
     {
         $requestAttributes = $this->request()->attributes;
         return $this->router->generate(

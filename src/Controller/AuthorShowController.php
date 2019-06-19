@@ -7,7 +7,6 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\AuthorService;
 use App\BlogsService\Service\PostService;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthorShowController extends BlogsBaseController
 {

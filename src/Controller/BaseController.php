@@ -9,7 +9,6 @@ use App\Controller\Helpers\Services\PageMetadataHelper;
 use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
 use App\Controller\Helpers\ValueObjects\PageMetadata;
 use App\Translate\TranslateProvider;
-use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
