@@ -8,7 +8,6 @@ use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\PostService;
 use App\Service\CommentsService;
 use BBC\ProgrammesMorphLibrary\Exception\MorphErrorException;
-use Symfony\Component\HttpFoundation\Request;
 use Exception;
 
 class PostShowController extends BlogsBaseController

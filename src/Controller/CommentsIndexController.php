@@ -31,7 +31,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('comments', $blog, $post->hasVideo());
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
-            $post->getShortSynopsis() ? $post->getShortSynopsis() : $blog->getDescription(),
+            $post->getShortSynopsis() ?: $blog->getDescription(),
             $blog,
             $post->getImage()
         );

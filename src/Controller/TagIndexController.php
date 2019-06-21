@@ -6,7 +6,6 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
-use Symfony\Component\HttpFoundation\Request;
 
 class TagIndexController extends BlogsBaseController
 {
