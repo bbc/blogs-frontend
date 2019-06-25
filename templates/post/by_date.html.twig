@@ -4,11 +4,6 @@
     BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('header_archive_month') }}, {{ datePicker.getChosenMonthYear()|local_date_intl('MMMM') }} {{ datePicker.getChosenMonthYear()|date('Y') -}}
 {%- endblock %}
 
-{% block social_tags %}
-    {{ parent() }}
-    <meta property="og:url" content="{{ url('posts_year_month', {blogId: blog.getId(), year: datePicker.getChosenMonthYear()|date('Y'), month: datePicker.getChosenMonthYear()|date('m') }) }}" />
-{% endblock %}
-
 {%- block content -%}
     <div class="component">
         <h1>{{- tr('header_archive_month') -}}

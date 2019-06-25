@@ -4,13 +4,20 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\ValueObject\GUID;
+use App\Controller\Helpers\Services\AtiAnalyticsHelper;
+use App\Controller\Helpers\Services\BrandingHelper;
+use App\Controller\Helpers\Services\PageMetadataHelper;
 use Symfony\Component\HttpFoundation\Response;
 
 class LegacyRoutesRedirectController extends BaseController
 {
-    public function __construct()
-    {
-        parent::__construct();
+
+    public function __construct(
+        PageMetadataHelper $pageMetadataHelper,
+        BrandingHelper $brandingHelper,
+        AtiAnalyticsHelper $atiAnalyticsHelper
+    ) {
+        parent::__construct($pageMetadataHelper, $brandingHelper, $atiAnalyticsHelper);
 
         // Cache these redirects for an hour
         $this->response()->setPublic()->setMaxAge(3600);

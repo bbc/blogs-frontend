@@ -20,7 +20,6 @@ define('smp',['jquery-1.9'], function ($) {
                 siteID : 'iPlayer',
                 appName: "blogs5",
                 appType: "web",
-                counterName : window.bbcBlogs.counterName,
                 playerProfile: 'smp',
                 responsive: true,
                 superResponsive: true,

@@ -62,15 +62,16 @@ abstract class BaseWebTestCase extends WebTestCase
      * @param Crawler $crawler
      * @return string[]
      */
-    public function extractIstatsLabels(Crawler $crawler): array
+    public function extractAtiAnalyticsLabels(Crawler $crawler): array
     {
-        $labels = [];
         $extractedValues = $crawler->filter('orbit-template-params')->attr('data-values');
-        $labelsObject = json_decode($extractedValues);
-        foreach ($labelsObject->analyticsLabels as $item) {
-            $labels[$item->key] = urldecode($item->value);
+        $labelsObject = json_decode($extractedValues, true);
+        $labels = $labelsObject['page'];
+        $additionalLabels = [];
+        foreach ($labels['additionalProperties'] as $label) {
+            $additionalLabels[$label['name']] = $label['value'];
         }
-
+        $labels['additionalProperties'] = $additionalLabels;
         return $labels;
     }
 

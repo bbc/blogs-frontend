@@ -2,25 +2,6 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ author.getName() }}{% endblock %}
 
-{% block social_tags %}
-    {{ parent() }}
-    <meta property="og:url" content="{{ url('author_show', {blogId: blog.getId(), guid: author.getGuid()}) }}" />
-{% endblock %}
-
-{% block social_image_tags %}
-    {%- if author.getImage() -%}
-        <meta property="og:image" content="{{ author.getImage().getUrl(1200,675) }}" />
-    {%- else -%}
-        {{ parent() }}
-    {%- endif -%}
-{% endblock %}
-
-{% block social_description %}
-    {%- if author.getRole() -%}
-        <meta property="og:description" content="{{ author.getRole() }}{% if author.getDescription() %}, {{ author.getDescription() }}{% endif %}"/>
-    {%- endif -%}
-{% endblock %}
-
 {% block content %}
     <div class="islet br-box-subtle component text--right">
         <a data-istats-link-location="blogs_author_page_see_all_authors"
@@ -57,17 +38,13 @@
         {% if postResult.getDomainModels() is empty %}
             <p>{{ tr('no_results') }}</p>
         {% else %}
-
-        {#$keysForComments = array();#}
         <ol class="list-unstyled list-lined">
             {% for post in postResult.getDomainModels() %}
-                {#$keysForComments[] = $post->getForumId($this->blog);#}
                 <li data-section="post-{{ loop.index0 }}" class="br-keyline">
                     {{ ds('postSummary', blog, post, {'h_tag': 3, 'show_author': false}) }}
                 </li>
             {% endfor %}
         </ol>
-        {#<?=$this->commentCountScript($keysForComments);?>#}
         {% endif %}
     </div>
     {% if paginatorPresenter %}

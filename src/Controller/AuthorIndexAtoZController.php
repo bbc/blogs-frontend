@@ -4,17 +4,27 @@ declare(strict_types = 1);
 namespace App\Controller;
 
 use App\BlogsService\Domain\Blog;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthorIndexAtoZController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog)
+    public function __invoke(Blog $blog)
     {
-        $this->setIstatsPageType('author_indexatoz');
-        $this->setAtiChapterOneVariable('list-authors');
-        $this->setBlog($blog);
-        $this->counterName = 'authors';
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'Alphabetical listing of authors on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
+            $blog
+        );
 
-        return $this->renderWithChrome('author/index.html.twig', ['showAZ' => true]);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels(
+            'list-authors',
+            $blog
+        );
+
+        return $this->renderBlogPage(
+            'author/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
+            ['showAZ' => true]
+        );
     }
 }

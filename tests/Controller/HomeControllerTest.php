@@ -22,14 +22,10 @@ class HomeControllerTest extends BaseWebTestCase
 
         $crawler = $this->getCrawlerForPage($this->client, [$blog]);
 
-        $labels = $this->extractIstatsLabels($crawler);
-        $this->assertEquals('blogs5', $labels['app_name']);
-        $this->assertEquals('blogs', $labels['prod_name']);
-        $this->assertEquals('index_index', $labels['blogs_page_type']);
-        $this->assertEquals('1', $labels['page_number']);
-        $this->assertEquals('false', $labels['has_emp']);
-        $this->assertEquals('main index for all blogs', $labels['page_type']);
-        $this->assertTrue(is_numeric($labels['app_version']));
+        $labels = $this->extractAtiAnalyticsLabels($crawler);
+        $this->assertEquals('blogs_ps_test', $labels['destination']);
+        $this->assertEquals('blogs-index', $labels['section']);
+        $this->assertEquals('blogs', $labels['additionalProperties']['app_name']);
 
         $this->assertLists($crawler, ['F' => ['First Blog']]);
         $this->assertResponseStatusCode($this->client, 200);

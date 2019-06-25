@@ -6,20 +6,12 @@ namespace App\Controller;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\PostService;
 use App\BlogsService\Service\TagService;
-use Symfony\Component\HttpFoundation\Request;
 
 class TagIndexController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, TagService $tagService, PostService $postService)
+    public function __invoke(Blog $blog, TagService $tagService, PostService $postService)
     {
-        $this->setIstatsPageType('tag_index');
-        $this->setAtiChapterOneVariable('list-tags');
-        $this->setBlog($blog);
-        $this->counterName = 'tags';
-
-        $page = $this->getPageNumber($request);
-
-        $this->otherIstatsLabels = ['page' => (string) $page];
+        $page = $this->getPageNumber();
 
         $tagsResult = $tagService->getTagsByBlog($blog, $page, 10);
 
@@ -27,8 +19,18 @@ class TagIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($tagsResult);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-tags', $blog);
+
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'A list of tags on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
+            $blog
+        );
+
+        return $this->renderBlogPage(
             'tag/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'tagResult' => $tagsResult,
                 'tagPostCounts' => $tagPostCounts,

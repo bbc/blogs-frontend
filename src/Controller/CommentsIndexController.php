@@ -18,8 +18,6 @@ class CommentsIndexController extends BlogsBaseController
         if ($blog->hasCommentsEnabled() == false) {
             throw $this->createNotFoundException('Comments are not enabled for this blog');
         }
-        $this->setAtiChapterOneVariable('comments');
-        $this->setBlog($blog);
 
         $post = $postService->getPostByGuid(new GUID($guid), false, $blog);
 
@@ -29,34 +27,26 @@ class CommentsIndexController extends BlogsBaseController
 
         $commentsPromise = $commentsService->getByBlogAndPost($blog, $post);
 
-        $this->hasVideo = $post->hasVideo();
-        $this->counterName = $post->getPublishedDate()->format('Y') . '.' . $post->getPublishedDate()->format('m') . '.post.' . $post->getTitle();
-
-        $istatsLabels = [
-            'post_title' => $post->getTitle(),
-            'published_date' => $post->getDisplayDate()->format('F j, Y, g:i a'),
-        ];
-        if ($post->getAuthor() !== null) {
-            $istatsLabels['post_author'] = $post->getAuthor()->getName();
-        }
-
-        $this->otherIstatsLabels = $istatsLabels;
-
         $comments = $commentsPromise->wait();
+
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('comments', $blog, $post->hasVideo());
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            $post->getShortSynopsis() ?: $blog->getDescription(),
+            $blog,
+            $post->getImage()
+        );
 
         $this->response()->setPublic()->setMaxAge(10);
 
-        return $this->renderWithChrome(
+        return $this->renderBlogPage(
             'comments/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'post' => $post,
                 'comments' => $comments,
             ]
         );
-    }
-
-    protected function getIstatsPageType(): string
-    {
-        return 'comments_index';
     }
 }

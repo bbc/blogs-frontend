@@ -7,44 +7,42 @@ use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\ValueObject\GUID;
 use App\BlogsService\Service\AuthorService;
 use App\BlogsService\Service\PostService;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthorShowController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
+    public function __invoke(Blog $blog, string $guid, AuthorService $authorService, PostService $postService)
     {
-        $this->setIstatsPageType('author_show');
-        $this->setAtiChapterOneVariable('author');
-        $this->setBlog($blog);
-
-        $isPreview = $this->isPreview($request);
-        if ($isPreview) {
-            $this->setPreview(true);
-        }
-        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $isPreview);
+        $this->pageMetadataHelper()->setAllowPreview();
+        $author = $authorService->getAuthorByGUID(new GUID($guid), $blog, $this->pageMetadataHelper()->isPreview());
 
         if (!$author) {
             throw $this->createNotFoundException('Author not found');
         }
 
-        $this->counterName = 'authors.' . $author->getName();
-
-        $page = $this->getPageNumber($request);
-
-        $this->otherIstatsLabels = [
-            'author_name' => $author->getName(),
-            'author_role' => $author->getRole(),
-            'author_description' => $author->getDescription(),
-            'page' => (string) $page,
-        ];
+        $page = $this->getPageNumber();
 
         $postResult = $postService->getPostsByAuthor($blog, $author, $page);
 
         $paginator = $this->createPaginator($postResult);
 
-        return $this->renderWithChrome(
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'All posts on the ' . $this->pageMetadataHelper()->blogNameForDescription($blog) . ' by ' . $author->getName(),
+            $blog,
+            $author->getImage()
+        );
+
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('author', $blog);
+
+        return $this->renderBlogPage(
             'author/show.html.twig',
-            ['author' => $author, 'paginatorPresenter' => $paginator, 'postResult' => $postResult]
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
+            [
+                'author' => $author,
+                'paginatorPresenter' => $paginator,
+                'postResult' => $postResult,
+            ]
         );
     }
 }

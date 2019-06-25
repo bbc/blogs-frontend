@@ -38,21 +38,3 @@
         {%- endfor -%}
     {%- endif -%}
 {% endblock %}
-
-{% block social_image_tags %}
-    {%- if post.getImage() -%}
-        <meta property="og:image" content="{{ post.getImage().getUrl(1200,675) }}" />
-    {%- elseif blog.getImage() -%}
-        <meta property="og:image" content="{{ blog.getImage().getUrl(1200,675) }}" />
-    {%- else -%}
-        {{- parent() -}}
-    {%- endif -%}
-{% endblock %}
-
-{% block social_description %}
-    {%- if post.getShortSynopsis() -%}
-        <meta property="og:description" content="{{ post.getShortSynopsis() }}" />
-    {%- elseif blog.getDescription() -%}
-        <meta property="og:description" content="{{ blog.getDescription() }}" />
-    {%- endif -%}
-{% endblock %}

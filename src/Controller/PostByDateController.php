@@ -8,21 +8,15 @@ use App\BlogsService\Service\PostService;
 use App\Ds\Molecule\DatePicker\DatePicker;
 use App\Helper\ApplicationTimeProvider;
 use Cake\Chronos\Chronos;
-use Symfony\Component\HttpFoundation\Request;
 
 class PostByDateController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, int $year, int $month, PostService $postService)
+    public function __invoke(Blog $blog, int $year, int $month, PostService $postService)
     {
-        $this->setIstatsPageType('post_date');
-        $this->setAtiChapterOneVariable('list-posts');
-        $this->setBlog($blog);
-
         if (!$this->validMonth($month)) {
             throw $this->createNotFoundException('Invalid month supplied');
         }
-
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $postResult = $postService->getPostsByMonth($blog, $year, $month, $page);
         $totalPostsMonth = $postResult->getTotal();
@@ -41,8 +35,14 @@ class PostByDateController extends BlogsBaseController
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-posts', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(null, $blog);
+
+        return $this->renderBlogPage(
             'post/by_date.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'blogId' => $blog->getId(),
                 'posts' => $posts,

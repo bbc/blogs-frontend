@@ -2,11 +2,6 @@
 
 {% block title %}BBC {{ tr('page_title_blogs') }} - {{ blog.getName() }} - {{ tr('page_title_author_all') }}{% endblock %}
 
-{% block social_tags %}
-    {{ parent() }}
-    <meta property="og:url" content="{{ url('author_index', {blogId: blog.getId()}) }}" />
-{% endblock %}
-
 {%- block content -%}
     <div class="component">
         <h1>{{ tr('header_author_all') }}</h1>
@@ -33,7 +28,6 @@
 
             <div class="component">
                 <ol class="list-unstyled list-lined">
-                    {#$keysForComments = array();#}
                     {% for author in authors %}
                         {% set authorResults = authorPostResults[''~author.getFileId()] %}
                         <li class="br-keyline">
@@ -44,7 +38,6 @@
                                 <div data-section="post-details" class="grid 2/3@bpw">
                                     {% if authorResults.getTotal() > 0 %}
                                         {{ ds('postSummary', blog, authorResults.getDomainModels()[0], {'h_tag': 3, 'show_image': false, 'show_author': false}) }}
-                                        {#$keysForComments[] = $post->getForumId($this->blog);#}
                                     {% else %}
                                         <p>{{ tr('author_no_posts') }}</p>
                                     {% endif %}
@@ -53,7 +46,6 @@
                         </li>
                     {% endfor %}
                 </ol>
-                {#<?=$this->commentCountScript($keysForComments);?>#}
             </div>
 
             {% if paginatorPresenter %}

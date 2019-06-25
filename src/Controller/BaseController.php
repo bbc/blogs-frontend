@@ -3,71 +3,56 @@ declare(strict_types = 1);
 
 namespace App\Controller;
 
-use App\BlogsService\Domain\Image;
+use App\Controller\Helpers\Services\AtiAnalyticsHelper;
+use App\Controller\Helpers\Services\BrandingHelper;
+use App\Controller\Helpers\Services\PageMetadataHelper;
+use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use App\Translate\TranslateProvider;
-use App\ValueObject\AnalyticsCounterName;
-use App\ValueObject\CosmosInfo;
-use App\ValueObject\IstatsAnalyticsLabels;
-use App\ValueObject\AtiAnalyticsLabels;
-use App\ValueObject\MetaContext;
 use BBC\BrandingClient\Branding;
-use BBC\BrandingClient\BrandingClient;
-use BBC\BrandingClient\BrandingException;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\RedirectResponse;
-use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 abstract class BaseController extends AbstractController
 {
-    /** @var string */
-    protected $counterName = '';
-
-    /** @var bool */
-    protected $hasVideo = false;
-
-    /** @var string */
-    protected $istatsPageType = '';
-
-    /** @var mixed[] */
-    protected $otherIstatsLabels = [];
-
-    /** @var string|null */
-    protected $locale;
-
-    /** @var string */
-    private $atiChapterOne;
-
-    /** @var string */
-    private $brandingId = 'br-07918';
-
-    /** @var string */
-    private $fallbackBrandingId = 'br-07918';
-
-    /** @var bool */
-    private $preview = false;
+    /**
+     * These are private so that they cannot be overwritten by a child class,
+     * only modified via returning the object from a function
+     */
 
     /**
-     * Private so that it cannot be overwritten by a child class, only modified via response()
-     *
      * @var Response
      */
     private $response;
 
+    /** @var PageMetadataHelper */
+    private $pageMetadataHelper;
+
+    /** @var BrandingHelper */
+    private $brandingHelper;
+
+    /** @var AtiAnalyticsHelper */
+    private $atiAnalyticsHelper;
+
     public static function getSubscribedServices()
     {
         return array_merge(parent::getSubscribedServices(), [
-            BrandingClient::class,
             OrbitClient::class,
             TranslateProvider::class,
-            CosmosInfo::class,
         ]);
     }
 
-    public function __construct()
-    {
+    public function __construct(
+        PageMetadataHelper $pageMetadataHelper,
+        BrandingHelper $brandingHelper,
+        AtiAnalyticsHelper $atiAnalyticsHelper
+    ) {
         $this->response = new Response();
+        $this->pageMetadataHelper = $pageMetadataHelper;
+        $this->brandingHelper = $brandingHelper;
+        $this->atiAnalyticsHelper = $atiAnalyticsHelper;
         // It is required to set the cache-control header when creating the response object otherwise Symfony
         // will create and set its value to "no-cache, private" by default
         $this->response()->setPublic()->setMaxAge(300);
@@ -77,9 +62,19 @@ abstract class BaseController extends AbstractController
         $this->response()->headers->set('X-Content-Type-Options', 'nosniff');
     }
 
-    protected function setIstatsPageType(string $pageType)
+    protected function brandingHelper(): BrandingHelper
     {
-        $this->istatsPageType = $pageType;
+        return $this->brandingHelper;
+    }
+
+    protected function pageMetadataHelper(): PageMetadataHelper
+    {
+        return $this->pageMetadataHelper;
+    }
+
+    protected function atiAnalyticsHelper(): AtiAnalyticsHelper
+    {
+        return $this->atiAnalyticsHelper;
     }
 
     protected function response(): Response
@@ -87,89 +82,37 @@ abstract class BaseController extends AbstractController
         return $this->response;
     }
 
-    /**
-     * @param string $view
-     * @param mixed[] $parameters
-     * @return Response
-     */
-    protected function renderWithChrome(string $view, array $parameters = [])
-    {
-        $branding = $this->requestBranding();
+    protected function renderWithBrandingAndOrbit(
+        string $view,
+        PageMetadata $pageMetadata,
+        AtiAnalyticsLabels $analyticsLabels,
+        Branding $branding,
+        array $viewParameters = []
+    ) {
+        if ($pageMetadata->isPreview()) {
+            $this->response()->headers->remove('X-Frame-Options');
+        }
 
         // We should change the language if it has been set by the blog
         // Otherwise, we should default to the language set by branding
-        $locale = $this->locale ?? $branding->getLocale();
-
+        $locale = $pageMetadata->getLocale() ?? $branding->getLocale();
         $translateProvider = $this->container->get(TranslateProvider::class);
-        $cosmosInfo = $this->container->get(CosmosInfo::class);
-
-        $istatsAnalyticsLabels = new IstatsAnalyticsLabels($parameters['blog'] ?? null, $this->istatsPageType, $cosmosInfo->getAppVersion(), $this->hasVideo, $this->otherIstatsLabels);
-        $istatsCounterName = (string) new AnalyticsCounterName($parameters['blog'] ?? null, $this->counterName);
-
-        $atiAnalyticsLabelsValues = new AtiAnalyticsLabels($cosmosInfo, $this->atiChapterOne, $this->hasVideo, $parameters['blog'] ?? null);
-        $atiAnalyticsLabelsValues = $atiAnalyticsLabelsValues->orbLabels();
-
         $translateProvider->setLocale($locale);
+
         $orb = $this->container->get(OrbitClient::class)->getContent([
             'variant' => $branding->getOrbitVariant(),
             'language' => $branding->getLanguage(),
         ], [
-            'page' => $atiAnalyticsLabelsValues,
-            'analyticsLabels' => $istatsAnalyticsLabels->orbLabels(),
-            'analyticsCounterName' => $istatsCounterName,
+            'page' => $analyticsLabels->getLabels(),
             'searchScope' => $branding->getOrbitSearchScope(),
             'skipLinkTarget' => 'blogs-content',
         ]);
-        $parameters = array_merge([
-            'istats_counter_name' => $istatsCounterName,
+        $viewParameters = array_merge([
             'orb' => $orb,
             'branding' => $branding,
-            'meta_context' => new MetaContext($this->preview),
-            'fallback_social_image' => new Image('p01tqv8z.png'),
-        ], $parameters);
-        return $this->render($view, $parameters, $this->response);
-    }
-
-    protected function request(): Request
-    {
-        return $this->container->get('request_stack')->getCurrentRequest();
-    }
-
-    protected function setBrandingId(string $brandingId)
-    {
-        if ($brandingId) {
-            $this->brandingId = $brandingId;
-        }
-    }
-
-    protected function isPreview(Request $request): bool
-    {
-        $preview = filter_var($request->get('preview', 'false'), FILTER_VALIDATE_BOOLEAN);
-        return (bool) $preview;
-    }
-
-    protected function setPreview(bool $preview): void
-    {
-        if ($preview) {
-            $this->response()->headers->remove('X-Frame-Options');
-        }
-        $this->preview = $preview;
-    }
-
-    protected function setLocale(string $locale)
-    {
-        // The translations library doesn't support multiple variations of the same language
-        // so this allows us to have two different versions of English
-        if ($locale === 'en-GB_articles') {
-            $locale = 'articles';
-        }
-
-        $this->locale = $locale;
-    }
-
-    protected function setAtiChapterOneVariable(string $chapterOne): void
-    {
-        $this->atiChapterOne = $chapterOne;
+            'page_metadata' => $pageMetadata,
+        ], $viewParameters);
+        return $this->render($view, $viewParameters, $this->response);
     }
 
     protected function cachedRedirect($url, $status = 302): RedirectResponse
@@ -181,25 +124,5 @@ abstract class BaseController extends AbstractController
     protected function cachedRedirectToRoute($route, array $parameters = [], $status = 302): RedirectResponse
     {
         return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
-    }
-
-    private function requestBranding(): Branding
-    {
-        $brandingClient = $this->container->get(BrandingClient::class);
-        $previewId = $this->request()->query->get($brandingClient::PREVIEW_PARAM, null);
-
-        try {
-            $branding = $brandingClient->getContent(
-                $this->brandingId,
-                $previewId
-            );
-        } catch (BrandingException $e) {
-            // Could not find that branding id (or preview id), someone probably
-            // mistyped it. Use a default branding instead of blowing up.
-            $this->setBrandingId($this->fallbackBrandingId);
-            $branding = $brandingClient->getContent($this->brandingId, null);
-        }
-
-        return $branding;
     }
 }

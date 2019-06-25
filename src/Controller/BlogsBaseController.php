@@ -8,18 +8,16 @@ use App\BlogsService\Domain\Module\FreeText;
 use App\BlogsService\Domain\Module\Links;
 use App\BlogsService\Infrastructure\IsiteResult;
 use App\BlogsService\Service\TagService;
+use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
+use App\Controller\Helpers\ValueObjects\PageMetadata;
 use App\Ds\Molecule\Paginator\PaginatorPresenter;
 use App\Ds\Presenter;
 use App\Ds\SidebarModule\FreetextPresenter;
 use App\Ds\SidebarModule\LinksPresenter;
 use Exception;
-use Symfony\Component\HttpFoundation\Request;
 
 abstract class BlogsBaseController extends BaseController
 {
-    /** @var Blog */
-    private $blog;
-
     public static function getSubscribedServices()
     {
         return array_merge(parent::getSubscribedServices(), [
@@ -36,12 +34,13 @@ abstract class BlogsBaseController extends BaseController
         return null;
     }
 
-    protected function renderWithChrome(string $view, array $parameters = [])
-    {
-        if ($this->blog === null) {
-            throw new Exception('Must set blog using `setBlog()` before calling this method!');
-        }
-
+    protected function renderBlogPage(
+        string $view,
+        AtiAnalyticsLabels $atiAnalyticsLabels,
+        PageMetadata $pageMetadata,
+        Blog $blog,
+        array $parameters = []
+    ) {
         if (isset($parameters['blogTags'])) {
             throw new Exception('Parameter blogTags should not have already been set');
         }
@@ -53,49 +52,44 @@ abstract class BlogsBaseController extends BaseController
         if (isset($parameters['modulePresenters'])) {
             throw new Exception('Parameter modulePresenters should not have already been set');
         }
+        $parameters['blogTags'] = $this->getTagsByBlog($blog);
+        $parameters['blog'] = $blog;
+        $parameters['modulePresenters'] = $this->getModulePresenters($blog);
 
-        $parameters['blogTags'] = $this->getTagsByBlog();
-        $parameters['blog'] = $this->blog;
-        $parameters['modulePresenters'] = $this->getModulePresenters();
-
-        return parent::renderWithChrome($view, $parameters);
+        $branding = $this->brandingHelper()->requestBranding($blog->getBrandingId());
+        return $this->renderWithBrandingAndOrbit($view, $pageMetadata, $atiAnalyticsLabels, $branding, $parameters);
     }
 
-    protected function setBlog(Blog $blog)
+    protected function getPageNumber(): int
     {
-        $this->blog = $blog;
-        $this->setBrandingId($blog->getBrandingId());
-        $this->setLocale($blog->getLanguage());
-    }
-
-    protected function getPageNumber(Request $request): int
-    {
+        $request = $this->container->get('request_stack')->getMasterRequest();
         $page = (int) $request->query->get('page', 1);
 
         return $page > 1 ? $page : 1;
     }
 
-    private function getTagsByBlog(): array
+    private function getTagsByBlog(Blog $blog): array
     {
-        if ($this->blog === null) {
+        if ($blog === null) {
             throw new Exception('Must set blog using `setBlog()` before calling this method!');
         }
 
         $tagService = $this->container->get(TagService::class);
 
-        $result = $tagService->getTagsByBlog($this->blog, 1, 18, false);
+        $result = $tagService->getTagsByBlog($blog, 1, 18, false);
         $tags = $result->getDomainModels();
 
         return $tags;
     }
 
     /**
+     * @param  Blog $blog
      * @return Presenter[]
      */
-    private function getModulePresenters(): array
+    private function getModulePresenters(Blog $blog): array
     {
         $modulePresenters = [];
-        foreach ($this->blog->getModules() as $module) {
+        foreach ($blog->getModules() as $module) {
             if ($module instanceof FreeText) {
                 $modulePresenters[] = new FreetextPresenter($module);
             } elseif ($module instanceof Links) {

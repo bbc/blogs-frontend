@@ -41,6 +41,7 @@ services:
     # have the tag that allows actions to type-hint services
     App\Controller\:
         resource: '../src/Controller'
+        exclude: '../src/Controller/Helpers'
         tags: ['controller.service_arguments']
 
     App\Controller\ExceptionController:

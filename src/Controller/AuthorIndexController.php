@@ -7,17 +7,12 @@ use App\BlogsService\Domain\Author;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Service\AuthorService;
 use App\BlogsService\Service\PostService;
-use Symfony\Component\HttpFoundation\Request;
 
 class AuthorIndexController extends BlogsBaseController
 {
-    public function __invoke(Request $request, Blog $blog, AuthorService $authorService, PostService $postService)
+    public function __invoke(Blog $blog, AuthorService $authorService, PostService $postService)
     {
-        $this->setIstatsPageType('author_index');
-        $this->setAtiChapterOneVariable('list-authors');
-        $this->setBlog($blog);
-
-        $page = $this->getPageNumber($request);
+        $page = $this->getPageNumber();
 
         $authorsResult = $authorService->getAuthorsByBlog($blog, $page);
 
@@ -28,8 +23,17 @@ class AuthorIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($authorsResult);
 
-        return $this->renderWithChrome(
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
+        $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
+            'All authors on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
+            $blog
+        );
+
+        return $this->renderBlogPage(
             'author/index.html.twig',
+            $analyticsLabels,
+            $pageMetadata,
+            $blog,
             [
                 'authorPostResults' => $authorPostResults,
                 'authors' => $authors,
