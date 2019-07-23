@@ -5,9 +5,6 @@ set -e
 branch=$(echo $GIT_BRANCH | cut -d/ -f 2)
 echo $JOB_NAME:$branch $WORKSPACE
 
-# clear old build files and var folder
-rm -rf RPMS SOURCES SPECS SRPMS var web/assets
-
 echo "Running CI tasks"
 
 # If we're not already using php71+, try and solve that
@@ -46,12 +43,15 @@ else
 fi
 
 # Run PHPCS
+echo "PHP code sniffing"
 vendor/bin/phpcs -n --report=checkstyle --report-file=build/reports/checkstyle.xml || RESULT=1
 
 # Run sass-lint
+echo "Sass linter"
 npm run lint || RESULT=1
 
 # Run PHPStan
+echo "PHP standards checker"
 php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
 
 if [ "$RESULT" = "0" ]; then
