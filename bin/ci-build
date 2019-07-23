@@ -7,7 +7,7 @@ echo $JOB_NAME:$branch $WORKSPACE
 
 echo "Running CI tasks"
 
-RESULT = 0
+RESULT=0
 
 # If we're not already using php71+, try and solve that
 if ! (php --version | grep -q "PHP 7.") ; then
