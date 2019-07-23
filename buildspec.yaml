@@ -10,4 +10,4 @@ env:
 phases:
   build:
     commands:
-      - script/codebuild/build
+      - bin/ci-build

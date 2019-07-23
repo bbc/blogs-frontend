@@ -1,0 +1,84 @@
+#!/bin/sh
+
+set -e
+
+branch=$(echo $GIT_BRANCH | cut -d/ -f 2)
+echo $JOB_NAME:$branch $WORKSPACE
+
+# clear old build files and var folder
+rm -rf RPMS SOURCES SPECS SRPMS var web/assets
+
+echo "Running CI tasks"
+
+# If we're not already using php71+, try and solve that
+if ! (php --version | grep -q "PHP 7.") ; then
+    echo "You're not using PHP 7.1+, please install it."
+    php --version
+    exit 1
+fi
+
+export SYMFONY_ENV=prod;
+
+# setup and run composer
+if [ -n "$OAUTH" ]; then
+    composer config -g github-oauth.github.com $OAUTH
+fi
+
+composer --no-ansi --no-interaction install
+
+# Make sure the reports directory exists
+if [ ! -d "build/reports" ]; then
+    mkdir -p build/reports
+fi
+
+npm install
+
+# Compile static assets
+npm run gulp-ci
+
+# Run PHPUnit
+if $WITH_TEST_COVERAGE ; then
+    echo "Code coverage: on"
+    bin/phpunit || RESULT=1
+else
+    echo "Code coverage: off"
+    bin/phpunit --no-coverage || RESULT=1
+fi
+
+# Run PHPCS
+vendor/bin/phpcs -n --report=checkstyle --report-file=build/reports/checkstyle.xml || RESULT=1
+
+# Run sass-lint
+npm run lint || RESULT=1
+
+# Run PHPStan
+php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
+
+if [ "$RESULT" = "0" ]; then
+   SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
+fi
+
+if [ "$RESULT" = "1" ]; then
+    echo 'Something went wrong!'
+    exit 1;
+fi
+
+# Clearing cache
+rm -rf var/cache || true
+
+if [ "$BUILD_TYPE" = "pull-request" ]
+then
+    echo "Building RPM..."
+    mbt -r 7 -s rpmbuild
+else
+    version=`cosmos-release generate-version blogs-frontend`
+
+    echo "Building RPM..."
+    mbt -r 7 -s rpmbuild --rpmversion $version
+
+    # echo 'COSMOS-RELEASE: Publishing assets.....'
+    cosmos-release publish-assets --role $STATIC_ASSETS_BUCKET_ROLE_ARN $STATIC_ASSETS "$STATIC_ASSETS_BUCKET/blogs-frontend"
+
+    echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
+    cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
+fi
