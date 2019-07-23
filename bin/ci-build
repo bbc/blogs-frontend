@@ -54,6 +54,7 @@ npm run lint || RESULT=1
 echo "PHP standards checker"
 php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
 
+echo "Composer dist installation!"
 if [ "$RESULT" = "0" ]; then
    SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
 fi
