@@ -7,6 +7,8 @@ echo $JOB_NAME:$branch $WORKSPACE
 
 echo "Running CI tasks"
 
+RESULT = 0
+
 # If we're not already using php71+, try and solve that
 if ! (php --version | grep -q "PHP 7.") ; then
     echo "You're not using PHP 7.1+, please install it."
@@ -54,32 +56,44 @@ npm run lint || RESULT=1
 echo "PHP standards checker"
 php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
 
-echo "Composer dist installation!"
-if [ "$RESULT" = "0" ]; then
-   SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
-fi
-
-if [ "$RESULT" = "1" ]; then
+if [[ $RESULT != 0 ]]; then
     echo 'Something went wrong!'
     exit 1;
 fi
 
-# Clearing cache
-rm -rf var/cache || true
-
-if [ "$BUILD_TYPE" = "pull-request" ]
+# if build is trigger through a webhook we can stop here after the code analysers are run.
+if [[ ! -z "$CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID" ]]
 then
-    echo "Building RPM..."
-    mbt -r 7 -s rpmbuild
-else
-    version=`cosmos-release generate-version blogs-frontend`
+ exit 0
+fi
 
-    echo "Building RPM..."
-    mbt -r 7 -s rpmbuild --rpmversion $version
+echo "Composer Dist install"
+SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
 
-    # echo 'COSMOS-RELEASE: Publishing assets.....'
-    cosmos-release publish-assets --role $STATIC_ASSETS_BUCKET_ROLE_ARN $STATIC_ASSETS "$STATIC_ASSETS_BUCKET/blogs-frontend"
+echo "Removing unneeded folders"
+rm -rf var/* docs/* tests/*
 
-    echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
-    cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
+version=`cosmos-release generate-version blogs-frontend`
+
+echo "Building RPM..."
+mbt -r 7 -s rpmbuild --rpmversion $version
+
+echo 'Publishing assets.....'
+aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
+
+echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
+cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
+
+# Deploy the RPM if DEPLOY_TO is set
+if [[ ! -z "$DEPLOY_TO" ]]
+then
+    if [[ ${DEPLOY_TO,,} == "int" ]] || [[ ${DEPLOY_TO,,} == "test" ]] || [[ ${DEPLOY_TO,,} == "stage" ]];
+    then
+        echo "Deploying enabled. Deploying blogs-frontend $version to ${DEPLOY_TO,,}"
+        curl --cert /etc/pki/tls/certs/client.crt --key /etc/pki/tls/private/client.key \
+        https://cosmos.api.bbci.co.uk/env/${DEPLOY_TO,,}/component/blogs-frontend/deploy_release \
+        -d "{\"release_version\": \"$version\"}" -H 'Content-Type: application/json' -X POST
+    else
+        echo "Deployment error, please leave it empty if you only want to build otherwise use one of the valid environments: int, test or stage"
+    fi
 fi
