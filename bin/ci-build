@@ -32,7 +32,7 @@ bin/phpunit --no-coverage || RESULT=1
 
 # Run PHPCS
 echo "PHP code sniffing"
-vendor/bin/phpcs -n|| RESULT=1
+vendor/bin/phpcs -n || RESULT=1
 
 # Run sass-lint
 echo "Sass linter"
