@@ -15,10 +15,10 @@ fi
 
 export SYMFONY_ENV=prod;
 
-# setup and run composer
-# if [ -n "$OAUTH" ]; then
-#     composer config -g github-oauth.github.com $OAUTH
-# fi
+# setup and run composer - needed for internal BBC packages
+if [ -n "$OAUTH" ]; then
+    composer config -g github-oauth.github.com $OAUTH
+fi
 
 composer --no-ansi --no-interaction install
 
