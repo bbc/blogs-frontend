@@ -1,6 +1,7 @@
 /build/
 /node_modules/
 /resources/gelicons
+/resources/rev-manifest.json
 /web/assets
 npm-debug.log
 yarn-error.log
