@@ -1,0 +1,93 @@
+#!/bin/sh
+
+set -e
+
+echo "Running CI tasks"
+
+RESULT=0
+
+# If we're not already using php71+, try and solve that
+if ! (php --version | grep -q "PHP 7.") ; then
+    echo "You're not using PHP 7.1+, please install it."
+    php --version
+    exit 1
+fi
+
+export SYMFONY_ENV=prod;
+
+# setup and run composer - needed for internal BBC packages
+if [ -n "$OAUTH" ]; then
+    composer config -g github-oauth.github.com $OAUTH
+fi
+
+# copy the certificate from aws parameter store so we can use cosmos-release inside CodeBuild
+# this is a temporal solution until we have an official way to provide CodeBuild with certs
+echo $BBC_CERTIFICATE | base64 --decode > /etc/pki/tls/certs/client.crt
+echo $BBC_CERTIFICATE_KEY | base64 --decode > /etc/pki/tls/private/client.key
+echo $COSMOS_REQUIRED_CA | base64 --decode >> /etc/pki/tls/certs/ca-bundle.crt
+
+composer --no-ansi --no-interaction install
+
+npm install
+
+# Compile static assets
+npm run gulp-ci
+
+# Run PHPUnit
+bin/phpunit --no-coverage || RESULT=1
+
+# Run PHPCS
+echo "PHP code sniffing"
+vendor/bin/phpcs -n || RESULT=1
+
+# Run sass-lint
+echo "Sass linter"
+npm run lint || RESULT=1
+
+# Run PHPStan
+echo "PHP standards checker"
+php -d memory_limit=512M vendor/bin/phpstan analyse -c phpstan.neon src tests --level=7 || RESULT=1
+
+if [[ $RESULT != 0 ]]; then
+    echo 'Something went wrong!'
+    exit 1;
+fi
+
+# if build is trigger through a webhook we can stop here after the code analysers are run.
+if [[ ! -z "$CODEBUILD_WEBHOOK_ACTOR_ACCOUNT_ID" ]]
+then
+ exit 0
+fi
+
+echo "Composer Dist install"
+SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install
+
+echo "Removing unneeded folders"
+rm -rf var/* docs/* tests/*
+
+echo "Genrating a version number..."
+version=`cosmos-release generate-version blogs-frontend`
+echo $version
+
+echo "Building RPM..."
+mbt -r 7 -s rpmbuild --rpmversion $version
+
+echo 'Publishing assets.....'
+aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
+
+echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
+cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
+
+# Deploy the RPM if DEPLOY_TO is set
+if [[ ! -z "$DEPLOY_TO" ]]
+then
+    if [[ ${DEPLOY_TO,,} == "int" ]] || [[ ${DEPLOY_TO,,} == "test" ]] || [[ ${DEPLOY_TO,,} == "stage" ]];
+    then
+        echo "Deploying enabled. Deploying blogs-frontend $version to ${DEPLOY_TO,,}"
+        curl --cert /etc/pki/tls/certs/client.crt --key /etc/pki/tls/private/client.key \
+        https://cosmos.api.bbci.co.uk/env/${DEPLOY_TO,,}/component/blogs-frontend/deploy_release \
+        -d "{\"release_version\": \"$version\"}" -H 'Content-Type: application/json' -X POST
+    else
+        echo "Deployment error, please leave it empty if you only want to build otherwise use one of the valid environments: int, test or stage"
+    fi
+fi
