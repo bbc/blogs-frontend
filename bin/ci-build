@@ -20,6 +20,12 @@ if [ -n "$OAUTH" ]; then
     composer config -g github-oauth.github.com $OAUTH
 fi
 
+# copy the certificate from aws parameter store so we can use cosmos-release inside CodeBuild
+# this is a temporal solution until we have an official way to provide CodeBuild with certs
+echo $BBC_CERTIFICATE | base64 --decode > /etc/pki/tls/certs/client.crt
+echo $BBC_CERTIFICATE_KEY | base64 --decode > /etc/pki/tls/private/client.key
+echo $COSMOS_REQUIRED_CA | base64 --decode >> /etc/pki/tls/certs/ca-bundle.crt
+
 composer --no-ansi --no-interaction install
 
 npm install
@@ -59,7 +65,7 @@ SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --opt
 echo "Removing unneeded folders"
 rm -rf var/* docs/* tests/*
 
-echo "Gnerating a version number..."
+echo "Genrating a version number..."
 version=`cosmos-release generate-version blogs-frontend`
 echo $version
 
