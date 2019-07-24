@@ -59,7 +59,9 @@ SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --opt
 echo "Removing unneeded folders"
 rm -rf var/* docs/* tests/*
 
+echo "Gnerating a version number..."
 version=`cosmos-release generate-version blogs-frontend`
+echo $version
 
 echo "Building RPM..."
 mbt -r 7 -s rpmbuild --rpmversion $version
