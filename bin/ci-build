@@ -2,9 +2,6 @@
 
 set -e
 
-branch=$(echo $GIT_BRANCH | cut -d/ -f 2)
-echo $JOB_NAME:$branch $WORKSPACE
-
 echo "Running CI tasks"
 
 RESULT=0
@@ -19,16 +16,11 @@ fi
 export SYMFONY_ENV=prod;
 
 # setup and run composer
-if [ -n "$OAUTH" ]; then
-    composer config -g github-oauth.github.com $OAUTH
-fi
+# if [ -n "$OAUTH" ]; then
+#     composer config -g github-oauth.github.com $OAUTH
+# fi
 
 composer --no-ansi --no-interaction install
-
-# Make sure the reports directory exists
-if [ ! -d "build/reports" ]; then
-    mkdir -p build/reports
-fi
 
 npm install
 
@@ -36,17 +28,11 @@ npm install
 npm run gulp-ci
 
 # Run PHPUnit
-if $WITH_TEST_COVERAGE ; then
-    echo "Code coverage: on"
-    bin/phpunit || RESULT=1
-else
-    echo "Code coverage: off"
-    bin/phpunit --no-coverage || RESULT=1
-fi
+bin/phpunit --no-coverage || RESULT=1
 
 # Run PHPCS
 echo "PHP code sniffing"
-vendor/bin/phpcs -n --report=checkstyle --report-file=build/reports/checkstyle.xml || RESULT=1
+vendor/bin/phpcs -n|| RESULT=1
 
 # Run sass-lint
 echo "Sass linter"
@@ -68,7 +54,7 @@ then
 fi
 
 echo "Composer Dist install"
-SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install || RESULT=1
+SYMFONY_ENV=prod APP_ENV=prod composer --no-ansi --no-interaction --no-dev --optimize-autoloader --prefer-dist install
 
 echo "Removing unneeded folders"
 rm -rf var/* docs/* tests/*
