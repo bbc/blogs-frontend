@@ -56,21 +56,22 @@
             {#no spaces in here#}
             {%- if prevPost is not empty -%}
                 <li class="br-keyline">{#--#}
-                    <a data-bbc-container="Blog title"
+                    <a data-bbc-container="{{ blog.getName() }}"
                         data-bbc-title="Post {{ post.getTitle() }}"
-                        data-bbc-source="{{ blog.getName() }}"
                         href="{{ path('post', {blogId: blog.getId(), guid: prevPost.getGuid() }) }}">
                         {{ tr('link_previous') }}{#--#}
                     </a>{#--#}
                 </li>{#--#}
             {%- endif -%}
             <li class="br-keyline">{#--#}
-                <a data-istats-link-location="blogs_top_home"
+                <a data-bbc-container="{{ blog.getName() }}"
+                   data-bbc-title="Post {{ post.getTitle() }}"
                    href="{{ path('blog', {blogId: blog.getId()}) }}">{{ tr('link_home') }}</a>{#--#}
             </li>{#--#}
             {%- if nextPost is not empty -%}
                 <li class="br-keyline">{#--#}
-                    <a data-istats-link-location="blogs_post_top_next"
+                    <a data-bbc-container="{{ blog.getName() }}"
+                       data-bbc-title="Post {{ post.getTitle() }}"
                        href="{{ path('post', {blogId: blog.getId(), guid: nextPost.getGuid() }) }}">{#--#}
                         {{ tr('link_next') }}{#--#}
                     </a>{#--#}
