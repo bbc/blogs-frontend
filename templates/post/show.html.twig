@@ -91,14 +91,17 @@
 
                 {% if post.getAuthor() %}
                     {{ ds('postAuthor', post.getAuthor(), blog.getId()) }}
+                    {# TODO: this #}
                 {% endif %}
 
                 {% if post.getTags() %}
                     {{ ds('postTags', post.getTags(), blog.getId()) }}
+                    {# TODO: this #}
                 {% endif %}
 
                 {% if comments %}
                     {{ ds('postSocialBar', post, blog.getId())}}
+                    {# TODO: this #}
                 {% endif %}
             </div>
 
@@ -109,10 +112,12 @@
 
         {% if post.getTags() %}
             {{ ds('postTags', post.getTags(), blog.getId()) }}
+            {# TODO: this #}
         {% endif %}
 
         {% if comments %}
             {{ ds('postSocialBar', post, blog.getId())}}
+            {# TODO: this #}
         {% endif %}
 
         {%- if comments -%}
