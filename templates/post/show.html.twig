@@ -56,8 +56,10 @@
             {#no spaces in here#}
             {%- if prevPost is not empty -%}
                 <li class="br-keyline">{#--#}
-                    <a data-istats-link-location="blogs_post_top_previous"
-                       href="{{ path('post', {blogId: blog.getId(), guid: prevPost.getGuid() }) }}">
+                    <a data-bbc-container="Blog title"
+                        data-bbc-title="Post {{ post.getTitle() }}"
+                        data-bbc-source="{{ blog.getName() }}"
+                        href="{{ path('post', {blogId: blog.getId(), guid: prevPost.getGuid() }) }}">
                         {{ tr('link_previous') }}{#--#}
                     </a>{#--#}
                 </li>{#--#}
