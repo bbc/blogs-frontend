@@ -56,22 +56,22 @@
             {#no spaces in here#}
             {%- if prevPost is not empty -%}
                 <li class="br-keyline">{#--#}
-                    <a data-bbc-container="{{ blog.getName() }}"
-                        data-bbc-title="Post {{ post.getTitle() }}"
+                    <a data-bbc-container="{{ blog.getId() }}"
+                        data-bbc-title="header-previous-post"
                         href="{{ path('post', {blogId: blog.getId(), guid: prevPost.getGuid() }) }}">
                         {{ tr('link_previous') }}{#--#}
                     </a>{#--#}
                 </li>{#--#}
             {%- endif -%}
             <li class="br-keyline">{#--#}
-                <a data-bbc-container="{{ blog.getName() }}"
-                   data-bbc-title="Post {{ post.getTitle() }}"
+                <a data-bbc-container="{{ blog.getId() }}"
+                   data-bbc-title="header-home"
                    href="{{ path('blog', {blogId: blog.getId()}) }}">{{ tr('link_home') }}</a>{#--#}
             </li>{#--#}
             {%- if nextPost is not empty -%}
                 <li class="br-keyline">{#--#}
-                    <a data-bbc-container="{{ blog.getName() }}"
-                       data-bbc-title="Post {{ post.getTitle() }}"
+                    <a data-bbc-container="{{ blog.getId() }}"
+                       data-bbc-title="header-next-post"
                        href="{{ path('post', {blogId: blog.getId(), guid: nextPost.getGuid() }) }}">{#--#}
                         {{ tr('link_next') }}{#--#}
                     </a>{#--#}
@@ -91,17 +91,14 @@
 
                 {% if post.getAuthor() %}
                     {{ ds('postAuthor', post.getAuthor(), blog.getId()) }}
-                    {# TODO: this #}
                 {% endif %}
 
                 {% if post.getTags() %}
                     {{ ds('postTags', post.getTags(), blog.getId()) }}
-                    {# TODO: this #}
                 {% endif %}
 
                 {% if comments %}
                     {{ ds('postSocialBar', post, blog.getId())}}
-                    {# TODO: this #}
                 {% endif %}
             </div>
 
@@ -112,12 +109,10 @@
 
         {% if post.getTags() %}
             {{ ds('postTags', post.getTags(), blog.getId()) }}
-            {# TODO: this #}
         {% endif %}
 
         {% if comments %}
             {{ ds('postSocialBar', post, blog.getId())}}
-            {# TODO: this #}
         {% endif %}
 
         {%- if comments -%}
@@ -156,8 +151,7 @@
         </div>
         <div class="grid 2/3@bpw2 2/3@bpe">
             <h4 class="delta no-margin">
-                <a data-istats-link-location="{{ istatsLocation }}"
-                   href="{{ path('post', {blogId: blogId, guid: post.getGuid() }) }}">
+                <a href="{{ path('post', {blogId: blogId, guid: post.getGuid() }) }}" data-bbc-container="{{ blogId }}" data-bbc-title="more-posts">
                     {{ post.getTitle() }}
                 </a>
             </h4>
