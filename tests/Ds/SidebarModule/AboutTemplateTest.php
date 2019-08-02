@@ -41,7 +41,7 @@ class AboutTemplateTest extends BaseTemplateTestCase
         $blogHomeLi = $lis->first();
         $this->assertEquals(1, $blogHomeLi->children()->count());
         $blogHomeLink = $blogHomeLi->children()->first();
-        $this->assertEquals('blogs_global_aside_home', $blogHomeLink->attr('data-istats-link-location'));
+        $this->assertEquals('sidebar-home', $blogHomeLink->attr('data-bbc-title'));
         $this->assertEquals('Blog home', $blogHomeLink->text());
         $this->assertEquals('/blogs/theblogid', $blogHomeLink->attr('href'));
     }

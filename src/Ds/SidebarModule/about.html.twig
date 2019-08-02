@@ -17,22 +17,30 @@
                 {% if about.shouldShowSocial() %}
                     {% if about.getTwitterUsername() %}
                         <p>
-                            {{ tr('follow_us_on_twitter', {'%1': '<a href="http://twitter.com/' ~ about.getTwitterUsername() ~ '" target="_blank">' ~ about.getBlogName() ~ '</a>'})|raw }}
+                            {{ tr('follow_us_on_twitter',
+                                {'%1': '<a href="http://twitter.com/' ~ about.getTwitterUsername() ~
+                                    '" target="_blank" data-bbc-container="' ~ about.getBlogId() ~
+                                    '" data-bbc-title="sidebar-twitter">' ~ about.getBlogName() ~ '</a>'}
+                            )|raw }}
                         </p>
                     {% endif %}
                     {% if about.getFacebookUrl() %}
                         <p>
-                            {{ tr('find_us_on_facebook', {'%1': '<a href="' ~ about.getFacebookUrl() ~ '" target="_blank">Facebook</a>'})|raw }}
+                            {{ tr('find_us_on_facebook',
+                                {'%1': '<a href="' ~ about.getFacebookUrl() ~
+                                    '" target="_blank" data-bbc-container="' ~ about.getBlogId() ~
+                                    '" data-bbc-title="sidebar-facebook">Facebook</a>'}
+                            )|raw }}
                         </p>
                     {% endif %}
                 {% endif %}
                 <ul class="list-unstyled">
                     <li>
-                        <a data-istats-link-location="blogs_global_aside_home"
+                        <a data-bbc-container="{{ about.getBlogId() }}" data-bbc-title="sidebar-home"
                            href="{{ path('blog', {blogId: about.getBlogId() }) }}">{{ tr('module_about_link_home') }}</a>
                     </li>
                     <li>
-                        <a data-istats-link-location="blogs_global_aside_explore_all_bbc_blogs"
+                        <a data-bbc-container="{{ about.getBlogId() }}" data-bbc-title="sidebar-explore-all-blogs"
                            href="{{ path('home') }}">{{ tr('module_about_link_all_blogs') }}</a>
                     </li>
                 </ul>

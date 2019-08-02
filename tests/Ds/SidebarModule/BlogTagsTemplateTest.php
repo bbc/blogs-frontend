@@ -23,17 +23,17 @@ class BlogTagsTemplateTest extends BaseTemplateTestCase
         $this->assertEquals(2, $tags->count());
 
         $firstTag = $tags->first();
-        $this->assertEquals('blogs_global_aside_tag', $firstTag->filterXPath('//a')->first()->attr('data-istats-link-location'));
+        $this->assertEquals('sidebar-tag', $firstTag->filterXPath('//a')->first()->attr('data-bbc-title'));
         $this->assertEquals('/blogs/theblogid/tags/fileid1', $firstTag->filterXPath('//a')->first()->attr('href'));
         $this->assertEquals(' name1', $firstTag->filterXPath('//a')->first()->text());
 
         $secondTag = $tags->eq(1);
-        $this->assertEquals('blogs_global_aside_tag', $firstTag->filterXPath('//a')->first()->attr('data-istats-link-location'));
+        $this->assertEquals('sidebar-tag', $firstTag->filterXPath('//a')->first()->attr('data-bbc-title'));
         $this->assertEquals('/blogs/theblogid/tags/fileid2', $secondTag->filterXPath('//a')->first()->attr('href'));
         $this->assertEquals(' name2', $secondTag->filterXPath('//a')->first()->text());
 
         $allTagsLink = $crawler->filterXPath('//p/a')->first();
-        $this->assertEquals('blogs_global_aside_see_all_tags', $allTagsLink->attr('data-istats-link-location'));
+        $this->assertEquals('sidebar-all-tags', $allTagsLink->attr('data-bbc-title'));
         $this->assertEquals('/blogs/theblogid/tags', $allTagsLink->attr('href'));
         $this->assertEquals('See all tags', $allTagsLink->text());
     }
