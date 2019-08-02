@@ -6,9 +6,11 @@
             <h3>{{ tr('module_updates_header_feed_tags') }}:</h3>
             <ul class="list-unstyled list-spaced">
                 <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                        data-bbc-container="{{ updates.getBlogId() }}" data-bbc-title="sidebar-rss"
                         href="{{ path('feed_rss_tags', {blogId: updates.getBlogId(), tagId: updates.getTagId()}) }}">{{ tr('module_updates_link_rss') }}</a>
                 </li>
                 <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                        data-bbc-container="{{ updates.getBlogId() }}" data-bbc-title="sidebar-atom"
                         href="{{ path('feed_atom_tags', {blogId: updates.getBlogId(), tagId: updates.getTagId()}) }}">{{ tr('module_updates_link_atom') }}</a>
                 </li>
             </ul>
@@ -19,9 +21,11 @@
 
         <ul class="list-unstyled list-spaced">
             <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                    data-bbc-container="{{ updates.getBlogId() }}" data-bbc-title="sidebar-rss"
                     href="{{ path('feed_rss', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_rss') }}</a>
             </li>
             <li>{{ gelicon('basics', 'rss', 'gelicon--text-base gelicon--leading') }} <a
+                    data-bbc-container="{{ updates.getBlogId() }}" data-bbc-title="sidebar-atom"
                     href="{{ path('feed_atom', {blogId: updates.getBlogId()}) }}">{{ tr('module_updates_link_atom') }}</a>
             </li>
         </ul>
