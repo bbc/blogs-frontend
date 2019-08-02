@@ -1,6 +1,7 @@
 <div>
     <h3 class="beta">
-        <a href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid()}) }}">
+        <a data-bbc-title="post-title" data-bbc-container="{{ post_preview.getBlogId() }}"
+            href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid()}) }}">
             {{ post_preview.getPost().getTitle() }}
         </a>
     </h3>

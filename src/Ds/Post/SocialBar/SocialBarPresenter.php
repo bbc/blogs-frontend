@@ -14,6 +14,10 @@ class SocialBarPresenter extends Presenter
     /** @var string */
     private $blogId;
 
+    protected $options = [
+        'is_featured_post' => false,
+    ];
+
     public function __construct(Post $post, string $blogId, array $options = [])
     {
         parent::__construct($options);
