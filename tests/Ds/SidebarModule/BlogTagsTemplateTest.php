@@ -33,7 +33,7 @@ class BlogTagsTemplateTest extends BaseTemplateTestCase
         $this->assertEquals(' name2', $secondTag->filterXPath('//a')->first()->text());
 
         $allTagsLink = $crawler->filterXPath('//p/a')->first();
-        $this->assertEquals('blogs_global_aside_see_all_tags', $allTagsLink->attr('data-istats-link-location'));
+        $this->assertEquals('sidebar-tag', $allTagsLink->attr('data-bbc-title'));
         $this->assertEquals('/blogs/theblogid/tags', $allTagsLink->attr('href'));
         $this->assertEquals('See all tags', $allTagsLink->text());
     }
