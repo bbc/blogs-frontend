@@ -1,10 +1,8 @@
 <div>
     <h{{ post_summary.getOption('h_tag') }} class="{{ post_summary.getOption('h_class') }} no-margin">
         <a
-            {% if post_summary.isFeaturedPost() %}
-                data-istats-link-location="blogs_featured_post"
-            {% endif %}
-           href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
+            data-bbc-container="{{ post_summary.getBlogId() }}" data-bbc-title="post-title"
+            href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
             {{ post_summary.getPost.getTitle() }}
         </a>
     </h{{ post_summary.getOption('h_tag') }}>
@@ -33,10 +31,7 @@
             {% endif %}
             <p>
                 <a
-                    {% if post_summary.isFeaturedPost() %}
-                        data-istats-link-location="blogs_featured_post"
-                    {% endif %}
-                    data-link="read-more"
+                    data-bbc-container="{{ post_summary.getBlogId() }}" data-bbc-title="post-read-more"
                     href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
             </p>
         </div>
