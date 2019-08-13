@@ -6,6 +6,7 @@ namespace App\Ds\Post\PostSummary;
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
 use App\Ds\InvalidOptionException;
+use App\Ds\Post\Author\AuthorPresenter;
 use App\Ds\Presenter;
 
 class PostSummaryPresenter extends Presenter
@@ -62,6 +63,15 @@ class PostSummaryPresenter extends Presenter
     public function shouldShowImage(): bool
     {
         return $this->getOption('show_image') && $this->post->getImage();
+    }
+
+    public function getPostAuthorPresenter(): AuthorPresenter
+    {
+        return new AuthorPresenter(
+            $this->post->getAuthor(),
+            $this->getBlogId(),
+            array_merge($this->options['author_options'], ['is_featured_post' =>$this->isFeaturedPost()])
+        );
     }
 
     protected function validateOptions(array $options): void
