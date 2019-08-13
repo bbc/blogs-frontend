@@ -28,7 +28,7 @@
             {% endif %}
             <p>
                 <a
-                    data-bbc-title="{% if post_summary.isFeaturedPost() %}featured-{% endif %}post-read-more" data-bbc-container="{{ post_summary.getBlogId() }}"
+                    data-bbc-title="{{  post_summary.isFeaturedPost() ? 'featured-' : ''}}post-read-more" data-bbc-container="{{ post_summary.getBlogId() }}"
                     data-link="read-more"
                     href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
             </p>

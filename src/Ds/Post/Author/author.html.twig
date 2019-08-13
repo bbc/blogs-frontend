@@ -1,6 +1,6 @@
 <a data-section="author" class="block {{- author.getOption('is_slimline') ? '' : ' islet--vertical' -}}"
    href="{{ path('author_show', {blogId: author.getBlogId(), guid: author.getGuid()}) }}" data-bbc-container="{{ author.getBlogId() }}"
-   data-bbc-title="{{ author.getOption('is_featured_post') ? '' : 'featured-' }}post-author">
+   data-bbc-title="{{ author.getOption('is_featured_post') ? 'featured-' : '' }}post-author">
     <div class="media">
         {% if author.getImage() %}
         <div class="1/6 hidden visible@bpw media__img">
