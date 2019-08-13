@@ -21,7 +21,9 @@
     {% endfor %}
     {% if post_preview.shouldShowShowMoreLink() %}
         <p>
-            <a data-link="read-more" href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
+            <a data-bbc-title="{{  post_preview.isFeaturedPost() ? 'featured-' : ''}}post-read-more"
+               data-bbc-container="{{ post_preview.getBlogId() }}" data-link="read-more"
+               href="{{ path('post', {blogId: post_preview.getBlogId(), guid: post_preview.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
         </p>
     {% endif %}
 

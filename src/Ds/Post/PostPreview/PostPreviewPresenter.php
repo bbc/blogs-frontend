@@ -69,4 +69,11 @@ class PostPreviewPresenter extends AbstractPostPresenter
     {
         return $this->showReadMore;
     }
+
+    public function isFeaturedPost(): bool
+    {
+        $featuredPost = $this->blog->getFeaturedPost();
+
+        return null !== $featuredPost && $featuredPost->getGuid() === $this->post->getGuid();
+    }
 }
