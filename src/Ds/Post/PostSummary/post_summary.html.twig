@@ -12,7 +12,7 @@
         </time>
     </p>
     {% if post_summary.shouldShowAuthor() %}
-        {{ ds('postAuthor', post_summary.getPost().getAuthor(), post_summary.getBlogId(), {'author_options' : post_summary.getOption('author_options'), 'is_featured_post' : post_summary.isFeaturedPost()}) }}
+        {{ ds_presenter(post_summary.getPostAuthorPresenter()) }}
     {% endif %}
     <div class="media islet--vertical">
         {% if post_summary.shouldShowImage() %}
