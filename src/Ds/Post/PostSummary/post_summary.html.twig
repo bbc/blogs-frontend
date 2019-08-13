@@ -1,7 +1,7 @@
 <div>
     <h{{ post_summary.getOption('h_tag') }} class="{{ post_summary.getOption('h_class') }} no-margin">
         <a
-            data-bbc-title="{% if post_summary.isFeaturedPost() %}featured-{% endif %}post-title" data-bbc-container="{{ post_summary.getBlogId() }}"
+            data-bbc-title="{{  post_summary.isFeaturedPost() ? 'featured-' : '' }}post-title" data-bbc-container="{{ post_summary.getBlogId() }}"
             href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
             {{ post_summary.getPost.getTitle() }}
         </a>
