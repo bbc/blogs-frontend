@@ -1,7 +1,7 @@
 <div>
     <h{{ post_summary.getOption('h_tag') }} class="{{ post_summary.getOption('h_class') }} no-margin">
         <a
-            data-bbc-container="{{ post_summary.getBlogId() }}" data-bbc-title="post-title"
+            data-bbc-title="{{  post_summary.isFeaturedPost() ? 'featured-' : '' }}post-title" data-bbc-container="{{ post_summary.getBlogId() }}"
             href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">
             {{ post_summary.getPost.getTitle() }}
         </a>
@@ -12,7 +12,7 @@
         </time>
     </p>
     {% if post_summary.shouldShowAuthor() %}
-        {{ ds('postAuthor', post_summary.getPost().getAuthor(), post_summary.getBlogId(), post_summary.getOption('author_options')) }}
+        {{ ds('postAuthor', post_summary.getPost().getAuthor(), post_summary.getBlogId(), post_summary.getOption('author_options'), {'is_featured_post' : post_summary.isFeaturedPost()}) }}
     {% endif %}
     <div class="media islet--vertical">
         {% if post_summary.shouldShowImage() %}
@@ -27,13 +27,14 @@
                 <p>{{ post_summary.getPost().getShortSynopsis() }}</p>
             {% endif %}
             <p>
-                <a  data-link="read-more"
-                    data-bbc-container="{{ post_summary.getBlogId() }}" data-bbc-title="post-read-more"
+                <a
+                    data-bbc-title="{{  post_summary.isFeaturedPost() ? 'featured-' : ''}}post-read-more" data-bbc-container="{{ post_summary.getBlogId() }}"
+                    data-link="read-more"
                     href="{{ path('post', {blogId: post_summary.getBlogId(), guid: post_summary.getPost().getGuid() }) }}">{{ tr('link_read_more') }}</a>
             </p>
         </div>
     </div>
     {% if post_summary.getBlog().hasCommentsEnabled() %}
-        {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId()) }}
+        {{ ds('postSocialBar', post_summary.getPost(), post_summary.getBlogId(), {'is_featured_post' : post_summary.isFeaturedPost()}) }}
     {% endif %}
 </div>

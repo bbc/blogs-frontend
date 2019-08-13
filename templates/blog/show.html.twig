@@ -16,7 +16,7 @@
     {% if posts is empty %}
         <p class="beta">{{ tr('no_posts') }}</p>
     {% else %}
-        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
+        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate(), 'all-posts-top') }}
 
         {#$keysForComments = array();#}
         <h2 class="visually-hidden">{{ tr('header_posts') }}</h2>
@@ -38,13 +38,14 @@
             {% endfor %}
         </ul>
         {#<?=$this->commentCountScript($keysForComments);?>#}
-        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate()) }}
+        {{ blogShow.seeAllBar(blog.getId(), posts[0].getPublishedDate(), 'all-posts-bottom') }}
     {% endif %}
 {% endblock %}
 
-{% macro seeAllBar(blogId, postDate) %}
+{% macro seeAllBar(blogId, postDate, dataBbcTitle) %}
     <div>
-        <a class="islet br-box-subtle component text--right" data-istats-link-location="blogs_see_all_posts" href="{{ path('posts_year_month', {blogId: blogId, year: postDate.format('Y'), month: postDate.format('m')}) }}">{{ tr ('link_see_all_posts') }}</a>
+        <a class="islet br-box-subtle component text--right" data-bbc-container="{{ blogId }}"
+           data-bbc-title="{{ dataBbcTitle }}" href="{{ path('posts_year_month', {blogId: blogId, year: postDate.format('Y'), month: postDate.format('m')}) }}">{{ tr ('link_see_all_posts') }}</a>
     </div>
 {% endmacro %}
 

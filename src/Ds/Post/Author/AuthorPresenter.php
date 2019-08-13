@@ -18,6 +18,7 @@ class AuthorPresenter extends Presenter
 
     protected $options = [
         'is_slimline' => false,
+        'is_featured_post' => false,
     ];
 
     public function __construct(Author $author, string $blogId, array $options = [])
