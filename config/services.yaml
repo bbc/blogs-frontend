@@ -8,7 +8,7 @@ parameters:
     app.feed_env.orbit: 'live'
     app.feed_env.branding: 'live'
     app.feed_env.comments: 'live'
-    app.comments.version: '1.69.0'
+    app.comments.version: '2.11.5'
     app.orbit_client.class: BBC\BrandingClient\OrbitClient
     app.morph.endpoint: 'https://morph.api.bbci.co.uk'
     cosmos_component_release: '%app_release_number%'
