@@ -70,7 +70,7 @@ class PostSummaryPresenter extends Presenter
         return new AuthorPresenter(
             $this->post->getAuthor(),
             $this->getBlogId(),
-            array_merge($this->options['author_options'], ['is_featured_post' =>$this->isFeaturedPost()])
+            array_merge($this->options['author_options'], ['is_featured_post' => $this->isFeaturedPost()])
         );
     }
 
