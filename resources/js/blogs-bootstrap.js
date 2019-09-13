@@ -1,7 +1,5 @@
-define(['jquery', 'istats-tracking', 'lazyload', 'lazysizes'], function ($, IstatsTracking, Lazyload, lazySizes) {
+define(['jquery', 'lazyload', 'lazysizes'], function ($, Lazyload, lazySizes) {
     function init() {
-        var tracking = new IstatsTracking();
-        tracking.init();
         var responsiveLazyload = new Lazyload();
 
         responsiveLazyload.init();

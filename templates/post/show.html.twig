@@ -132,10 +132,10 @@
         <div data-section="more-posts">
             <h2>{{ tr('header_more_posts') }}</h2>
             {%- if prevPost -%}
-                {{ postShow.morePosts(blog.getId(), prevPost, 'link_previous', 'blogs_post_bottom_previous') }}
+                {{ postShow.morePosts(blog.getId(), prevPost, 'link_previous') }}
             {%- endif -%}
             {%- if nextPost -%}
-                {{ postShow.morePosts(blog.getId(), nextPost, 'link_next', 'blogs_post_bottom_next') }}
+                {{ postShow.morePosts(blog.getId(), nextPost, 'link_next') }}
             {%- endif -%}
         </div>
     {%- endif -%}
@@ -144,7 +144,7 @@
     {{- post_schema_data(post, url('post', {blogId: blog.getId(), guid: post.getGuid()})) -}}
 {%- endblock -%}
 
-{% macro morePosts(blogId, post, header, istatsLocation) %}
+{% macro morePosts(blogId, post, header) %}
     <div class="grid-wrapper component">
         <div class="grid 1/3@bpw2 1/3@bpe">
             <h3 class="delta no-margin">{{ tr(header) }}</h3>

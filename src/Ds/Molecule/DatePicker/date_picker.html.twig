@@ -18,11 +18,11 @@
             <ol class="list-unstyled grid-wrapper list-spaced">
                 {% for year in date_picker.getPostsYearRange() %}
                     <li class="bbc-datepicker__box-year-number grid 1/2@bpb2 1/3@bpw">
-                        <a class="istats--tracker" data-istats-link-location="blogs_date_aggregation_year" href="
-                            {{- path('posts_year_month', {'blogId': date_picker.getBlogId(), 'year': year, 'month' : date_picker.getChosenMonthYear()|date('m')}) -}}
-                        ">
-                            {{- year -}}
-                        </a>
+                        <a href="{{- path('posts_year_month', {
+                               'blogId': date_picker.getBlogId(),
+                               'year': year,
+                               'month' : date_picker.getChosenMonthYear()|date('m')
+                           }) -}}">{{- year -}}</a>
                     </li>
                 {% endfor %}
             </ol>
@@ -33,13 +33,13 @@
             <ol class="list-unstyled grid-wrapper list-spaced">
                 {% for month in date_picker.getMonthsOfTheYear() %}
                     <li class="bbc-datepicker__box-month-name grid 1/2@bpb2 1/3@bpw">
-                        <a class="istats--tracker" data-istats-link-location="blogs_date_aggregation_month" href="
-                            {{- path('posts_year_month', {
+                        <a
+                            href="{{ path('posts_year_month', {
                                 'blogId': date_picker.getBlogId(),
                                 'year': date_picker.getChosenMonthYear()|date('Y'),
-                                'month' : month|date('m')}) -}}" data-month="
-                            {{- month|date('m') -}}
-                        ">
+                                'month' : month|date('m')}) }}"
+                            data-month="{{- month|date('m') -}}"
+                        >
                             {{- month|local_date_intl('MMMM') }} ({{- date_picker.getMonthlyTotal(loop.index) -}})
                         </a>
                     </li>

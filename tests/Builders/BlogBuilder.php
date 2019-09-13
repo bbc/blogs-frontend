@@ -34,9 +34,6 @@ class BlogBuilder implements BuilderInterface
     /** @var string */
     private $language;
 
-    /** @var string */
-    private $istatsCountername;
-
     /** @var Social */
     private $social;
 
@@ -75,7 +72,6 @@ class BlogBuilder implements BuilderInterface
             $description,
             $this->showImageInDescription ?? $faker->boolean,
             $this->language ?? 'en-GB',
-            $this->istatsCountername ?? $faker->word,
             $this->bbcSite ?? $faker->word,
             $this->brandingId ?? $faker->numerify('br-#####'),
             $this->modules ?? [new FreeText($words, $faker->sentence())],
@@ -126,12 +122,6 @@ class BlogBuilder implements BuilderInterface
     public function withLanguage(string $language)
     {
         $this->language = $language;
-        return $this;
-    }
-
-    public function withIstatsCountername(string $countername)
-    {
-        $this->istatsCountername = $countername;
         return $this;
     }
 

@@ -26,7 +26,6 @@ class BlogMapper extends Mapper
         $image = $this->getImage($formMetaData->{'blog-image'});
         $showImageInDescription = $this->getBoolean($formMetaData->{'show-image-in-description'});
         $language = $this->getString($formMetaData->language);
-        $istatsCountername = $this->getString($formMetaData->{'istats-countername'});
 
         $twitterUsername = $this->getString($formMetaData->{'twitter-username'}) ?? '';
         if ($twitterUsername == '@') {
@@ -88,7 +87,6 @@ class BlogMapper extends Mapper
             $description,
             $showImageInDescription,
             $language,
-            $istatsCountername,
             $bbcSite,
             $brandingId,
             $modules,
