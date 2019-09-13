@@ -31,9 +31,6 @@ class Blog
     /** @var string */
     private $language;
 
-    /** @var string */
-    private $istatsCountername;
-
     /** @var Social */
     private $social;
 
@@ -62,7 +59,6 @@ class Blog
         string $description,
         bool $showImageInDescription,
         string $language,
-        string $istatsCountername,
         string $bbcSite,
         string $brandingId,
         array $modules,
@@ -87,7 +83,6 @@ class Blog
         $this->image = $image;
         $this->showImageInDescription = $showImageInDescription;
         $this->language = $language;
-        $this->istatsCountername = $istatsCountername;
         $this->social = $social;
         $this->bbcSite = $bbcSite;
         $this->brandingId = $brandingId;
@@ -130,14 +125,6 @@ class Blog
     public function getLanguage(): string
     {
         return $this->language;
-    }
-
-    public function getIstatsCountername(): ?string
-    {
-        if (empty($this->istatsCountername)) {
-            return null;
-        }
-        return $this->istatsCountername;
     }
 
     public function getSocial(): Social

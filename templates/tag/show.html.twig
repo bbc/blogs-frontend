@@ -4,8 +4,7 @@
 
 {% block content %}
     <div class="islet br-box-subtle component text--right">
-        <a data-istats-link-location="blogs_tag_page_see_all_tags"
-           href="{{ path('tag_index', {blogId: blog.getId()}) }}">{{ tr('link_see_all_tags') }}</a>
+        <a href="{{ path('tag_index', {blogId: blog.getId()}) }}">{{ tr('link_see_all_tags') }}</a>
     </div>
 
     <div class="component component--lined br-keyline">

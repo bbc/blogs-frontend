@@ -16,7 +16,6 @@ class BlogTest extends TestCase
     private $description;
     private $showImageInDescription;
     private $language;
-    private $istatsCountername;
     private $bbcSite;
     private $brandingId;
     private $modules;
@@ -36,7 +35,6 @@ class BlogTest extends TestCase
         $this->showImageInDescription = true;
         $this->description    = "BBC Blogs";
         $this->modules        = array();
-        $this->istatsCountername = 'eastenders';
         $this->social         = new Social('', '', '');
         $this->commentsApiKey = '0000-0000-0000-0000';
         $this->bbcSite        = 'kl-bitesize';
@@ -56,7 +54,6 @@ class BlogTest extends TestCase
         $this->assertSame($this->image, $testObj->getImage());
         $this->assertEquals($this->showImageInDescription, $testObj->getShowImageInDescription());
         $this->assertEquals($this->language, $testObj->getLanguage());
-        $this->assertEquals($this->istatsCountername, $testObj->getIstatsCountername());
         $this->assertSame($this->social, $testObj->getSocial());
         $this->assertSame($this->commentsApiKey, $testObj->getCommentsApiKey());
         $this->assertEquals($this->bbcSite, $testObj->getBbcSite());
@@ -75,7 +72,6 @@ class BlogTest extends TestCase
             $this->description,
             $this->showImageInDescription,
             $this->language,
-            $this->istatsCountername,
             $this->bbcSite,
             $this->brandingId,
             $this->modules,

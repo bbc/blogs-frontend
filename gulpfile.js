@@ -44,7 +44,6 @@ gulp.task('js', gulp.series('js:clean', function () {
             "jquery-1.9": "empty:",
             "picturefill": "../../node_modules/picturefill/dist/picturefill",
             "lazysizes": "../../node_modules/lazysizes/lazysizes-umd",
-            'istats-1': 'empty:',
         },
         "optimize": 'uglify',
         "map": {

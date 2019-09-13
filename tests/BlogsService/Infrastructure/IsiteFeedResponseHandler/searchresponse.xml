@@ -29,7 +29,6 @@
                         <blog-image>p014r1rm</blog-image>
                         <show-image-in-description>false</show-image-in-description>
                         <language>en-GB</language>
-                        <istats-countername>606</istats-countername>
                         <site-id-twitter/>
                         <forum-id-twitter/>
                         <enable-twitter>false</enable-twitter>
@@ -84,7 +83,6 @@
                         <blog-image>p017j1r1</blog-image>
                         <show-image-in-description>false</show-image-in-description>
                         <language>en-GB</language>
-                        <istats-countername>corporate.aboutthebbc</istats-countername>
                         <site-id-twitter>aboutthebbctweets</site-id-twitter>
                         <forum-id-twitter>aboutthebbctweets</forum-id-twitter>
                         <enable-twitter>true</enable-twitter>
@@ -151,7 +149,6 @@
                         <blog-image/>
                         <show-image-in-description>false</show-image-in-description>
                         <language>en-GB</language>
-                        <istats-countername>pudsey</istats-countername>
                         <site-id-twitter/>
                         <forum-id-twitter/>
                         <enable-twitter>false</enable-twitter>
@@ -209,7 +206,6 @@
                         <blog-image>p00xhvrq</blog-image>
                         <show-image-in-description>false</show-image-in-description>
                         <language>en-GB</language>
-                        <istats-countername>genome</istats-countername>
                         <bbc-site>tvandiplayer</bbc-site>
                         <site-id-comments>mbiplayer</site-id-comments>
                         <site-id-twitter/>
@@ -260,7 +256,6 @@
                         <blog-image>p017j2fq</blog-image>
                         <show-image-in-description>true</show-image-in-description>
                         <language>en-GB</language>
-                        <istats-countername>radio2.simonmayo</istats-countername>
                         <site-id-twitter/>
                         <forum-id-twitter/>
                         <enable-twitter>false</enable-twitter>

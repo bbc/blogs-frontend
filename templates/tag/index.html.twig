@@ -14,7 +14,7 @@
             <ul class="list-unstyled list-lined">
                 {%- for tag in tagResult.getDomainModels() -%}
                     <li class="br-keyline cf">
-                        <a data-istats-link-location="blogs_global_tag" href="{{ path('tag_show', {blogId: blog.getId(), tagId: tag.getId()}) }}">
+                        <a href="{{ path('tag_show', {blogId: blog.getId(), tagId: tag.getId()}) }}">
                             <h2 class="delta pull--left no-margin" tabindex="0">
                                 {{- tag.getName() -}}
                             </h2>
