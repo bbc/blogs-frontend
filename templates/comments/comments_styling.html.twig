@@ -1,0 +1,12 @@
+{# fixes "back to top" link and icon colour to corespond to branding #}
+<style>
+    .comments .comments__back-to-top-link, .comments .comments-loading__text {
+        color: {{ colours.page.link }} ! important;
+    }
+    .comments .comments__back-to-top-link:hover, .comments .comments-loading__text:hover {
+        color: {{ colours.page.hover }} ! important;
+    }
+    .comments .comments__back-to-top-link svg, .comments .comments-loading__icon svg {
+        fill: currentColor ! important;
+    }
+</style>

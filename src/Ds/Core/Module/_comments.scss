@@ -11,3 +11,21 @@
     list-style: none outside none;
     margin: 0;
 }
+
+div.comments {
+    // undo this GEL definition inside comments block
+    h4 {
+        margin-bottom: initial;
+    }
+
+    // align dates a little closer to the poster's name
+    div.posted-date {
+        font-size: 13px;
+        margin: 0.25em 0;
+    }
+
+    // hide duplicate "comments" heading
+    .lazy-module--complete & h4.comments__heading-module-title {
+        display: none;
+    }
+}

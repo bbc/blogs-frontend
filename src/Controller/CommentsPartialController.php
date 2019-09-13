@@ -31,6 +31,14 @@ class CommentsPartialController extends BaseController
         $commentsPromise = $blog->hasCommentsEnabled() ? $commentsService->getByBlogAndPost($blog, $post) : null;
         $comments = $commentsPromise ? $commentsPromise->wait() : null;
 
-        return $this->render('comments/partial.html.twig', ['comments' => $comments], $response);
+        $colours = $this
+            ->brandingHelper()
+            ->requestBranding($blog->getBrandingId())
+            ->getColours();
+
+        return $this->render('comments/partial.html.twig', [
+            'comments' => $comments,
+            'colours' => $colours,
+        ], $response);
     }
 }
