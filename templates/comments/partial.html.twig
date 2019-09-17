@@ -1,6 +1,5 @@
+{# NB check the parent template also includes comments_styling.html.twig #}
 <div>
-    {% include 'comments/comments_styling.html.twig' with { 'colours': colours } only %}
-
     {%- if comments -%}
         <div class="component comments-section" id="comments">
             {{ comments.getBody()|raw }}

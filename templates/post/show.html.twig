@@ -48,6 +48,8 @@
     {%- endif -%}
 
     {{ parent() }}
+
+    {% include 'comments/comments_styling.html.twig' with { 'colours': branding.colours } only %}
 {% endblock %}
 
 {%- block content -%}

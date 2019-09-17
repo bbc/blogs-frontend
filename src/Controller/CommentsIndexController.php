@@ -36,11 +36,6 @@ class CommentsIndexController extends BlogsBaseController
             $post->getImage()
         );
 
-        $colours = $this
-            ->brandingHelper()
-            ->requestBranding($blog->getBrandingId())
-            ->getColours();
-
         $this->response()->setPublic()->setMaxAge(10);
 
         return $this->renderBlogPage(
@@ -51,7 +46,6 @@ class CommentsIndexController extends BlogsBaseController
             [
                 'post' => $post,
                 'comments' => $comments,
-                'colours' => $colours,
             ]
         );
     }
