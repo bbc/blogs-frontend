@@ -5,6 +5,7 @@ namespace App\BlogsService\Mapper\IsiteToDomain;
 
 use App\BlogsService\Domain\ContentBlock\Clips;
 use App\BlogsService\Domain\ContentBlock\Code;
+use App\BlogsService\Domain\ContentBlock\CodePen;
 use App\BlogsService\Domain\ContentBlock\Image;
 use App\BlogsService\Domain\ContentBlock\Prose;
 use App\BlogsService\Domain\ContentBlock\Social;
@@ -68,6 +69,13 @@ class ContentBlockMapper extends Mapper
                 $contentBlock = new Social(
                     $this->getString($contentBlockData->link),
                     $this->getString($contentBlockData->alt)
+                );
+                break;
+            case 'codepen':
+                $contentBlockData = $form->content;
+                $contentBlock = new CodePen(
+                    'bGbBQaR', // codepen ID
+                    'aaroniker' // author
                 );
                 break;
             default:
