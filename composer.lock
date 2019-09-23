@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9667911e742ad8a2e76ed973f4f58b7d",
+    "content-hash": "cc1c66e0f2d6776e66271713d28f059f",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -183,22 +183,22 @@
         },
         {
             "name": "bbc/branding-client",
-            "version": "v2.6.2",
+            "version": "3.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bbc/branding-client.git",
-                "reference": "1b87afc4927d955f0a161cf37fbc4e145bec050f"
+                "reference": "c9fcb0ac0dae869580a67513ac8c2ff80db7e57f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/branding-client/zipball/1b87afc4927d955f0a161cf37fbc4e145bec050f",
-                "reference": "1b87afc4927d955f0a161cf37fbc4e145bec050f",
+                "url": "https://api.github.com/repos/bbc/branding-client/zipball/c9fcb0ac0dae869580a67513ac8c2ff80db7e57f",
+                "reference": "c9fcb0ac0dae869580a67513ac8c2ff80db7e57f",
                 "shasum": ""
             },
             "require": {
                 "guzzlehttp/guzzle": "^6.0",
                 "mustache/mustache": "~2.5",
-                "php": ">=5.6.0",
+                "php": ">=7.1.0",
                 "psr/cache": "^1.0"
             },
             "require-dev": {
@@ -223,10 +223,10 @@
             ],
             "description": "PHP Branding client",
             "support": {
-                "source": "https://github.com/bbc/branding-client/tree/v2.6.2",
+                "source": "https://github.com/bbc/branding-client/tree/3.0.0",
                 "issues": "https://github.com/bbc/branding-client/issues"
             },
-            "time": "2018-08-10T13:37:14+00:00"
+            "time": "2019-09-23T08:51:37+00:00"
         },
         {
             "name": "bbc/gel-iconography-assets",
