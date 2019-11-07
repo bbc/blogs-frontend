@@ -6,9 +6,9 @@ echo "Running CI tasks"
 
 RESULT=0
 
-# If we're not already using php71+, try and solve that
+# If we're not already using php73+, try and solve that
 if ! (php --version | grep -q "PHP 7.") ; then
-    echo "You're not using PHP 7.1+, please install it."
+    echo "You're not using PHP 7.3+, please install it."
     php --version
     exit 1
 fi
