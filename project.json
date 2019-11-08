@@ -1,16 +1,16 @@
 {
     "name": "blogs-frontend",
-    "php_version": "7.1",
+    "php_version": "7.3",
     "packaging": {
         "type": "pac_nginx",
         "composer": {
             "install": false
         },
         "requires": [
-            "php71u-intl",
-            "php71u-mbstring",
-            "php71u-pecl-apcu",
-            "php71u-pecl-redis",
+            "php73-intl",
+            "php73-mbstring",
+            "php73-pecl-apcu",
+            "php73-pecl-redis",
             "awslogs"
         ],
         "conf": {
