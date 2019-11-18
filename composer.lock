@@ -340,16 +340,16 @@
         },
         {
             "name": "cakephp/chronos",
-            "version": "1.2.4",
+            "version": "1.2.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/chronos.git",
-                "reference": "ebda7326d4a65e53bc5bb915ebbbeee98f1926b0"
+                "reference": "0292f06e8cc23fc82f0574889da2d8bf27b613c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/chronos/zipball/ebda7326d4a65e53bc5bb915ebbbeee98f1926b0",
-                "reference": "ebda7326d4a65e53bc5bb915ebbbeee98f1926b0",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/0292f06e8cc23fc82f0574889da2d8bf27b613c1",
+                "reference": "0292f06e8cc23fc82f0574889da2d8bf27b613c1",
                 "shasum": ""
             },
             "require": {
@@ -393,20 +393,20 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-02-11T02:08:31+00:00"
+            "time": "2019-06-17T15:19:18+00:00"
         },
         {
             "name": "cakephp/core",
-            "version": "3.7.4",
+            "version": "3.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/core.git",
-                "reference": "9a70f1beb7fcc259e1f7050d19c54adcf43032b1"
+                "reference": "890cd8a00e1f2eb512cbe05e1c470a9eb6b2d9dd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/core/zipball/9a70f1beb7fcc259e1f7050d19c54adcf43032b1",
-                "reference": "9a70f1beb7fcc259e1f7050d19c54adcf43032b1",
+                "url": "https://api.github.com/repos/cakephp/core/zipball/890cd8a00e1f2eb512cbe05e1c470a9eb6b2d9dd",
+                "reference": "890cd8a00e1f2eb512cbe05e1c470a9eb6b2d9dd",
                 "shasum": ""
             },
             "require": {
@@ -443,20 +443,20 @@
                 "core",
                 "framework"
             ],
-            "time": "2019-02-09T07:54:49+00:00"
+            "time": "2019-10-30T04:06:05+00:00"
         },
         {
             "name": "cakephp/utility",
-            "version": "3.7.4",
+            "version": "3.8.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/utility.git",
-                "reference": "1a4d271d9a3ad6e0096eabf5778342c8b5f81978"
+                "reference": "de3288dd74119e120c36576db33f401ec8e9549e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/utility/zipball/1a4d271d9a3ad6e0096eabf5778342c8b5f81978",
-                "reference": "1a4d271d9a3ad6e0096eabf5778342c8b5f81978",
+                "url": "https://api.github.com/repos/cakephp/utility/zipball/de3288dd74119e120c36576db33f401ec8e9549e",
+                "reference": "de3288dd74119e120c36576db33f401ec8e9549e",
                 "shasum": ""
             },
             "require": {
@@ -496,7 +496,7 @@
                 "string",
                 "utility"
             ],
-            "time": "2018-09-14T01:26:50+00:00"
+            "time": "2019-10-30T04:06:05+00:00"
         },
         {
             "name": "csa/guzzle-bundle",
