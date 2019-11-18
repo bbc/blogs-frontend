@@ -258,16 +258,16 @@
         },
         {
             "name": "bbc/programmes-caching-library",
-            "version": "v1.1.2",
+            "version": "v1.1.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/bbc/programmes-caching-library.git",
-                "reference": "95c10713c38864b19e65d19fa41feae79acce5bd"
+                "reference": "ff1497cbc5e0edf9eb5ab443138fbeae67bc02af"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/bbc/programmes-caching-library/zipball/95c10713c38864b19e65d19fa41feae79acce5bd",
-                "reference": "95c10713c38864b19e65d19fa41feae79acce5bd",
+                "url": "https://api.github.com/repos/bbc/programmes-caching-library/zipball/ff1497cbc5e0edf9eb5ab443138fbeae67bc02af",
+                "reference": "ff1497cbc5e0edf9eb5ab443138fbeae67bc02af",
                 "shasum": ""
             },
             "require": {
@@ -288,10 +288,10 @@
             },
             "description": "Caching for /programmes projects",
             "support": {
-                "source": "https://github.com/bbc/programmes-caching-library/tree/v1.1.2",
+                "source": "https://github.com/bbc/programmes-caching-library/tree/v1.1.5",
                 "issues": "https://github.com/bbc/programmes-caching-library/issues"
             },
-            "time": "2019-09-13T15:28:13+00:00"
+            "time": "2019-11-05T11:33:33+00:00"
         },
         {
             "name": "bbc/programmes-morph-library",
