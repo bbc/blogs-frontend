@@ -46,10 +46,10 @@
         "symfony/asset": "^4.0",
         "symfony/console": "^4.0",
         "symfony/flex": "^1.0",
-        "symfony/framework-bundle": "^4.1",
+        "symfony/framework-bundle": "^4.3",
         "symfony/monolog-bundle": "^3.3",
-        "symfony/twig-bundle": "^4.1",
-        "symfony/yaml": "^4.1",
+        "symfony/twig-bundle": "^4.3",
+        "symfony/yaml": "^4.3",
         "zendframework/zend-feed": "^2.9"
     },
     "require-dev": {
@@ -58,13 +58,13 @@
         "phpstan/phpstan": "^0.11.2",
         "phpstan/phpstan-phpunit": "^0.11.0",
         "squizlabs/php_codesniffer": "^3.1",
-        "symfony/browser-kit": "^4.1",
-        "symfony/css-selector": "^4.1",
-        "symfony/debug-bundle": "^4.1",
-        "symfony/phpunit-bridge": "^4.1",
+        "symfony/browser-kit": "^4.3",
+        "symfony/css-selector": "^4.3",
+        "symfony/debug-bundle": "^4.3",
+        "symfony/phpunit-bridge": "~4.1",
         "symfony/profiler-pack": "^1.0",
-        "symfony/var-dumper": "^4.1",
-        "symfony/web-server-bundle": "^4.1"
+        "symfony/var-dumper": "^4.3",
+        "symfony/web-server-bundle": "^4.3"
     },
     "config": {
         "preferred-install": {
@@ -105,7 +105,7 @@
         "symfony": {
             "id": "01BXQ63SY7AN2CGC7144SGPBHR",
             "allow-contrib": false,
-            "require": "~4.1.0"
+            "require": "~4.3"
         },
         "incenteev-parameters": {
             "file": "config/parameters.yaml"
