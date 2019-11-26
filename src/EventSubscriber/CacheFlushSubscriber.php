@@ -8,7 +8,7 @@ use BBC\BrandingClient\OrbitClient;
 use BBC\ProgrammesCachingLibrary\CacheInterface;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use Psr\Container\ContainerInterface;
-use Symfony\Component\DependencyInjection\ServiceSubscriberInterface;
+use Symfony\Contracts\Service\ServiceSubscriberInterface;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\GetResponseEvent;
 use Symfony\Component\HttpKernel\KernelEvents;

@@ -5,10 +5,10 @@ namespace App\Service;
 
 use App\BlogsService\Domain\Blog;
 use App\BlogsService\Domain\Post;
-use App\Translate\TranslateProvider;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class CommentsService
 {
@@ -21,15 +21,11 @@ class CommentsService
     /** @var LoggerInterface */
     private $logger;
 
-    /** @var TranslateProvider */
-    private $translateProvider;
-
     /** @var string */
     private $version;
 
     public function __construct(
         LoggerInterface $logger,
-        TranslateProvider $translateProvider,
         MorphClient $client,
         string $env,
         string $version
@@ -37,7 +33,6 @@ class CommentsService
         $this->env = $env;
         $this->client = $client;
         $this->logger = $logger;
-        $this->translateProvider = $translateProvider;
         $this->version = $version;
     }
 

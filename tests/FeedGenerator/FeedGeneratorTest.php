@@ -7,10 +7,9 @@ use App\BlogsService\Domain\Blog;
 use App\Ds\PresenterFactory;
 use App\FeedGenerator\FeedGenerator;
 use App\Helper\ApplicationTimeProvider;
-use App\Translate\TranslateProvider;
 use Cake\Chronos\Chronos;
 use PHPUnit\Framework\TestCase;
-use RMP\Translate\Translate;
+use Symfony\Component\Translation\TranslatorInterface;
 use SimpleXMLElement;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Tests\App\Builders\BlogBuilder;
@@ -136,10 +135,8 @@ class FeedGeneratorTest extends TestCase
 
     private function createFeedGenerator(): FeedGenerator
     {
-        $translate = $this->createMock(Translate::class);
-        $translate->method('translate')->willReturn('translation');
-        $translateProvider = $this->createMock(TranslateProvider::class);
-        $translateProvider->method('getTranslate')->willReturn($translate);
+        $translate = $this->createMock(TranslatorInterface::class);
+        $translate->method('trans')->willReturn('translation');
 
         $router = $this->createMock(UrlGeneratorInterface::class);
         $router->method('generate')->willReturn('http://somevalidurl.com');
@@ -149,6 +146,6 @@ class FeedGeneratorTest extends TestCase
 
         $presenterFactory = $this->createMock(PresenterFactory::class);
 
-        return new FeedGenerator($translateProvider, $router, $twigEnvironment, $presenterFactory);
+        return new FeedGenerator($translate, $router, $twigEnvironment, $presenterFactory);
     }
 }

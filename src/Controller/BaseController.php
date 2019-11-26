@@ -8,7 +8,7 @@ use App\Controller\Helpers\Services\BrandingHelper;
 use App\Controller\Helpers\Services\PageMetadataHelper;
 use App\Controller\Helpers\ValueObjects\AtiAnalyticsLabels;
 use App\Controller\Helpers\ValueObjects\PageMetadata;
-use App\Translate\TranslateProvider;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use BBC\BrandingClient\Branding;
 use BBC\BrandingClient\OrbitClient;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -40,7 +40,7 @@ abstract class BaseController extends AbstractController
     {
         return array_merge(parent::getSubscribedServices(), [
             OrbitClient::class,
-            TranslateProvider::class,
+            TranslatorInterface::class,
         ]);
     }
 
@@ -96,8 +96,9 @@ abstract class BaseController extends AbstractController
         // We should change the language if it has been set by the blog
         // Otherwise, we should default to the language set by branding
         $locale = $pageMetadata->getLocale() ?? $branding->getLocale();
-        $translateProvider = $this->container->get(TranslateProvider::class);
-        $translateProvider->setLocale($locale);
+        $locale = $this->fixLocaleString($locale);
+        $translator = $this->container->get(TranslatorInterface::class);
+        $translator->setLocale($locale);
 
         $orb = $this->container->get(OrbitClient::class)->getContent([
             'variant' => $branding->getOrbitVariant(),
@@ -124,5 +125,15 @@ abstract class BaseController extends AbstractController
     protected function cachedRedirectToRoute($route, array $parameters = [], $status = 302): RedirectResponse
     {
         return $this->cachedRedirect($this->generateUrl($route, $parameters), $status);
+    }
+
+    private function fixLocaleString(string $locale): string
+    {
+        $locale = str_replace('-', '_', $locale);
+        if (strpos($locale, '_') !== false) {
+            $locale = substr($locale, 0, -strlen(strstr($locale, '_')));
+        }
+
+        return $locale;
     }
 }

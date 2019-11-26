@@ -4,17 +4,17 @@ declare(strict_types = 1);
 namespace Tests\App\Translate;
 
 use App\Translate\TranslatableTrait;
-use App\Translate\TranslateProvider;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use RMP\Translate\Translate;
+use Symfony\Component\Translation\Translator;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TranslatableTraitTest extends TestCase
 {
     public function testTrBasic()
     {
-        $mockTranslate = $this->createMock(Translate::class);
-        $mockTranslate->expects($this->once())->method('translate')
+        $mockTranslate = $this->createMock(TranslatorInterface::class);
+        $mockTranslate->expects($this->once())->method('trans')
             ->with('key')
             ->willReturn('output');
 
@@ -25,8 +25,8 @@ class TranslatableTraitTest extends TestCase
 
     public function testTrSubstitutions()
     {
-        $mockTranslate = $this->createMock(Translate::class);
-        $mockTranslate->expects($this->once())->method('translate')
+        $mockTranslate = $this->createMock(TranslatorInterface::class);
+        $mockTranslate->expects($this->once())->method('trans')
             ->with('key', ['%sub%' => 'ham'])
             ->willReturn('output');
 
@@ -37,9 +37,9 @@ class TranslatableTraitTest extends TestCase
 
     public function testTrPlurals()
     {
-        $mockTranslate = $this->createMock(Translate::class);
-        $mockTranslate->expects($this->once())->method('translate')
-            ->with('key', ['%count%' => 2])
+        $mockTranslate = $this->createMock(TranslatorInterface::class);
+        $mockTranslate->expects($this->once())->method('trans')
+            ->with('key %count%', ['%count%' => 2])
             ->willReturn('output');
 
         $trFn = $this->boundTr($mockTranslate);
@@ -49,9 +49,9 @@ class TranslatableTraitTest extends TestCase
 
     public function testTrSubstitutionsAndPlurals()
     {
-        $mockTranslate = $this->createMock(Translate::class);
-        $mockTranslate->expects($this->once())->method('translate')
-            ->with('key', ['%sub%' => 'ham', '%count%' => 2])
+        $mockTranslate = $this->createMock(TranslatorInterface::class);
+        $mockTranslate->expects($this->once())->method('trans')
+            ->with('key %count%', ['%sub%' => 'ham', '%count%' => 2])
             ->willReturn('output');
 
         $trFn = $this->boundTr($mockTranslate);
@@ -64,17 +64,15 @@ class TranslatableTraitTest extends TestCase
      * mock, which means it has access to call protected functions (i.e. tr).
      * We also need to do some reflection malarkey to set the translateProvider property
      */
-    private function boundTr(Translate $translate): callable
+    private function boundTr(TranslatorInterface $translate): callable
     {
-        $translateProvider = $this->createMock(TranslateProvider::class);
-        $translateProvider->method('getTranslate')->willReturn($translate);
         $translatable = $this->getMockForTrait(TranslatableTrait::class);
 
         $reflection = new ReflectionClass($translatable);
-        $translateProperty = $reflection->getProperty('translateProvider');
+        $translateProperty = $reflection->getProperty('translator');
         $translateProperty->setAccessible(true);
 
-        $translateProperty->setValue($translatable, $translateProvider);
+        $translateProperty->setValue($translatable, $translate);
 
         // Define a closure that will call the protected method using "this".
         $barCaller = function (...$args) {

@@ -8,8 +8,8 @@ use App\BlogsService\Domain\Post;
 use App\Ds\PresenterFactory;
 use App\Helper\ApplicationTimeProvider;
 use App\Translate\TranslatableTrait;
-use App\Translate\TranslateProvider;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig_Environment;
 use Zend\Feed\Writer\Entry;
 use Zend\Feed\Writer\Feed;
@@ -28,12 +28,12 @@ class FeedGenerator
     private $presenterFactory;
 
     public function __construct(
-        TranslateProvider $translateProvider,
+        TranslatorInterface $translator,
         UrlGeneratorInterface $router,
         Twig_Environment $twig,
         PresenterFactory $presenterFactory
     ) {
-        $this->translateProvider = $translateProvider;
+        $this->translator = $translator;
         $this->router = $router;
         $this->twig = $twig;
         $this->presenterFactory = $presenterFactory;

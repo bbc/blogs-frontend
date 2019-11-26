@@ -72,7 +72,6 @@ services:
     App\Service\CommentsService:
         arguments:
             - '@logger'
-            - '@App\Translate\TranslateProvider'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
             - '%app.feed_env.comments%'
             - '%app.comments.version%'

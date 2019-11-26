@@ -4,7 +4,6 @@ declare(strict_types = 1);
 namespace Tests\App;
 
 use App\Ds\PresenterFactory;
-use App\Translate\TranslateProvider;
 use App\Twig\DesignSystemPresenterExtension;
 use App\Twig\GelIconExtension;
 use App\Twig\HtmlUtilitiesExtension;
@@ -21,6 +20,8 @@ use Symfony\Component\Routing\Generator\UrlGenerator;
 use Symfony\Component\Routing\Loader\YamlFileLoader;
 use Symfony\Component\Routing\RequestContext;
 use Symfony\Component\Routing\RouteCollectionBuilder;
+use Symfony\Component\Translation\Loader\PoFileLoader;
+use Symfony\Component\Translation\Translator;
 use Twig_Environment;
 use Twig_Loader_Filesystem;
 
@@ -53,15 +54,10 @@ class TwigEnvironmentProvider
         $loader = new Twig_Loader_Filesystem();
         $loader->addPath(__DIR__ . '/../src/Ds', 'Ds');
         $twig = new Twig_Environment($loader, ['strict_variables' => true]);
-        $translateFactory = new TranslateFactory([
-            'fallback_locale' => 'en_GB',
-            'cachepath' => __DIR__ . '/../var/cache/test/translations',
-            'domains' => ['blogs'],
-            'default_domain' => 'blogs',
-            'debug' => true,
-            'basepath' => __DIR__ . '/../translations',
-        ]);
-        $translateProvider = new TranslateProvider($translateFactory);
+        $translate = new Translator('en', null, __DIR__ . '/../var/cache/test/translations');
+        $translate->addLoader('pofile', new PoFileLoader());
+        $translate->addResource('pofile', __DIR__ . '/../translations/messages.en.po', 'en');
+
         $assetPackages = new Packages(new Package(new EmptyVersionStrategy()));
         $routeCollectionBuilder = new RouteCollectionBuilder(new YamlFileLoader(
             new FileLocator([__DIR__ . '/../config'])
@@ -77,7 +73,7 @@ class TwigEnvironmentProvider
         // Set presenter factory for template tests to use.
         self::$dsPresenterFactory = new PresenterFactory(new CosmosInfo('1', 'test', 'http://localhost'));
         $twig->addExtension(new DesignSystemPresenterExtension(self::$dsPresenterFactory));
-        $twig->addExtension(new TranslateAndTimeExtension($translateProvider));
+        $twig->addExtension(new TranslateAndTimeExtension($translate));
         $twig->addExtension(new GelIconExtension());
         $twig->addExtension(new HtmlUtilitiesExtension($assetPackages));
         // Set twig for template tests to use

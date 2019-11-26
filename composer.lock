@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "2dbc7b066c3314dae0f3b3591b0ed1e2",
+    "content-hash": "7a5ac2eaee5ad0b61ca98a876cd456c7",
     "packages": [
         {
             "name": "aws/aws-sdk-php",
@@ -135,52 +135,6 @@
                 "issues": "https://github.com/bbc/rmp-monitoringhandler/issues"
             },
             "time": "2018-02-15T20:26:25+00:00"
-        },
-        {
-            "name": "bbc-rmp/translate",
-            "version": "v1.8.12",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/bbc/rmp-translate.git",
-                "reference": "d8051e1ed4d92eb6ac8aa24e7532f1c989b5f1ec"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/bbc/rmp-translate/zipball/d8051e1ed4d92eb6ac8aa24e7532f1c989b5f1ec",
-                "reference": "d8051e1ed4d92eb6ac8aa24e7532f1c989b5f1ec",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.3.3",
-                "symfony/config": "^2.6|^3.0|^4.0",
-                "symfony/filesystem": "^2.6|^3.0|^4.0",
-                "symfony/translation": "^2.6|^3.0|^4.0"
-            },
-            "require-dev": {
-                "phpmd/phpmd": "~2.2",
-                "phpunit/phpunit": "~4.5.0",
-                "squizlabs/php_codesniffer": "~2.3"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-0": {
-                    "RMP\\Translate\\": "src/"
-                }
-            },
-            "license": [
-                "Apache-2.0"
-            ],
-            "authors": [
-                {
-                    "name": "BBC Programmes"
-                }
-            ],
-            "description": "Small PHP library and translation files for translations in programmes/amen",
-            "support": {
-                "source": "https://github.com/bbc/rmp-translate/tree/v1.8.12",
-                "issues": "https://github.com/bbc/rmp-translate/issues"
-            },
-            "time": "2019-01-11T11:00:46+00:00"
         },
         {
             "name": "bbc/branding-client",
@@ -340,16 +294,16 @@
         },
         {
             "name": "cakephp/chronos",
-            "version": "1.2.8",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/chronos.git",
-                "reference": "0292f06e8cc23fc82f0574889da2d8bf27b613c1"
+                "reference": "85bcaea6a832684b32ef54b2487b0c14a172e9e6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/chronos/zipball/0292f06e8cc23fc82f0574889da2d8bf27b613c1",
-                "reference": "0292f06e8cc23fc82f0574889da2d8bf27b613c1",
+                "url": "https://api.github.com/repos/cakephp/chronos/zipball/85bcaea6a832684b32ef54b2487b0c14a172e9e6",
+                "reference": "85bcaea6a832684b32ef54b2487b0c14a172e9e6",
                 "shasum": ""
             },
             "require": {
@@ -357,15 +311,15 @@
             },
             "require-dev": {
                 "athletic/athletic": "~0.1",
-                "cakephp/cakephp-codesniffer": "^3.0",
+                "cakephp/cakephp-codesniffer": "~2.3",
                 "phpbench/phpbench": "@dev",
                 "phpstan/phpstan": "^0.6.4",
-                "phpunit/phpunit": "<6.0 || ^7.0"
+                "phpunit/phpunit": "<6.0"
             },
             "type": "library",
             "autoload": {
                 "psr-4": {
-                    "Cake\\Chronos\\": "src/"
+                    "Cake\\Chronos\\": "src"
                 },
                 "files": [
                     "src/carbon_compat.php"
@@ -393,7 +347,7 @@
                 "datetime",
                 "time"
             ],
-            "time": "2019-06-17T15:19:18+00:00"
+            "time": "2018-01-13T12:19:50+00:00"
         },
         {
             "name": "cakephp/core",

@@ -5,9 +5,6 @@
     "bbc-rmp/cloudwatch-monitoringhandler": {
         "version": "v1.1.0"
     },
-    "bbc-rmp/translate": {
-        "version": "v1.8.7"
-    },
     "bbc/branding-client": {
         "version": "v2.3.0"
     },
