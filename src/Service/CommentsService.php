@@ -8,7 +8,6 @@ use App\BlogsService\Domain\Post;
 use BBC\ProgrammesMorphLibrary\MorphClient;
 use GuzzleHttp\Promise\PromiseInterface;
 use Psr\Log\LoggerInterface;
-use Symfony\Component\Translation\TranslatorInterface;
 
 class CommentsService
 {

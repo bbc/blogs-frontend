@@ -6,7 +6,6 @@ namespace Tests\App\Translate;
 use App\Translate\TranslatableTrait;
 use PHPUnit\Framework\TestCase;
 use ReflectionClass;
-use Symfony\Component\Translation\Translator;
 use Symfony\Component\Translation\TranslatorInterface;
 
 class TranslatableTraitTest extends TestCase
