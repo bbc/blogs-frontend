@@ -1,0 +1,19 @@
+parameters:
+    locale: 'en'
+framework:
+    default_locale: 'en'
+    translator:
+        enabled: true
+        fallbacks: ['%locale%']
+        paths:
+            - '%kernel.project_dir%/translations'
+
+services:
+    identity_translator:
+        class: App\Translate\Translator
+
+    translation.loader.po:
+        class: App\Translate\PoFileLoaderExceptItActuallyWorks
+        tags:
+            - name: translation.loader
+              alias: po

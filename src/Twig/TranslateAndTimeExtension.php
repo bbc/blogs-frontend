@@ -4,8 +4,8 @@ declare(strict_types = 1);
 namespace App\Twig;
 
 use App\Translate\TranslatableTrait;
-use App\Translate\TranslateProvider;
 use DateTimeInterface;
+use Symfony\Component\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
 use Twig_Function;
 use Twig_SimpleFilter;
@@ -18,9 +18,9 @@ class TranslateAndTimeExtension extends AbstractExtension
 {
     use TranslatableTrait;
 
-    public function __construct(TranslateProvider $translateProvider)
+    public function __construct(TranslatorInterface $translator)
     {
-        $this->translateProvider = $translateProvider;
+        $this->translator = $translator;
     }
 
     /** @return Twig_SimpleFilter[] */

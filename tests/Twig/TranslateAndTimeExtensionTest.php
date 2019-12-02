@@ -4,17 +4,16 @@ declare(strict_types = 1);
 namespace Tests\App\Twig;
 
 use App\Translate\TranslatableTrait;
-use App\Translate\TranslateProvider;
 use App\Twig\TranslateAndTimeExtension;
 use DateTime;
 use PHPUnit\Framework\TestCase;
 use PHPUnit_Framework_MockObject_MockObject;
 use ReflectionClass;
-use RMP\Translate\Translate;
+use Symfony\Component\Translation\TranslatorInterface;
 
 class TranslateAndTimeExtensionTest extends TestCase
 {
-    /** @var PHPUnit_Framework_MockObject_MockObject|Translate */
+    /** @var PHPUnit_Framework_MockObject_MockObject|TranslatorInterface */
     private $mockTranslate;
 
     /** @var TranslateAndTimeExtension */
@@ -22,17 +21,15 @@ class TranslateAndTimeExtensionTest extends TestCase
 
     public function setUp()
     {
-        $this->mockTranslate = $this->createMock(Translate::class);
-        $translateProvider = $this->createMock(TranslateProvider::class);
-        $translateProvider->method('getTranslate')->willReturn($this->mockTranslate);
-        $this->translateAndTimeExtension = new TranslateAndTimeExtension($translateProvider);
+        $this->mockTranslate = $this->createMock(TranslatorInterface::class);
+        $this->translateAndTimeExtension = new TranslateAndTimeExtension($this->mockTranslate);
     }
 
     public function testTrWrapper()
     {
         $this->mockTranslate->expects($this->once())
-            ->method('translate')
-            ->with('wibble', ['%count%' => 'eleventy'], 110)
+            ->method('trans')
+            ->with('wibble %count%', ['%count%' => 'eleventy'], null)
             ->willReturn('Utter Nonsense');
         $result = $this->translateAndTimeExtension->trWrapper('wibble', ['%count%' => 'eleventy'], 110);
         $this->assertEquals('Utter Nonsense', $result);
@@ -40,7 +37,7 @@ class TranslateAndTimeExtensionTest extends TestCase
 
     public function testLocalDateIntl()
     {
-        $mockTranslate = $this->createMock(Translate::class);
+        $mockTranslate = $this->createMock(TranslatorInterface::class);
         $mockTranslate->expects($this->once())->method('getLocale')
             ->willReturn('cy_GB');
 
@@ -50,17 +47,15 @@ class TranslateAndTimeExtensionTest extends TestCase
         $this->assertEquals('Gwen 11 Awst 2017, 06:00', $result);
     }
 
-    private function boundLocalDateIntl(Translate $translate): callable
+    private function boundLocalDateIntl(TranslatorInterface $translate): callable
     {
-        $translateProvider = $this->createMock(TranslateProvider::class);
-        $translateProvider->method('getTranslate')->willReturn($translate);
         $translatable = $this->getMockForTrait(TranslatableTrait::class);
 
         $reflection = new ReflectionClass($translatable);
-        $translateProperty = $reflection->getProperty('translateProvider');
+        $translateProperty = $reflection->getProperty('translator');
         $translateProperty->setAccessible(true);
 
-        $translateProperty->setValue($translatable, $translateProvider);
+        $translateProperty->setValue($translatable, $translate);
 
         // Define a closure that will call the protected method using "this".
         $barCaller = function (...$args) {

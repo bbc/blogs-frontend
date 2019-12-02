@@ -6,11 +6,12 @@ namespace App\Translate;
 use App\Helper\ApplicationTimeProvider;
 use DateTimeInterface;
 use IntlDateFormatter;
+use Symfony\Component\Translation\TranslatorInterface;
 
 trait TranslatableTrait
 {
-    /** @var TranslateProvider */
-    protected $translateProvider;
+    /** @var TranslatorInterface */
+    protected $translator;
 
     /** @var array */
     private $dateFormatterCache = [];
@@ -28,7 +29,7 @@ trait TranslatableTrait
      */
     protected function localDateIntl(DateTimeInterface $dateTime, string $format)
     {
-        $locale = $this->translateProvider->getTranslate()->getLocale();
+        $locale = $this->translator->getLocale();
 
         // Creating new instances of IntlDateFormatter is expensive.
         // Changing the timezone of an existing instance is less expensive but
@@ -67,6 +68,11 @@ trait TranslatableTrait
         if (\is_int($numPlurals) && !isset($substitutions['%count%'])) {
             $substitutions['%count%'] = $numPlurals;
         }
-        return $this->translateProvider->getTranslate()->translate($key, $substitutions, $numPlurals, $domain);
+
+        if (isset($substitutions['%count%'])) {
+            $key .= ' %count%';
+        }
+
+        return $this->translator->trans($key, $substitutions, $domain);
     }
 }
