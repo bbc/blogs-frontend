@@ -21,3 +21,7 @@ div.comments {
         display: none;
     }
 }
+
+.comments .comment__text a:hover {
+    color: #006def;
+}
