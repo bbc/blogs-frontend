@@ -20,4 +20,10 @@ div.comments {
     .lazy-module--complete & h4.comments__heading-module-title {
         display: none;
     }
+
+    // GIANT HACK TO FIX BRANDING CHANGING THE LINK COLOUR
+    .comment__text a:hover {
+        color: #006def;
+    }
 }
+
