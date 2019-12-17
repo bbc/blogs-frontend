@@ -35,7 +35,7 @@ class PostByDateController extends BlogsBaseController
 
         $datePicker = new DatePicker($year, $month, $latestPostDate, $oldestPostDate, $monthlyTotals);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-posts', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-posts', 'list-datadriven', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(null, $blog);
 
         return $this->renderBlogPage(

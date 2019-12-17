@@ -16,6 +16,7 @@ class AuthorIndexAtoZController extends BlogsBaseController
 
         $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels(
             'list-authors',
+            'list-profiles',
             $blog
         );
 

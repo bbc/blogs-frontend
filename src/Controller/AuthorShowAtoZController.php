@@ -22,7 +22,7 @@ class AuthorShowAtoZController extends BlogsBaseController
         $authorPostResults = $postService->getPostsForAuthors($blog, $authors, 1, 1);
         $paginator = $this->createPaginator($authorsResult);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', 'list-atoz', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             'Alphabetical list of authors beginning with ' . $letter . ' on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog

@@ -23,7 +23,7 @@ class AuthorIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($authorsResult);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-authors', 'list-profiles', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             'All authors on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog

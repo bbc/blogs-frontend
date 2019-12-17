@@ -15,7 +15,7 @@ class HomeController extends BaseController
 
         $blogsByLetter = $this->getBlogsByLetter($blogs);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('blogs-index');
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('blogs-index', 'index-home');
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata('The latest blogs from the BBC');
 
         return $this->renderWithBrandingAndOrbit(
