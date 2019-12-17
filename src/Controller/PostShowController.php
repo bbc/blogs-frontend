@@ -28,7 +28,7 @@ class PostShowController extends BlogsBaseController
 
         $comments = $commentsPromise ? $commentsPromise->wait() : null;
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('post', $blog, $post->hasVideo());
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('post', $blog, $post->hasVideo(), $guid);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             $post->getShortSynopsis() ? $post->getShortSynopsis() : $blog->getDescription(),
             $blog,

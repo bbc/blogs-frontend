@@ -25,11 +25,12 @@ class AtiAnalyticsHelper
         $this->chapterOne = $chapterOne;
     }
 
-    public function makeLabels(string $chapterOne, ?Blog $blog = null, bool $hasVideo = false): AtiAnalyticsLabels
+    public function makeLabels(string $chapterOne, ?Blog $blog = null, bool $hasVideo = false, ?string $guid = ""): AtiAnalyticsLabels
     {
         $labels = [
             'destination' => $this->getDestination(),
             'section' => $chapterOne,
+            'contentId' => 'urn:bbc:isite' . ($guid ? ":" . $guid : ''),
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
                 ['name' => 'custom_var_1', 'value' => $this->getBlogTitle($blog)],
