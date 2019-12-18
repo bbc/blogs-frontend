@@ -29,7 +29,7 @@ class CommentsIndexController extends BlogsBaseController
 
         $comments = $commentsPromise->wait();
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('comments', $blog, $post->hasVideo());
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('comments', 'article-ugc', $blog, $post->hasVideo());
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             $post->getShortSynopsis() ?: $blog->getDescription(),
             $blog,

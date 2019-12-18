@@ -28,7 +28,7 @@ class TagShowController extends BlogsBaseController
 
         $paginator = $this->createPaginator($postResults);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('tag', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('tag', 'list-datadriven', $blog);
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             'All posts tagged with ' . $tag->getName() . ' on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
             $blog

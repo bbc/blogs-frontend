@@ -17,7 +17,7 @@ class BlogShowController extends BlogsBaseController
         /** @var Post[] $posts */
         $posts = $result->getDomainModels();
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('blog-homepage', $blog, $this->postsContainVideo($posts));
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('blog-homepage', 'index-section', $blog, $this->postsContainVideo($posts));
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(null, $blog);
 
         return $this->renderBlogPage(

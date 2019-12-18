@@ -19,7 +19,7 @@ class TagIndexController extends BlogsBaseController
 
         $paginator = $this->createPaginator($tagsResult);
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-tags', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('list-tags', 'index-category', $blog);
 
         $pageMetadata = $this->pageMetadataHelper()->makePageMetadata(
             'A list of tags on the BBC\'s ' . $this->pageMetadataHelper()->blogNameForDescription($blog),
