@@ -30,7 +30,7 @@ class AtiAnalyticsHelper
         $labels = [
             'destination' => $this->getDestination(),
             'section' => $chapterOne,
-            'contentId' => 'urn:bbc:isite' . ($guid ? ":" . $guid : ''),
+            'contentId' => 'urn:bbc:isite2' . ($guid ? ":" . $guid : ''),
             'contentType' => $contentType,
             'additionalProperties' => [
                 ['name' => 'app_name', 'value' => 'blogs'],
