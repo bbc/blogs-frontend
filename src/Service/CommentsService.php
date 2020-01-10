@@ -26,13 +26,11 @@ class CommentsService
     public function __construct(
         LoggerInterface $logger,
         MorphClient $client,
-        string $env,
-        string $version
+        string $env
     ) {
         $this->env = $env;
         $this->client = $client;
         $this->logger = $logger;
-        $this->version = $version;
     }
 
     public function getByBlogAndPost(Blog $blog, Post $post): PromiseInterface
@@ -45,7 +43,6 @@ class CommentsService
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
-                'version' => $this->version,
             ],
             [],
             10
