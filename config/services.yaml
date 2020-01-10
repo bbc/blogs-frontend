@@ -74,7 +74,6 @@ services:
             - '@logger'
             - '@BBC\ProgrammesMorphLibrary\MorphClient'
             - '%app.feed_env.comments%'
-            - '%app.comments.version%'
 
     App\ValueObject\CosmosInfo:
         arguments: ['%cosmos_component_release%', '%cosmos_environment%', '%app.endpoint_host%']
