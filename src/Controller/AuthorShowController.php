@@ -31,7 +31,7 @@ class AuthorShowController extends BlogsBaseController
             $author->getImage()
         );
 
-        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('author', 'profile', $blog);
+        $analyticsLabels = $this->atiAnalyticsHelper()->makeLabels('author', 'profile', $blog, false, $guid);
 
         return $this->renderBlogPage(
             'author/show.html.twig',
