@@ -43,7 +43,7 @@ class CommentsService
                 'mode' => 'embedded',
                 'idctaEnv' => $this->env,
                 'forumId' => $this->getForumId($blog, $post),
-                'toggleOverrides' => 'ratings:on,downRatings:on,sort:on,liveUpdate:on',
+                'toggleOverrides' => 'ratings:on,downRatings:on,sort:on,liveUpdate:on,replies:on',
             ],
             [],
             10
