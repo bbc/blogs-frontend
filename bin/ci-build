@@ -1,5 +1,8 @@
 #!/bin/sh
 
+# Prints shell input lines as they are read.
+set -v
+# Exit immediately if a command exits with a non-zero status
 set -e
 
 echo "Running CI tasks"
@@ -20,11 +23,8 @@ if [ -n "$OAUTH" ]; then
     composer config -g github-oauth.github.com $OAUTH
 fi
 
-# copy the certificate from aws parameter store so we can use cosmos-release inside CodeBuild
-# this is a temporal solution until we have an official way to provide CodeBuild with certs
-echo $BBC_CERTIFICATE | base64 --decode > /etc/pki/tls/certs/client.crt
-echo $BBC_CERTIFICATE_KEY | base64 --decode > /etc/pki/tls/private/client.key
-echo $COSMOS_REQUIRED_CA | base64 --decode >> /etc/pki/tls/certs/ca-bundle.crt
+# https://github.com/bbc/certee-fetch/
+certee-fetch
 
 composer --no-ansi --no-interaction install
 
@@ -73,7 +73,7 @@ echo "Building RPM..."
 mbt -r 7 -s rpmbuild --rpmversion $version
 
 echo 'Publishing assets.....'
-aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
+#aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
 
 echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
 cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
