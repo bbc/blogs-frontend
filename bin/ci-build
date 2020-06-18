@@ -73,7 +73,7 @@ echo "Building RPM..."
 mbt -r 7 -s rpmbuild --rpmversion $version
 
 echo 'Publishing assets.....'
-#aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
+aws s3 sync web/assets s3://$STATIC_ASSETS_BUCKET/blogs-frontend --cache-control "public, max-age=31622400, immutable"
 
 echo 'COSMOS-RELEASE: Sending RPM metadata to cosmos.....'
 cosmos-release service blogs-frontend RPMS/*.rpm --release-version v
