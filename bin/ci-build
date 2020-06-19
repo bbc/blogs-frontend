@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Exit immediately if a command exits with a non-zero status
 set -e
 
 echo "Running CI tasks"
@@ -20,11 +21,8 @@ if [ -n "$OAUTH" ]; then
     composer config -g github-oauth.github.com $OAUTH
 fi
 
-# copy the certificate from aws parameter store so we can use cosmos-release inside CodeBuild
-# this is a temporal solution until we have an official way to provide CodeBuild with certs
-echo $BBC_CERTIFICATE | base64 --decode > /etc/pki/tls/certs/client.crt
-echo $BBC_CERTIFICATE_KEY | base64 --decode > /etc/pki/tls/private/client.key
-echo $COSMOS_REQUIRED_CA | base64 --decode >> /etc/pki/tls/certs/ca-bundle.crt
+# https://github.com/bbc/certee-fetch/
+certee-fetch
 
 composer --no-ansi --no-interaction install
 
