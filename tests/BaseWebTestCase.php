@@ -36,7 +36,7 @@ abstract class BaseWebTestCase extends WebTestCase
     public function assertHasRequiredResponseHeaders($client, $cacheControl = 'max-age=300, public', $contentLanguage = null)
     {
         $this->assertEquals($cacheControl, $client->getResponse()->headers->get('Cache-Control'));
-        $this->assertArraySubset(['X-CDN', 'X-BBC-Edge-Scheme'], $client->getResponse()->getVary());
+        $this->assertArraySubset(['X-CDN'], $client->getResponse()->getVary());
         $this->assertEquals('IE=edge', $client->getResponse()->headers->get('X-UA-Compatible'));
         $this->assertEquals('blogs-frontend', $client->getResponse()->headers->get('X-Webapp'));
         $this->assertEquals('stale-while-revalidate=30', $client->getResponse()->headers->get('X-Cache-Control'));
