@@ -14,7 +14,7 @@
     "gulp-sass": "^4.0.2",
     "gulp-sass-error": "^1.0.5",
     "gulp-sourcemaps": "^2.6.1",
-    "lazysizes": "^4.0.1",
+    "lazysizes": "^5.2.1",
     "picturefill": "^3.0.2",
     "run-sequence": "^2.2.0",
     "sass-lint": "^1.12.1",
