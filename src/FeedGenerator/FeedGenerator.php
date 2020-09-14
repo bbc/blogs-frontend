@@ -91,7 +91,6 @@ class FeedGenerator
 
         $feedItem->setTitle($post->getTitle());
         $feedItem->setLink($postUrl);
-        $feedItem->setDescription($post->getShortSynopsis());
         $feedItem->setDateModified($post->getDisplayDate()->getTimestamp());
         $feedItem->setDateCreated($post->getDisplayDate()->getTimestamp());
 
@@ -100,6 +99,19 @@ class FeedGenerator
         }
 
         $postContent = $this->generatePostFeedContent($post);
+
+        $synopsis = $post->getShortSynopsis();
+        if (!$synopsis) {
+            // we should not find ourselves here
+            // except when an editor forgets to put in a short synopsis and there's no UI to remind them
+            if ($postContent) {
+                $synopsis = explode('. ', strip_tags($postContent))[0];
+            } else {
+                // last resort
+                $synopsis = '...';
+            }
+        }
+        $feedItem->setDescription($synopsis);
 
         if ($type == 'atom') {
             $postContent = html_entity_decode($postContent, ENT_QUOTES, 'UTF-8');
